@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = (await getCollection('corpus')).sort((a, b) => {
+  const ca = a.data.source_chapter ?? 0;
+  const cb = b.data.source_chapter ?? 0;
+  if (a.data.source !== b.data.source) return a.data.source.localeCompare(b.data.source);
+  return ca - cb;
+});
+
+// Group by source.
+const bySource = new Map<string, typeof entries>();
+for (const e of entries) {
+  const list = bySource.get(e.data.source) ?? [];
+  list.push(e);
+  bySource.set(e.data.source, list);
+}
+---
+<Base title="Corpus">
+  <span class="eyebrow mb-3">Corpus</span>
+  <h1 class="text-3xl font-bold mb-2">Corpus</h1>
+  <p class="text-(--color-text-secondary) max-w-2xl mb-8">
+    Own-words summaries of external statistical-genomics sources. Each note stands on its own
+    and carries its source's license and attribution; none reproduce the original text.
+  </p>
+
+  {[...bySource.entries()].map(([source, list]) => (
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-3 uppercase tracking-wide text-(--color-text-secondary)">{source}</h2>
+      <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+        {list.map(e => (
+          <li>
+            <a href={`${base}/corpus/${e.id}/`} class="card">
+              <div class="flex items-center gap-2 mb-1">
+                {e.data.source_chapter !== undefined && (
+                  <span class="tag">ch {e.data.source_chapter}</span>
+                )}
+              </div>
+              <div class="font-semibold text-(--color-text-primary)">{e.data.title}</div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</Base>

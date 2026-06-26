@@ -1,0 +1,28 @@
+---
+interface Props {
+  source: string;
+  sourceChapter?: number;
+  sourceUrl: string;
+  license: string;
+  licenseFile: string;
+  attribution: string;
+}
+import { licenseIdFromFile } from '../lib/licenses';
+const { source, sourceChapter, sourceUrl, license, licenseFile, attribution } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const licenseHref = `${base}/licenses/${licenseIdFromFile(licenseFile)}/`;
+---
+<aside class="not-prose mb-6 rounded-lg border border-(--color-border-subtle) bg-(--color-surface-raised) p-4 text-sm">
+  <div class="flex flex-wrap items-center gap-2 mb-2">
+    <span class="tag">{source}{sourceChapter !== undefined ? ` · ch ${sourceChapter}` : ''}</span>
+    <span class="tag">{license}</span>
+  </div>
+  <p class="text-(--color-text-secondary) m-0">
+    {attribution}
+  </p>
+  <p class="text-(--color-text-muted) mt-2 mb-0">
+    <a href={sourceUrl} class="text-(--color-link) hover:text-(--color-link-hover)">Original source ↗</a>
+    <span aria-hidden="true"> · </span>
+    <a href={licenseHref} class="text-(--color-link) hover:text-(--color-link-hover)">License terms</a>
+  </p>
+</aside>

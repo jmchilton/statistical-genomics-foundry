@@ -1,0 +1,17 @@
+# Modern Statistics for Modern Biology (Holmes & Huber) — chapters 1–14
+# Source: https://www.huber.embl.de/msmb/  (CC BY-NC-SA 2.0 — see LICENSES/msmb.LICENSE)
+# Format: <chapter-number><TAB><url>   Raw HTML lands gitignored in raw/; SHA256SUMS is the pin.
+01	https://www.huber.embl.de/msmb/01-chap.html
+02	https://www.huber.embl.de/msmb/02-chap.html
+03	https://www.huber.embl.de/msmb/03-chap.html
+04	https://www.huber.embl.de/msmb/04-chap.html
+05	https://www.huber.embl.de/msmb/05-chap.html
+06	https://www.huber.embl.de/msmb/06-chap.html
+07	https://www.huber.embl.de/msmb/07-chap.html
+08	https://www.huber.embl.de/msmb/08-chap.html
+09	https://www.huber.embl.de/msmb/09-chap.html
+10	https://www.huber.embl.de/msmb/10-chap.html
+11	https://www.huber.embl.de/msmb/11-chap.html
+12	https://www.huber.embl.de/msmb/12-chap.html
+13	https://www.huber.embl.de/msmb/13-chap.html
+14	https://www.huber.embl.de/msmb/14-chap.html

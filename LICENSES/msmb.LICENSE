@@ -1,0 +1,21 @@
+Modern Statistics for Modern Biology
+by Susan Holmes and Wolfgang Huber
+Cambridge University Press (2019), ISBN 9781108705295
+Online edition: https://www.huber.embl.de/msmb/
+
+Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike
+license (CC BY-NC-SA 2.0).
+  License deed:    https://creativecommons.org/licenses/by-nc-sa/2.0/
+  Full legal code: https://creativecommons.org/licenses/by-nc-sa/2.0/legalcode
+
+This repository does NOT redistribute the book text. Raw chapters fetched by
+scripts/sync-msmb.sh are gitignored. Foundry notes derived from this work are
+our own-words summaries (new expression of uncopyrightable methods/ideas, not a
+condensation of the protected text); each such note declares in frontmatter:
+    license: CC-BY-NC-SA-2.0
+    license_file: LICENSES/msmb.LICENSE
+and attributes the source.
+
+Attribution / citation:
+  Holmes S, Huber W. Modern Statistics for Modern Biology.
+  Cambridge University Press; 2019. https://www.huber.embl.de/msmb/

@@ -1,0 +1,99 @@
+@import "@fontsource/atkinson-hyperlegible/400.css";
+@import "@fontsource/atkinson-hyperlegible/700.css";
+@import "katex/dist/katex.min.css";
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Brand (inherited from the Galaxy Workflow Foundry palette) */
+  --color-galaxy-primary: #25537b;
+  --color-galaxy-dark: #2c3143;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-raised: #f6f8fa;
+  --color-surface-hover: #edf4fa;
+
+  /* Text */
+  --color-text-primary: #2c3143;
+  --color-text-secondary: #58585a;
+  --color-text-muted: #8b949e;
+  --color-text-on-dark: #f8f9fa;
+
+  /* Links */
+  --color-link: #25537b;
+  --color-link-hover: #ffd700;
+
+  /* Borders */
+  --color-border: #d1d5db;
+  --color-border-subtle: #e1e4e8;
+
+  /* Accent — desaturated gold */
+  --color-accent: #e8c547;
+  --color-accent-hover: #f2d55a;
+
+  /* Fonts — Atkinson Hyperlegible for high legibility */
+  --font-sans: 'Atkinson Hyperlegible', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: Monaco, Menlo, Consolas, 'Courier New', monospace;
+}
+
+.dark {
+  --color-surface: #0d1117;
+  --color-surface-raised: #161b22;
+  --color-surface-hover: #21262d;
+  --color-border: #30363d;
+  --color-border-subtle: #21262d;
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #b6bfca;
+  --color-text-muted: #8b94a0;
+  --color-link: #6fa5d4;
+  --color-link-hover: #ffd700;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+.skip-link {
+  @apply sr-only;
+}
+.skip-link:focus {
+  @apply not-sr-only fixed top-2 left-2 z-50 px-3 py-2 rounded bg-(--color-galaxy-dark) text-(--color-text-on-dark);
+}
+
+/* --- Grid background --- */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(37, 83, 123, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 83, 123, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.dark .bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* --- Small utilities --- */
+.eyebrow {
+  @apply inline-block text-xs font-bold uppercase tracking-wider text-(--color-galaxy-primary) dark:text-(--color-accent);
+}
+
+.tag {
+  @apply inline-block px-2 py-0.5 rounded-full text-xs font-medium;
+  background-color: var(--color-surface-hover);
+  color: var(--color-link);
+}
+.dark .tag {
+  background-color: var(--color-surface-hover);
+  color: #9bb8d6;
+}
+
+.card {
+  @apply block rounded-lg border border-(--color-border-subtle) bg-(--color-surface-raised) p-4 no-underline transition-colors;
+}
+.card:hover {
+  @apply border-(--color-accent) bg-(--color-surface-hover);
+}

@@ -11,3 +11,7 @@ dist/
 
 # Generated corpus workspace (see docs/CORPUS.md) — not yet present, gitignored when it lands
 workflow-fixtures/
+
+# Imported raw corpus (fetched by scripts/sync-*.sh). We don't redistribute the
+# source text — only the manifest + SHA256SUMS pin and our derived summaries.
+corpus-import/*/raw/

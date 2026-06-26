@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const corpusCount = (await getCollection('corpus')).length;
+---
+<Base title="Statistical Genomics Foundry">
+  <section class="mb-12">
+    <span class="eyebrow mb-4">Statistical Genomics Foundry</span>
+    <h1 class="text-4xl sm:text-5xl font-bold text-balance text-(--color-galaxy-dark) dark:text-(--color-text-primary) mb-4">
+      Productive <span class="text-(--color-galaxy-primary) dark:text-(--color-accent)">and</span> statistically honest.
+    </h1>
+    <p class="max-w-3xl text-lg text-(--color-text-secondary) text-pretty mb-6">
+      A knowledge base of agent skills that keeps analytical work both productive and
+      statistically honest — using established methods correctly instead of inventing
+      plausible-sounding ones, respecting each method's preconditions, and grounding claims
+      in empirical checks rather than a method's name or a significant-looking number.
+    </p>
+    <a href={`${base}/corpus/`} class="inline-flex items-center gap-2 rounded-md bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-4 py-2 no-underline hover:bg-(--color-galaxy-dark) transition-colors">
+      Browse the corpus
+      <span aria-hidden="true">→</span>
+    </a>
+  </section>
+
+  <section aria-labelledby="browse-heading">
+    <h2 id="browse-heading" class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-3">Browse</h2>
+    <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+      <li>
+        <a href={`${base}/corpus/`} class="card">
+          <div class="font-semibold text-(--color-text-primary) mb-1">Corpus</div>
+          <div class="text-sm text-(--color-text-secondary)">
+            {corpusCount} own-words summaries of external statistical sources, each carrying its license and attribution.
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href={`${base}/design/`} class="card">
+          <div class="font-semibold text-(--color-text-primary) mb-1">Design Docs</div>
+          <div class="text-sm text-(--color-text-secondary)">
+            The rationale and prior-art research behind the Foundry — positioning, the referee loop, and the landscape it's built against.
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href={`${base}/glossary/`} class="card">
+          <div class="font-semibold text-(--color-text-primary) mb-1">Glossary</div>
+          <div class="text-sm text-(--color-text-secondary)">
+            Pinned definitions for Foundry terminology.
+          </div>
+        </a>
+      </li>
+    </ul>
+  </section>
+</Base>
