@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# OS / editor
+.DS_Store
+*.log
+
+# Generated corpus workspace (see docs/CORPUS.md) — not yet present, gitignored when it lands
+workflow-fixtures/
