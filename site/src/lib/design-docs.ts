@@ -147,6 +147,22 @@ export const DESIGN_DOCS: DesignDoc[] = [
     category: 'related-projects',
   },
   {
+    slug: 'project-bioinfomcp',
+    title: 'BioinfoMCP',
+    source: 'project-bioinfomcp.md',
+    dir: 'research',
+    summary: 'Auto CLI→MCP wrapper for bioinformatics tools — the wiring layer beneath the tool call; its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
+  },
+  {
+    slug: 'project-biomania',
+    title: 'BioMANIA',
+    source: 'project-biomania.md',
+    dir: 'research',
+    summary: 'A natural-language → bioinformatics workflow agent that learns a Python tool\'s API and executes it — its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
+  },
+  {
     slug: 'project-biomni',
     title: 'Biomni',
     source: 'project-biomni.md',
@@ -187,6 +203,14 @@ export const DESIGN_DOCS: DesignDoc[] = [
     category: 'related-projects',
   },
   {
+    slug: 'project-mcpmed',
+    title: 'MCPmed',
+    source: 'project-mcpmed.md',
+    dir: 'research',
+    summary: 'A call to MCP-wrap bioinformatics web services for agent discovery/invocation — tool exposure, not a validity gate; its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
+  },
+  {
     slug: 'project-popper',
     title: 'POPPER',
     source: 'project-popper.md',
@@ -200,6 +224,14 @@ export const DESIGN_DOCS: DesignDoc[] = [
     source: 'project-statreviewer-sciscore.md',
     dir: 'research',
     summary: 'Deployed commercial automated manuscript referees — post-hoc, closed, reporting-level; their framing, strengths, and where they sit on our values.',
+    category: 'related-projects',
+  },
+  {
+    slug: 'project-tusoai',
+    title: 'TusoAI',
+    source: 'project-tusoai.md',
+    dir: 'research',
+    summary: 'An agent that designs and optimizes scientific methods against a metric — the upstream a validity gate sits beneath; its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
   },
 ];
