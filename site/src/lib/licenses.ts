@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 // Third-party content licenses live at the repo root in ../LICENSES, outside
-// the Astro project. We render them in-app so corpus notes can link to license
+// the Astro project. We render them in-app so book notes can link to license
 // terms without bouncing the reader out to GitHub.
 const LICENSES_DIR = path.resolve('../LICENSES');
 

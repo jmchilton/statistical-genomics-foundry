@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const entries = (await getCollection('corpus')).sort((a, b) => {
+const entries = (await getCollection('books')).sort((a, b) => {
   const ca = a.data.source_chapter ?? 0;
   const cb = b.data.source_chapter ?? 0;
   if (a.data.source !== b.data.source) return a.data.source.localeCompare(b.data.source);
@@ -18,11 +18,11 @@ for (const e of entries) {
   bySource.set(e.data.source, list);
 }
 ---
-<Base title="Corpus">
-  <span class="eyebrow mb-3">Corpus</span>
-  <h1 class="text-3xl font-bold mb-2">Corpus</h1>
+<Base title="Books">
+  <span class="eyebrow mb-3">Books</span>
+  <h1 class="text-3xl font-bold mb-2">Books</h1>
   <p class="text-(--color-text-secondary) max-w-2xl mb-8">
-    Own-words summaries of external statistical-genomics sources. Each note stands on its own
+    Own-words summaries of external statistical-genomics textbooks. Each note stands on its own
     and carries its source's license and attribution; none reproduce the original text.
   </p>
 
@@ -32,7 +32,7 @@ for (const e of entries) {
       <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
         {list.map(e => (
           <li>
-            <a href={`${base}/corpus/${e.id}/`} class="card">
+            <a href={`${base}/books/${e.id}/`} class="card">
               <div class="flex items-center gap-2 mb-1">
                 {e.data.source_chapter !== undefined && (
                   <span class="tag">ch {e.data.source_chapter}</span>

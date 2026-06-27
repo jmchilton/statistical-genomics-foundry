@@ -1,12 +1,14 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Corpus notes: own-words summaries of external sources (e.g. MSMB book chapters),
+// Book notes: own-words summaries of external textbooks (e.g. MSMB chapters),
 // carrying per-note license + attribution. Source of truth is ../research/books.
 // Layout is `<source>/<id>/index.md`; generateId strips the trailing `/index` so entry
 // ids stay clean (`msmb/chap1`, not `msmb/chap1/index`) — keeps URLs and wiki-link
 // basenames (see site/src/lib/wiki-links.ts) unique per chapter.
-const corpus = defineCollection({
+// Papers/tutorials become sibling collections later, once their copyright/frontmatter
+// policy is settled.
+const books = defineCollection({
   loader: glob({
     pattern: ['**/index.md'],
     base: '../research/books',
@@ -24,4 +26,4 @@ const corpus = defineCollection({
   }),
 });
 
-export const collections = { corpus };
+export const collections = { books };

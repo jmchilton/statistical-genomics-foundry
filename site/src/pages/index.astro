@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const corpusCount = (await getCollection('corpus')).length;
+const bookCount = (await getCollection('books')).length;
 ---
 <Base title="Statistical Genomics Foundry">
   <section class="mb-12">
@@ -17,8 +17,8 @@ const corpusCount = (await getCollection('corpus')).length;
       plausible-sounding ones, respecting each method's preconditions, and grounding claims
       in empirical checks rather than a method's name or a significant-looking number.
     </p>
-    <a href={`${base}/corpus/`} class="inline-flex items-center gap-2 rounded-md bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-4 py-2 no-underline hover:bg-(--color-galaxy-dark) transition-colors">
-      Browse the corpus
+    <a href={`${base}/books/`} class="inline-flex items-center gap-2 rounded-md bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-4 py-2 no-underline hover:bg-(--color-galaxy-dark) transition-colors">
+      Browse the books
       <span aria-hidden="true">→</span>
     </a>
   </section>
@@ -27,10 +27,10 @@ const corpusCount = (await getCollection('corpus')).length;
     <h2 id="browse-heading" class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-3">Browse</h2>
     <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
       <li>
-        <a href={`${base}/corpus/`} class="card">
-          <div class="font-semibold text-(--color-text-primary) mb-1">Corpus</div>
+        <a href={`${base}/books/`} class="card">
+          <div class="font-semibold text-(--color-text-primary) mb-1">Books</div>
           <div class="text-sm text-(--color-text-secondary)">
-            {corpusCount} own-words summaries of external statistical sources, each carrying its license and attribution.
+            {bookCount} own-words summaries of external textbooks, each carrying its license and attribution.
           </div>
         </a>
       </li>

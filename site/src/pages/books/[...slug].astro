@@ -1,10 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import CorpusMeta from '../../components/CorpusMeta.astro';
+import SourceMeta from '../../components/SourceMeta.astro';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('corpus');
+  const entries = await getCollection('books');
   return entries.map(entry => ({
     params: { slug: entry.id },
     props: { entry },
@@ -17,7 +17,7 @@ const d = entry.data;
 ---
 <Base title={d.title}>
   <div data-pagefind-body>
-    <CorpusMeta
+    <SourceMeta
       source={d.source}
       sourceChapter={d.source_chapter}
       sourceUrl={d.source_url}

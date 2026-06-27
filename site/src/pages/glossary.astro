@@ -6,7 +6,7 @@ import { buildWikiLinkMap } from '../lib/wiki-links';
 import { renderVaultDoc } from '../lib/render-vault-doc';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const linkMap = buildWikiLinkMap(await getCollection('corpus'));
+const linkMap = buildWikiLinkMap(await getCollection('books'));
 const html = renderVaultDoc(path.resolve('../docs/glossary.md'), linkMap, base);
 ---
 <Base title="Glossary" description="Pinned definitions for Statistical Genomics Foundry terminology.">
