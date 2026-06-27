@@ -4,6 +4,8 @@ import markedKatex from 'marked-katex-extension';
 // Shared marked instance for loose vault docs (glossary, design records).
 // KaTeX renders $inline$ and $$display$$ math; throwOnError:false degrades
 // gracefully on malformed expressions instead of failing the build.
-marked.use(markedKatex({ throwOnError: false, output: 'html' }));
+// nonStandard:true lets inline math sit flush against a word ($p$-value,
+// $k$-mer, $n$-fold) — common in stats prose; escaped \$ stays literal.
+marked.use(markedKatex({ throwOnError: false, output: 'html', nonStandard: true }));
 
 export { marked };

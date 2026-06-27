@@ -55,6 +55,26 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Tailwind Typography wraps inline code in decorative backticks via
+   code::before/::after content — drop them and style inline code instead. */
+.prose :where(code):not(:where([class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"] *))::after {
+  content: none;
+}
+.prose :where(code):not(:where(pre code)) {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.875em;
+  padding: 0.1em 0.35em;
+  border-radius: 0.3rem;
+  background-color: var(--color-surface-hover);
+  color: var(--color-link);
+}
+.dark .prose :where(code):not(:where(pre code)) {
+  background-color: var(--color-surface-raised);
+  color: #9bb8d6;
+}
+
 .skip-link {
   @apply sr-only;
 }

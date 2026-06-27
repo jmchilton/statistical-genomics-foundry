@@ -14,7 +14,7 @@ export type DesignDoc = {
   source: string;
   dir: 'docs' | 'research';
   summary: string;
-  category: 'foundation' | 'research';
+  category: 'foundation' | 'research' | 'related-projects';
 };
 
 export const DESIGN_DOCS: DesignDoc[] = [
@@ -123,36 +123,36 @@ export const DESIGN_DOCS: DesignDoc[] = [
     category: 'research',
   },
   {
-    slug: 'verify-biomni',
-    title: 'Verify — Biomni',
-    source: 'verify-biomni.md',
+    slug: 'project-biomni',
+    title: 'Biomni',
+    source: 'project-biomni.md',
     dir: 'research',
-    summary: 'Positioning verification report for Biomni.',
-    category: 'research',
+    summary: 'A general-purpose biomedical AI agent — its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
   },
   {
-    slug: 'verify-bioskills',
-    title: 'Verify — bioSkills',
-    source: 'verify-bioskills.md',
+    slug: 'project-bioskills',
+    title: 'bioSkills',
+    source: 'project-bioskills.md',
     dir: 'research',
-    summary: 'Verification report for GPTomics/bioSkills.',
-    category: 'research',
+    summary: 'Our nearest neighbor on the repository-of-skills axis — its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
   },
   {
-    slug: 'verify-knowledgebase-mcp',
-    title: 'Verify — knowledgebase-mcp',
-    source: 'verify-knowledgebase-mcp.md',
+    slug: 'project-popper',
+    title: 'POPPER',
+    source: 'project-popper.md',
     dir: 'research',
-    summary: 'Review of the knowledgebase-mcp project.',
-    category: 'research',
+    summary: 'Our nearest neighbor on the referee axis — its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
   },
   {
-    slug: 'verify-popper',
-    title: 'Verify — POPPER',
-    source: 'verify-popper.md',
+    slug: 'project-knowledgebase-mcp',
+    title: 'knowledgebase-mcp',
+    source: 'project-knowledgebase-mcp.md',
     dir: 'research',
-    summary: 'Verification report for POPPER.',
-    category: 'research',
+    summary: 'Agent-facing knowledge-retrieval MCP servers — their framing, strengths, and where they sit on our values.',
+    category: 'related-projects',
   },
 ];
 
@@ -168,6 +168,12 @@ export const DESIGN_DOC_GROUPS = [
     title: 'Prior-art research',
     summary: 'SOTA surveys and verification reports that map the landscape the Foundry is built against.',
     action: 'READ THE RESEARCH',
+  },
+  {
+    category: 'related-projects',
+    title: 'Related projects',
+    summary: 'Adjacent projects on their own terms — each one\'s framing and strengths, scored against the values the Foundry holds.',
+    action: 'READ THE PROJECT',
   },
 ] as const;
 
