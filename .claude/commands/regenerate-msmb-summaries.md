@@ -1,5 +1,5 @@
 ---
-description: Regenerate MSMB chapter summaries in content/corpus/msmb/ from raw chapters
+description: Regenerate MSMB chapter summaries in research/books/msmb/ from raw chapters
 argument-hint: "[chapter number, or empty for all 1-13]"
 allowed-tools: Read, Write, Bash, Agent
 ---
@@ -36,7 +36,7 @@ Reject any number outside 1–14 with a clear error.
 14 statistical-concordance              | Statistical Concordance
 ```
 
-`NN` is the zero-padded number (`01`…`14`). Raw input is `corpus-import/msmb/raw/NN-chap.html`; output is `content/corpus/msmb/chNN-<slug>.md`.
+`NN` is the zero-padded number (`01`…`14`) used for the raw input filename. Raw input is `corpus-import/msmb/raw/NN-chap.html`; output is `research/books/msmb/chap<n>/index.md` (`<n>` = un-padded chapter number; the `<slug>` is kept only for the frontmatter `title`, not the path).
 
 ## Procedure
 
@@ -50,7 +50,7 @@ Reject any number outside 1–14 with a clear error.
 
    Subagent write permissions are unreliable here, so each subagent **returns** its summary body as its final message; it must not write files.
 
-3. **You (the main session) write each file.** Wrap the returned body with this exact frontmatter + H1, then write `content/corpus/msmb/chNN-<slug>.md`:
+3. **You (the main session) write each file.** Wrap the returned body with this exact frontmatter + H1, then write `research/books/msmb/chap<n>/index.md`:
 
    ```
    ---
