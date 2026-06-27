@@ -1,6 +1,8 @@
-# Statistical Genomics Foundry — planning workspace
+# Statistical Genomics Foundry
 
-> **Working name, provisional.** A pre-repo planning workspace deriving a new project from the Galaxy Workflow Foundry pattern, aimed at statistical genomics. Not yet a built project — design docs, prior-art research, and positioning.
+> **Working name, provisional.** A design-and-research workspace deriving a new project from the Galaxy Workflow Foundry pattern, aimed at statistical genomics. The project itself is still design-stage — what's here is design docs, prior-art research, and positioning.
+>
+> **📖 Knowledge site: https://jmchilton.github.io/statistical-genomics-foundry/**
 
 ## The thesis
 
@@ -48,10 +50,9 @@ research/
 - ✅ Architecture adaptation (diff from parent) + Mold TODO outline.
 - ✅ Adapted GUIDING_PRINCIPLES + net-new REFEREE_LOOP.
 - ✅ Adapted MOLD_SPEC + CORPUS + COMPILATION_PIPELINE + glossary. **Prose doc scaffold complete.**
+- ✅ Repo published + knowledge site live (Astro → GitHub Pages).
 - ⏭️ Machine-checkable contract: `meta_schema.yml` + `meta_tags.yml` (drop conversion axes, add Family A/B + role tags).
-- ⏭️ Stand up the actual repo; decide name; prototype flagship Mold (`audit-method-validity`).
-- ⏭️ Decide project name; decide flagship Mold to prototype (recommendation: `audit-method-validity`).
-- ⏭️ Stand up the actual repo (move this workspace under `~/projects/repositories/` once named).
+- ⏭️ Decide project name; prototype flagship Mold (recommendation: `audit-method-validity`).
 
 ## Provenance note
 This is N=2 in the Foundry-pattern lineage (Galaxy = instance #1, this = instance #2). The pattern earns its abstraction at the *diff* between the two — which is exactly what `docs/ARCHITECTURE.md` records.
