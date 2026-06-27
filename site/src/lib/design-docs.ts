@@ -123,6 +123,14 @@ export const DESIGN_DOCS: DesignDoc[] = [
     category: 'research',
   },
   {
+    slug: 'project-ai-peer-review',
+    title: 'AI Peer-Review Systems',
+    source: 'project-ai-peer-review.md',
+    dir: 'research',
+    summary: 'A representative cluster of LLM peer-review systems and benchmarks — holistic review, not empirical statistical-validity gating; their framing, strengths, and where they sit on our values.',
+    category: 'related-projects',
+  },
+  {
     slug: 'project-ai-scientist',
     title: 'The AI Scientist',
     source: 'project-ai-scientist.md',
@@ -144,6 +152,14 @@ export const DESIGN_DOCS: DesignDoc[] = [
     source: 'project-awesome-genomic-skills.md',
     dir: 'research',
     summary: 'A discovery index above the genomics skill libraries (it catalogs them) — its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
+  },
+  {
+    slug: 'project-bioagents',
+    title: 'BioAgents',
+    source: 'project-bioagents.md',
+    dir: 'research',
+    summary: 'A local, small-model multi-agent bioinformatics doer whose one reliability loop checks self-consistency, not validity — its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
   },
   {
@@ -203,6 +219,14 @@ export const DESIGN_DOCS: DesignDoc[] = [
     category: 'related-projects',
   },
   {
+    slug: 'project-llm4cell-agents',
+    title: 'Single-Cell LLM Agents',
+    source: 'project-llm4cell-agents.md',
+    dir: 'research',
+    summary: 'The single-cell annotation agent cluster (CellAgent, CASSIA, scExtract, AnnoAgent) — Family-A doers whose checks are heuristic, not validity gating; their framing, strengths, and where they sit on our values.',
+    category: 'related-projects',
+  },
+  {
     slug: 'project-mcpmed',
     title: 'MCPmed',
     source: 'project-mcpmed.md',
@@ -232,6 +256,14 @@ export const DESIGN_DOCS: DesignDoc[] = [
     source: 'project-tusoai.md',
     dir: 'research',
     summary: 'An agent that designs and optimizes scientific methods against a metric — the upstream a validity gate sits beneath; its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
+  },
+  {
+    slug: 'project-workflow-executors',
+    title: 'Workflow Executors',
+    source: 'project-workflow-executors.md',
+    dir: 'research',
+    summary: 'Agentic pipeline automators (BioMaster, AutoBA) whose check agents validate execution, not method validity — their framing, strengths, and where they sit on our values.',
     category: 'related-projects',
   },
 ];
