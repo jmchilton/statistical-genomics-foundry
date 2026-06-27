@@ -49,6 +49,45 @@ on a term, the glossary wins.** Load it in full before reasoning about anything 
 - **The glossary is the vocabulary authority.** Introduce a new term there before using it
   across docs; don't let synonyms drift between files.
 
+## Source notes earn their keep by recoverability (applicable now)
+
+Each source gets a short identifier and a directory `research/<paper|tutorial>/<id>/` — mirroring how
+Molds carry an `index.md` plus companion eval/refinement files. It holds a generated **faithful
+summary** (`index.md`) and, *by exception*, a hand-maintained **guidance** file (`guidance.md`)
+listing the specific questions we need pulled from that source plus any extraction guidance. The
+summary is a regenerable cast; the guidance is what we own and maintain — the source-vs-cast split,
+applied to reading the literature.
+
+A note is graded by **recoverability, not coverage**: good enough only if the target Mold/skill
+could be *rebuilt from the captured notes alone* — no re-reading the source, no model memory.
+Restating what a frontier model already knows is the failure mode this project opposes (issue #2 /
+the blind-regeneration experiment); a note earns its keep by holding the *specific* facts recovery
+needs — numbers, thresholds, exact procedure, named decision criteria, verbatim load-bearing quotes.
+
+Generate the summary in a **clean context** via the `/summarize-source` command
+(`.claude/commands/summarize-source.md`), run in a fresh agent so the summarizer sees only the source
++ its `guidance.md`, not our analysis. The command optionally reads the source's `guidance.md` if it
+exists. **Guidance questions direct *attention*, not *conclusions*** — ask "does this source state
+behavior under perfect confounding? quote it," never "confirm that X is bad," or the summary stops
+being faithful. Keep the summary separate from our framing (a flagged `design-inference` footer),
+and carry `[summarizer-inferred]` / access / re-check flags forward verbatim — don't launder them.
+
+**Test it, don't assert it.** Before trusting notes to back a skill, run the
+**blind-author-from-notes** test: a clean-context agent authors the skill from *only* those notes,
+**instructed to mark `[GAP: …]` rather than fill from memory** (load-bearing — without it the model
+confabulates; with it the task becomes honest). Diff the draft against what the skill needs; what it
+can't supply is the evidence-based work list. Sort each gap:
+- **write a new source note** — a method/decision the notes never covered;
+- **re-summarize an existing source** (often by adding a `guidance.md`) — the source covers
+  it, our note dropped it;
+- **flag as convention** — a community threshold with no defining primary (label it, don't cite it;
+  see `research/05-skill-backing-references.md`).
+
+Gaps drive sourcing, never memory backfill. **Source notes are not skill specs** — a note captures
+what one source says; a skill is the synthesis across sources plus decision-rules that often live in
+no single source. (Note-type metadata/frontmatter stays deferred to repo standup, below — describe
+the convention now, don't formalize a schema.)
+
 ## Deferred to repo standup (do NOT author yet — would be fiction)
 
 These exist in the parent Foundry's `AGENTS.md` but describe machinery this workspace does
