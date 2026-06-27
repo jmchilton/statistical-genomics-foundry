@@ -3,13 +3,14 @@ import { glob } from 'astro/loaders';
 
 // Corpus notes: own-words summaries of external sources (e.g. MSMB book chapters),
 // carrying per-note license + attribution. Source of truth is ../research/books.
-// NOTE: routing + wiki-link resolution still assume the old flat `chNN-slug.md` layout
-// (see site/src/lib/wiki-links.ts: entry.id.split('/').pop() becomes "index" under the new
-// chapN/index.md layout). Rewire before relying on the site — tracked as a reconciliation item.
+// Layout is `<source>/<id>/index.md`; generateId strips the trailing `/index` so entry
+// ids stay clean (`msmb/chap1`, not `msmb/chap1/index`) — keeps URLs and wiki-link
+// basenames (see site/src/lib/wiki-links.ts) unique per chapter.
 const corpus = defineCollection({
   loader: glob({
     pattern: ['**/index.md'],
     base: '../research/books',
+    generateId: ({ entry }) => entry.replace(/\.md$/, '').replace(/\/index$/, ''),
   }),
   schema: z.object({
     title: z.string(),

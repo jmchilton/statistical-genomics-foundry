@@ -1,11 +1,13 @@
 import type { CollectionEntry } from 'astro:content';
 
 export interface WikiLinkTarget {
-  /** Site-relative path under base, e.g. `corpus/msmb/ch01-...`. */
+  /** Site-relative path under base, e.g. `corpus/msmb/chap1`. */
   path: string;
 }
 
-/** Map from slugified note basename → target. Corpus is the only collection today. */
+/** Map from slugified note basename → target. Corpus is the only collection today.
+ *  Ids are `<source>/<id>` (the `/index` is stripped in content.config.ts), so the
+ *  basename is the per-note id (`chap1`) — unique per chapter, no collision. */
 export function buildWikiLinkMap(entries: CollectionEntry<'corpus'>[]): Map<string, WikiLinkTarget> {
   const map = new Map<string, WikiLinkTarget>();
   for (const entry of entries) {
