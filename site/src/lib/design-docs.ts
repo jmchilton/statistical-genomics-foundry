@@ -139,6 +139,14 @@ export const DESIGN_DOCS: DesignDoc[] = [
     category: 'related-projects',
   },
   {
+    slug: 'project-clawbio',
+    title: 'ClawBio',
+    source: 'project-clawbio.md',
+    dir: 'research',
+    summary: 'A reproducibility- and benchmark-forward bioinformatics skill library on OpenClaw — its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
+  },
+  {
     slug: 'project-popper',
     title: 'POPPER',
     source: 'project-popper.md',
