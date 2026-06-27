@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = (await getCollection('tutorials')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+<Base title="Tutorials">
+  <span class="eyebrow mb-3">Tutorials</span>
+  <h1 class="text-3xl font-bold mb-2">Tutorials</h1>
+  <p class="text-(--color-text-secondary) max-w-2xl mb-8">
+    Faithful research notes on tool vignettes and tutorials — recommended procedure, exact
+    defaults, and short load-bearing quotes, each pinned to the version summarized and linked
+    to the original. Not reproductions.
+  </p>
+  <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+    {entries.map(e => (
+      <li>
+        <a href={`${base}/tutorials/${e.id}/`} class="card">
+          <div class="flex items-center gap-2 mb-1">
+            {e.data.version && <span class="tag">{e.data.version}</span>}
+          </div>
+          <div class="font-semibold text-(--color-text-primary)">{e.data.title}</div>
+          <div class="text-sm text-(--color-text-secondary) mt-1">{e.data.attribution}</div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>

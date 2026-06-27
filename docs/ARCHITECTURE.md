@@ -75,7 +75,7 @@ Inherits the parent's shape; adjusted for Mold-primary IA and the lighter schema
 │   ├── schemas/                    # minimal — only genuinely structured IO
 │   ├── glossary.md                 # ✅ adapted (drafted in docs/; relocates to content/ at standup)
 │   └── log.md
-├── research/<paper|tutorial|books>/<id>/  # source-reading notes (index.md = faithful summary, guidance.md = owned). Distinct from content/corpus (built exemplars)
+├── research/<papers|tutorials|books>/<id>/  # source-reading notes (index.md = faithful summary, guidance.md = owned). Distinct from content/corpus (built exemplars)
 ├── casts/<target>/<name>/          # generated skill artifacts + _provenance.json
 ├── packages/                       # build/validate tooling (port build-cli; lighten schema pkgs)
 ├── site/                           # Astro renderer (port; lead IA with Mold catalog)

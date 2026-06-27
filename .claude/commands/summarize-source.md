@@ -1,6 +1,6 @@
 ---
 description: Summarize one source (paper/tutorial) into a faithful research note, optionally guided by its guidance.md
-argument-hint: <type>/<id>  (e.g. paper/nygaard-2016 or tutorial/deseq2) — then give the citation + URL
+argument-hint: <collection>/<id>  (e.g. papers/nygaard-2016 or tutorials/deseq2) — then give the citation + URL
 ---
 
 You are summarizing ONE source into a faithful, reusable research note. The note's home is
@@ -23,6 +23,22 @@ boundary. Work ONLY from the source — do NOT add facts from your own knowledge
 something not in the source, mark it `[summarizer-inferred]`. Preserve the source's OWN numbers,
 terms, and framing — do not generalize, round, or "improve" them.
 
+## Step 1.5 — license-aware quoting (decide BEFORE writing §7)
+Determine the source's license/copyright posture (look for an explicit license / Creative Commons /
+copyright statement on the page or in the package metadata; record it). Then quote accordingly:
+- **License permits reproduction** — public domain; Creative Commons (BY / BY-SA / BY-NC*); or a
+  free/open-source license (MIT, Apache, (L)GPL, Artistic) covering the documentation: short verbatim
+  load-bearing quotes are allowed (§7), each with location + attribution.
+- **All-rights-reserved, restrictive, or license UNKNOWN / unverified**: do NOT reproduce verbatim
+  prose. Render §7 as **own-words paraphrase** of the load-bearing statements, preserving facts,
+  numbers, named methods, and procedure. When in doubt, treat as restrictive.
+- **Functional-strings exception (any license)**: short non-expressive strings that are facts, not
+  creative expression — exact error messages, function/parameter/argument names, code identifiers,
+  numeric thresholds/defaults, equation forms — may be reproduced verbatim regardless of license;
+  they are load-bearing for recoverability.
+State which mode you used, and apply it to §7 and to any guidance "must-quote" items (under a
+restrictive license a "must-quote" becomes a faithful own-words paraphrase).
+
 ## Step 2 — produce the structured note (write to `research/$1/index.md`)
 1. Citation — authors, year, full title, venue, DOI, open-access URL if any; for software
    docs/tutorials also the exact version summarized and your access date.
@@ -33,7 +49,9 @@ terms, and framing — do not generalize, round, or "improve" them.
    exact default parameters.
 6. Key claims / findings — discrete, atomic, independently-citable bullets, with exact quantitative
    results, thresholds, and the conditions under which each holds.
-7. Verbatim quotes for load-bearing claims — 1–5 SHORT direct quotes with location; mark as verbatim.
+7. Load-bearing statements — under a permissive license: 1–5 SHORT verbatim quotes with location,
+   marked verbatim. Under a restrictive/unknown license: own-words paraphrases of the same load-bearing
+   statements (no verbatim prose; functional strings excepted). Make the mode explicit in the heading.
 8. Stated scope, assumptions, limitations — the source's OWN caveats.
 9. Failure modes / invalidity patterns — conditions under which the method becomes invalid or
    misleading, and any detector or symptom the source names (an error message, a diagnostic, a

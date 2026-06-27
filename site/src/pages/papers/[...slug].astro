@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import SourceMeta from '../../components/SourceMeta.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('papers');
+  return entries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Base title={d.title}>
+  <div data-pagefind-body>
+    <SourceMeta
+      source={d.source_id}
+      sourceUrl={d.source_url}
+      license={d.license}
+      attribution={d.attribution}
+      doi={d.doi}
+      version={d.version}
+      accessDate={d.access_date}
+    />
+    <article class="prose prose-slate max-w-none dark:prose-invert">
+      <Content />
+    </article>
+  </div>
+</Base>

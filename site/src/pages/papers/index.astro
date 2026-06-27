@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = (await getCollection('papers')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+<Base title="Papers">
+  <span class="eyebrow mb-3">Papers</span>
+  <h1 class="text-3xl font-bold mb-2">Papers</h1>
+  <p class="text-(--color-text-secondary) max-w-2xl mb-8">
+    Faithful research notes on primary papers — own-words synthesis plus short load-bearing
+    quotes, each with full citation and a link to the original. Not reproductions.
+  </p>
+  <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+    {entries.map(e => (
+      <li>
+        <a href={`${base}/papers/${e.id}/`} class="card">
+          <div class="font-semibold text-(--color-text-primary)">{e.data.title}</div>
+          <div class="text-sm text-(--color-text-secondary) mt-1">{e.data.attribution}</div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>

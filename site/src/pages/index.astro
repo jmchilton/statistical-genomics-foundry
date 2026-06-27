@@ -4,6 +4,8 @@ import Base from '../layouts/Base.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const bookCount = (await getCollection('books')).length;
+const paperCount = (await getCollection('papers')).length;
+const tutorialCount = (await getCollection('tutorials')).length;
 ---
 <Base title="Statistical Genomics Foundry">
   <section class="mb-12">
@@ -31,6 +33,22 @@ const bookCount = (await getCollection('books')).length;
           <div class="font-semibold text-(--color-text-primary) mb-1">Books</div>
           <div class="text-sm text-(--color-text-secondary)">
             {bookCount} own-words summaries of external textbooks, each carrying its license and attribution.
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href={`${base}/papers/`} class="card">
+          <div class="font-semibold text-(--color-text-primary) mb-1">Papers</div>
+          <div class="text-sm text-(--color-text-secondary)">
+            {paperCount} faithful research notes on primary papers, each with citation and a link to the source.
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href={`${base}/tutorials/`} class="card">
+          <div class="font-semibold text-(--color-text-primary) mb-1">Tutorials</div>
+          <div class="text-sm text-(--color-text-secondary)">
+            {tutorialCount} notes on tool vignettes — procedure, exact defaults, pinned to the version summarized.
           </div>
         </a>
       </li>
