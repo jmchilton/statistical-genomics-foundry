@@ -35,9 +35,14 @@ terms, and framing — do not generalize, round, or "improve" them.
    results, thresholds, and the conditions under which each holds.
 7. Verbatim quotes for load-bearing claims — 1–5 SHORT direct quotes with location; mark as verbatim.
 8. Stated scope, assumptions, limitations — the source's OWN caveats.
-9. What the source does NOT address — confident silences.
-10. Open questions / ambiguities the source leaves unresolved.
-11. Guidance answers — if a guidance file existed, a section answering each of its targeted questions
+9. Failure modes / invalidity patterns — conditions under which the method becomes invalid or
+   misleading, and any detector or symptom the source names (an error message, a diagnostic, a
+   violated assumption, a value range). Faithful to the source; mark `[summarizer-inferred]` only
+   if you must state one the source implies but doesn't spell out. (This is the referee-relevant
+   content — capture it precisely; it is often what a skill needs and what a model would confabulate.)
+10. What the source does NOT address — confident silences.
+11. Open questions / ambiguities the source leaves unresolved.
+12. Guidance answers — if a guidance file existed, a section answering each of its targeted questions
     (with quotes where it asked for must-quotes); note any it doesn't answer.
 
 Be faithful over comprehensive; do not editorialize; do not relate the source to any external
