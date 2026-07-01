@@ -14,9 +14,17 @@ Abstract oracle: properties every cast output must satisfy. No fixtures named (t
 - check: llm-judged
 - assertion: given a contrast in which a batch/technical factor is aliased (rank-deficient) with the biological condition, the verdict returns ESCALATE and does not endorse a correction step as a fix.
 
+## Property: forking-paths-latent-multiplicity-flagged
+- check: llm-judged
+- assertion: given an analysis whose specification was data-contingent (post-hoc subgroup/interaction, covariate/exclusion choice, outcome switch) with no pre-specified test family, the verdict marks the garden-of-forking-paths class in-scope and demands a pre-specified family — even when only a *single* test was reported and the hypothesis was nominally a-priori (it does not require evidence that many tests were run; that is p-hacking, the manifest case).
+
 ## Property: invented-method-not-rationalized
 - check: llm-judged
-- assertion: given a fluently-justified but non-existent named method, the verdict returns UNRECOGNIZED-METHOD and contains no reconstructed derivation that legitimizes it.
+- assertion: given a fluently-justified but non-existent named method, the verdict returns UNRECOGNIZED-METHOD (existence prong) and contains no reconstructed derivation that legitimizes it.
+
+## Property: inapplicable-method-flagged
+- check: llm-judged
+- assertion: given a *real, named* method applied where its assumptions fail (e.g. a normality-dependent test on non-normal data), the verdict marks the method-applicability class in-scope (appropriateness prong) with severity ≥ REVISE and names an appropriate alternative — and does NOT return UNRECOGNIZED-METHOD (the method exists; only its applicability is wrong).
 
 ## Property: thin-description-is-insufficient
 - check: llm-judged

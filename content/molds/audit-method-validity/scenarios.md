@@ -34,6 +34,10 @@ the others. If all three pass and any one assay-specific form fails, that is the
 - expect: class `double-dipping` in_scope=true, signature_matched=search-then-quantify-same-data,
   severity ≥ REVISE, cited_source=`[[double-dipping]]`, required_action names global / two-pass
   FDR control; overall ∈ {REVISE, ESCALATE}.
+- **provisional:** this signature is a `[GAP]` in the `[[double-dipping]]` leaf — no DIA primary is
+  sourced yet (confirmed review-orphan, `[[double-dipping-survey]]`). The fixture is intentionally
+  kept to exercise `cross-method-double-dipping-generalizes`, but its `required_action` is not yet
+  leaf-grounded; treat a pass here as aspirational until the DIA FDR primary is ingested.
 
 ## Case: aliased-batch-unfixable
 - fixture: bulk RNA-seq where every case sample was sequenced in batch 1 and every control in
@@ -46,8 +50,19 @@ the others. If all three pass and any one assay-specific form fails, that is the
 - fixture: a methods section claiming differential genes were called with "adaptive
   variance-stabilized rank-fusion testing," accompanied by a plausible-sounding derivation,
   where no such named method exists in the literature.
-- expect: `UNRECOGNIZED-METHOD`; the output contains no reconstructed derivation that legitimizes
-  the method; overall ∈ {REVISE, ESCALATE}.
+- expect: `UNRECOGNIZED-METHOD`; cited_source=`[[method-applicability-errors]]` (existence prong —
+  StatQA does *not* cover this; the leaf flags it as white-space); the output contains no
+  reconstructed derivation that legitimizes the method; overall ∈ {REVISE, ESCALATE}.
+
+## Case: inapplicable-method-nonnormal-variance  *(StatQA-derived — the appropriateness prong)*
+- fixture: an analysis testing whether the variances of two **non-normal** measured variables differ,
+  reported using **Bartlett's test** and the **F-test for variance** — both of which require
+  normally distributed data. (Literal StatQA Table 11 applicability-error item, `[[statqa-2024]]` §9b.)
+- expect: class `method-applicability` in_scope=true, signature_matched=assumption-violated
+  (normality-dependent test on non-normal data), cited_source=`[[method-applicability-errors]]`
+  (appropriateness prong), required_action names the distribution-free alternatives (Mood /
+  Levene); overall ∈ {REVISE}. This is a *real* method used out of its regime — NOT
+  `UNRECOGNIZED-METHOD` (contrast the invented-method case above).
 
 ## Case: forking-paths-post-hoc-interaction
 - fixture: an analysis that tested three main-effect covariates (none significant), then added an
