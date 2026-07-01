@@ -32,12 +32,13 @@ the others. If all three pass and any one assay-specific form fails, that is the
   data against it, and reports protein quantities/FDR *without* a two-pass / global FDR control
   for the search-and-quantify reuse of the same spectra.
 - expect: class `double-dipping` in_scope=true, signature_matched=search-then-quantify-same-data,
-  severity ≥ REVISE, cited_source=`[[double-dipping]]`, required_action names global / two-pass
-  FDR control; overall ∈ {REVISE, ESCALATE}.
-- **provisional:** this signature is a `[GAP]` in the `[[double-dipping]]` leaf — no DIA primary is
-  sourced yet (confirmed review-orphan, `[[double-dipping-survey]]`). The fixture is intentionally
-  kept to exercise `cross-method-double-dipping-generalizes`, but its `required_action` is not yet
-  leaf-grounded; treat a pass here as aspirational until the DIA FDR primary is ingested.
+  severity ≥ REVISE, cited_source=`[[double-dipping]]`, required_action names an **external FDR
+  audit (entrapment validation)** rather than trusting the pipeline's self-reported target-decoy
+  FDR, and flags **protein-level** FDR as the most likely to be invalid; overall ∈ {REVISE, ESCALATE}.
+- leaf-grounded via `[[wen-2025]]` (entrapment audit of DIA FDR control). Honesty flag carried from
+  the leaf: the FDR *underestimation* is empirically demonstrated; the same-spectra-reuse *mechanism*
+  is named theoretically, not empirically isolated — so the fixture tests the underestimation +
+  self-certification failure, not a proven causal mechanism.
 
 ## Case: aliased-batch-unfixable
 - fixture: bulk RNA-seq where every case sample was sequenced in batch 1 and every control in
