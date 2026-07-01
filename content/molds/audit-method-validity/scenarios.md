@@ -32,8 +32,13 @@ the others. If all three pass and any one assay-specific form fails, that is the
   data against it, and reports protein quantities/FDR *without* a two-pass / global FDR control
   for the search-and-quantify reuse of the same spectra.
 - expect: class `double-dipping` in_scope=true, signature_matched=search-then-quantify-same-data,
-  severity ≥ REVISE, cited_source=`[[double-dipping]]`, required_action names global / two-pass
-  FDR control; overall ∈ {REVISE, ESCALATE}.
+  severity ≥ REVISE, cited_source=`[[double-dipping]]`, required_action names an **external FDR
+  audit (entrapment validation)** rather than trusting the pipeline's self-reported target-decoy
+  FDR, and flags **protein-level** FDR as the most likely to be invalid; overall ∈ {REVISE, ESCALATE}.
+- leaf-grounded via `[[wen-2025]]` (entrapment audit of DIA FDR control). Honesty flag carried from
+  the leaf: the FDR *underestimation* is empirically demonstrated; the same-spectra-reuse *mechanism*
+  is named theoretically, not empirically isolated — so the fixture tests the underestimation +
+  self-certification failure, not a proven causal mechanism.
 
 ## Case: aliased-batch-unfixable
 - fixture: bulk RNA-seq where every case sample was sequenced in batch 1 and every control in
@@ -46,8 +51,19 @@ the others. If all three pass and any one assay-specific form fails, that is the
 - fixture: a methods section claiming differential genes were called with "adaptive
   variance-stabilized rank-fusion testing," accompanied by a plausible-sounding derivation,
   where no such named method exists in the literature.
-- expect: `UNRECOGNIZED-METHOD`; the output contains no reconstructed derivation that legitimizes
-  the method; overall ∈ {REVISE, ESCALATE}.
+- expect: `UNRECOGNIZED-METHOD`; cited_source=`[[method-applicability-errors]]` (existence prong —
+  StatQA does *not* cover this; the leaf flags it as white-space); the output contains no
+  reconstructed derivation that legitimizes the method; overall ∈ {REVISE, ESCALATE}.
+
+## Case: inapplicable-method-nonnormal-variance  *(StatQA-derived — the appropriateness prong)*
+- fixture: an analysis testing whether the variances of two **non-normal** measured variables differ,
+  reported using **Bartlett's test** and the **F-test for variance** — both of which require
+  normally distributed data. (Literal StatQA Table 11 applicability-error item, `[[statqa-2024]]` §9b.)
+- expect: class `method-applicability` in_scope=true, signature_matched=assumption-violated
+  (normality-dependent test on non-normal data), cited_source=`[[method-applicability-errors]]`
+  (appropriateness prong), required_action names the distribution-free alternatives (Mood /
+  Levene); overall ∈ {REVISE}. This is a *real* method used out of its regime — NOT
+  `UNRECOGNIZED-METHOD` (contrast the invented-method case above).
 
 ## Case: forking-paths-post-hoc-interaction
 - fixture: an analysis that tested three main-effect covariates (none significant), then added an

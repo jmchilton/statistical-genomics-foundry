@@ -28,10 +28,13 @@ Observed forms to cover (each becomes a signature once its primary is read):
   that this is the canonical genomics case]*
 - **select-extreme-then-test** — methylation: select extreme runs of CpGs to define regions, then
   test those regions on the same data *[observed: bioSkills `methylation-analysis/dmr-detection`]*
-- **search-then-quantify-same-data** — DIA proteomics: predicted-library search and quantification
-  reuse the same spectra without global/two-pass FDR *[observed: bioSkills `proteomics/dia-analysis`;
-  primary source is a `[GAP]` — needs the DIA FDR-control / entrapment literature, NOT the DIA-NN
-  tool paper, which does not treat this as a circular-inference flaw]*
+- **search-then-quantify-same-data** — DIA proteomics: the same spectra feed library search + a
+  semisupervised rescorer (Percolator / PeptideProphet), and the pipeline **self-reports** FDR via
+  target-decoy competition — which cannot audit itself. Entrapment shows DIA FDR is frequently
+  underestimated (protein-level "frequently invalid"; up to 44.2% single-cell). *[observed: bioSkills
+  `proteomics/dia-analysis`; ✓ sourced — [[wen-2025]]. Honesty flag: the FDR *underestimation* is
+  empirically demonstrated; the same-spectra-reuse *mechanism* is named theoretically, not
+  empirically isolated.]*
 - **select-significant-then-estimate-effect** — winner's curse / effect-size inflation after
   selecting on significance *[design-inference; pin a genomics primary]*
 
@@ -70,10 +73,13 @@ venue/volume/year before citing; unmarked = high confidence in author/year/venue
   *re-runs the region selection* under the null. Grounds the select-extreme-then-test remedy.
   (Already cited inside bioSkills `dmr-detection`.) → `✓ ingested` [[korthauer-dmrseq-2019]]
 
-**Cross-method instances — pin a primary during research (signatures, not yet sourced)**
-- DIA proteomics search-then-quantify FDR reuse — `[GAP]`: needs the DIA FDR-control / entrapment
-  literature. (DIA-NN / Demichev et al. 2020 dropped — it is the tool paper, not a treatment of the flaw.)
-  Confirmed review-orphan: no selective-inference review covers it (see `[[double-dipping-survey]]`).
+**Cross-method instances**
+- DIA proteomics search-then-quantify FDR reuse — **Wen, Freestone, Riffle, MacCoss, Noble & Keich
+  2025, _Nature Methods_ 22(7):1454–1463** (DOI 10.1038/s41592-025-02719-x; open CC-BY). Entrapment
+  audit: no DIA tool consistently controls FDR (protein-level frequently invalid); remedy = external
+  entrapment validation, not self-reported TDC. Still a review-orphan (a *primary*, not a review; no
+  selective-inference review bridges it — `[[double-dipping-survey]]`). (DIA-NN / Demichev et al.
+  2020 dropped — the tool paper, not a treatment of the flaw.) → `✓ ingested` [[wen-2025]]
 - Winner's curse / effect-size inflation in GWAS after selecting significant hits — **Forde, Hemani &
   Ferguson 2023, _PLOS Genetics_ 19(9):e1010546** (open CC-BY); review of conditional-likelihood /
   empirical-Bayes / FIQT corrections; 50–400% inflation near 5×10⁻⁸; ranking-bias vs selection-bias.

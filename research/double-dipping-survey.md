@@ -77,13 +77,15 @@ and **entrapment / external validation** in proteomics.
 | scRNA-seq pseudotime / trajectory | Thin — motivating case only, no review treats trajectory inflation in depth |
 | GWAS winner's curse | **Well covered** — [3], open |
 | Methylation region selection (DMRs) | **Barely** — no dedicated review; selection-bias framing only in primaries (`korthauer-dmrseq-2019`, region-detection SI) |
-| Proteomics DIA FDR (search-then-quantify / target-decoy) | **Review-orphan** — no review frames it as selective inference; community treats it as FDR calibration / TDA-assumption violation + entrapment. Must come from primary proteomics sources |
+| Proteomics DIA FDR (search-then-quantify / target-decoy) | **Review-orphan for surveys** — no review frames it as selective inference; community treats it as FDR calibration / TDA-assumption violation + entrapment. **Primary now sourced:** [[wen-2025]] (entrapment audit, DIA FDR frequently invalid at protein level). |
 | Bulk DE | Implicit in clustering reviews; no DE-specific SI review |
 
 Net: reviews cluster on **scRNA-seq cluster-then-test** and **GWAS winner's curse**. Methylation,
-pseudotime, and especially **proteomics FDR are review-orphans** — confirms the `[GAP]` on the
-`search-then-quantify-same-data` signature in [[double-dipping]]: it needs primary proteomics sourcing,
-not a survey.
+pseudotime, and especially **proteomics FDR are review-orphans**. The `search-then-quantify-same-data`
+signature in [[double-dipping]] confirmed this — and is now closed **at the primary level** by
+[[wen-2025]] (entrapment audit of DIA FDR), sourced directly from the proteomics literature, not a
+survey. It remains a *review*-orphan: no selective-inference review bridges the proteomics community
+to the others.
 
 ## Surprises / tensions (good bipolar-corpus material)
 - **A valid method can be practically invalid.** [2] presents data fission/thinning as clean; [5]

@@ -100,5 +100,5 @@ When study groups are distributed across batches in an unbalanced manner, removi
 
 ## Relevance to this project  `[design-inference — author-added, not from source]`
 - **Pole:** cautionary-bad. The canonical **correct-then-test** invalidity, with a named signature (p-value inflation / exaggerated confidence) and a specific trigger (**unbalanced** group-batch designs).
-- **Grounds:** [[assess-batch-effects-and-confounding]] (the cardinal sin + the endorsed "model batch in the analysis" remedy); secondarily [[audit-method-validity]] (leakage between adjustment and inference).
+- **Grounds:** [[batch-aliased-with-condition]] — the **partial-confounding / correct-then-test** regime of that pattern (the unbalanced-design inflation + the `~ batch + condition` remedy); [[assess-batch-effects-and-confounding]] (the cardinal sin + the endorsed "model batch in the analysis" remedy); secondarily [[audit-method-validity]] (leakage between adjustment and inference, the REVISE side vs. the ESCALATE side).
 - **Honest skill-3 limitation, now explicit:** the paper is **silent** on RNA-seq counts — so skill 3 must not claim Nygaard's inflation result transfers to NB count models; that transfer is unestablished (cf. the ComBat-seq source, issue #3). The remedy converges with [[deseq2]]'s `~ batch + condition`.

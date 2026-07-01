@@ -98,6 +98,6 @@ The authors frame this as a two/three-step statistical workflow (their Fig. 4): 
 
 ## Relevance to this project  `[design-inference — author-added, not from source]`
 - **Pole:** established-good / framing. The authoritative "batch effects are pervasive, normalization doesn't fix them, diagnose-and-adjust as a standard step" overview, plus the diagnostic recipe and the adjustment menu (covariate / **SVA** for unknown sources / **ComBat**).
-- **Grounds:** [[assess-batch-effects-and-confounding]] (detection + the SVA/ComBat menu); [[review-experimental-design]] (balance batches across groups; the confounded-with-date = unfixable case).
-- **Co-cite with [[nygaard-2016]]** for the unfixable-aliasing case (the bladder/CIS example is the qualitative anchor; the operational detector is the DESeq2 full-rank section in [[deseq2]]).
+- **Grounds:** [[batch-aliased-with-condition]] — the **perfect-aliasing / ESCALATE** regime of that pattern (the bladder/sTCC confounded-with-date anchor: controls cluster by date ⇒ batch-driven; "adjustment cannot recover it"); [[assess-batch-effects-and-confounding]] (detection + the SVA/ComBat menu); [[review-experimental-design]] (balance batches across groups; the confounded-with-date = unfixable case).
+- **Co-cite with [[nygaard-2016]]** for the unfixable-aliasing case (the bladder/CIS example is the qualitative anchor; the operational detector is the DESeq2 full-rank section in [[deseq2]]). Together they cover both regimes of [[batch-aliased-with-condition]]: Leek the ESCALATE anchor, Nygaard the correct-then-test REVISE case.
 - ComBat/SVA are named but not specified here — dedicated source notes are needed (issues #3–#6).

@@ -23,10 +23,10 @@ references:
     ref: "[[method-applicability-errors]]"
     used_at: runtime
     load: on-demand
-    trigger: "the named method's assumptions may not match the data regime/design"
+    trigger: "the named method may not exist, or its assumptions may not match the data regime/design"
     mode: condense
     evidence: corpus-observed
-    purpose: "Ground 'is this method real and appropriate?' in an applicability-error taxonomy (StatQA-class)."
+    purpose: "Ground 'is this method real and appropriate?' in the two-prong applicability taxonomy. Appropriateness prong = corpus-observed (StatQA condition->method mapping); existence/invented-method prong = flagged white-space (no benchmark) per the leaf."
   - kind: pattern
     ref: "[[garden-of-forking-paths]]"
     used_at: runtime
@@ -64,7 +64,18 @@ The trigger decides scope; the **signature, threshold, and remedy live in the li
 | Multiple-testing surface | many tests + dependence | `[[multiple-testing-strategy]]` (protocol) | flag if correction is naive or post-selection |
 
 ## 3. Method existence & appropriateness  *(the invented-method failure)*
-Check the named method against `[[method-applicability-errors]]`: is it a real, named method, and is it appropriate to this data regime and design? An unrecognized method → `UNRECOGNIZED-METHOD`. Do **not** rationalize a derivation that makes an invented method look legitimate.
+Check the named method against `[[method-applicability-errors]]`, which separates two prongs:
+- **Existence** — is it a *real, named* procedure? If not → `UNRECOGNIZED-METHOD`. Do **not**
+  rationalize a derivation that makes an invented method look legitimate. *(This prong is a flagged
+  white-space: StatQA does not cover method fabrication — the leaf sources it to project survey, not
+  a benchmark.)*
+- **Appropriateness** — real, but do the data satisfy its applicability conditions (variable type,
+  normality, variance homogeneity, sample size, design)? If not → `REVISE`, naming the appropriate
+  method for the regime (StatQA-grounded condition→method mapping). Distinguish this from Existence:
+  a real method misapplied is **not** `UNRECOGNIZED-METHOD`.
+
+This `method-applicability` check is a triage class like those in §2: it always appears in the
+finding list as `in_scope` or `not_triggered` (per the `every-class-accounted-for` eval property).
 
 ## 4. Verdict aggregation + gate obligation
 - Any confirmed **unfixable** signature (e.g. batch aliased with condition) → `ESCALATE`; no revision can separate aliased factors.
