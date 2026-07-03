@@ -70,9 +70,15 @@ of the *artifact*. This is the failure mode the whole pipeline exists to catch, 
   general asymmetric-rate bias direction — 2a stays open (see below).
 - **(A) still open** re-summarize `cunningham-1999` from full text — the ONLY way to close 2a; resolve
   the direction. Blocked on paywall access.
-- **(held)** `books/harmon-pcm/chapter8` (CC BY) — carries 2c (ER-vs-ARD comparison) + 2b (priors
-  caution). Held pending the books-path reconciliation (books use the own-words books path, not
-  `/summarize-source`).
+- **[DONE]** `books/harmon-pcm/chap8` (CC BY) — ingested with a targeted `guidance.md`. Closes **2c**
+  (ER-vs-ASY compared by LRT/AIC/BIC; worked squamate example AICc 163.0 vs 162.8, "not definitive
+  either way" verbatim) + **2b** (priors-can-dominate-reconstruction + "only … the states of extant
+  species" cautions, verbatim) + the garbage-model ridge diagnostic (unidentifiable $q$ → no ASR
+  precision). The whole book was ingested as a standing spine (chap1–14). Reconciliation resolved:
+  homed under `research/books/` (it's a book-spine) but ingested via the *license-aware* path — CC-BY
+  earns verbatim, so the strict own-words books rule doesn't apply. Note the summarizer flagged an
+  internal inconsistency in Harmon's own §8.6 (verdict wording "AICc higher for the unequal rates
+  model" vs. reported ASY 162.8 < ER 163.0) — carried forward, not laundered.
 - **(optional)** `papers/sci-rep-2020-asr-accuracy-nonneutral` (CC BY) — independent data point on the
   asymmetric-rate error mechanism; attribute to it, do not launder into Cunningham.
 - **(new, if needed)** Beaulieu et al. 2013 (corHMM) — only if an ASR-accuracy-under-hidden-rates claim

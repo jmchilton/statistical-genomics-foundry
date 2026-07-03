@@ -30,6 +30,16 @@ most skills and should be adopted as standing corpus:
 - **GWASTutorial** (UTokyo, Kamatani lab) — `https://cloufield.github.io/GWASTutorial/`.
 - **van Buuren, *Flexible Imputation of Missing Data* (FIMD), 2nd ed. 2018** — free full text
   `https://stefvanbuuren.name/fimd/` (corrected: 2018, not 2012).
+- **Harmon, *Phylogenetic Comparative Methods: Learning from Trees* (PCM), 2019** — free full text
+  `https://lukejharmon.github.io/pcm/` (book text v1.0.0). **CC-BY-4.0** — the phylogenetics spine
+  (BM/OU continuous-trait models, Mk discrete models, ancestral-state reconstruction, birth-death +
+  BiSSE/HiSSE diversification). Ingested whole under `research/books/harmon-pcm/chap<n>/` (#66). Being
+  CC-BY, it is homed with the other book-spines but ingested via the *license-aware* path (verbatim
+  load-bearing quotes + exact numbers permitted), not the own-words MSMB path — the first CC-BY-book
+  case forcing the books-vs-summarize-source reconciliation `AGENTS.md` flags. Ch.8 (fitting discrete
+  models: ER-vs-ARD via LRT/AIC + ASR-adequacy cautions) carries a targeted `guidance.md` and closes
+  gaps 2b/2c of the ancestral-reconstruction ingest probe. Ch.13 is the BiSSE false-positive / need-a-
+  hidden-state-null primary spine.
 
 > "The textbook we're sort of linking" = **OSCA** (the only book linked pre-this-note). MSMB is the
 > better *general*-stats anchor and is newly recommended above.
