@@ -5,8 +5,8 @@ source_id: statqa-2024
 source_url: https://statqa.github.io/
 arxiv: https://arxiv.org/abs/2406.07815
 access_date: "2026-07-01"
-license: "Paper (arXiv PDF v2): arXiv.org perpetual non-exclusive license 1.0 (NOT Creative-Commons). Code + dataset (GitHub HKUSTDial/StatQA): GPL-3.0."
-attribution: "Zhu Y, Du S, Li B, Luo Y, Tang N. Are Large Language Models Good Statisticians? NeurIPS 2024 Datasets & Benchmarks Track. arXiv:2406.07815. Summarized in own words — no source prose reproduced."
+license: LicenseRef-arXiv-nonexclusive-distrib-1.0
+attribution: "Zhu Y, Du S, Li B, Luo Y, Tang N. Are Large Language Models Good Statisticians? NeurIPS 2024 Datasets & Benchmarks Track. arXiv:2406.07815. The `license` covers the arXiv paper (the note's load-bearing source); the StatQA code + dataset (GitHub HKUSTDial/StatQA) are separately GPL-3.0. Summarized in own words — no source prose reproduced."
 derived: own-words-summary
 ---
 

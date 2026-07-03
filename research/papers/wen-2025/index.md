@@ -6,6 +6,7 @@ source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC12240826/
 doi: 10.1038/s41592-025-02719-x
 access_date: "2026-07-01"
 license: CC-BY-4.0
+license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Wen B, Freestone J, Riffle M, MacCoss MJ, Noble WS, Keich U. Nature Methods 22(7):1454-1463, 2025."
 derived: faithful-summary-with-quotes
 ---

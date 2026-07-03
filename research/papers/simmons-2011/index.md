@@ -5,8 +5,8 @@ source_id: simmons-2011
 source_url: https://journals.sagepub.com/doi/10.1177/0956797611417632
 doi: 10.1177/0956797611417632
 access_date: "2026-07-01"
-license: "all-rights-reserved (SAGE / Association for Psychological Science; version of record read via a UBC-hosted PDF copy)"
-attribution: "Simmons JP, Nelson LD, Simonsohn U. Psychological Science 22(11):1359–1366, 2011."
+license: LicenseRef-all-rights-reserved
+attribution: "Simmons JP, Nelson LD, Simonsohn U. Psychological Science 22(11):1359–1366, 2011 (SAGE / Association for Psychological Science). Version of record read via a UBC-hosted PDF copy."
 derived: own-words-summary
 ---
 
