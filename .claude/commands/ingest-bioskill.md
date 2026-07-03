@@ -41,7 +41,9 @@ Read: `docs/glossary.md` (vocabulary authority), `docs/MOLD_SPEC.md` (the Mold c
 assemble against), `research/05-skill-backing-references.md` (the recoverability framework +
 already-verified sources for the 10 cross-cutting skills), `research/project-bioskills.md` (what
 bioSkills is and where it leads/lags), and `.claude/commands/summarize-source.md` (the ingest
-contract Phase 2 obeys). Skim existing `research/` notes so Phase 1 can reuse, not duplicate.
+contract Phase 2 obeys). **Phase 1's research subagent — not you — inventories the existing corpus
+and triages reuse** (below); your job is to sanity-check its triage, so read `research/05` closely
+rather than pre-skimming the notes yourself.
 
 ## Phase 1 — research the backing sources (subagent → you write guidance)
 
@@ -53,10 +55,18 @@ Spawn one research subagent. Its job (it **returns a report, writes nothing**):
    **procedure spine**, **validity axis** (the cardinal sin a Family-B referee would guard),
    **defaults/thresholds**. For each claim the skill makes, ask: what primary source would this
    have to trace to?
-3. **Check for reuse first.** Cross-reference `research/05-skill-backing-references.md` and
-   existing `research/**/index.md` notes. If a source is already ingested, mark it **reuse** (no
-   re-summarize). If a note exists but dropped what this skill needs, mark it **re-summarize**
-   (usually: add/extend a `guidance.md`). Only genuinely-missing sources are **new**.
+3. **Inventory the corpus, then triage every needed fact against it — work from the files, not
+   memory.** First Glob/Read the existing corpus (`research/**/index.md` +
+   `research/05-skill-backing-references.md`) and list what each note *actually covers*. Then route
+   every layer/fact the skill needs (not just the sources the skill happens to name) via the
+   **reuse triage** — the canonical routing, reused in Phase 5:
+   - **reuse-existing** — the fact is already in a corpus note (**even one ingested for a *different*
+     skill**) → cite that note, no ingest.
+   - **re-summarize-existing** — our source holds it but the note dropped it → extend that note's
+     `guidance.md` + re-ingest in Phase 2.
+   - **new** — absent from the whole corpus → a new source.
+   Cross-skill hits are the point: a note this skill never points to may already carry the fact.
+   Only **new** and **re-summarize** reach Phase 2; **reuse-existing** is closed here.
 4. **For each NEW or re-summarize source, propose:** `<collection>/<id>` (collection ∈
    `papers | tutorials | books`), full citation + open-access URL, license/copyright posture,
    and a complete **`guidance.md`** body — targeted questions that direct *attention, not
@@ -69,12 +79,14 @@ Spawn one research subagent. Its job (it **returns a report, writes nothing**):
    the own-words books path, not `summarize-source`. Prefer reusing an existing `research/books/`
    summary; if one is missing, list it as a **book-path dependency**, don't summarize it here.
 
-Report shape the subagent returns: the fetched skill's layer decomposition; a source table
-(`id | collection | new/reuse/re-summarize | license | citation+URL`); the full guidance.md text
-per new/re-summarize source; the convention-flag list; and any book-path dependencies.
+Report shape the subagent returns: the fetched skill's layer decomposition; the **reuse-triage
+table** (`layer/fact | reuse-existing | re-summarize | new | note-cited-for-reuse | license +
+citation+URL`); the full guidance.md text per new/re-summarize source; the convention-flag list;
+and any book-path dependencies.
 
-**You then:** sanity-check the plan (reuse honored? conventions not dressed as citations?),
-create each `research/<collection>/<id>/` dir, and **write the `guidance.md` files**.
+**You then:** sanity-check the triage (reuse-existing hits real and sufficient? conventions not
+dressed as citations? nothing marked `new` that a corpus note already covers?), create each
+`research/<collection>/<id>/` dir for new/re-summarize sources, and **write the `guidance.md` files**.
 
 ## Phase 2 — ingest each source (parallel summarizer subagents, clean context)
 
@@ -132,10 +144,13 @@ voice of the existing `research/experiments/` notes.
 
 ## Phase 5 — close gaps with open-access surrogates (subagent → you write guidance + spawn clean-context summarizers)
 
-Phase 4's GAP taxonomy sorts each gap. This phase's targets are the subset that are **new source
-note** or **re-summarize** *and* blocked because the load-bearing primary is **paywalled /
-inaccessible**. Gaps labeled **convention, not citable** are NOT hunted — a convention has no
-primary to recover; the label is the answer. If Phase 4 surfaced no paywalled gaps, skip this phase
+Phase 4's GAP taxonomy sorts each gap. Before hunting anything externally, the retrieval subagent
+**re-applies the Phase 1 reuse triage** to the gap residue against the *current* corpus (now
+including the Phase-2 notes): a gap may already be **reuse-existing** or **re-summarize-existing**,
+needing no external search — flag those for the orchestrator. Only facts **truly absent from the
+corpus** *and* blocked on a **paywalled / inaccessible** primary reach the surrogate hunt. Gaps
+labeled **convention, not citable** are NOT hunted — a convention has no primary to recover; the
+label is the answer. If nothing survives the triage as a paywalled-and-absent fact, skip this phase
 and say so.
 
 Spawn one retrieval subagent (or one per gap cluster if the gaps are many/disjoint). It **returns
