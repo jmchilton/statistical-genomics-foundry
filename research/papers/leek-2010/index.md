@@ -5,7 +5,7 @@ source_id: leek-2010
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3880143/
 doi: 10.1038/nrg2825
 access_date: "2026-06-27"
-license: "All rights reserved"
+license: LicenseRef-all-rights-reserved
 attribution: "Leek JT, Scharpf RB, Corrada Bravo H, Simcha D, Langmead B, Johnson WE, Geman D, Baggerly K, Irizarry RA. Tackling the widespread and critical impact of batch effects in high-throughput data. Nature Reviews Genetics 11(10):733–739, 2010. https://doi.org/10.1038/nrg2825 (© Macmillan Publishers Limited; open NIH author manuscript PMC3880143). Summarized in own words — no source text reproduced."
 derived: own-words-summary
 ---

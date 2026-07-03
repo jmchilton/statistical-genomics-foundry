@@ -1,7 +1,9 @@
 ---
 // Source/license box, shared by books (license_file → in-app license page) and
-// source notes (papers/tutorials: free-text license, no license file; optional
-// DOI/version/access-date pins).
+// source notes (papers/tutorials: optional DOI/version/access-date pins).
+// The redistribution policy (verbatim-ok vs own-words-only, copyleft, obligations)
+// is derived mechanically from the license id via the shared license-policy.yml
+// table — not restated per note. See site/src/lib/license-policy.ts.
 interface Props {
   source: string;
   sourceChapter?: number;
@@ -9,29 +11,65 @@ interface Props {
   license: string;
   licenseFile?: string;
   attribution: string;
+  derived?: string;
   doi?: string;
   version?: string;
   accessDate?: string;
 }
 import { licenseIdFromFile } from '../lib/licenses';
-const { source, sourceChapter, sourceUrl, license, licenseFile, attribution, doi, version, accessDate } = Astro.props;
+import { resolveLicenseRow } from '../lib/license-policy';
+const { source, sourceChapter, sourceUrl, license, licenseFile, attribution, derived, doi, version, accessDate } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const licenseHref = licenseFile ? `${base}/licenses/${licenseIdFromFile(licenseFile)}/` : null;
 const doiHref = doi ? `https://doi.org/${doi}` : null;
+
+// Policy row for this license id (unknown/missing → own-words-only + defect).
+const row = resolveLicenseRow(license);
+const policyLabel = row.policy === 'own-words-only' ? 'own-words only' : 'verbatim OK';
 ---
 <aside class="not-prose mb-6 rounded-lg border border-(--color-border-subtle) bg-(--color-surface-raised) p-4 text-sm">
   <div class="flex flex-wrap items-center gap-2 mb-2">
     <span class="tag">{source}{sourceChapter !== undefined ? ` · ch ${sourceChapter}` : ''}</span>
     {version && <span class="tag">{version}</span>}
-    <span class="tag">{license}</span>
+    <span class="tag" title={license}>{row.name}</span>
+    <span class={`license-policy license-policy-${row.policy}`}>{policyLabel}</span>
+    {row.copyleft && <span class="license-policy license-copyleft">copyleft</span>}
   </div>
   <p class="text-(--color-text-secondary) m-0">
     {attribution}
   </p>
+  {derived && (
+    <p class="text-(--color-text-muted) mt-1 mb-0 text-xs">
+      Changes from source: {derived}
+    </p>
+  )}
   <p class="text-(--color-text-muted) mt-2 mb-0">
     <a href={sourceUrl} class="text-(--color-link) hover:text-(--color-link-hover)">Original source ↗</a>
     {doiHref && (<><span aria-hidden="true"> · </span><a href={doiHref} class="text-(--color-link) hover:text-(--color-link-hover)">doi:{doi}</a></>)}
     {licenseHref && (<><span aria-hidden="true"> · </span><a href={licenseHref} class="text-(--color-link) hover:text-(--color-link-hover)">License terms</a></>)}
+    {!licenseHref && row.policy === 'own-words-only' && (<><span aria-hidden="true"> · </span><span class="italic">no redistributable text — own-words summary</span></>)}
     {accessDate && <span class="text-(--color-text-muted)"> · accessed {accessDate}</span>}
   </p>
 </aside>
+
+<style>
+  .license-policy {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: var(--color-text-secondary);
+  }
+  .license-policy-verbatim-ok {
+    background: color-mix(in srgb, #16a34a 16%, transparent);
+  }
+  .license-policy-own-words-only {
+    background: color-mix(in srgb, #d97706 18%, transparent);
+  }
+  .license-copyleft {
+    background: color-mix(in srgb, #dc2626 16%, transparent);
+  }
+</style>

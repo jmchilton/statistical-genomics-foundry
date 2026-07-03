@@ -18,11 +18,23 @@ license: CC-BY-NC-SA-2.0
 license_file: LICENSES/msmb.LICENSE
 ```
 
-(The `license` / `license_file` frontmatter fields and a validator check that the
-referenced file exists land when `meta_schema.yml` is ported.)
+`license` is a normalized id — an SPDX identifier or a `LicenseRef-<slug>` escape
+hatch — validated by the Astro content schema (`site/src/content.config.ts`). Its
+**redistribution policy** (verbatim-ok vs own-words-only, copyleft, obligations) is
+resolved mechanically from the shared `../license-policy.yml` table
+(source of truth: galaxyproject/foundry-pattern#4), not restated per note. Human
+nuance (preprint-vs-published, dual code/paper licensing, access provenance) lives in
+`attribution`. `license_file` points to a verbatim upstream LICENSE copy in this
+directory; it is required only for verbatim-carry licenses, though own-words notes may
+still carry one.
 
 ## Current entries
 
-| File | License | Source |
+Standard licenses are named by their SPDX id (`CC-BY-4.0.LICENSE`) and shared across
+every note that carries verbatim quotes under them; a source-specific license copy
+(e.g. `msmb.LICENSE`) is named for its source.
+
+| File | License | Redistributed by |
 |---|---|---|
-| `msmb.LICENSE` | CC BY-NC-SA 2.0 | *Modern Statistics for Modern Biology*, Holmes & Huber, Cambridge University Press 2019 — https://www.huber.embl.de/msmb/ |
+| `msmb.LICENSE` | CC BY-NC-SA 2.0 | *Modern Statistics for Modern Biology*, Holmes & Huber, Cambridge University Press 2019 — https://www.huber.embl.de/msmb/ (own-words book notes) |
+| `CC-BY-4.0.LICENSE` | CC BY 4.0 (SPDX plaintext) | `korthauer-dmrseq-2019`, `nygaard-2016`, `wen-2025` — source notes carrying verbatim CC-BY quotes |

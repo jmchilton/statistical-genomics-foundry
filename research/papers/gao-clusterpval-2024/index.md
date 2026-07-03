@@ -5,7 +5,7 @@ source_id: gao-clusterpval-2024
 source_url: https://arxiv.org/abs/2012.02936
 doi: 10.1080/01621459.2022.2116331
 access_date: "2026-06-30"
-license: "arXiv.org perpetual non-exclusive license 1.0 (nonexclusive-distrib/1.0) — NOT Creative Commons; restrictive. Summary is own-words."
+license: LicenseRef-arXiv-nonexclusive-distrib-1.0
 attribution: "Gao LL, Bien J, Witten D. \"Selective Inference for Hierarchical Clustering.\" Journal of the American Statistical Association 119(545):332–342, 2024. DOI 10.1080/01621459.2022.2116331. Read via arXiv:2012.02936v3 (31 Oct 2022, \"Final accepted version\"). Own-words summary; restrictive license."
 derived: own-words-summary
 ---
