@@ -1,3 +1,15 @@
+---
+title: 'hisse vignette — "Type I errors, Model rejection, & HiSSE vs. FiSSE"'
+type: tutorial
+source_id: hisse-type1-vignette
+source_url: http://speciationextinction.info/articles/hisse-fisse-type1-vignette.html
+version: "hisse 2.1.11"
+access_date: "2026-07-03"
+license: LicenseRef-GPL
+attribution: "Beaulieu JM. Type I errors, Model rejection, & HiSSE vs. FiSSE. hisse package vignette, rendered 2023-02-16; version pinned from CRAN hisse v2.1.11 in the source note. Rendered vignette and companion Rmd consulted."
+derived: license-aware-summary
+---
+
 # hisse vignette — "Type I errors, Model rejection, & HiSSE vs. FiSSE"
 
 ## 1. Citation

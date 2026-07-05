@@ -1,3 +1,15 @@
+---
+title: "Detecting Hidden Diversification Shifts in Models of Trait-Dependent Speciation and Extinction"
+type: paper
+source_id: beaulieu-omeara-2016-hisse
+source_url: https://academic.oup.com/sysbio/article/65/4/583/1753616
+doi: 10.1093/sysbio/syw022
+access_date: "2026-07-03"
+license: LicenseRef-CC-BY-NC-ND
+attribution: "Beaulieu JM, O'Meara BC. Detecting Hidden Diversification Shifts in Models of Trait-Dependent Speciation and Extinction. Systematic Biology 65(4):583-601, 2016. DOI 10.1093/sysbio/syw022. Published version is Oxford University Press; abstract/preprint access noted in the source note."
+derived: abstract-only-license-aware-summary
+---
+
 # Beaulieu & O'Meara 2016 — HiSSE (Hidden State Speciation and Extinction)
 
 ## 1. Citation

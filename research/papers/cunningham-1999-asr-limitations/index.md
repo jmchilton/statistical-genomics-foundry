@@ -1,3 +1,15 @@
+---
+title: "Some Limitations of Ancestral Character-State Reconstruction When Testing Evolutionary Hypotheses"
+type: paper
+source_id: cunningham-1999-asr-limitations
+source_url: https://doi.org/10.1080/106351599260238
+doi: 10.1080/106351599260238
+access_date: "2026-07-03"
+license: LicenseRef-all-rights-reserved
+attribution: "Cunningham CW. Some Limitations of Ancestral Character-State Reconstruction When Testing Evolutionary Hypotheses. Systematic Biology 48(3):665-674, 1999. DOI 10.1080/106351599260238. Read from accessible first-page preview only; summarized in own words."
+derived: own-words-summary
+---
+
 # Some Limitations of Ancestral Character-State Reconstruction When Testing Evolutionary Hypotheses (Cunningham 1999)
 
 ## 1. Citation
