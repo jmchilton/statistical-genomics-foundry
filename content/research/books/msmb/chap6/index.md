@@ -3,10 +3,6 @@ title: "Testing"
 source: msmb
 source_chapter: 6
 source_url: https://www.huber.embl.de/msmb/06-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Testing — MSMB Chapter 6 (summary)

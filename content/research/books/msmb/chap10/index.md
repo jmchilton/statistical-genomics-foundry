@@ -3,10 +3,6 @@ title: "Networks and Trees"
 source: msmb
 source_chapter: 10
 source_url: https://www.huber.embl.de/msmb/10-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Networks and Trees — MSMB Chapter 10 (summary)

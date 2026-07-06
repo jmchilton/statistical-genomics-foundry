@@ -38,9 +38,13 @@
 
 **Gate / gate obligation** — the invariant that a Family-A protocol may not terminate in self-certification; it must hand off to a Family-B referee whose verdict gates certification. The project's defining structural rule. Encoded at the protocol altitude, not as a Mold property.
 
+**License-aware summary** — a **Source note** whose license resolves to `verbatim-ok` in `license-policy.yml`, so short *load-bearing* verbatim quotes are permitted (marked as such). `derived: license-aware-summary`. E.g. `harmon-pcm` (CC-BY). Contrast **Own-words summary**; the choice between them is **Summary posture**.
+
 **Method validity** — the property our referee judges: are assumptions met, is there no double-dipping/circularity, is the named method real and appropriate, is its error rate actually controlled? The layer *beneath* the p-value — what hypothesis-validators (e.g. POPPER) take as trusted input.
 
 **Mold** — an abstract, structured template: a typed reference manifest (frontmatter) + a procedural body skeleton. Directory note (`content/molds/<slug>/index.md` + siblings). Cast into one or more skill artifacts. See `MOLD_SPEC.md`.
+
+**Own-words summary** — a **Source note** whose license resolves to `own-words-only` in `license-policy.yml`, rendered entirely in new expression — no transcription — with only short **functional strings** (error text, parameter names, numeric thresholds, equation forms) kept verbatim as facts. `derived: own-words-summary`. E.g. `msmb` (CC-BY-NC-SA). Contrast **License-aware summary**.
 
 **Pattern page** — reference content describing a statistical-method pattern (established-good) or an invalidity pattern (cautionary-bad). Wiki-linked from Molds; condensed into casts. Cites corpus sources by URL/DOI.
 
@@ -61,6 +65,10 @@
 **Schema (Mold IO)** — a JSON Schema declaring a Mold's structured input/output. **Demoted** for us: our outputs are prose-shaped critiques/protocols, so schemas are rare, reserved for genuinely structured artifacts (e.g. a power-calc result).
 
 **Self-certification** — the failure mode the project exists to stop: an agent doing an analysis and blessing its own validity in the same breath, with fluent rationale and no external check. The gate obligation forbids it.
+
+**Source note** — a per-source reading note under `content/research/<papers|tutorials|books>/<id>/`: a regenerable **faithful summary** (`index.md`) plus, *by exception*, an owned **guidance** file (`guidance.md`). A regenerable cast (what the source says), kept separate from our framing. Graded by recoverability, not coverage. Its **Summary posture** is license-driven. For books, book-invariant metadata lives once in a co-located `book.yml`. See `AGENTS.md` "Source notes earn their keep by recoverability."
+
+**Summary posture** — whether a **Source note** is an **Own-words summary** or a **License-aware summary**. **Determined by the source's license** (`license-policy.yml` `policy`: `own-words-only` vs `verbatim-ok`), *not* by source type — a book is not inherently own-words (`msmb` is; `harmon-pcm`, CC-BY, is license-aware). Recorded in the note's `derived:` field. The two summary commands split by *workflow* (bulk book vs single source), not by posture.
 
 **Usage note / Refinement note** *(`usage.md` / `refinement.md`)* — author-facing illustration / open design questions about a Mold. Never packaged into casts. Carried over unchanged from the parent.
 

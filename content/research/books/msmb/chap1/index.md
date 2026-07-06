@@ -3,10 +3,6 @@ title: "Generative Models for Discrete Data"
 source: msmb
 source_chapter: 1
 source_url: https://www.huber.embl.de/msmb/01-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Generative Models for Discrete Data — MSMB Chapter 1 (summary)

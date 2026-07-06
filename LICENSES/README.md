@@ -6,10 +6,11 @@ Foundry's own code or authored notes (the project's own license lives at the rep
 root; pending finalization).
 
 We do not mirror upstream sources. Bulk raw content (e.g. textbook chapters) is
-fetched into gitignored staging dirs under `corpus-import/` by deterministic sync
-scripts (`scripts/sync-*.sh`), pinned by a manifest + `SHA256SUMS`. The committed,
-distributed artifacts are our **own-words summaries**, which attribute the source
-and declare its license in frontmatter.
+fetched into gitignored `raw/` staging dirs beside each book
+(`content/research/books/<id>/raw/`) by the deterministic sync script
+(`scripts/sync-book.sh <id>`), pinned by a co-located manifest + `SHA256SUMS`. The
+committed, distributed artifacts are our **own-words summaries**, which attribute the
+source and declare its license in frontmatter.
 
 A note that derives from an imported source declares:
 
@@ -17,6 +18,10 @@ A note that derives from an imported source declares:
 license: CC-BY-NC-SA-2.0
 license_file: LICENSES/msmb.LICENSE
 ```
+
+Papers and tutorials carry these per-note. **Books** declare them **once** in
+`content/research/books/<id>/book.yml` (book-invariant), which the Astro `books`
+collection merges into every chapter — the per-chapter `index.md` frontmatter stays slim.
 
 `license` is a normalized id — an SPDX identifier or a `LicenseRef-<slug>` escape
 hatch — validated by the Astro content schema (`site/src/content.config.ts`). Its

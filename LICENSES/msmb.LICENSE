@@ -9,7 +9,7 @@ license (CC BY-NC-SA 2.0).
   Full legal code: https://creativecommons.org/licenses/by-nc-sa/2.0/legalcode
 
 This repository does NOT redistribute the book text. Raw chapters fetched by
-scripts/sync-msmb.sh are gitignored. Foundry notes derived from this work are
+scripts/sync-book.sh msmb are gitignored. Foundry notes derived from this work are
 our own-words summaries (new expression of uncopyrightable methods/ideas, not a
 condensation of the protected text); each such note declares in frontmatter:
     license: CC-BY-NC-SA-2.0
