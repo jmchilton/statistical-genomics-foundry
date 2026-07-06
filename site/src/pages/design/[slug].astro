@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { DESIGN_DOCS, renderDesignDoc } from '../../lib/design-docs';
 import { buildWikiLinkMap } from '../../lib/wiki-links';
@@ -13,7 +12,7 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const linkMap = buildWikiLinkMap(await getCollection('books'));
+const linkMap = buildWikiLinkMap(DESIGN_DOCS);
 const html = renderDesignDoc(doc, linkMap, base);
 
 const group = DESIGN_DOCS.filter(d => d.category === doc.category);

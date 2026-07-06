@@ -78,4 +78,17 @@ const molds = defineCollection({
   }),
 });
 
-export const collections = { books, papers, tutorials, molds };
+// Patterns: the cautionary-bad / established-good corpus leaves referenced by referee
+// Molds (`[[double-dipping]]`, `[[garden-of-forking-paths]]`, …). Only `index.md` bears
+// frontmatter. Kept loose — corpus-first stubs grow as real cases demand.
+const patterns = defineCollection({
+  loader: glob({ pattern: ['**/index.md'], base: '../content/patterns', generateId: stripIndex }),
+  schema: z.object({
+    type: z.literal('pattern'),
+    name: z.string(),
+    pole: z.enum(['cautionary-bad', 'established-good']).optional(),
+    status: z.string().optional(),
+  }),
+});
+
+export const collections = { books, papers, tutorials, molds, patterns };
