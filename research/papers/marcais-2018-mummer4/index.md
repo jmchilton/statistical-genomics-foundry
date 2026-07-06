@@ -1,3 +1,15 @@
+---
+title: "MUMmer4: A fast and versatile genome alignment system"
+type: paper
+source_id: marcais-2018-mummer4
+source_url: https://doi.org/10.1371/journal.pcbi.1005944
+doi: 10.1371/journal.pcbi.1005944
+access_date: "2026-07-03"
+license: LicenseRef-CC0-1.0
+attribution: "Marçais G, Delcher AL, Phillippy AM, Coston R, Salzberg SL, Zimin A. MUMmer4: A fast and versatile genome alignment system. PLOS Computational Biology 14(1):e1005944, 2018. DOI 10.1371/journal.pcbi.1005944. Article page states CC0 public domain dedication."
+derived: license-aware-summary
+---
+
 # MUMmer4: A fast and versatile genome alignment system
 
 ## 1. Citation

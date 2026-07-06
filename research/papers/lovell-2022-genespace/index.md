@@ -1,3 +1,17 @@
+---
+title: "GENESPACE tracks regions of interest and gene copy number variation across multiple genomes"
+type: paper
+source_id: lovell-2022-genespace
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9462846/
+doi: 10.7554/eLife.78526
+version: "GENESPACE v0.9.3"
+access_date: "2026-07-04"
+license: CC-BY-4.0
+license_file: LICENSES/CC-BY-4.0.LICENSE
+attribution: "Lovell JT, Sreedasyam A, Schranz ME, Wilson M, Carlson JW, Harkess A, Emms D, Goodstein DM, Schmutz J. GENESPACE tracks regions of interest and gene copy number variation across multiple genomes. eLife 11:e78526, 2022. DOI 10.7554/eLife.78526. Read via eLife and PMC full text under eLife CC-BY posture."
+derived: license-aware-summary
+---
+
 # Lovell et al. 2022 — GENESPACE
 
 ## 1. Citation

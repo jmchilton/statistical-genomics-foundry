@@ -1,3 +1,16 @@
+---
+title: "AnchorWave: Sensitive alignment of genomes with high sequence diversity, extensive structural polymorphism, and whole-genome duplication"
+type: paper
+source_id: song-2022-anchorwave
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8740769/
+doi: 10.1073/pnas.2113075119
+version: "AnchorWave 1.0.0"
+access_date: "2026-07-03"
+license: LicenseRef-CC-BY-NC-ND
+attribution: "Song B, Marco-Sola S, Moreto M, Johnson L, Buckler ES, Stitzer MC. AnchorWave: Sensitive alignment of genomes with high sequence diversity, extensive structural polymorphism, and whole-genome duplication. PNAS 119(1):e2113075119, 2022. DOI 10.1073/pnas.2113075119. Read via PMC Open-Access BioC API; note records CC BY-NC-ND posture."
+derived: license-aware-summary
+---
+
 # Song et al. 2022 — AnchorWave (PNAS)
 
 ## 1. Citation
