@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const patterns = (await getCollection('patterns')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+<Base title="Patterns">
+  <span class="eyebrow mb-3">Patterns</span>
+  <h1 class="text-3xl font-bold mb-2">Patterns</h1>
+  <p class="text-(--color-text-secondary) max-w-2xl mb-8">
+    The corpus leaves the referee Molds delegate to — each a named invalidity signature
+    (cautionary-bad) or established-good practice, with its trigger, threshold, and remedy.
+    Corpus-first: they start as stubs and grow only when a real case demands it.
+  </p>
+  <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+    {patterns.map(p => (
+      <li>
+        <a href={`${base}/patterns/${p.id}/`} class="card flex flex-col">
+          <div class="font-mono font-semibold text-(--color-text-primary)">{p.data.name}</div>
+          <div class="flex flex-wrap items-center gap-2 mt-3 text-xs text-(--color-text-muted)">
+            {p.data.pole && <span class="rounded bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-1.5 py-0.5 font-mono">{p.data.pole}</span>}
+            {p.data.status && <span>{p.data.status}</span>}
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>
