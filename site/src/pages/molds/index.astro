@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+// Parent groups by conversion `axis`; we dropped axes — group by the `family/*` tag instead.
+const FAMILIES = [
+  { key: 'a', label: 'Family A', sub: 'Analyze' },
+  { key: 'b', label: 'Family B', sub: 'Referee' },
+] as const;
+
+const familyOf = (tags: string[]) => tags.find(t => t.startsWith('family/'))?.split('/')[1] ?? null;
+const roleOf = (tags: string[]) => tags.find(t => t.startsWith('role/'))?.split('/')[1] ?? null;
+
+// Sibling-file presence — the eval/scenarios discipline, surfaced like the parent's eval check.
+const hasSibling = (id: string, file: string) =>
+  existsSync(fileURLToPath(new URL(`../../../../content/molds/${id}/${file}`, import.meta.url)));
+
+const evalCount = molds.filter(m => hasSibling(m.id, 'eval.md')).length;
+---
+<Base title="Molds">
+  <span class="eyebrow mb-3">Molds</span>
+  <h1 class="text-3xl font-bold mb-2">Molds</h1>
+  <p class="text-(--color-text-secondary) max-w-2xl mb-2">
+    Abstract action templates — a typed reference manifest plus a procedural skeleton — cast into
+    self-contained skills. Grouped by family: <strong>A</strong> does the analysis, <strong>B</strong>
+    referees it. The gate forbids a Family-A protocol from self-certifying.
+  </p>
+  <p class="text-sm text-(--color-text-muted) mb-8">{molds.length} {molds.length === 1 ? 'mold' : 'molds'} · {evalCount}/{molds.length} with an eval plan</p>
+
+  {FAMILIES.map(fam => {
+    const list = molds.filter(m => familyOf(m.data.tags) === fam.key);
+    if (list.length === 0) return null;
+    return (
+      <section class="mb-10" aria-labelledby={`molds-${fam.key}`}>
+        <h2 id={`molds-${fam.key}`} class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-3">
+          {fam.label} <span class="font-normal normal-case text-(--color-text-secondary)">· {fam.sub}</span>
+          <span class="font-normal normal-case"> ({list.length})</span>
+        </h2>
+        <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+          {list.map(m => {
+            const role = roleOf(m.data.tags);
+            const refCount = m.data.references?.length ?? 0;
+            return (
+              <li>
+                <a href={`${base}/molds/${m.id}/`} class="card flex flex-col">
+                  <div class="font-mono font-semibold text-(--color-text-primary)">{m.data.name}</div>
+                  {m.data.summary && <div class="text-sm text-(--color-text-secondary) mt-1 grow">{m.data.summary}</div>}
+                  <div class="flex flex-wrap items-center gap-2 mt-3 text-xs text-(--color-text-muted)">
+                    {role && <span class="rounded bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-1.5 py-0.5 font-mono">{role}</span>}
+                    {refCount > 0 && <span>{refCount} refs</span>}
+                    <span>eval {hasSibling(m.id, 'eval.md') ? '✓' : '—'}</span>
+                    <span>scenarios {hasSibling(m.id, 'scenarios.md') ? '✓' : '—'}</span>
+                  </div>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    );
+  })}
+</Base>
