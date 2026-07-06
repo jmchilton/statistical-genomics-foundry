@@ -63,4 +63,19 @@ const tutorials = defineCollection({
   schema: sourceNote,
 });
 
-export const collections = { books, papers, tutorials };
+// Molds: abstract action templates (the Mold-primary core). Only `index.md` bears
+// frontmatter; eval/scenarios live in siblings. Parent drops `axis` here — we group by
+// the soft `family/*` + `role/*` tags instead (MOLD_SPEC adaptation). `references` is the
+// typed manifest, kept loose for display (count only); full validation deferred to standup.
+const molds = defineCollection({
+  loader: glob({ pattern: ['**/index.md'], base: '../content/molds', generateId: stripIndex }),
+  schema: z.object({
+    type: z.literal('mold'),
+    name: z.string(),
+    summary: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    references: z.array(z.any()).optional(),
+  }),
+});
+
+export const collections = { books, papers, tutorials, molds };

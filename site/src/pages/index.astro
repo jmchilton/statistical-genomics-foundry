@@ -6,6 +6,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const bookCount = (await getCollection('books')).length;
 const paperCount = (await getCollection('papers')).length;
 const tutorialCount = (await getCollection('tutorials')).length;
+
+const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+const roleOf = (tags: string[]) => tags.find(t => t.startsWith('role/'))?.split('/')[1] ?? null;
+const familyOf = (tags: string[]) => tags.find(t => t.startsWith('family/'))?.split('/')[1] ?? null;
 ---
 <Base title="Statistical Genomics Foundry">
   <section class="mb-12">
@@ -25,8 +29,42 @@ const tutorialCount = (await getCollection('tutorials')).length;
     </a>
   </section>
 
-  <section aria-labelledby="browse-heading">
-    <h2 id="browse-heading" class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-3">Browse</h2>
+  {molds.length > 0 && (
+    <section class="mb-12" aria-labelledby="molds-heading">
+      <div class="flex items-baseline justify-between mb-3">
+        <h2 id="molds-heading" class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted)">Molds</h2>
+        <a href={`${base}/molds/`} class="text-sm text-(--color-galaxy-primary) dark:text-(--color-accent) no-underline hover:underline">All molds →</a>
+      </div>
+      <p class="text-sm text-(--color-text-secondary) max-w-3xl mb-4">
+        The Mold-primary core — abstract action templates cast into self-contained skills.
+        Family A does the analysis; Family B referees it, so doing never self-certifies.
+      </p>
+      <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+        {molds.map(m => {
+          const role = roleOf(m.data.tags);
+          const family = familyOf(m.data.tags);
+          return (
+            <li>
+              <a href={`${base}/molds/${m.id}/`} class="card flex flex-col">
+                <div class="font-mono font-semibold text-(--color-text-primary)">{m.data.name}</div>
+                {m.data.summary && <div class="text-sm text-(--color-text-secondary) mt-1 grow">{m.data.summary}</div>}
+                <div class="flex flex-wrap items-center gap-2 mt-3 text-xs text-(--color-text-muted)">
+                  {family && <span>Family {family.toUpperCase()}</span>}
+                  {role && <span class="rounded bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-1.5 py-0.5 font-mono">{role}</span>}
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  )}
+
+  <section aria-labelledby="research-heading" class="mb-12">
+    <h2 id="research-heading" class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-3">Research</h2>
+    <p class="text-sm text-(--color-text-secondary) max-w-3xl mb-4">
+      The grounding corpus — faithful, recoverable source notes that back the Molds. Not reproductions.
+    </p>
     <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
       <li>
         <a href={`${base}/books/`} class="card">
@@ -52,6 +90,15 @@ const tutorialCount = (await getCollection('tutorials')).length;
           </div>
         </a>
       </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="reference-heading">
+    <h2 id="reference-heading" class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-3">Reference</h2>
+    <p class="text-sm text-(--color-text-secondary) max-w-3xl mb-4">
+      The project's own vocabulary and rationale — how the Foundry is built and why.
+    </p>
+    <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
       <li>
         <a href={`${base}/design/`} class="card">
           <div class="font-semibold text-(--color-text-primary) mb-1">Design Docs</div>
