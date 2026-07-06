@@ -1,3 +1,17 @@
+---
+title: "PPanGGOLiN: Depicting microbial diversity via a partitioned pangenome graph"
+type: paper
+source_id: gautreau-2020-ppanggolin
+source_url: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007732
+doi: 10.1371/journal.pcbi.1007732
+version: "PPanGGOLiN 1.0"
+access_date: "2026-07-05"
+license: CC-BY-4.0
+license_file: LICENSES/CC-BY-4.0.LICENSE
+attribution: "Gautreau G, Bazin A, Gachet M, Planel R, Burlot L, Dubois M, Perrin A, Medigue C, Calteau A, Cruveiller S, Matias C, Ambroise C, Rocha EPC, Vallenet D. PPanGGOLiN: Depicting microbial diversity via a partitioned pangenome graph. PLoS Computational Biology 16(3):e1007732, 2020. DOI 10.1371/journal.pcbi.1007732."
+derived: license-aware-summary
+---
+
 # Gautreau et al. 2020 — PPanGGOLiN
 
 ## 1. Citation

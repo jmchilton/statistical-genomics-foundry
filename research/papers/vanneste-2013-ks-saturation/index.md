@@ -1,3 +1,15 @@
+---
+title: "Inference of Genome Duplications from Age Distributions Revisited"
+type: paper
+source_id: vanneste-2013-ks-saturation
+source_url: https://academic.oup.com/mbe/article/30/1/177/1021633
+doi: 10.1093/molbev/mss214
+access_date: "2026-07-05"
+license: LicenseRef-all-rights-reserved
+attribution: "Vanneste K, Van de Peer Y, Maere S. Inference of Genome Duplications from Age Distributions Revisited. Molecular Biology and Evolution 30(1):177-190, 2013. DOI 10.1093/molbev/mss214. Own-words summary from the OUP article page."
+derived: own-words-summary
+---
+
 # Vanneste, Van de Peer & Maere 2013 — Inference of genome duplications from age distributions revisited
 
 ## 1. Citation

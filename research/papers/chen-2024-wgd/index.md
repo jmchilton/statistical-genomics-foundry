@@ -1,3 +1,17 @@
+---
+title: "wgd v2: a suite of tools to uncover and date ancient polyploidy and whole-genome duplication"
+type: paper
+source_id: chen-2024-wgd
+source_url: https://doi.org/10.1093/bioinformatics/btae272
+doi: 10.1093/bioinformatics/btae272
+version: "wgd v2.0.38"
+access_date: "2026-07-05"
+license: CC-BY-4.0
+license_file: LICENSES/CC-BY-4.0.LICENSE
+attribution: "Chen H, Zwaenepoel A, Van de Peer Y. wgd v2: a suite of tools to uncover and date ancient polyploidy and whole-genome duplication. Bioinformatics 40(5):btae272, 2024. DOI 10.1093/bioinformatics/btae272. Summary also uses wgd v2.0.38 CLI source facts."
+derived: license-aware-summary
+---
+
 # wgd v2 — faithful source note
 
 ## 1. Citation
