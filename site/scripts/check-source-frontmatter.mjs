@@ -6,7 +6,7 @@ import yaml from 'js-yaml';
 
 const siteDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = path.resolve(siteDir, '..');
-const sourceRoots = ['research/papers', 'research/tutorials'];
+const sourceRoots = ['content/research/papers', 'content/research/tutorials'];
 const requiredFields = [
   'title',
   'type',
