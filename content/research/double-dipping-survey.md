@@ -3,7 +3,7 @@
 > Landscape of **review/survey** articles on double-dipping (circular analysis / post-selection /
 > selective inference), genomics emphasis. Prepared by a clean-context research subagent, 2026-06-30;
 > written up here by the note author. This maps the *review* layer that sits above the primary-source
-> notes in `research/papers/`; it backs the [[double-dipping]] pattern and the `audit-method-validity`
+> notes in `content/research/papers/`; it backs the [[double-dipping]] pattern and the `audit-method-validity`
 > leaf. Access/availability flags from the subagent are carried verbatim — do not launder them.
 > Citations confirmed from abstracts/landing pages + open preprints; the two flagship stats reviews are
 > paywalled (worked from publisher abstract + open preprint), boundaries marked below.
@@ -32,7 +32,7 @@
 ### Tier 2 — second wave
 - **[4] Kriegeskorte, Simmons, Bellgowan & Baker 2009** — Nat Neurosci 12(5):535–540. The ORIGIN of
   the "double dipping" term; open author copy `mrc-cbu.cam.ac.uk`, PMC2841687. *(We are already
-  ingesting this as `research/papers/kriegeskorte-2009/` — for definitional grounding, not assay
+  ingesting this as `content/research/papers/kriegeskorte-2009/` — for definitional grounding, not assay
   coverage; the subagent ranks it second-wave on genomics-coverage grounds.)*
 - **[5] Hivert et al. 2024 — "Practical limitations for real-life application of data fission and data
   thinning in post-clustering differential analysis"** (earlier "Running in circles…"). arXiv:2405.13591.
@@ -66,7 +66,7 @@ remedy families = conditional likelihood, empirical Bayes, FIQT, bootstrap; rank
 selection bias.
 
 Threads no single review unifies: **permutation / synthetic-null** (scRNA-seq synthetic-control,
-bioRxiv 2023.07.21.550107; and dmrseq's pooled permutation null, `research/papers/korthauer-dmrseq-2019`)
+bioRxiv 2023.07.21.550107; and dmrseq's pooled permutation null, `content/research/papers/korthauer-dmrseq-2019`)
 and **entrapment / external validation** in proteomics.
 
 ## Genomics coverage map

@@ -28,21 +28,18 @@ We own the bottom and top of the stack; the middle (the skill artifact, the empi
 ```
 README.md                   ← this file
 positioning.md              ← working evidence doc: per-system axis maps + verified distinctions
-docs/
-  POSITIONING.md            ← the positioning narrative (the story)
-  ARCHITECTURE.md           ← adapted from the foundry, as an explicit diff (inherit/adapt/demote/add)
-  GUIDING_PRINCIPLES.md     ← adapted principles (+ net-new "Doing Never Self-Certifies")
-  REFEREE_LOOP.md           ← net-new: the do→referee→revise spine + gate obligation
-  MOLD_SPEC.md              ← adapted Mold authoring contract (axis dropped; referee-correctness evals)
-  CORPUS.md                 ← adapted: the bipolar corpus (established-good + cautionary-bad)
-  COMPILATION_PIPELINE.md   ← adapted casting + provenance (Pillar 1); empirical checks run at runtime
-  glossary.md               ← adapted term set (relocates to content/ at repo standup)
-  MOLDS.md                  ← initial Mold set — a TODO outline (nothing authored yet)
-research/
-  00-synthesis.md           ← cross-cut of the 4 SOTA lens surveys
-  01-bioconductor-r.md  02-statistical-genomics-non-r.md
-  03-genomics-broad.md  04-statistics-broad.md
-  verify-biomni.md  verify-popper.md  verify-knowledgebase-mcp.md  verify-bioskills.md
+docs/                       ← design records (POSITIONING, ARCHITECTURE, GUIDING_PRINCIPLES,
+                              REFEREE_LOOP, MOLD_SPEC, CORPUS, COMPILATION_PIPELINE, MOLDS, glossary)
+content/                    ← the curated knowledge base
+  molds/<slug>/             ← abstract action templates (Mold-primary core)
+  patterns/<slug>/          ← statistical-method + invalidity-pattern reference pages
+  research/                 ← source-reading notes (index.md = faithful summary, guidance.md = owned)
+    papers/<id>/  tutorials/<id>/  books/<id>/  experiments/
+    projects/               ← prior-art related-project notes + the 4 SOTA lens surveys +
+                              00-synthesis (a dump — see issue to organize)
+site/                       ← Astro renderer over content/ + docs/ → GitHub Pages
+scripts/, corpus-import/    ← MSMB corpus sync (manifest + checksum pin; raw is gitignored)
+LICENSES/, license-policy.yml  ← third-party license copies + redistribution policy
 ```
 
 ## Status & next steps

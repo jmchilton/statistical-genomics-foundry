@@ -27,7 +27,7 @@ Gaps are not all "write a new note." Three kinds:
 | **ComBat-seq / microarray-vs-counts trap** (SILENT — author couldn't flag it) | new source note | ComBat-seq (Zhang 2020); plain ComBat is Gaussian/microarray, wrong on counts |
 | Full-rank / non-identifiability rule for perfect aliasing | **re-summarize existing source** | DESeq2 vignette "Model matrix not full rank" section — [[deseq2-vignette]] dropped it |
 | limma: correction is for visualization, block batch in the design | new source note (optional) | limma `removeBatchEffect` doc |
-| numeric cutoff for "batch present" / "unbalanced enough" / min replicates/batch | **convention, not citable** | flag as judgment per `research/05` finding #2 — do not fabricate a primary |
+| numeric cutoff for "batch present" / "unbalanced enough" / min replicates/batch | **convention, not citable** | flag as judgment per `content/research/05` finding #2 — do not fabricate a primary |
 
 **Headline:** the silent gap (ComBat-seq) is the one that matters most — a memory-written skill would sail
 past recommending plain ComBat on counts, a real correctness error the notes never surface.

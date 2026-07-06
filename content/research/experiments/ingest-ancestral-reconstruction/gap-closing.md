@@ -75,7 +75,7 @@ of the *artifact*. This is the failure mode the whole pipeline exists to catch, 
   either way" verbatim) + **2b** (priors-can-dominate-reconstruction + "only … the states of extant
   species" cautions, verbatim) + the garbage-model ridge diagnostic (unidentifiable $q$ → no ASR
   precision). The whole book was ingested as a standing spine (chap1–14). Reconciliation resolved:
-  homed under `research/books/` (it's a book-spine) but ingested via the *license-aware* path — CC-BY
+  homed under `content/research/books/` (it's a book-spine) but ingested via the *license-aware* path — CC-BY
   earns verbatim, so the strict own-words books rule doesn't apply. Note the summarizer flagged an
   internal inconsistency in Harmon's own §8.6 (verdict wording "AICc higher for the unequal rates
   model" vs. reported ASY 162.8 < ER 163.0) — carried forward, not laundered.

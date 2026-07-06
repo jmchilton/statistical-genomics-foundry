@@ -33,7 +33,7 @@ most skills and should be adopted as standing corpus:
 - **Harmon, *Phylogenetic Comparative Methods: Learning from Trees* (PCM), 2019** — free full text
   `https://lukejharmon.github.io/pcm/` (book text v1.0.0). **CC-BY-4.0** — the phylogenetics spine
   (BM/OU continuous-trait models, Mk discrete models, ancestral-state reconstruction, birth-death +
-  BiSSE/HiSSE diversification). Ingested whole under `research/books/harmon-pcm/chap<n>/` (#66). Being
+  BiSSE/HiSSE diversification). Ingested whole under `content/research/books/harmon-pcm/chap<n>/` (#66). Being
   CC-BY, it is homed with the other book-spines but ingested via the *license-aware* path (verbatim
   load-bearing quotes + exact numbers permitted), not the own-words MSMB path — the first CC-BY-book
   case forcing the books-vs-summarize-source reconciliation `AGENTS.md` flags. Ch.8 (fitting discrete
@@ -130,7 +130,7 @@ Firth/SPA are binary-step options) `[VF]`; GCTA fastGWA — Jiang et al. 2019 `[
 **CLI:** PLINK 1.07 (Purcell 2007, OA) + PLINK2 (Chang 2015, OA); LDSC repo+wiki.
 **Wikipedia:** "Genome-wide association study"; **"Population structure (genetics)"** (corrected — "population stratification" redirects) `[VF]`.
 
-**Recoverability:** spine **High**, validity **High**, thresholds **High**. Richest existing base (research/02).
+**Recoverability:** spine **High**, validity **High**, thresholds **High**. Richest existing base (content/research/02).
 **~95% recoverable.** Gap: SAIGE-GENE rare-variant (Zhao 2020) needs its own pass if in scope.
 
 ## 6 — causal-genomics/mendelian-randomization (untestable assumptions + sensitivity battery)

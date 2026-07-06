@@ -5,7 +5,7 @@ import { resolveWikiLinks } from './render-vault-doc';
 import type { WikiLinkTarget } from './wiki-links';
 
 const DOCS_DIR = path.resolve('../docs');
-const RESEARCH_DIR = path.resolve('../research');
+const RESEARCH_DIR = path.resolve('../content/research');
 
 export type DesignDoc = {
   slug: string;
@@ -85,7 +85,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'synthesis',
     title: 'Prior-Art Synthesis',
-    source: '00-synthesis.md',
+    source: 'projects/00-synthesis.md',
     dir: 'research',
     summary: 'The cross-survey synthesis of the prior-art landscape for statistical rails over LLM-driven genomics.',
     category: 'research',
@@ -93,7 +93,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'survey-bioconductor',
     title: 'Survey — Bioconductor / R',
-    source: '01-bioconductor-r.md',
+    source: 'projects/01-bioconductor-r.md',
     dir: 'research',
     summary: 'State of the art through the Bioconductor / R lens.',
     category: 'research',
@@ -101,7 +101,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'survey-non-r',
     title: 'Survey — Beyond R',
-    source: '02-statistical-genomics-non-r.md',
+    source: 'projects/02-statistical-genomics-non-r.md',
     dir: 'research',
     summary: 'Statistical genomics prior art outside the R / Bioconductor world.',
     category: 'research',
@@ -109,7 +109,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'survey-genomics',
     title: 'Survey — Genomics Broadly',
-    source: '03-genomics-broad.md',
+    source: 'projects/03-genomics-broad.md',
     dir: 'research',
     summary: 'Reproducibility, QC, benchmarking, and truth sets across genomics broadly.',
     category: 'research',
@@ -117,7 +117,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'survey-statistics',
     title: 'Survey — Statistics Broadly',
-    source: '04-statistics-broad.md',
+    source: 'projects/04-statistics-broad.md',
     dir: 'research',
     summary: 'The referee at full generality — statistics broadly as prior art.',
     category: 'research',
@@ -125,7 +125,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-ai-scientist',
     title: 'The AI Scientist',
-    source: 'project-ai-scientist.md',
+    source: 'projects/ai-scientist.md',
     dir: 'research',
     summary: 'Sakana\'s fully autonomous research loop whose reviewer self-certifies by reasoning — the referee anti-pattern; its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -133,7 +133,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-analyst-inspector',
     title: 'Analyst-Inspector',
-    source: 'project-analyst-inspector.md',
+    source: 'projects/analyst-inspector.md',
     dir: 'research',
     summary: 'The closest architectural analog — an independent referee agent that gates reproducibility, not validity; its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -141,7 +141,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-awesome-genomic-skills',
     title: 'awesome-genomic-skills',
-    source: 'project-awesome-genomic-skills.md',
+    source: 'projects/awesome-genomic-skills.md',
     dir: 'research',
     summary: 'A discovery index above the genomics skill libraries (it catalogs them) — its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -149,7 +149,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-bioinfomcp',
     title: 'BioinfoMCP',
-    source: 'project-bioinfomcp.md',
+    source: 'projects/bioinfomcp.md',
     dir: 'research',
     summary: 'Auto CLI→MCP wrapper for bioinformatics tools — the wiring layer beneath the tool call; its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -157,7 +157,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-biomania',
     title: 'BioMANIA',
-    source: 'project-biomania.md',
+    source: 'projects/biomania.md',
     dir: 'research',
     summary: 'A natural-language → bioinformatics workflow agent that learns a Python tool\'s API and executes it — its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -165,7 +165,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-biomni',
     title: 'Biomni',
-    source: 'project-biomni.md',
+    source: 'projects/biomni.md',
     dir: 'research',
     summary: 'A general-purpose biomedical AI agent — its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -173,7 +173,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-bioskills',
     title: 'bioSkills',
-    source: 'project-bioskills.md',
+    source: 'projects/bioskills.md',
     dir: 'research',
     summary: 'Our nearest neighbor on the repository-of-skills axis — its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -181,7 +181,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-clawbio',
     title: 'ClawBio',
-    source: 'project-clawbio.md',
+    source: 'projects/clawbio.md',
     dir: 'research',
     summary: 'A reproducibility- and benchmark-forward bioinformatics skill library on OpenClaw — its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -189,7 +189,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-genotex',
     title: 'GenoTEX / GenoAgent',
-    source: 'project-genotex.md',
+    source: 'projects/genotex.md',
     dir: 'research',
     summary: 'An in-domain gene-expression benchmark + multi-agent system that self-certifies — its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -197,7 +197,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-knowledgebase-mcp',
     title: 'knowledgebase-mcp',
-    source: 'project-knowledgebase-mcp.md',
+    source: 'projects/knowledgebase-mcp.md',
     dir: 'research',
     summary: 'Agent-facing knowledge-retrieval MCP servers — their framing, strengths, and where they sit on our values.',
     category: 'related-projects',
@@ -205,7 +205,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-mcpmed',
     title: 'MCPmed',
-    source: 'project-mcpmed.md',
+    source: 'projects/mcpmed.md',
     dir: 'research',
     summary: 'A call to MCP-wrap bioinformatics web services for agent discovery/invocation — tool exposure, not a validity gate; its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -213,7 +213,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-popper',
     title: 'POPPER',
-    source: 'project-popper.md',
+    source: 'projects/popper.md',
     dir: 'research',
     summary: 'Our nearest neighbor on the referee axis — its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -221,7 +221,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-statreviewer-sciscore',
     title: 'StatReviewer + SciScore',
-    source: 'project-statreviewer-sciscore.md',
+    source: 'projects/statreviewer-sciscore.md',
     dir: 'research',
     summary: 'Deployed commercial automated manuscript referees — post-hoc, closed, reporting-level; their framing, strengths, and where they sit on our values.',
     category: 'related-projects',
@@ -229,7 +229,7 @@ export const DESIGN_DOCS: DesignDoc[] = [
   {
     slug: 'project-tusoai',
     title: 'TusoAI',
-    source: 'project-tusoai.md',
+    source: 'projects/tusoai.md',
     dir: 'research',
     summary: 'An agent that designs and optimizes scientific methods against a metric — the upstream a validity gate sits beneath; its framing, strengths, and where it sits on our values.',
     category: 'related-projects',
@@ -280,7 +280,7 @@ export function renderDesignDoc(
 
 // Rewrite cross-doc relative `.md` links to their rendered routes.
 function rewriteDocLinks(markdown: string, base: string): string {
-  const bySource = new Map(DESIGN_DOCS.map(doc => [doc.source, doc.slug]));
+  const bySource = new Map(DESIGN_DOCS.map(doc => [doc.source.split('/').pop()!, doc.slug]));
   return markdown.replace(/\]\(([^)]+\.md)(#[^)]+)?\)/g, (match, target, hash = '') => {
     const filename = target.split('/').pop();
     if (filename === 'glossary.md') return `](${base}/glossary/${hash})`;

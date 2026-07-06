@@ -10,7 +10,7 @@ status: stub
 > **Stub.** Corpus-first: this page starts minimal and grows only when a real case demands it
 > (`GUIDING_PRINCIPLES.md`). Below is the one-line phenomenon, the two regimes that share the
 > mechanism, and the primary-source outline to summarize next. Each concrete signature is added
-> only when its primary is read into a `research/papers/<id>/` note. Frontmatter contract for
+> only when its primary is read into a `content/research/papers/<id>/` note. Frontmatter contract for
 > patterns is deferred to repo standup (AGENTS.md).
 
 **Phenomenon (one line):** a technical/batch factor co-varies with the biological contrast. When
@@ -40,10 +40,10 @@ which is exactly why this pattern is the [[audit-method-validity]] referee's **E
   (correct-then-test vs batch-blocked); inflation is a fixed factor set by design imbalance, not
   sample size; corroborated by limma/DESeq2 tool docs]*
 
-## Primary sources to summarize (→ `research/papers/<id>/`)
+## Primary sources to summarize (→ `content/research/papers/<id>/`)
 
-Sourcing pre-verified in `research/05-skill-backing-references.md` §3 (`[VS]` = search-confirmed
-venue/DOI). **`✓ ingested`** = note exists at `research/papers/<slug>/` and wiki-links back here.
+Sourcing pre-verified in `content/research/05-skill-backing-references.md` §3 (`[VS]` = search-confirmed
+venue/DOI). **`✓ ingested`** = note exists at `content/research/papers/<slug>/` and wiki-links back here.
 
 **Spine / validity axis — the correct-then-test cardinal sin (highest recoverability value)**
 - **Nygaard, Rødland & Hovig 2016, _Biostatistics_ 17(1):29–39** (DOI 10.1093/biostatistics/kxv027;
@@ -69,7 +69,7 @@ venue/DOI). **`✓ ingested`** = note exists at `research/papers/<slug>/` and wi
   speak to it *qualitatively* — Leek's bladder/sTCC anchor + own-words "adjustment cannot recover
   it"; Nygaard's balance condition (no inflation iff each batch reproduces the overall group ratio,
   ν₀ = ν) — but **no single crisp citable "complete confounding is uncorrectable" sentence** exists
-  in either (`research/05-skill-backing-references.md` §3). Label it as convention; cite Nygaard +
+  in either (`content/research/05-skill-backing-references.md` §3). Label it as convention; cite Nygaard +
   Leek jointly for the surrounding claim, never as the source of this exact sentence.
 
 ## Tool-doc corroboration (community guidance, not primaries)
@@ -85,6 +85,6 @@ venue/DOI). **`✓ ingested`** = note exists at `research/papers/<slug>/` and wi
 
 <!-- design-inference: the two-regime split (perfect-aliasing→ESCALATE vs partial→correct-then-test)
      and the convention-flag on uncorrectability are this project's synthesis from
-     research/05-skill-backing-references.md §3. Both regime anchors are now corpus-observed (Leek
+     content/research/05-skill-backing-references.md §3. Both regime anchors are now corpus-observed (Leek
      2010 bladder/sTCC; Nygaard 2016 reanalyses); the strict rank-deficiency restatement remains the
      flagged convention. -->

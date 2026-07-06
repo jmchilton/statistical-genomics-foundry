@@ -1,6 +1,6 @@
 # Positioning — Statistical Rails for LLM-Driven Statistical Genomics
 
-> The narrative. For the evidence behind every claim here — per-system verification with refutations — see `../positioning.md` and `../research/`. This doc is the story; that doc is the receipts.
+> The narrative. For the evidence behind every claim here — per-system verification with refutations — see `../positioning.md` and `../content/research/`. This doc is the story; that doc is the receipts.
 
 ## The problem
 
