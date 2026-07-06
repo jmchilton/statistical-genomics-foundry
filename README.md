@@ -34,11 +34,13 @@ content/                    ← the curated knowledge base
   molds/<slug>/             ← abstract action templates (Mold-primary core)
   patterns/<slug>/          ← statistical-method + invalidity-pattern reference pages
   research/                 ← source-reading notes (index.md = faithful summary, guidance.md = owned)
-    papers/<id>/  tutorials/<id>/  books/<id>/  experiments/
+    papers/<id>/  tutorials/<id>/  experiments/
+    books/<id>/             ← chap<n>/index.md summaries + co-located import pin
+                              (manifest.tsv + SHA256SUMS + summary-prompt.md; raw/ gitignored)
     projects/               ← prior-art related-project notes + the 4 SOTA lens surveys +
                               00-synthesis (a dump — see issue to organize)
 site/                       ← Astro renderer over content/ + docs/ → GitHub Pages
-scripts/, corpus-import/    ← MSMB corpus sync (manifest + checksum pin; raw is gitignored)
+scripts/                    ← sync-book.sh <id>: deterministic corpus fetch + checksum pin
 LICENSES/, license-policy.yml  ← third-party license copies + redistribution policy
 ```
 

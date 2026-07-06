@@ -3,10 +3,6 @@ title: "Mixture Models"
 source: msmb
 source_chapter: 4
 source_url: https://www.huber.embl.de/msmb/04-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Mixture Models — MSMB Chapter 4 (summary)

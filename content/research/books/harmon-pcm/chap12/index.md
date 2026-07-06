@@ -3,11 +3,6 @@ title: "Beyond birth-death models"
 source: harmon-pcm
 source_chapter: 12
 source_url: https://lukejharmon.github.io/pcm/chapter12_beyondbd/
-license: CC-BY-4.0
-license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Harmon LJ. Phylogenetic Comparative Methods: Learning from Trees. 2019 (book text v1.0.0). Chapter 12: Beyond birth-death models. Licensed CC-BY 4.0. https://lukejharmon.github.io/pcm/"
-derived: license-aware-summary
-access_date: "2026-07-03"
 ---
 
 # Harmon PCM Chapter 12 — Beyond birth-death models (summary)

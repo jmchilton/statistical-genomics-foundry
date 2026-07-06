@@ -3,10 +3,6 @@ title: "Multivariate Analysis"
 source: msmb
 source_chapter: 7
 source_url: https://www.huber.embl.de/msmb/07-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Multivariate Analysis — MSMB Chapter 7 (summary)

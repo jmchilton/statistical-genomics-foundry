@@ -3,10 +3,6 @@ title: "High-Throughput Count Data and Generalized Linear Models"
 source: msmb
 source_chapter: 8
 source_url: https://www.huber.embl.de/msmb/08-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # High-Throughput Count Data and Generalized Linear Models — MSMB Chapter 8 (summary)

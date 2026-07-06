@@ -1,0 +1,29 @@
+# Book-level metadata for the msmb source-note set — single source of truth.
+# Per-chapter chap<n>/index.md frontmatter carries only what varies: title, source,
+# source_chapter, source_url. The Astro `books` collection merges the book-level fields
+# below into each chapter entry (see site/src/content.config.ts). /regenerate-book-summaries
+# reads `chapters` + `summary_prompt`; scripts/sync-book.sh reads the co-located manifest.tsv.
+title: "Modern Statistics for Modern Biology"
+short_title: MSMB
+source: msmb
+source_url: https://www.huber.embl.de/msmb/
+license: CC-BY-NC-SA-2.0
+license_file: LICENSES/msmb.LICENSE
+attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
+derived: own-words-summary
+summary_prompt: summary-prompt.md
+chapters:
+  - { n: 1, title: "Generative Models for Discrete Data" }
+  - { n: 2, title: "Statistical Modeling" }
+  - { n: 3, title: "Data Visualization" }
+  - { n: 4, title: "Mixture Models" }
+  - { n: 5, title: "Clustering" }
+  - { n: 6, title: "Testing" }
+  - { n: 7, title: "Multivariate Analysis" }
+  - { n: 8, title: "High-Throughput Count Data and Generalized Linear Models" }
+  - { n: 9, title: "Multivariate Methods for Heterogeneous Data" }
+  - { n: 10, title: "Networks and Trees" }
+  - { n: 11, title: "Image Data" }
+  - { n: 12, title: "Supervised Learning" }
+  - { n: 13, title: "Design of High-Throughput Experiments and their Analyses" }
+  - { n: 14, title: "Statistical Concordance", held_out: true }

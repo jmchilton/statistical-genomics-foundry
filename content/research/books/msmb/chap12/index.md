@@ -3,10 +3,6 @@ title: "Supervised Learning"
 source: msmb
 source_chapter: 12
 source_url: https://www.huber.embl.de/msmb/12-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Supervised Learning — MSMB Chapter 12 (summary)

@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import yaml from 'js-yaml';
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { isValidLicenseId } from './lib/license-policy';
@@ -14,20 +17,49 @@ const licenseId = z.string().refine(isValidLicenseId, {
 const stripIndex = ({ entry }: { entry: string }) =>
   entry.replace(/\.md$/, '').replace(/\/index$/, '');
 
-// Book notes: own-words summaries of external textbooks (e.g. MSMB chapters),
-// carrying per-note license + attribution. Source of truth is ../content/research/books.
+// Book notes: summaries of external textbooks (e.g. MSMB chapters). Book-level metadata
+// (license/license_file/attribution/derived) lives ONCE per book in
+// content/research/books/<id>/book.yml — not repeated in every chapter's frontmatter —
+// and is merged into each chapter entry below so downstream pages read a full record.
+const BOOKS_DIR = path.resolve('../content/research/books');
+const bookMetaCache = new Map<string, Record<string, unknown>>();
+function loadBookMeta(source: string): Record<string, unknown> {
+  let meta = bookMetaCache.get(source);
+  if (!meta) {
+    meta = yaml.load(fs.readFileSync(path.join(BOOKS_DIR, source, 'book.yml'), 'utf-8')) as Record<string, unknown>;
+    bookMetaCache.set(source, meta);
+  }
+  return meta;
+}
+
 const books = defineCollection({
   loader: glob({ pattern: ['**/index.md'], base: '../content/research/books', generateId: stripIndex }),
-  schema: z.object({
-    title: z.string(),
-    source: z.string(),
-    source_chapter: z.number().int().optional(),
-    source_url: z.string().url(),
-    license: licenseId,
-    license_file: z.string(),
-    attribution: z.string(),
-    derived: z.string(),
-  }),
+  // Chapter frontmatter carries only what varies per chapter; book-level fields are merged
+  // from book.yml. `attribution` may be a template ({n}/{title} filled from the chapter).
+  schema: z
+    .object({
+      title: z.string(),
+      source: z.string(),
+      source_chapter: z.number().int().optional(),
+      source_url: z.string().url(),
+    })
+    .transform((data, ctx) => {
+      const book = loadBookMeta(data.source);
+      if (!isValidLicenseId(book.license as string)) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: `book.yml license "${String(book.license)}" is not a valid id (source: ${data.source})` });
+        return z.NEVER;
+      }
+      const attribution = String(book.attribution)
+        .replace(/\{n\}/g, String(data.source_chapter ?? ''))
+        .replace(/\{title\}/g, data.title);
+      return {
+        ...data,
+        license: book.license as string,
+        license_file: book.license_file as string,
+        attribution,
+        derived: book.derived as string,
+      };
+    }),
 });
 
 // Source notes for papers + tutorials: faithful summaries with short load-bearing

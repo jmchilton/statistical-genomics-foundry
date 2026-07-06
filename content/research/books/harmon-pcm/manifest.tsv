@@ -1,0 +1,17 @@
+# Phylogenetic Comparative Methods: Learning from Trees (Harmon) — chapters 1–14
+# Source: https://lukejharmon.github.io/pcm/  (CC BY 4.0 — see LICENSES/CC-BY-4.0.LICENSE)
+# Format: <chapter-number><TAB><url>   Raw HTML lands gitignored in raw/; SHA256SUMS is the pin.
+01	https://lukejharmon.github.io/pcm/chapter1_introduction/
+02	https://lukejharmon.github.io/pcm/chapter2_stats/
+03	https://lukejharmon.github.io/pcm/chapter3_bmintro/
+04	https://lukejharmon.github.io/pcm/chapter4_fitbm/
+05	https://lukejharmon.github.io/pcm/chapter5_mvbm/
+06	https://lukejharmon.github.io/pcm/chapter6_beyondbm/
+07	https://lukejharmon.github.io/pcm/chapter7_introdiscrete/
+08	https://lukejharmon.github.io/pcm/chapter8_fitdiscrete/
+09	https://lukejharmon.github.io/pcm/chapter9_beyondmk/
+10	https://lukejharmon.github.io/pcm/chapter10_birthdeath/
+11	https://lukejharmon.github.io/pcm/chapter11_fitbd/
+12	https://lukejharmon.github.io/pcm/chapter12_beyondbd/
+13	https://lukejharmon.github.io/pcm/chapter13_chardiv/
+14	https://lukejharmon.github.io/pcm/chapter14_summary/

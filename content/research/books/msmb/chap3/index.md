@@ -3,10 +3,6 @@ title: "Data Visualization"
 source: msmb
 source_chapter: 3
 source_url: https://www.huber.embl.de/msmb/03-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Data Visualization — MSMB Chapter 3 (summary)

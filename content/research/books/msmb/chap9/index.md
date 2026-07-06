@@ -3,10 +3,6 @@ title: "Multivariate Methods for Heterogeneous Data"
 source: msmb
 source_chapter: 9
 source_url: https://www.huber.embl.de/msmb/09-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Multivariate Methods for Heterogeneous Data — MSMB Chapter 9 (summary)

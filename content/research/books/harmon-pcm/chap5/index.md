@@ -3,11 +3,6 @@ title: "Multivariate Brownian Motion"
 source: harmon-pcm
 source_chapter: 5
 source_url: https://lukejharmon.github.io/pcm/chapter5_mvbm/
-license: CC-BY-4.0
-license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Harmon LJ. Phylogenetic Comparative Methods: Learning from Trees. 2019 (book text v1.0.0). Chapter 5: Multivariate Brownian Motion (in-source title 'Fitting Brownian Motion Models to Multiple Characters'). Licensed CC-BY 4.0. https://lukejharmon.github.io/pcm/"
-derived: license-aware-summary
-access_date: "2026-07-03"
 ---
 
 # Harmon PCM Chapter 5 — Multivariate Brownian Motion (summary)

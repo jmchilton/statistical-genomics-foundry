@@ -1,0 +1,30 @@
+# Book-level metadata for the harmon-pcm source-note set — single source of truth.
+# Per-chapter chap<n>/index.md frontmatter carries only what varies: title, source,
+# source_chapter, source_url. The Astro `books` collection merges the book-level fields
+# below into each chapter entry (see site/src/content.config.ts). `attribution` is a template:
+# {n}/{title} are filled from each chapter's frontmatter (this book cites the chapter in-line).
+title: "Phylogenetic Comparative Methods: Learning from Trees"
+source: harmon-pcm
+source_url: https://lukejharmon.github.io/pcm/
+license: CC-BY-4.0
+license_file: LICENSES/CC-BY-4.0.LICENSE
+attribution: "Harmon LJ. Phylogenetic Comparative Methods: Learning from Trees. 2019 (book text v1.0.0). Chapter {n}: {title}. Licensed CC-BY 4.0. https://lukejharmon.github.io/pcm/"
+derived: license-aware-summary
+access_date: "2026-07-03"
+# Summarized via /summarize-source (license-aware quoting under CC-BY), not the own-words book
+# prompt — so no `summary_prompt`; /regenerate-book-summaries skips this book by design.
+chapters:
+  - { n: 1, title: "A Macroevolutionary Research Program" }
+  - { n: 2, title: "Fitting Statistical Models to Data" }
+  - { n: 3, title: "Introduction to Brownian Motion" }
+  - { n: 4, title: "Fitting Brownian Motion" }
+  - { n: 5, title: "Multivariate Brownian Motion" }
+  - { n: 6, title: "Beyond Brownian Motion" }
+  - { n: 7, title: "Models of discrete character evolution" }
+  - { n: 8, title: "Fitting models of discrete character evolution" }
+  - { n: 9, title: "Beyond the Mk model" }
+  - { n: 10, title: "Introduction to birth-death models" }
+  - { n: 11, title: "Fitting birth-death models" }
+  - { n: 12, title: "Beyond birth-death models" }
+  - { n: 13, title: "Characters and diversification rates" }
+  - { n: 14, title: "Summary" }

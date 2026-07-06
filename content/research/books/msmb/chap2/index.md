@@ -3,10 +3,6 @@ title: "Statistical Modeling"
 source: msmb
 source_chapter: 2
 source_url: https://www.huber.embl.de/msmb/02-chap.html
-license: CC-BY-NC-SA-2.0
-license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
-derived: own-words-summary
 ---
 
 # Statistical Modeling — MSMB Chapter 2 (summary)
