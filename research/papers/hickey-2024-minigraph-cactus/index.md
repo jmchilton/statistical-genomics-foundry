@@ -1,3 +1,15 @@
+---
+title: "Pangenome graph construction from genome alignments with Minigraph-Cactus"
+type: paper
+source_id: hickey-2024-minigraph-cactus
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10638906/
+doi: 10.1038/s41587-023-01793-w
+access_date: "2026-07-05"
+license: LicenseRef-all-rights-reserved
+attribution: "Hickey G, Monlong J, Ebler J, Novak AM, Eizenga JM, Gao Y, Human Pangenome Reference Consortium, Marschall T, Li H, Paten B. Pangenome graph construction from genome alignments with Minigraph-Cactus. Nature Biotechnology 42(4):663-673, 2024. DOI 10.1038/s41587-023-01793-w. Own-words summary from the PMC NIHPA author manuscript."
+derived: own-words-summary
+---
+
 # Minigraph-Cactus pangenome graph construction (Hickey et al. 2024)
 
 ## 1. Citation

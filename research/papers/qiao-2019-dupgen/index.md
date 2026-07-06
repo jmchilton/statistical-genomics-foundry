@@ -1,3 +1,16 @@
+---
+title: "Gene duplication and evolution in recurring polyploidization-diploidization cycles in plants"
+type: paper
+source_id: qiao-2019-dupgen
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6383267/
+doi: 10.1186/s13059-019-1650-2
+access_date: "2026-07-05"
+license: CC-BY-4.0
+license_file: LICENSES/CC-BY-4.0.LICENSE
+attribution: "Qiao X, Li Q, Yin H, Qi K, Li L, Wang R, Zhang S, Paterson AH. Gene duplication and evolution in recurring polyploidization-diploidization cycles in plants. Genome Biology 20:38, 2019. DOI 10.1186/s13059-019-1650-2. Summary also uses DupGen_finder README facts accessed 2026-07-05."
+derived: license-aware-summary
+---
+
 # Qiao et al. 2019 — DupGen_finder (modes of gene duplication in plants)
 
 ## 1. Citation
