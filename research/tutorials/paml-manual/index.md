@@ -1,3 +1,15 @@
+---
+title: "PAML Manual — codeml ancestral reconstruction"
+type: tutorial
+source_id: paml-manual
+source_url: https://raw.githubusercontent.com/abacus-gene/paml/master/doc/pamlDOC.pdf
+version: "4.10.8"
+access_date: "2026-07-03"
+license: GPL-3.0-only
+attribution: "Yang Z. PAML Manual, version 4.10.8, November 2024. Manual bundled with the PAML software package and distributed under GNU GPL v3 per the source note. Package citation: Yang Z. PAML 4: Phylogenetic analysis by maximum likelihood. Molecular Biology and Evolution 24:1586-1591, 2007."
+derived: own-words-summary
+---
+
 # PAML manual — codeml ancestral reconstruction (source note)
 
 ## 1. Citation
