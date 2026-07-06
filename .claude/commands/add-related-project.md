@@ -1,5 +1,5 @@
 ---
-description: Add a Related Projects note (research/project-*.md) for an adjacent project, following the house pattern
+description: Add a Related Projects note (content/research/projects/*.md) for an adjacent project, following the house pattern
 argument-hint: "<project name> [primary URL(s)]"
 allowed-tools: Read, Write, Edit, Bash, WebFetch, WebSearch, Agent
 ---
@@ -7,16 +7,16 @@ allowed-tools: Read, Write, Edit, Bash, WebFetch, WebSearch, Agent
 Create a **Related Projects** note for an adjacent project — its own framing, its
 strengths relative to the Foundry, a 7-value rubric table, and a clean present-
 tense divergence — and wire it into the site. Match the existing notes in
-`research/project-*.md` exactly.
+`content/research/projects/*.md` exactly.
 
 ## Input
 
 `$ARGUMENTS` = the project's name, optionally followed by one or more primary
 URLs (repo, site, paper). If no URL is given, find the primary sources yourself.
 Derive `<slug>` as the kebab-case project name; the note is
-`research/project-<slug>.md` and its site slug is `project-<slug>`.
+`content/research/projects/<slug>.md` and its site slug is `project-<slug>`.
 
-If the project clearly already has a `research/project-*.md` note, stop and ask
+If the project clearly already has a `content/research/projects/*.md` note, stop and ask
 whether to update it instead of creating a duplicate.
 
 ## 1. Ground yourself first
@@ -25,7 +25,7 @@ Read, in this order, before writing anything:
 
 - `docs/POSITIONING.md`, `docs/GUIDING_PRINCIPLES.md`, `docs/REFEREE_LOOP.md` —
   what the Foundry *is* and the values the rubric scores against.
-- One existing exemplar, `research/project-bioskills.md` — the canonical shape and
+- One existing exemplar, `content/research/projects/bioskills.md` — the canonical shape and
   voice. **Imitate it.**
 
 ## 2. Research discipline (the "verify" in the note)
@@ -124,7 +124,7 @@ title):
   {
     slug: 'project-<slug>',
     title: '<Project name>',
-    source: 'project-<slug>.md',
+    source: 'projects/<slug>.md',
     dir: 'research',
     summary: '<one line — what it is, plus "its framing, strengths, and where it sits on our values">',
     category: 'related-projects',

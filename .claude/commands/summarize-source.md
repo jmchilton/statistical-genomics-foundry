@@ -4,13 +4,13 @@ argument-hint: <collection>/<id>  (e.g. papers/nygaard-2016 or tutorials/deseq2)
 ---
 
 You are summarizing ONE source into a faithful, reusable research note. The note's home is
-`research/$1/` — its built summary goes in `research/$1/index.md`.
+`content/research/$1/` — its built summary goes in `content/research/$1/index.md`.
 
 Run this in a CLEAN CONTEXT: read only the source, the guidance file, and this prompt. Do not read
 the project's other docs/notes, do not let our thesis bend the summary.
 
 ## Step 0 — read the guidance file if it exists
-If `research/$1/guidance.md` exists, READ IT FIRST. It lists the specific questions this project
+If `content/research/$1/guidance.md` exists, READ IT FIRST. It lists the specific questions this project
 needs pulled from this source, plus must-quote items and version-pinning notes. Its questions become
 REQUIRED extra content — but obey the one rule that keeps the summary faithful: **guidance directs
 ATTENTION, not CONCLUSIONS.** Answer its questions from the source; never bend the source toward a
@@ -39,7 +39,7 @@ copyright statement on the page or in the package metadata; record it). Then quo
 State which mode you used, and apply it to §7 and to any guidance "must-quote" items (under a
 restrictive license a "must-quote" becomes a faithful own-words paraphrase).
 
-## Step 2 — produce the structured note (write to `research/$1/index.md`)
+## Step 2 — produce the structured note (write to `content/research/$1/index.md`)
 1. Citation — authors, year, full title, venue, DOI, open-access URL if any; for software
    docs/tutorials also the exact version summarized and your access date.
 2. Access note — what you could actually read, and any paywall boundary.

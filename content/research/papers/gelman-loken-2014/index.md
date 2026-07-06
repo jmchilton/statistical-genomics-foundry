@@ -2,7 +2,7 @@
 title: "The garden of forking paths: Why multiple comparisons can be a problem, even when there is no 'fishing expedition' or 'p-hacking' and the research hypothesis was posited ahead of time"
 type: paper
 source_id: gelman-loken-2014
-source_url: https://sites.stat.columbia.edu/gelman/research/unpublished/forking.pdf
+source_url: https://sites.stat.columbia.edu/gelman/content/research/unpublished/forking.pdf
 access_date: "2026-07-01"
 license: LicenseRef-all-rights-reserved
 attribution: "Andrew Gelman (Dept. of Statistics, Columbia University) and Eric Loken (Dept. of Human Development and Family Studies, Penn State), dated 14 Nov 2013. Published version: American Scientist 102(6):460, 2014, 'The Statistical Crisis in Science.'"

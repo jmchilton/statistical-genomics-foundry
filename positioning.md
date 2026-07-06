@@ -22,7 +22,7 @@ A system can be excellent and still leave most of these open — that's the poin
 ## Systems
 
 ### Biomni (Stanford) — https://biomni.stanford.edu/  ·  github.com/snap-stanford/Biomni
-**Status: verified** (primary sources; full report `research/verify-biomni.md`). _Note: the `/about` URL 404s; live site is the root._
+**Status: verified** (primary sources; full report `content/research/projects/biomni.md`). _Note: the `/about` URL 404s; live site is the root._
 
 **What it is (its framing):** a general-purpose biomedical AI agent that autonomously executes research tasks across 25 domains, integrating LLM reasoning + retrieval-augmented planning + code execution over a unified machine-mined environment (Biomni-E1). Python package (`A1` agent, `agent.go(...)`) + free hosted no-code web app; Apache-2.0; community tool-contribution pipeline (toward Biomni-E2).
 
@@ -47,7 +47,7 @@ A system can be excellent and still leave most of these open — that's the poin
 - ❌ Framing our referee as filling a void — frame as *automating* a check Biomni delegates to humans.
 
 ### POPPER (Stanford, ICML 2025) — github.com/snap-stanford/POPPER · arxiv.org/abs/2502.09858
-**Status: verified** (repo + full paper; report `research/verify-popper.md`). **Our nearest neighbor on the referee axis — handle with care.**
+**Status: verified** (repo + full paper; report `content/research/projects/popper.md`). **Our nearest neighbor on the referee axis — handle with care.**
 
 **What it is:** an agentic framework for rigorous automated validation of *free-form hypotheses* via Popperian falsification. Decomposes a hypothesis into falsifiable sub-hypotheses, designs+runs experiments (each yielding a p-value), aggregates p→e-values in a sequential test with **provable Type-I error control**. Python library (`Popper(llm=...).validate(...)`).
 
@@ -96,7 +96,7 @@ Rhetorical shape: pillars 1 & 2 are both "the layer **beneath**" (the artifact; 
 
 **Axis map / relationship:** it is an **index that points outward** to skills others authored; we **author + referee** skills and **foreground the knowledge**. It is human-readable (a markdown list) but a *catalog*, not a navigable knowledge base with progressive disclosure (axis 3), and by its own framing it does not mandate statistical rigor (axis 4). **Complementary, not overlapping:** our cast skills could be *listed there*; it is a distribution/discovery layer, we are the authoring + knowledge + referee layer.
 
-### bioSkills (GPTomics) — github.com/GPTomics/bioSkills  ·  see `research/verify-bioskills.md`
+### bioSkills (GPTomics) — github.com/GPTomics/bioSkills  ·  see `content/research/projects/bioskills.md`
 **Status: verified. Our nearest neighbor on the "repository of skills" axis — and more formidable than a quick read suggests. Three hypothesized limitations were refuted.**
 
 **What it is:** ~547 SKILL.md files across 63 bioinformatics categories (+ ~41 workflow skills), ~952★, v3.0 (Feb 2026), by GPTomics (also ships `bioTaskBench`). Serious, broad, actively maintained.
@@ -123,7 +123,7 @@ Rhetorical shape: pillars 1 & 2 are both "the layer **beneath**" (the artifact; 
 
 > Self-check resolved: the existing Galaxy Foundry `AGENTS.md` confirms `npm run validate` does schema + **cross-file resolution**, and the Mold-inventory invariant is machine-checked (every pipeline phase resolves to a real Mold note). So the "machine-checked resolution" edge over bioSkills' format-validated paths is real.
 
-### "knowledgebase-mcp" (a name-cluster, not one project) — see `research/verify-knowledgebase-mcp.md`
+### "knowledgebase-mcp" (a name-cluster, not one project) — see `content/research/projects/knowledgebase-mcp.md`
 **Status: verified.** ⚠️ **Disambiguation:** there is no single canonical `knowledgebase-mcp`. The name resolves to a cluster of agent-facing retrieval MCP servers — `jeanibarz/knowledge-base-mcp-server` (exact-name match, ~48★), `Geeksfino/kb-mcp-server` (most stars ~70★, tar.gz-portable), `olafgeibig/knowledge-mcp` (LightRAG). None science-specific. _If you meant a specific repo, confirm the owner — but the finding holds across all of them._
 
 **What they are:** point at a folder of docs → chunk + embed into a vector store → expose MCP tools (`retrieve_knowledge`, `ask_knowledge`) so an LLM client queries the corpus mid-reasoning. Plus (some) an operator CLI to build/search/curate.

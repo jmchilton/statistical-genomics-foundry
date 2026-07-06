@@ -15,9 +15,9 @@ const stripIndex = ({ entry }: { entry: string }) =>
   entry.replace(/\.md$/, '').replace(/\/index$/, '');
 
 // Book notes: own-words summaries of external textbooks (e.g. MSMB chapters),
-// carrying per-note license + attribution. Source of truth is ../research/books.
+// carrying per-note license + attribution. Source of truth is ../content/research/books.
 const books = defineCollection({
-  loader: glob({ pattern: ['**/index.md'], base: '../research/books', generateId: stripIndex }),
+  loader: glob({ pattern: ['**/index.md'], base: '../content/research/books', generateId: stripIndex }),
   schema: z.object({
     title: z.string(),
     source: z.string(),
@@ -54,12 +54,12 @@ const sourceNote = z.object({
 });
 
 const papers = defineCollection({
-  loader: glob({ pattern: ['**/index.md'], base: '../research/papers', generateId: stripIndex }),
+  loader: glob({ pattern: ['**/index.md'], base: '../content/research/papers', generateId: stripIndex }),
   schema: sourceNote,
 });
 
 const tutorials = defineCollection({
-  loader: glob({ pattern: ['**/index.md'], base: '../research/tutorials', generateId: stripIndex }),
+  loader: glob({ pattern: ['**/index.md'], base: '../content/research/tutorials', generateId: stripIndex }),
   schema: sourceNote,
 });
 

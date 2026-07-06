@@ -266,4 +266,4 @@ None unanswered — every guidance question was addressable from the vignette te
   effects from the batch effects ⇒ drop batch or rebalance/repeat. This is the non-identifiability rule the
   first (unguided) summary dropped and the blind author had to GAP. Guidance file → recovered.
 - **Convention, not citation:** FDR≤0.05, |log2FC|≥1, LRT-vs-Wald are community/vignette convention with
-  no defining primary — flag as convention/version-pinned (research/05 finding #2).
+  no defining primary — flag as convention/version-pinned (content/research/05 finding #2).

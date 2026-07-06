@@ -10,7 +10,7 @@ status: stub
 > **Stub.** Corpus-first: starts minimal, grows only when a real case demands it
 > (`GUIDING_PRINCIPLES.md`). The boundary table below is the load-bearing content — this leaf exists
 > mainly to be *distinguished* from its siblings. Each signature is added only when its primary is
-> read into a `research/papers/<id>/` note. Frontmatter contract for patterns deferred to repo standup.
+> read into a `content/research/papers/<id>/` note. Frontmatter contract for patterns deferred to repo standup.
 
 **Phenomenon (one line):** analytic choices — which comparison, which subgroup, which covariates,
 which exclusions, which transformation, which outcome coding — are made **contingent on the observed
@@ -48,9 +48,9 @@ whole reason the term exists; do not reduce it to "they ran too many tests."
 - **data-contingent covariate / model / transformation / exclusion** choices.
 - **outcome or coding switched** to the version that reached significance.
 
-## Primary sources to summarize (→ `research/papers/<id>/`)
-Sourcing pre-verified in `research/05-skill-backing-references.md` §10 (`[VS]`).
-**`✓ ingested`** = note exists at `research/papers/<slug>/` and wiki-links back here.
+## Primary sources to summarize (→ `content/research/papers/<id>/`)
+Sourcing pre-verified in `content/research/05-skill-backing-references.md` §10 (`[VS]`).
+**`✓ ingested`** = note exists at `content/research/papers/<slug>/` and wiki-links back here.
 
 - **Gelman & Loken 2014, _American Scientist_ 102(6):460** ("The Statistical Crisis in Science") +
   the **2013 Columbia working paper** ("The garden of forking paths: Why multiple comparisons can be
@@ -66,13 +66,13 @@ Sourcing pre-verified in `research/05-skill-backing-references.md` §10 (`[VS]`)
 ## Remedy (what the referee demands)
 - **Pre-specification / pre-registration**: declare the analysis family (comparisons, subgroups,
   covariates, exclusions, primary outcome) *before* seeing the data.
-- **Report across forks**: multiverse analysis / specification-curve (`research/04`: Steegen &
+- **Report across forks**: multiverse analysis / specification-curve (`content/research/04`: Steegen &
   Gelman 2016 `multiverse`; Simonsohn 2020 `specr`).
 - **Disclosure requirements** — Simmons et al.'s **six author requirements** (Table 2: pre-set +
   reported stopping rule; ≥20/cell; list all variables; report all conditions incl. failed; report
   results with excluded obs *included*; report results *without* the covariate). *(The compact
   "21-word solution" sentence is **later** work, not in Simmons 2011 — see `[[simmons-2011]]` §11.)*
-  For subgroups: interaction tests + credibility criteria (Sun et al. 2010, `research/05` §10 →
+  For subgroups: interaction tests + credibility criteria (Sun et al. 2010, `content/research/05` §10 →
   subgroup-analysis skill).
 
 ## Adjacent (cross-link — do not absorb)

@@ -10,7 +10,7 @@ status: stub
 > **Stub.** Corpus-first: this page starts minimal and grows only when a real case demands it
 > (`GUIDING_PRINCIPLES.md`). Below is the one-line phenomenon + the observed cross-method spread +
 > the primary-source outline to summarize next. Do not pad with invented signature prose; each
-> concrete signature is added only when its primary source is read into a `research/papers/<id>/`
+> concrete signature is added only when its primary source is read into a `content/research/papers/<id>/`
 > note. Frontmatter contract for patterns is deferred to repo standup (AGENTS.md).
 
 **Phenomenon (one line):** using the *same data* to both **select** what to test and to **test it**
@@ -38,11 +38,11 @@ Observed forms to cover (each becomes a signature once its primary is read):
 - **select-significant-then-estimate-effect** — winner's curse / effect-size inflation after
   selecting on significance *[design-inference; pin a genomics primary]*
 
-## Primary sources to summarize (→ `research/papers/<id>/`)
+## Primary sources to summarize (→ `content/research/papers/<id>/`)
 
 Ordered by role in the note. Confidence flags are honest: `[verify]` = exists but pin
 venue/volume/year before citing; unmarked = high confidence in author/year/venue.
-**`✓ ingested`** = note exists at `research/papers/<slug>/` and wiki-links back here.
+**`✓ ingested`** = note exists at `content/research/papers/<slug>/` and wiki-links back here.
 
 **Origin / cross-domain framing**
 - **Kriegeskorte, Simmons, Bellgowan & Baker 2009, _Nature Neuroscience_ 12:535–540** — coins

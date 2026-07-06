@@ -11,7 +11,7 @@
 > This note is the **cross-probe pattern** — positioning evidence, not a fourth probe. All findings
 > below are **probe-observed** (in the three committed `comparison.md` files) unless marked
 > `[design-inference]`. Honest scope: **N=3, all tool-orchestration skills** in one category — not
-> the stats-validity core the Foundry ultimately targets. See `research/05-skill-backing-references.md`
+> the stats-validity core the Foundry ultimately targets. See `content/research/05-skill-backing-references.md`
 > for the pre-probe recoverability framework this tests empirically.
 
 ## 1. The recurring failure signature
@@ -57,7 +57,7 @@ throughout: **label as convention, never fabricate a citation.**
 
 | Layer | CAP | WGA | Synteny | Pattern |
 |---|:---:|:---:|:---:|---|
-| **Validity axis** (the cardinal sin the referee guards) | High | High | High | **Always recovers.** Reference-bias, false-absence-below-sensitivity, masking/TE artifact, WGD-depth collapse, circular-scaffold, artifact-read-as-biology — each traces to a clean (often OA) primary. This is the asset (matches `research/05` finding #1). |
+| **Validity axis** (the cardinal sin the referee guards) | High | High | High | **Always recovers.** Reference-bias, false-absence-below-sensitivity, masking/TE artifact, WGD-depth collapse, circular-scaffold, artifact-read-as-biology — each traces to a clean (often OA) primary. This is the asset (matches `content/research/05` finding #1). |
 | **Defaults / thresholds** | Low | Low | **Medium** | **Skill-dependent.** WGA's primary-tool numbers (memory, branchScale) are *absent from the primary*; synteny's primary-tool numbers (MCScanX → Wang 2012; blkSize + OrthoFinder-2.5.4 → Lovell 2022) **genuinely trace**. So the defaults layer is not uniformly un-recoverable — it depends whether the tool's paper actually states its defaults. |
 | **Doer spine** (tool catalogue, per-tool CLI, version-compat, runnable pipelines) | Low* | Low* | Low* | *Out of a Family-B referee's scope **by design**, not by miss — these are orchestration skills; the referee audits conclusions, not tool-selection. This is a scoping caveat, not a Foundry deficiency. |
 
@@ -116,8 +116,8 @@ the propagation and reuse claims are inferences from three cases, not a systemat
 useful data point is a **stats-validity** skill, where the Family-B referee operates on its home turf.
 
 ## Sources
-- `research/experiments/ingest-comparative-annotation-projection/comparison.md` (+ `gap-closing.md`)
-- `research/experiments/ingest-whole-genome-alignment/comparison.md` (+ `gap-closing.md`)
-- `research/experiments/ingest-synteny-analysis/comparison.md` (+ `gap-closing.md`)
-- `research/05-skill-backing-references.md` (the pre-probe recoverability framework)
+- `content/research/experiments/ingest-comparative-annotation-projection/comparison.md` (+ `gap-closing.md`)
+- `content/research/experiments/ingest-whole-genome-alignment/comparison.md` (+ `gap-closing.md`)
+- `content/research/experiments/ingest-synteny-analysis/comparison.md` (+ `gap-closing.md`)
+- `content/research/05-skill-backing-references.md` (the pre-probe recoverability framework)
 - GitHub issue: https://github.com/GPTomics/bioSkills/issues/105 (CAP citation + CAT-mechanism findings)

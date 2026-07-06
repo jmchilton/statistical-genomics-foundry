@@ -44,11 +44,11 @@ The invented-method-with-a-fluent-derivation case — the project's sharpest tar
 as fabricated *reasoning within a correct answer*, never method invention — `[[statqa-2024]]` §10).
 So the benchmark that grounds prong 1 explicitly does **not** touch prong 2. Across the prior-art
 survey this case is repeatedly flagged as **unguarded**:
-- `research/02-statistical-genomics-non-r.md` — "'Invented method with a cool name' is unguarded …
+- `content/research/projects/02-statistical-genomics-non-r.md` — "'Invented method with a cool name' is unguarded …
   nothing detects an agent confabulating a novel, statistically-invalid procedure." `[inference]`
-- `research/03-genomics-broad.md` — "'Invented method' failure is unaddressed … none defend against
+- `content/research/projects/03-genomics-broad.md` — "'Invented method' failure is unaddressed … none defend against
   an agent fabricating a novel method with a fluent derivation." `[inference]`
-- `research/04-statistics-broad.md` — StatQA applicability-error finding `[verified]`; but "'Invented
+- `content/research/projects/04-statistics-broad.md` — StatQA applicability-error finding `[verified]`; but "'Invented
   method with convincing derivation' — the sharpest case — has no dedicated detector." `[inference]`
 
 **No primary/benchmark sources prong 2.** Flag it as white-space; cite the project survey, do not
@@ -58,7 +58,7 @@ manufacture a citation. The asymmetry is the point (see footer).
 - **StatQA** — Zhu, Du, Li, Luo & Tang, "Are Large Language Models Good Statisticians?", NeurIPS
   2024 D&B Track (arXiv:2406.07815; data/code GPL-3.0). Grounds **prong 1**: the applicability-error
   finding + the condition→method taxonomy + the AE-vs-STC error split. → `✓ ingested` [[statqa-2024]]
-- **Prong 2 (existence)** — no benchmark/primary. White-space per `research/02`–`04`.
+- **Prong 2 (existence)** — no benchmark/primary. White-space per `content/research/02`–`04`.
   `[design-inference — flag, do not manufacture a citation]`
 
 ## The referee's check (how the mold uses this leaf)
