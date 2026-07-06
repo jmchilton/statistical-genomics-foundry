@@ -1,3 +1,15 @@
+---
+title: "CAFE: a computational tool for the study of gene family evolution"
+type: paper
+source_id: de-bie-2006-cafe
+source_url: https://academic.oup.com/bioinformatics/article/22/10/1269/237347
+doi: 10.1093/bioinformatics/btl097
+access_date: "2026-07-03"
+license: LicenseRef-all-rights-reserved
+attribution: "De Bie T, Cristianini N, Demuth JP, Hahn MW. CAFE: a computational tool for the study of gene family evolution. Bioinformatics 22(10):1269-1271, 2006. DOI 10.1093/bioinformatics/btl097. Oxford University Press article page; summarized in own words."
+derived: own-words-summary
+---
+
 # CAFE: a computational tool for the study of gene family evolution (De Bie et al. 2006)
 
 ## 1. Citation

@@ -1,3 +1,15 @@
+---
+title: "Comparative Annotation Toolkit (CAT)-simultaneous clade and personal genome annotation"
+type: paper
+source_id: fiddes-2018-cat
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6028123/
+doi: 10.1101/gr.233460.117
+access_date: "2026-07-03"
+license: LicenseRef-CC-BY-NC-4.0
+attribution: "Fiddes IT, Armstrong J, Diekhans M, Nachtweide S, Kronenberg ZN, Underwood JG, Gordon D, Earl D, Keane T, Eichler EE, Haussler D, Stanke M, Paten B. Comparative Annotation Toolkit (CAT)-simultaneous clade and personal genome annotation. Genome Research 28(7):1029-1038, 2018. DOI 10.1101/gr.233460.117. Read via PMC open-access full text; note records CC BY-NC 4.0 posture."
+derived: license-aware-summary
+---
+
 # Comparative Annotation Toolkit (CAT) — Fiddes et al. 2018
 
 ## 1. Citation

@@ -1,3 +1,15 @@
+---
+title: "Evolution's cauldron: Duplication, deletion, and rearrangement in the mouse and human genomes"
+type: paper
+source_id: kent-2003-chain-net
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC208784/
+doi: 10.1073/pnas.1932072100
+access_date: "2026-07-03"
+license: LicenseRef-all-rights-reserved
+attribution: "Kent WJ, Baertsch R, Hinrichs A, Miller W, Haussler D. Evolution's cauldron: Duplication, deletion, and rearrangement in the mouse and human genomes. PNAS 100(20):11484-11489, 2003. DOI 10.1073/pnas.1932072100. Free full text read via PMC; summarized in own words."
+derived: own-words-summary
+---
+
 # Kent et al. 2003 — Evolution's cauldron (chains & nets)
 
 ## 1. Citation

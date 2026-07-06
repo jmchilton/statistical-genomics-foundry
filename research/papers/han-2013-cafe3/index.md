@@ -1,3 +1,15 @@
+---
+title: "Estimating Gene Gain and Loss Rates in the Presence of Error in Genome Assembly and Annotation Using CAFE 3"
+type: paper
+source_id: han-2013-cafe3
+source_url: https://academic.oup.com/mbe/article/30/8/1987/1017616
+doi: 10.1093/molbev/mst100
+access_date: "2026-07-03"
+license: LicenseRef-all-rights-reserved
+attribution: "Han MV, Thomas GWC, Lugo-Martinez J, Hahn MW. Estimating Gene Gain and Loss Rates in the Presence of Error in Genome Assembly and Annotation Using CAFE 3. Molecular Biology and Evolution 30(8):1987-1997, 2013. DOI 10.1093/molbev/mst100. Abstract verified via PubMed; body text retrieved from Oxford page with access boundary; summarized in own words."
+derived: own-words-summary
+---
+
 # Han et al. 2013 — Estimating gene gain/loss rates in the presence of error using CAFE 3
 
 ## 1. Citation

@@ -1,3 +1,15 @@
+---
+title: "Liftoff: accurate mapping of gene annotations"
+type: paper
+source_id: shumate-salzberg-2021-liftoff
+source_url: https://academic.oup.com/bioinformatics/article/37/12/1639/6035128
+doi: 10.1093/bioinformatics/btaa1016
+access_date: "2026-07-03"
+license: LicenseRef-all-rights-reserved
+attribution: "Shumate A, Salzberg SL. Liftoff: accurate mapping of gene annotations. Bioinformatics 37(12):1639-1643, 2021. DOI 10.1093/bioinformatics/btaa1016. Oxford University Press article page plus Liftoff GitHub README consulted for tool defaults; paper prose summarized in own words."
+derived: own-words-summary
+---
+
 # Liftoff: accurate mapping of gene annotations
 
 ## 1. Citation

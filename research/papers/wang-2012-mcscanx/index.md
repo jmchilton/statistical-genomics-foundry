@@ -1,3 +1,15 @@
+---
+title: "MCScanX: a toolkit for detection and evolutionary analysis of gene synteny and collinearity"
+type: paper
+source_id: wang-2012-mcscanx
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3326336/
+doi: 10.1093/nar/gkr1293
+access_date: "2026-07-04"
+license: LicenseRef-CC-BY-NC-3.0
+attribution: "Wang Y, Tang H, DeBarry JD, Tan X, Li J, Wang X, Lee T-h, Jin H, Marler B, Guo H, Kissinger JC, Paterson AH. MCScanX: a toolkit for detection and evolutionary analysis of gene synteny and collinearity. Nucleic Acids Research 40(7):e49, 2012. DOI 10.1093/nar/gkr1293. Read via PMC open-access full text; note records CC BY-NC 3.0 posture."
+derived: license-aware-summary
+---
+
 # MCScanX — faithful source note
 
 ## 1. Citation
