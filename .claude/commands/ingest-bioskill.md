@@ -1,5 +1,5 @@
 ---
-description: Recover one bioSkills SKILL.md into the Foundry, Foundry-safe — research its backing sources, ingest them via summarize-source, blind-assemble a candidate Mold, then diff Mold vs. skill
+description: Recover one bioSkills SKILL.md into the Foundry, Foundry-safe — research its backing sources, ingest them via summarize-source, blind-assemble a candidate Mold, diff Mold vs. skill, then close gaps with open-access surrogates
 argument-hint: "<bioSkills skill> (path like population-genetics/selection-statistics, or a SKILL.md URL)"
 allowed-tools: Read, Write, Edit, Bash, WebFetch, WebSearch, Agent
 ---
@@ -41,7 +41,9 @@ Read: `docs/glossary.md` (vocabulary authority), `docs/MOLD_SPEC.md` (the Mold c
 assemble against), `research/05-skill-backing-references.md` (the recoverability framework +
 already-verified sources for the 10 cross-cutting skills), `research/project-bioskills.md` (what
 bioSkills is and where it leads/lags), and `.claude/commands/summarize-source.md` (the ingest
-contract Phase 2 obeys). Skim existing `research/` notes so Phase 1 can reuse, not duplicate.
+contract Phase 2 obeys). **Phase 1's research subagent — not you — inventories the existing corpus
+and triages reuse** (below); your job is to sanity-check its triage, so read `research/05` closely
+rather than pre-skimming the notes yourself.
 
 ## Phase 1 — research the backing sources (subagent → you write guidance)
 
@@ -53,10 +55,18 @@ Spawn one research subagent. Its job (it **returns a report, writes nothing**):
    **procedure spine**, **validity axis** (the cardinal sin a Family-B referee would guard),
    **defaults/thresholds**. For each claim the skill makes, ask: what primary source would this
    have to trace to?
-3. **Check for reuse first.** Cross-reference `research/05-skill-backing-references.md` and
-   existing `research/**/index.md` notes. If a source is already ingested, mark it **reuse** (no
-   re-summarize). If a note exists but dropped what this skill needs, mark it **re-summarize**
-   (usually: add/extend a `guidance.md`). Only genuinely-missing sources are **new**.
+3. **Inventory the corpus, then triage every needed fact against it — work from the files, not
+   memory.** First Glob/Read the existing corpus (`research/**/index.md` +
+   `research/05-skill-backing-references.md`) and list what each note *actually covers*. Then route
+   every layer/fact the skill needs (not just the sources the skill happens to name) via the
+   **reuse triage** — the canonical routing, reused in Phase 5:
+   - **reuse-existing** — the fact is already in a corpus note (**even one ingested for a *different*
+     skill**) → cite that note, no ingest.
+   - **re-summarize-existing** — our source holds it but the note dropped it → extend that note's
+     `guidance.md` + re-ingest in Phase 2.
+   - **new** — absent from the whole corpus → a new source.
+   Cross-skill hits are the point: a note this skill never points to may already carry the fact.
+   Only **new** and **re-summarize** reach Phase 2; **reuse-existing** is closed here.
 4. **For each NEW or re-summarize source, propose:** `<collection>/<id>` (collection ∈
    `papers | tutorials | books`), full citation + open-access URL, license/copyright posture,
    and a complete **`guidance.md`** body — targeted questions that direct *attention, not
@@ -69,12 +79,14 @@ Spawn one research subagent. Its job (it **returns a report, writes nothing**):
    the own-words books path, not `summarize-source`. Prefer reusing an existing `research/books/`
    summary; if one is missing, list it as a **book-path dependency**, don't summarize it here.
 
-Report shape the subagent returns: the fetched skill's layer decomposition; a source table
-(`id | collection | new/reuse/re-summarize | license | citation+URL`); the full guidance.md text
-per new/re-summarize source; the convention-flag list; and any book-path dependencies.
+Report shape the subagent returns: the fetched skill's layer decomposition; the **reuse-triage
+table** (`layer/fact | reuse-existing | re-summarize | new | note-cited-for-reuse | license +
+citation+URL`); the full guidance.md text per new/re-summarize source; the convention-flag list;
+and any book-path dependencies.
 
-**You then:** sanity-check the plan (reuse honored? conventions not dressed as citations?),
-create each `research/<collection>/<id>/` dir, and **write the `guidance.md` files**.
+**You then:** sanity-check the triage (reuse-existing hits real and sufficient? conventions not
+dressed as citations? nothing marked `new` that a corpus note already covers?), create each
+`research/<collection>/<id>/` dir for new/re-summarize sources, and **write the `guidance.md` files**.
 
 ## Phase 2 — ingest each source (parallel summarizer subagents, clean context)
 
@@ -119,7 +131,9 @@ the ingested notes. It returns a report (writes nothing) covering:
   the GAP markers from Phase 3 as evidence. Mirror `research/05`'s table shape.
 - **GAP taxonomy → next actions** — sort each gap (skill3 style): **new source note** /
   **re-summarize existing** / **convention, not citable**. Call out any *silent* gap the assembler
-  couldn't even flag (the highest-value find — a memory-written skill sails past it).
+  couldn't even flag (the highest-value find — a memory-written skill sails past it). For each
+  gap, note whether its load-bearing primary is **accessible** or **paywalled/inaccessible** —
+  the paywalled `new source note` / `re-summarize` gaps are Phase 5's surrogate-recovery targets.
 - **What the Foundry adds** — the empirical referee/gate the candidate Mold implies that the
   bioSkills SKILL.md states as flat prose but cannot trace (per `project-bioskills.md`).
 - **Where bioSkills leads** — credit honestly (CLI version-compat rigor, coverage, embedded stats).
@@ -128,12 +142,61 @@ the ingested notes. It returns a report (writes nothing) covering:
 **You then** write it to `research/experiments/ingest-<skill-slug>/comparison.md`, matching the
 voice of the existing `research/experiments/` notes.
 
-## Phase 5 — report
+## Phase 5 — close gaps with open-access surrogates (subagent → you write guidance + spawn clean-context summarizers)
+
+Phase 4's GAP taxonomy sorts each gap. Before hunting anything externally, the retrieval subagent
+**re-applies the Phase 1 reuse triage** to the gap residue against the *current* corpus (now
+including the Phase-2 notes): a gap may already be **reuse-existing** or **re-summarize-existing**,
+needing no external search — flag those for the orchestrator. Only facts **truly absent from the
+corpus** *and* blocked on a **paywalled / inaccessible** primary reach the surrogate hunt. Gaps
+labeled **convention, not citable** are NOT hunted — a convention has no primary to recover; the
+label is the answer. If nothing survives the triage as a paywalled-and-absent fact, skip this phase
+and say so.
+
+Spawn one retrieval subagent (or one per gap cluster if the gaps are many/disjoint). It **returns
+a report, writes nothing.** Give it the gap list with, per gap, the *specific fact the gap needs*
+(the load-bearing sentence / number / procedure) — **not** the SKILL.md and **not** the skill's own
+citations (those may be the confabulations the probe exists to catch; hunt by fact-needed, not by
+the skill's reference list). Its job:
+
+1. For each target gap, search **open-access surrogates** that carry the missing content citably:
+   OA reviews, **package vignettes** (especially author-written — they faithfully mirror the tool's
+   own framework), man/help pages, free or CC-licensed textbooks, tutorials.
+2. Per candidate surrogate, return `<collection>/<id>`, full citation + URL, **license posture**,
+   and a **disposition**:
+   - **recommend** — accessible license, faithfully carries the fact → draft its `guidance.md`
+     (attention-directing, not conclusions — same contract as Phase 1).
+   - **hold** — carries the fact but routing is unresolved (e.g. a CC-licensed *book* — still gated
+     on the books-path reconciliation; do NOT `/summarize-source` it yet).
+   - **still-open** — no accessible surrogate closes it; the gap needs the primary's **full text**
+     (the exact crux sentence / its own original numbers). Say so plainly; never fake-close.
+3. **Provenance of each recovered fact — whose analysis is it.** A review's restatement, a
+   vignette's *re-analysis* of someone else's data, and the primary's *own* original numbers are
+   three different things. Label which for every fact. This is what blocks laundering.
+4. **Surface contradictions, don't smooth them.** If a surrogate *conflicts* with the fact as the
+   gap states it (or with a memory-gloss that entered an upstream decomposition), **flag the
+   conflict explicitly** — a surrogate pointing the opposite way is method-validation, the
+   highest-value output, not noise. Do not resolve it by picking a side from memory.
+
+**You then:** write `research/experiments/ingest-<skill-slug>/gap-closing.md` (the work-list —
+per gap: closed-by-surrogate / held / still-open, with the attribution note and any conflict called
+out), and write the `guidance.md` for each **recommend** surrogate. Then, exactly as Phase 2, spawn
+a **clean-context** summarizer per recommend (blind to SKILL.md and our framing) to write its
+`research/<collection>/<id>/index.md`. **Hold** and **still-open** items are reported, not ingested.
+
+**Do not re-run Phase 3.** The candidate Mold measured what recovered from the *original* note set;
+re-blind-assembling against surrogate-enriched notes would contaminate that measurement. Gap-closing
+enriches the corpus for the eventual human-authored Mold and records what *newly* recovers — it does
+not re-open the probe. Record closure status in `gap-closing.md`; leave the Phase-3 candidate as-is.
+
+## Phase 6 — report
 
 Summarize to the user: skill ingested; sources written (new/reused/re-summarized counts) with
 paths; candidate-mold + comparison paths; the sharpest recovered-traceably win and the sharpest
-gap. Note this staged nothing into `content/` and authored no real Mold. **Do not commit unless
-asked.** Then list any unresolved questions concisely.
+gap. Then the gap-closing result: surrogates ingested (recommend), plus the **held** and
+**still-open** gaps and any **conflict** the retrieval pass surfaced. Note this staged nothing into
+`content/` and authored no real Mold. **Do not commit unless asked.** Then list any unresolved
+questions concisely.
 
 ## Guardrails recap
 
@@ -142,3 +205,9 @@ asked.** Then list any unresolved questions concisely.
 - Conventions are labeled, never cited. `hypothesis`-evidence references carry a `verification`.
 - Candidate Mold stays in `research/experiments/`, never `content/molds/`, until a human authors it.
 - Reuse existing notes; don't re-ingest what `research/` already holds.
+- **Surrogate attribution (Phase 5):** a surrogate is cited as *itself*, never laundered into a
+  citation of the paywalled primary it substitutes for. Label whose analysis each recovered fact is.
+- **Surface conflicts, don't smooth them (Phase 5):** a surrogate that contradicts a gap's stated
+  fact is a find, not an error — flag it.
+- **Gap-closing doesn't re-open the probe (Phase 5):** never re-blind-assemble the Mold after
+  ingesting surrogates; it would contaminate the recoverability measurement.
