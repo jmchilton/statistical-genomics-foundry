@@ -35,6 +35,14 @@ on a term, the glossary wins.** Load it in full before reasoning about anything 
 - `docs/COMPILATION_PIPELINE.md` — adapted casting + provenance (Pillar 1).
 - `docs/MOLDS.md` — initial Mold set, a **TODO outline** — nothing authored yet.
 
+## The rendered site
+
+The corpus renders to a static site — an **Astro app under `site/`**. Run the dev server the way
+`site/package.json` documents (its scripts print the local URL + base path). **Content routes are
+declared by the page router `site/src/pages/`** (design-doc slugs via `site/src/lib/design-docs.ts`);
+recover any source↔route mapping from there rather than hardcoding it. This is the one piece of build
+tooling that has stood up — everything under "Deferred to repo standup" has not.
+
 ## Authoring conventions (applicable now)
 
 - **Wiki-link fields use `[[Target]]`.** Carry over the parent's convention when docs
@@ -112,7 +120,8 @@ not have. Port them (as an explicit diff) only when the actual repo stands up:
 
 - Frontmatter-is-contract rules, `meta_schema.yml` (Draft 07, `additionalProperties: false`),
   `meta_tags.yml` tag registry.
-- `validate before commit`, `npm run …`, Makefile targets, pre-commit hooks.
+- `validate before commit`, Makefile targets, pre-commit hooks (the `site/` dev/build npm scripts
+  are the standing exception — see "The rendered site").
 - Mold IO schemas in packages; "don't edit generated files" (Dashboard/Index/casts).
 - Vendored planemo artifacts, generated `workflow-fixtures/`, the pnpm package layout.
 
