@@ -36,27 +36,9 @@ self-certification wearing a test's clothes.
   descriptions of a *class* with no instantiated input.
 - **F** — no way to exercise the skill at all.
 
-## Worked example — `ancestral-reconstruction`
-
-`scenario_unique-mp-reconstruction-called-certain.md`:
-- Fixture: Stewart 1987 lysozyme, 6×130 AA — small, hash-pinned, unrestricted (GPL-3.0 tool +
-  published data). ✓ small ✓ unrestricted `[observed]`
-- `scenarios.md`: planted-invalid (unique reconstruction sold as certain → expected **FLAG**) +
-  clean control (posteriors reported → expected **PASS**). ✓ `[observed]`
-- Ground truth: Yang-Kumar-Nei 1995 marginal posterior ~**0.563** — a *known* referent, though the
-  exact codeml figure is model-dependent and flagged. ✓ (with caveat)
-- Coverage: **narrow** — one cardinal sin (uncertainty-not-reported), not the skill's full surface
-  (codon selection, resurrection, trait ASR untested).
-- Grade: **B** — exemplary scenario, known ground truth, but single-axis coverage. `[observed]`
-
-This is the target shape for every skill's Assessability, and the reason the axis exists.
-
 ## Assessments
 
-| Skill | Grade | Date | Evidence |
-|---|---|---|---|
-| `comparative-genomics/ancestral-reconstruction` (via ASR scenario) | B | 2026-07-11 | `scenario_unique-mp-reconstruction-called-certain.md` |
-| synteny / WGA / CAP ingestions | `[unassessed]` | 2026-07-11 | scenarios were class-prose, not instantiated → likely D |
+_No skills assessed yet._
 
 ## Open calibration questions
 
@@ -64,4 +46,4 @@ This is the target shape for every skill's Assessability, and the reason the axi
 2. How is "coverage" measured against a `mixed` skill with many independent tool paths — fraction
    of branches touched, or of cardinal sins guarded?
 3. Should ground-truth that is *itself* from the tool under test (circular) be disallowed, or
-   allowed if independently published (Yang 1995 is independent — the good case)?
+   allowed if independently published?

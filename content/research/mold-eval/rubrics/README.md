@@ -36,9 +36,11 @@ Operability** — you cannot exercise a fixture against a tool you can't run.
 3. **Scored dimensions** — a table: dimension | what earns credit | evidence source.
 4. **Bands** — A/B/C/D/F in *observable* terms (Operability adds a deduction ladder, per the
    author's sketch).
-5. **Worked example** — usually the ASR (`ingest-ancestral-reconstruction`) case.
-6. **Assessments** — a living table (skill | grade | date | evidence), seeded only where we have
-   evidence; `[unassessed]` otherwise. This is the "update over time" part.
+5. **Worked example** *(optional)* — a concrete assessed case, added once a skill is actually
+   graded; abstract until then.
+6. **Assessments** *(optional roll-up)* — a single-axis table (skill | grade | date | evidence),
+   empty until used. The authoritative per-subject scorecard (all four axes) is written under
+   `../assessments/` by the assess commands, not here.
 7. **Open calibration questions** — where the band cutoffs are still soft.
 
 ## Grading philosophy
@@ -62,8 +64,21 @@ Operability** — you cannot exercise a fixture against a tool you can't run.
 - **Operability** is bioSkills' home turf (the doer-spine layer the probes score out of a
   Family-B referee's scope by design — cross-synthesis §2). A rubric lets us credit it explicitly.
 
+## Applied by
+
+Two commands apply these rubrics. **The command owns the research protocol (what evidence to
+gather); the rubric owns the grading criteria (how to judge)** — so criteria live here once, never
+restated in a command:
+
+- `/assess-external-skill <skill>` — can we build a Foundry **mirror** of an external skill (feasibility)?
+- `/assess-mold <mold>` — grade one of our Molds **as it stands**.
+
+Both fan research out to one subagent per axis, then write a per-subject scorecard (four-letter
+vector + evidence + work-list) under `../assessments/` — **not** into these files, which stay
+abstract.
+
 ## Not built yet (planning-workspace honesty)
 
 These are **prose rubrics**, not tooling. No scoring script, no schema, no per-skill scorecard
 generator — deferred to repo standup, like everything in `AGENTS.md` "Deferred to repo standup."
-Grade by hand, record in the assessments table.
+Grade via the assess commands (or by hand); scorecards land under `../assessments/`.

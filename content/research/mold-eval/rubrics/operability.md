@@ -39,20 +39,9 @@ biocontainer, **and** install targets documented. Then deduct:
 A `mixed`-tool skill (several tools) scores the **worst-case load-bearing tool**, not the average —
 the pipeline is only as runnable as its hardest dependency. Note per-tool grades in the evidence.
 
-## Worked example — `ancestral-reconstruction`
-
-bioSkills doer is `tool_type: mixed` (PAML + IQ-TREE2 + GRASP + R). Tool-by-tool:
-- **PAML** — GPL-3.0 `[observed: LICENSE at pinned commit 4c7902f]`; bioconda + biocontainer,
-  cross-platform (C) `[verify]`. Copyleft → −½ under Q1's current setting.
-- **GRASP** — Java; packaging/portability `[verify]` — likely the worst-case tool.
-- Full grade **`[unassessed — pending tool-by-tool conda/license/container check]`**. The rubric
-  deliberately refuses a letter until the checks run — modeling its own discipline.
-
 ## Assessments
 
-| Skill | Grade | Date | Evidence |
-|---|---|---|---|
-| `comparative-genomics/ancestral-reconstruction` (bioSkills) | `[unassessed]` | 2026-07-11 | PAML GPL-3.0 confirmed; rest pending |
+_No skills assessed yet._
 
 ## Open calibration questions
 
