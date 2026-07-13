@@ -15,3 +15,7 @@ workflow-fixtures/
 # Imported raw corpus (fetched by scripts/sync-book.sh). We don't redistribute the
 # source text — only the manifest + SHA256SUMS pin and our derived summaries.
 content/research/books/*/raw/
+
+# Scenario fixtures staged (fetched + hash-verified) by the evaluating agent from a
+# scenario_<slug>.md setup step. Pinned for reproducibility (immutable input by hash).
+content/research/experiments/**/_stage/

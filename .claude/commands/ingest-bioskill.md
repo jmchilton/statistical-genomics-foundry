@@ -1,15 +1,17 @@
 ---
-description: Recover one bioSkills SKILL.md into the Foundry, Foundry-safe — research its backing sources, ingest them via summarize-source, blind-assemble a candidate Mold, diff Mold vs. skill, then close gaps with open-access surrogates
+description: Recover one bioSkills SKILL.md into the Foundry, Foundry-safe — research its backing sources, ingest them via summarize-source, blind-assemble a candidate doer+audit Mold pair, diff the pair vs. skill, then close gaps with open-access surrogates
 argument-hint: "<bioSkills skill> (path like population-genetics/selection-statistics, or a SKILL.md URL)"
 allowed-tools: Read, Write, Edit, Bash, WebFetch, WebSearch, Agent
 ---
 
 Take ONE `SKILL.md` from bioSkills (github.com/GPTomics/bioSkills) and reconstruct a
-**traceable** equivalent inside the Foundry: find the primary sources the skill's content
-would have to trace to, ingest them as faithful research notes, blind-assemble a candidate
-Mold from those notes alone, then compare the Mold against the original skill. The output is
-a **recoverability probe**, not a finished Mold — the deliverable is the diff (what recovers
-with a real citation vs. what is convention or invention) and a work-list, in the spirit of
+**traceable** equivalent inside the Foundry as a **do-then-audit pair**: find the primary
+sources the skill's content would have to trace to, ingest them as faithful research notes,
+then **blind-assemble two candidate Molds from those notes alone — a Family-A *doer* and a
+Family-B *audit* — neither seeing the SKILL.md**, then compare both against the original skill.
+The output is a **recoverability probe**, not finished Molds — the deliverable is the diff
+(what recovers with a real citation vs. what is convention or invention), now for BOTH the
+*doing procedure* (→ doer) and the *validity axis* (→ audit), plus a work-list, in the spirit of
 `content/research/experiments/skill3-recoverability-test.md` and `content/research/05-skill-backing-references.md`.
 
 ## Input
@@ -27,13 +29,15 @@ against bioSkills' category names, stop and confirm before spending subagent bud
   write-command that *must* run in a clean context, so those subagents write their own
   `index.md`. Do not let any other subagent write.
 - **Clean-context isolation is load-bearing twice.** Summarizers (Phase 2) must see only their
-  source + `guidance.md` — never the SKILL.md or our framing. The assembler (Phase 3) must see
-  only the imported notes — **never the SKILL.md** — or the recoverability diff is contaminated
-  (it would copy the skill instead of recovering it). Enforce both by what you put in each prompt.
+  source + `guidance.md` — never the SKILL.md or our framing. **Both Molds are assembled blind in
+  Phase 3 — the doer AND the audit see only the imported notes, never the SKILL.md** — or the
+  recoverability diff is contaminated (they would copy the skill instead of recovering it). A blind
+  doer is deliberate: it measures whether the *doing procedure* itself traces to primaries or is
+  fluent invention. Enforce both by what you put in each prompt.
 - **Corpus-first / anti-invention.** This command must not become a Mold factory that emits
-  plausible invented prose — that is the exact failure the Foundry referees. The assembled Mold
-  is a **candidate for human authoring**, staged outside `content/`. Gaps drive sourcing, never
-  memory backfill.
+  plausible invented prose — that is the exact failure the Foundry referees. Both assembled Molds
+  (doer + audit) are **candidates for human authoring**, staged outside `content/`. Gaps drive
+  sourcing, never memory backfill.
 
 ## Phase 0 — ground yourself
 
@@ -52,9 +56,12 @@ Spawn one research subagent. Its job (it **returns a report, writes nothing**):
 1. **Fetch the actual SKILL.md** from bioSkills (raw URL). Work from the real file, not memory
    of it — bioSkills moves fast.
 2. **Decompose the skill into the three recoverability layers** (from `content/research/05`):
-   **procedure spine**, **validity axis** (the cardinal sin a Family-B referee would guard),
+   **procedure spine** (what a Family-A *doer* does — the method choices + the reproducible
+   sequence), **validity axis** (the cardinal sin a Family-B *referee* would guard), and
    **defaults/thresholds**. For each claim the skill makes, ask: what primary source would this
-   have to trace to?
+   have to trace to? **Source BOTH halves:** the procedure spine needs method-establishing papers
+   (the primary that defines/validates the method the doer selects), not only the audit's
+   cautionary sources — previously under-collected because only the audit was built.
 3. **Inventory the corpus, then triage every needed fact against it — work from the files, not
    memory.** First Glob/Read the existing corpus (`content/research/**/index.md` +
    `content/research/05-skill-backing-references.md`) and list what each note *actually covers*. Then route
@@ -103,48 +110,82 @@ For **re-summarize** sources, do the same but note the existing note is being ex
 new guidance. After they finish, glance at each `index.md` for the paywall/`[summarizer-inferred]`
 flags and that guidance questions were answered or explicitly marked unanswered.
 
-## Phase 3 — blind-assemble a candidate Mold (subagent → you write to staging)
+## Phase 3 — blind-assemble the candidate doer + audit pair (subagent → you write to staging)
 
-Spawn ONE assembler subagent. **Critical: it sees ONLY the imported `index.md` notes** (the ones
-Phase 1 marked reuse/new/re-summarize) + `docs/MOLD_SPEC.md` + `docs/glossary.md` + the
-`docs/MOLDS.md` naming convention. **It must NOT see the SKILL.md.** Its job (returns a draft,
-writes nothing):
+Spawn ONE assembler subagent for the **pair** (both Molds share the same note set, so one blind
+context keeps them coherent — the doer's gate handoff can reference the audit's actual axes).
+**Critical: it sees ONLY the imported `index.md` notes** (the ones Phase 1 marked
+reuse/new/re-summarize) + `docs/MOLD_SPEC.md` + `docs/glossary.md` + `docs/REFEREE_LOOP.md` + the
+`docs/MOLDS.md` naming convention. **It must NOT see the SKILL.md** — this holds for the doer too;
+a blind doer is what measures whether the *doing* traces to primaries. It returns a draft, writes
+nothing. Its job:
 
-- Author a candidate Mold from the notes alone: `index.md` (typed `references:` manifest wiki-
-  linking the ingested notes + procedural body), `eval.md` (properties — for a Family-B referee,
-  at least one **catch-the-planted-flaw** guardrail per MOLD_SPEC), and `scenarios.md` (concrete
-  cases; planted-invalid fixtures where apt).
-- **Mark `[GAP: …]` wherever the notes don't supply what a conforming Mold needs — never fill
-  from memory.** This instruction is load-bearing (skill3 test finding): with it the task is
-  honest; without it the model confabulates. Pick a family/role tag and name per convention.
+- **The Family-A doer Mold** (`candidate-doer/index.md`): from the notes' procedure-spine sources,
+  author `frame → design-review → select an established method → run reproducibly`, ending in a
+  `[gate]` phase that **hands off to the audit Mold** (a doer may not self-certify — REFEREE_LOOP).
+  Typed `references:` wiki-link the method notes. **`[GAP: …]` every operational detail the notes
+  don't supply** (exact tool invocation, version pin, param default) — do NOT fill from memory; a
+  blind doer is *expected* to have operational gaps, and those become Phase-5 surrogate targets.
+- **The Family-B audit Mold** (`candidate-audit/index.md`): the validity-axis referee — each axis
+  note-traced, ending in a `[gate]`/Calibrate handoff. As before.
+- **`eval.md` per Mold.** Doer-eval = Family-A properties (selects an *established* method not an
+  invented one; the run is reproducible; **it terminates in the gate handoff, never self-certifies**).
+  Audit-eval = the catch-the-planted-flaw oracle (≥1 guardrail per MOLD_SPEC). Keep eval abstract —
+  no fixtures.
+- **`scenarios.md` — instantiate the stimulus, don't describe a class.** The pairing is what makes
+  this concrete: a scenario binds a **specific doer configuration** and its **actual output**, which
+  the audit then consumes → expected verdict. **Planted-invalid = a deliberately mis-configured doer
+  run** (a known-bad setting that trips an audit axis); the clean control = a correct run that must
+  PASS. Test each case: *could a reader actually produce this input and run it?* If not it is still
+  too high-level — mark `[GAP]` rather than paraphrase a class. Where a case audits an *external*
+  claim with no doer run, bind a concrete (synthetic-but-realistic, explicitly synthetic) excerpt
+  grounded in a real worked number from the notes; `[GAP]` if none recovers.
+- **`[GAP: …]` over memory-backfill everywhere** (skill3 finding): with it the task is honest;
+  without it the model confabulates. Pick family/role tags and names per convention.
 
 **You then** write the returned draft to a **staging dir outside `content/`**:
-`content/research/experiments/ingest-<skill-slug>/candidate-mold/{index.md,eval.md,scenarios.md}`.
-Staging (not `content/molds/`) because Molds are human-authored corpus-first; this is a candidate.
+`content/research/experiments/ingest-<skill-slug>/{candidate-doer,candidate-audit}/{index.md,eval.md,scenarios.md}`.
+Staging (not `content/molds/`) because Molds are human-authored corpus-first; these are candidates.
+(Pre-pair experiments used a single `candidate-mold/` == the audit half; not retro-migrated.)
 
-## Phase 4 — compare Mold vs. skill (subagent → you write the report)
+> **Open items (don't fake-solve).** The pair-level scenario layout (per-Mold `scenarios.md` sharing
+> fixtures vs. a single shared file), fixtures for *external-claim* audits in domains with no
+> benchmark source (StatQA covers none of the comparative-genomics skills), and actual *runnability*
+> (gated on repo standup — no build/fixture tooling here yet) are unresolved. Author to the shape
+> above and flag the residue; do not invent a fixture harness.
 
-Spawn ONE compare subagent. It sees **everything**: the fetched SKILL.md, the candidate Mold, and
-the ingested notes. It returns a report (writes nothing) covering:
+## Phase 4 — compare the pair vs. skill (subagent → you write the report)
 
-- **Recoverability by layer** — spine / validity axis / defaults, each graded High/Med/Low, with
-  the GAP markers from Phase 3 as evidence. Mirror `content/research/05`'s table shape.
+Spawn ONE compare subagent. It sees **everything**: the fetched SKILL.md, **both** candidate Molds
+(doer + audit), and the ingested notes. It returns a report (writes nothing) covering:
+
+- **Recoverability by layer, for BOTH molds** — procedure spine (→ doer), validity axis (→ audit),
+  and defaults, each graded High/Med/Low, with the Phase-3 GAP markers as evidence. Mirror
+  `content/research/05`'s table shape. **The doer diff is a first-class finding:** does the SKILL's
+  *procedure* trace to method papers, or is part of it fluent *invented doing* with no primary? — as
+  sharp a probe result as the validity-axis one, and dead-on the project thesis.
 - **GAP taxonomy → next actions** — sort each gap (skill3 style): **new source note** /
-  **re-summarize existing** / **convention, not citable**. Call out any *silent* gap the assembler
-  couldn't even flag (the highest-value find — a memory-written skill sails past it). For each
-  gap, note whether its load-bearing primary is **accessible** or **paywalled/inaccessible** —
-  the paywalled `new source note` / `re-summarize` gaps are Phase 5's surrogate-recovery targets.
-- **What the Foundry adds** — the empirical referee/gate the candidate Mold implies that the
-  bioSkills SKILL.md states as flat prose but cannot trace (per `content/research/projects/bioskills.md`).
-- **Where bioSkills leads** — credit honestly (CLI version-compat rigor, coverage, embedded stats).
-  Don't overclaim; a shared strength is a similarity, not our edge.
+  **re-summarize existing** / **convention, not citable**, now including the doer's **operational
+  gaps** (exact command, version pin, param default → typically closed by a tool's own author-written
+  vignette/man-page in Phase 5). Call out any *silent* gap either assembler couldn't even flag (the
+  highest-value find — a memory-written skill sails past it). For each gap, note whether its
+  load-bearing source is **accessible** or **paywalled/inaccessible** — accessible gaps are Phase 5's
+  recovery targets.
+- **What the Foundry adds** — the empirical referee/gate the pair implies (the doer *hands off*; the
+  audit *judges*) that the bioSkills SKILL.md states as flat prose but cannot trace (per
+  `content/research/projects/bioskills.md`).
+- **Where bioSkills leads** — credit honestly (CLI version-compat rigor, coverage, embedded stats);
+  the doer's operational gaps are exactly where bioSkills leads today. Don't overclaim; a shared
+  strength is a similarity, not our edge.
 
 **You then** write it to `content/research/experiments/ingest-<skill-slug>/comparison.md`, matching the
 voice of the existing `content/research/experiments/` notes.
 
 ## Phase 5 — close gaps with open-access surrogates (subagent → you write guidance + spawn clean-context summarizers)
 
-Phase 4's GAP taxonomy sorts each gap. Before hunting anything externally, the retrieval subagent
+Phase 4's GAP taxonomy sorts each gap — including the doer's **operational gaps** (exact command,
+version pin, param default), whose natural surrogate is the **tool's own author-written vignette /
+man-page**. Before hunting anything externally, the retrieval subagent
 **re-applies the Phase 1 reuse triage** to the gap residue against the *current* corpus (now
 including the Phase-2 notes): a gap may already be **reuse-existing** or **re-summarize-existing**,
 needing no external search — flag those for the orchestrator. Only facts **truly absent from the
@@ -184,26 +225,32 @@ out), and write the `guidance.md` for each **recommend** surrogate. Then, exactl
 a **clean-context** summarizer per recommend (blind to SKILL.md and our framing) to write its
 `content/research/<collection>/<id>/index.md`. **Hold** and **still-open** items are reported, not ingested.
 
-**Do not re-run Phase 3.** The candidate Mold measured what recovered from the *original* note set;
-re-blind-assembling against surrogate-enriched notes would contaminate that measurement. Gap-closing
-enriches the corpus for the eventual human-authored Mold and records what *newly* recovers — it does
-not re-open the probe. Record closure status in `gap-closing.md`; leave the Phase-3 candidate as-is.
+**Do not re-run Phase 3.** The candidate pair (doer + audit) measured what recovered from the
+*original* note set; re-blind-assembling either Mold against surrogate-enriched notes would
+contaminate that measurement. Gap-closing enriches the corpus for the eventual human-authored Molds
+and records what *newly* recovers (including which doer operational gaps a vignette/man-page closes,
+moving the pair toward runnable) — it does not re-open the probe. Record closure status in
+`gap-closing.md`; leave the Phase-3 candidates as-is.
 
 ## Phase 6 — report
 
 Summarize to the user: skill ingested; sources written (new/reused/re-summarized counts) with
-paths; candidate-mold + comparison paths; the sharpest recovered-traceably win and the sharpest
-gap. Then the gap-closing result: surrogates ingested (recommend), plus the **held** and
-**still-open** gaps and any **conflict** the retrieval pass surfaced. Note this staged nothing into
-`content/` and authored no real Mold. **Do not commit unless asked.** Then list any unresolved
-questions concisely.
+paths; **candidate-doer + candidate-audit + comparison paths**; for BOTH molds the sharpest
+recovered-traceably win and the sharpest gap (the doer's procedure-recoverability finding and the
+audit's validity-recoverability finding are separate results — report both). Then the gap-closing
+result: surrogates ingested (recommend), plus the **held** and **still-open** gaps and any
+**conflict** the retrieval pass surfaced. **Note runnability honestly:** a blind doer is runnable
+only once its operational gaps are closed from **citable surrogates** (tool vignettes/man-pages) —
+never from the SKILL.md or memory; say which gaps still block a runnable do-then-audit pass. Note
+this staged nothing into `content/` and authored no real Mold. **Do not commit unless asked.** Then
+list any unresolved questions concisely.
 
 ## Guardrails recap
 
-- Assembler is blind to the SKILL.md; summarizers are blind to everything but their source +
-  guidance. Contaminate either and the recoverability claim is worthless.
+- **Both assemblers are blind to the SKILL.md** (doer AND audit); summarizers are blind to
+  everything but their source + guidance. Contaminate any and the recoverability claim is worthless.
 - Conventions are labeled, never cited. `hypothesis`-evidence references carry a `verification`.
-- Candidate Mold stays in `content/research/experiments/`, never `content/molds/`, until a human authors it.
+- Candidate **doer and audit** stay in `content/research/experiments/`, never `content/molds/`, until a human authors them.
 - Reuse existing notes; don't re-ingest what `content/research/` already holds.
 - **Surrogate attribution (Phase 5):** a surrogate is cited as *itself*, never laundered into a
   citation of the paywalled primary it substitutes for. Label whose analysis each recovered fact is.
