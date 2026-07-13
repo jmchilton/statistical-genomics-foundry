@@ -35,29 +35,9 @@ A referee that only reasons caps below one that calibrates.
   reassuring itself.
 - **F** — no referee, no gate, and the skill presents its output as certified.
 
-## Worked example — `ancestral-reconstruction`
-
-- `candidate-audit/` (`audit-ancestral-reconstruction-validity`) exists; the ASR scenario's doer
-  step ends by feeding output to it — a real handoff. `[observed]`
-- Guards the correct cardinal sin: *uncertainty must be reported, not assumed* (unique
-  reconstruction ≠ certain). ✓ `[observed]`
-- Calibrate: the audit **demands the `rst` posteriors** and restricts claims to high-posterior
-  sites — an empirical check on the doer's own output, not mere reasoning. Leans toward **A**.
-- But the bioSkills doer's own line `posterior >= 0.95 | Standard convention (Yang 1995)` mis-cites
-  the cutoff — the *doer* self-certifies with a convention dressed as sourced; the referee's job is
-  to *not* repeat that. The pair (blind doer + audit) is what surfaces it.
-- Grade: **B+** — right axis, real handoff, a Calibrate demand; formal gate encoding pending repo
-  standup. `[design-inference]`
-
 ## Assessments
 
-| Skill | Grade | Date | Evidence |
-|---|---|---|---|
-| `comparative-genomics/ancestral-reconstruction` (candidate pair) | B+ | 2026-07-11 | `candidate-mold/` + ASR scenario |
-| bioSkills SKILL.md as-shipped (no Family-B, doer self-certifies) | D | 2026-07-11 | cross-synthesis §5 (skills state validity as flat prose, no gate) |
-
-The **D for the as-shipped skill vs B+ for our candidate pair** is the axis earning its keep: the
-Foundry's edge is the gate, and this rubric measures exactly that delta.
+_No skills assessed yet._
 
 ## Open calibration questions
 

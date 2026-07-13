@@ -32,31 +32,9 @@ note recoverability grades **our notes against the skill's needs**.
 - **D** — the validity axis itself does not trace; load-bearing claims rest on invented sources.
 - **F** — pervasive confabulation; the skill is fluent invention with citation-shaped decoration.
 
-## Worked example — the N=3 probes `[observed]`
-
-From `ingest-probes-cross-synthesis.md` (CAP, WGA, synteny):
-- **Validity axis: always High** — reference-bias, false-absence, WGD-depth collapse each trace to
-  a clean OA primary. Pulls the grade up.
-- **CLI confabulations** — `anchorwave proali --ploidy N` (no such flag), CAT as "Snakemake" (it's
-  Luigi+Toil). Pulls it down hard — a command that doesn't run is a wrong *pointer*.
-- **Citation confabulations** — "Fitch 1976 J Mol Evol 7:271" (doesn't resolve), "Smith LP 2024"
-  (no such paper). Down hard.
-- **Thresholds: variable** — synteny's MCScanX numbers genuinely trace; WGA's `branchScale` never
-  appears in its cited primary.
-- Net: these three land around **C** — a real, traceable validity axis undercut by confabulated CLI
-  and citations sitting beside the real ones. That gap *is* the Foundry thesis.
-
 ## Assessments
 
-| Skill | Grade | Date | Evidence |
-|---|---|---|---|
-| `comparative-genomics/comparative-annotation-projection` | C | 2026-07-11 | `ingest-comparative-annotation-projection/comparison.md` |
-| `comparative-genomics/whole-genome-alignment` | C | 2026-07-11 | `ingest-whole-genome-alignment/comparison.md` |
-| `comparative-genomics/synteny-analysis` | C | 2026-07-11 | `ingest-synteny-analysis/comparison.md` |
-| `comparative-genomics/ancestral-reconstruction` | `[unassessed]` | 2026-07-11 | no `comparison.md` yet (candidate pair unbuilt) |
-
-Grades are `[design-inference]` from the probe findings — a formal per-claim tally per skill would
-firm the letters. The three C's share a signature, not a coincidence (cross-synthesis §1).
+_No skills assessed yet._
 
 ## Open calibration questions
 
