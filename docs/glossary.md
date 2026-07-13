@@ -6,6 +6,12 @@
 
 **Analyze → referee → revise loop** — the project's structural spine. An analysis (Family A) hands off to a referee (Family B), whose verdict gates certification; on a fail the analysis is revised (bounded) or escalated. Generalizes the parent's `author → validate → fix` loop; the novelty is that the referee node is a *Mold* and judges *method validity*. See `REFEREE_LOOP.md`.
 
+**Assessment axis** — one of the four `-ability` dimensions a **Rubric** grades a Family-A doer
+skill on: **Operability** (can the tooling be run), **Assessability** (can the skill be tested),
+**Traceability** (do claims trace to recoverable sources), **Refereeability** (is the doing gated by
+a real Family-B referee). A skill scores as a *vector* of the four letters, never a composite. See
+`content/research/mold-eval/rubrics/`.
+
 **Bipolar corpus** — our grounding corpus has two poles: **established-good** (methods + their validity conditions) and **cautionary-bad** (named invalidity patterns + signatures + remedies), plus supporting reporting-standard, calibration-methodology, and benchmark kinds. Unlike the parent's all-positive IWC corpus, a referee needs both poles. See `CORPUS.md`.
 
 **Calibrate** *(Family B role)* — *construct and run* an empirical check: permutation/null, simulation-under-known-truth, negative controls, power. The external verdict that is *not* self-certification. The role that turns the gate into a deliverable. Contrast **Critique**.
@@ -59,6 +65,12 @@
 **Referee** — a Family-B Mold (or protocol stage) that judges an analysis's method validity using empirical checks rather than the agent's own reasoning. Non-self-certifying. The novelty vs the parent: the referee is a *Mold*, not a deterministic CLI.
 
 **Reference kind** — the type discriminator on a Mold's typed references, controlling casting behavior: `pattern`, `research`, `cli-command`, `schema` (demoted), `prompt`, `example`, `eval` (never packaged).
+
+**Rubric** — a standing, living scorecard grading a Family-A doer skill on one **Assessment axis**
+(A–F, half steps), grounded in probe evidence and updated as more skills are graded. Net-new to this
+instance; `content/research/mold-eval/rubrics/`. **Traceability** is the standing-metric form of the `/ingest-bioskill`
+recoverability probe; **Refereeability** grades the **Gate** obligation. Prose contracts, not tooling
+(scoring machinery deferred to repo standup).
 
 **Scenario note** *(`scenarios.md`)* — the Mold's concrete test cases: a fixture/input binding + its expected verdict, exercised by the `eval.md` oracle. For us, richest as **planted-invalid fixtures** (a deliberately double-dipped analysis → expected "flagged"). StatQA is a ready source. Distinct from **Evaluation plan**.
 

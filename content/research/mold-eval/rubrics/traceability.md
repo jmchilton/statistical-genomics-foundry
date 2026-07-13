@@ -1,0 +1,67 @@
+# Traceability — does the content trace to recoverable sources?
+
+The standing-metric form of the `/ingest-bioskill` recoverability probe: distills a
+`comparison.md` into a grade. It asks, per load-bearing claim, *does this trace to a real,
+resolving, ideally open-access source* — vs. a confabulated citation, an invented CLI detail, or a
+convention dressed as a citation.
+
+Distinct from **note recoverability** (AGENTS.md: can the skill be rebuilt from *our captured
+notes*?). That is the upstream enabler — a claim is only Traceable-with-citation if some
+recoverable source carries it. This axis grades the **skill's claims against the literature**;
+note recoverability grades **our notes against the skill's needs**.
+
+## Scored dimensions (the layers a probe decomposes)
+
+| Dimension | Earns credit when | Evidence source |
+|---|---|---|
+| Validity axis | the cardinal sin the referee guards traces to a clean, ideally-OA primary | `comparison.md` |
+| Doer procedure spine | the method choices trace to method-*establishing* papers, not fluent invention | `comparison.md` (blind-doer diff) |
+| Defaults / thresholds | numbers trace to a primary that *states them* (not convention-mislabeled) | `comparison.md` |
+| Citations resolve | every cited paper actually exists at the given locus | per-citation check |
+| CLI / mechanism correct | commands run; flags exist; tools wired as the primary describes | tool README/man `[verify]` |
+| Sources open-access | the load-bearing primaries are reachable without a paywall | source access check |
+
+## Bands
+
+- **A** — validity axis and procedure spine both trace to resolving, OA primaries; thresholds are
+  either sourced or honestly labeled convention; no confabulated citation or CLI detail survives.
+- **B** — validity axis traces cleanly; a few thresholds are convention-mislabeled or one primary
+  is paywalled, but nothing is *confabulated*.
+- **C** — mix of traceable and invented: real citations sit beside ≥1 that doesn't resolve, or ≥1
+  CLI flag that doesn't exist — indistinguishable to a reader without per-claim checking.
+- **D** — the validity axis itself does not trace; load-bearing claims rest on invented sources.
+- **F** — pervasive confabulation; the skill is fluent invention with citation-shaped decoration.
+
+## Worked example — the N=3 probes `[observed]`
+
+From `ingest-probes-cross-synthesis.md` (CAP, WGA, synteny):
+- **Validity axis: always High** — reference-bias, false-absence, WGD-depth collapse each trace to
+  a clean OA primary. Pulls the grade up.
+- **CLI confabulations** — `anchorwave proali --ploidy N` (no such flag), CAT as "Snakemake" (it's
+  Luigi+Toil). Pulls it down hard — a command that doesn't run is a wrong *pointer*.
+- **Citation confabulations** — "Fitch 1976 J Mol Evol 7:271" (doesn't resolve), "Smith LP 2024"
+  (no such paper). Down hard.
+- **Thresholds: variable** — synteny's MCScanX numbers genuinely trace; WGA's `branchScale` never
+  appears in its cited primary.
+- Net: these three land around **C** — a real, traceable validity axis undercut by confabulated CLI
+  and citations sitting beside the real ones. That gap *is* the Foundry thesis.
+
+## Assessments
+
+| Skill | Grade | Date | Evidence |
+|---|---|---|---|
+| `comparative-genomics/comparative-annotation-projection` | C | 2026-07-11 | `ingest-comparative-annotation-projection/comparison.md` |
+| `comparative-genomics/whole-genome-alignment` | C | 2026-07-11 | `ingest-whole-genome-alignment/comparison.md` |
+| `comparative-genomics/synteny-analysis` | C | 2026-07-11 | `ingest-synteny-analysis/comparison.md` |
+| `comparative-genomics/ancestral-reconstruction` | `[unassessed]` | 2026-07-11 | no `comparison.md` yet (candidate pair unbuilt) |
+
+Grades are `[design-inference]` from the probe findings — a formal per-claim tally per skill would
+firm the letters. The three C's share a signature, not a coincidence (cross-synthesis §1).
+
+## Open calibration questions
+
+1. One confabulated *load-bearing* citation → hard cap at C? Or weight by how central the claim is?
+2. Convention honestly self-labeled (credit) vs convention dressed as citation (penalty) — how many
+   band steps apart?
+3. Does a paywalled-but-real primary (traceable, not reachable) score with an OA one, or half-step
+   below? Traceability and open-access are arguably two sub-axes.
