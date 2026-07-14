@@ -65,12 +65,25 @@ for (const sourceRoot of sourceRoots) {
     if (missing.length > 0) {
       problems.push(`${relativePath}: missing ${missing.join(', ')}`);
     }
+
+    // Every required field is z.string() in content.config.ts. Catch the type here
+    // rather than letting `astro build` fail: an unquoted `access_date: 2026-07-13`
+    // is a YAML timestamp, not a string, and the note only fails at deploy time.
+    for (const field of requiredFields) {
+      const value = data[field];
+      if (value === undefined || typeof value === 'string') continue;
+      const hint =
+        value instanceof Date
+          ? ' (YAML parsed it as a date — quote it: "YYYY-MM-DD")'
+          : ` (got ${Array.isArray(value) ? 'array' : typeof value})`;
+      problems.push(`${relativePath}: ${field} must be a string${hint}`);
+    }
   }
 }
 
 if (problems.length > 0) {
   console.error('Source notes with invalid required YAML frontmatter:');
   for (const problem of problems) console.error(`- ${problem}`);
-  console.error(`Required fields: ${requiredFields.join(', ')}.`);
+  console.error(`Required fields (all strings): ${requiredFields.join(', ')}.`);
   process.exit(1);
 }

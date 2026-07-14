@@ -3,7 +3,7 @@ title: "limma: Linear Models for Microarray and Omics Data — package documenta
 type: tutorial
 source_id: limma
 source_url: https://bioconductor.org/packages/release/bioc/manuals/limma/man/limma.pdf
-access_date: 2026-07-13
+access_date: "2026-07-13"
 license: GPL-2.0-or-later
 license_file: LICENSES/GPL-2.0-or-later.LICENSE
 attribution: "Gordon K. Smyth et al., limma (Bioconductor). Package version 3.68.4. Licensed GPL (>=2)."

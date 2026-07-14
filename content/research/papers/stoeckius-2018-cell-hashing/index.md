@@ -3,7 +3,7 @@ title: "Cell Hashing with barcoded antibodies enables multiplexing and doublet d
 type: paper
 source_id: stoeckius-2018-cell-hashing
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6300015/
-access_date: 2026-07-13
+access_date: "2026-07-13"
 license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Stoeckius M, Zheng S, Houck-Loomis B, Hao S, Yeung BZ, Mauck WM III, Smibert P, Satija R. Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics. Genome Biology. 2018;19:224. doi:10.1186/s13059-018-1603-1. Licensed CC BY 4.0."
