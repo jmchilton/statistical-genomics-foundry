@@ -42,4 +42,8 @@ every note that carries verbatim quotes under them; a source-specific license co
 | File | License | Redistributed by |
 |---|---|---|
 | `msmb.LICENSE` | CC BY-NC-SA 2.0 | *Modern Statistics for Modern Biology*, Holmes & Huber, Cambridge University Press 2019 — https://www.huber.embl.de/msmb/ (own-words book notes) |
-| `CC-BY-4.0.LICENSE` | CC BY 4.0 (SPDX plaintext) | `korthauer-dmrseq-2019`, `nygaard-2016`, `wen-2025` — source notes carrying verbatim CC-BY quotes |
+| `CC-BY-4.0.LICENSE` | CC BY 4.0 (SPDX plaintext) | `korthauer-dmrseq-2019`, `nygaard-2016`, `wen-2025`, `munafo-2018-collider`, `zhang-2020-combat-seq` — source notes carrying verbatim CC-BY quotes |
+| `CC-BY-2.5.LICENSE` | CC BY 2.5 (SPDX plaintext) | `leek-storey-2007-sva` — PLOS 2007-era open-access articles |
+| `CC-BY-2.0.LICENSE` | CC BY 2.0 (SPDX plaintext) | `yan-2012-osat` — BMC 2012-era open-access articles |
+| `Artistic-2.0.LICENSE` | Artistic License 2.0 (SPDX plaintext) | `tutorials/sva`, `tutorials/rnaseqgene` — Bioconductor package docs/vignettes/workflows |
+| `MIT.LICENSE` | MIT (SPDX plaintext) | `tutorials/designit` — CRAN package docs/vignettes |

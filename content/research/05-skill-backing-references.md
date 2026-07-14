@@ -88,8 +88,10 @@ default `resolution=1.0` confirmed, but `sc.pp.neighbors`/`pca` defaults and Seu
 **Spine / validity axis (the cardinal sin, clean primary):** Nygaard, Rødland, Hovig 2016
 *Biostatistics* 17(1):29 — removing batch then testing inflates confidence, catastrophically under
 unbalanced designs `[VS]`. Tool-level corroboration: **limma `removeBatchEffect` doc explicitly says
-not to use it before linear modelling** (use it only for plots) `[VS]`; DESeq2 vignette: model batch
-as `~ batch + condition`, don't correct-then-test `[VS]`.
+not to use it before linear modelling** (use it only for plots) `[VF]` — **venue corrected 2026-07-13:
+the statement is in the Rd man page (limma reference manual, Note section), NOT the limma User's
+Guide, which never mentions `removeBatchEffect` (0 hits, full-text checked). Cite the man page.**
+DESeq2 vignette: model batch as `~ batch + condition`, don't correct-then-test `[VS]`.
 **Methods:** Leek et al. 2010 *Nat Rev Genet* 11:733 (overview, paywalled) `[VS]`; Johnson et al. 2007
 (ComBat) `[VS]`; Zhang et al. 2020 *NAR Genom Bioinform* (ComBat-seq, OA) `[VS]`; Leek & Storey 2007
 *PLoS Genet* (SVA) `[VS]`; Risso et al. 2014 *Nat Biotechnol* (RUVSeq) `[VS]`.
