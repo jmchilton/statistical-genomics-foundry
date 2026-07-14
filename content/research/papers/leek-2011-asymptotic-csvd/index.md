@@ -3,7 +3,7 @@ title: "Asymptotic conditional singular value decomposition for high-dimensional
 type: paper
 source_id: leek-2011-asymptotic-csvd
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3165001/
-access_date: 2026-07-13
+access_date: "2026-07-13"
 license: LicenseRef-all-rights-reserved
 attribution: "Leek JT. Asymptotic conditional singular value decomposition for high-dimensional genomic data. Biometrics. 2011;67(2):344–352. doi:10.1111/j.1541-0420.2010.01455.x. PMC3165001 (NIH public-access author manuscript; no Creative Commons grant)."
 derived: own-words-summary
