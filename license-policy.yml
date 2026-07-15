@@ -95,12 +95,12 @@ licenses:
     name: CC0 1.0 (public domain dedication)
     policy: verbatim-ok
     allowed_modes: [verbatim, condense, sidecar]
-    license_file: false
+    license_file: true
     copyleft: false
     obligations: >-
-      none — public-domain dedication; no attribution or notice obligation, so
-      no license_file is required even for verbatim carry (a citation is kept as
-      scholarly courtesy, not a license term)
+      none legally — public-domain dedication, no attribution or notice term. The
+      CC0 legalcode is still vendored on verbatim carry (uniform with every other
+      verbatim-ok row; license_file_tracks_verbatim); a citation is kept as courtesy
 
   CC-BY-4.0:
     name: CC BY 4.0
