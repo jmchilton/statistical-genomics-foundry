@@ -25,10 +25,18 @@ terms, and framing — do not generalize, round, or "improve" them.
 
 ## Step 1.5 — license-aware quoting (decide BEFORE writing §7)
 Determine the source's license/copyright posture (look for an explicit license / Creative Commons /
-copyright statement on the page or in the package metadata; record it). Then quote accordingly:
-- **License permits reproduction** — public domain; Creative Commons (BY / BY-SA / BY-NC*); or a
-  free/open-source license (MIT, Apache, (L)GPL, Artistic) covering the documentation: short verbatim
+copyright statement on the page or in the package metadata; record it). The authority for what each
+license permits is `license-policy.yml` (`policy`: `verbatim-ok` vs `own-words-only`) — do not decide
+from the license name alone. Then quote accordingly:
+- **`verbatim-ok` in the table** — public domain (CC0); Creative Commons BY / BY-SA; or a permissive
+  free/open-source license (MIT, Apache, BSD, Artistic) covering the documentation: short verbatim
   load-bearing quotes are allowed (§7), each with location + attribution.
+- **`own-words-only` in the table** — this includes every **NonCommercial (NC / NC-SA / NC-ND)**
+  Creative Commons license: the NC condition would otherwise propagate into casts. Do NOT reproduce
+  verbatim prose; render §7 as **own-words paraphrase** (functional strings excepted, below).
+- **Copyleft (GPL / LGPL)** — `verbatim-ok` but the row's `allowed_modes` exclude `condense`, so a
+  verbatim carry must be isolated, never blended into prose. For a source *note* (which is condensed
+  prose), prefer own-words paraphrase and keep only functional strings verbatim.
 - **All-rights-reserved, restrictive, or license UNKNOWN / unverified**: do NOT reproduce verbatim
   prose. Render §7 as **own-words paraphrase** of the load-bearing statements, preserving facts,
   numbers, named methods, and procedure. When in doubt, treat as restrictive.

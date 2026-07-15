@@ -5,9 +5,9 @@ source_id: beaulieu-omeara-2016-hisse
 source_url: https://academic.oup.com/sysbio/article/65/4/583/1753616
 doi: 10.1093/sysbio/syw022
 access_date: "2026-07-03"
-license: LicenseRef-CC-BY-NC-ND
+license: CC-BY-NC-ND-4.0
 attribution: "Beaulieu JM, O'Meara BC. Detecting Hidden Diversification Shifts in Models of Trait-Dependent Speciation and Extinction. Systematic Biology 65(4):583-601, 2016. DOI 10.1093/sysbio/syw022. Published version is Oxford University Press; abstract/preprint access noted in the source note."
-derived: abstract-only-license-aware-summary
+derived: abstract-only-own-words-summary
 ---
 
 # Beaulieu & O'Meara 2016 — HiSSE (Hidden State Speciation and Extinction)
@@ -48,66 +48,60 @@ a **character-independent diversification** model for use as a null.
 
 ## 4. Problem & context
 SSE models are used to test whether evolving a novel trait raised speciation and/or lowered extinction rates.
-Per the abstract, it remains unclear whether such models identify real diversification drivers "or whether they
-are simply pointing to more complex patterns involving many unmeasured and co-distributed factors." HiSSE is
-framed as answering "at least one major criticism of BiSSE (Binary State Speciation and Extinction) methods":
+Per the abstract, it remains unclear whether such models identify real diversification drivers whether they
+are instead simply flagging more complex patterns that involve many unmeasured, co-distributed factors. HiSSE is
+framed as answering a leading criticism of BiSSE (Binary State Speciation and Extinction) methods:
 that unmeasured factors, not the scored character, may drive the rate differences BiSSE attributes to the trait.
 *(The full statement of this false-association critique lives in the inaccessible body.)*
 
 ## 5. Method / approach — (abstract-level only; body inaccessible)
-- **HiSSE model.** Extends SSE models by assuming that, "related to each observed state in the model are
-  'hidden' states that exhibit potentially distinct diversification dynamics and transition rates than the
-  observed states in isolation." So each observed character state carries an associated unobserved (hidden)
+- **HiSSE model.** Extends SSE models by assuming that, linked to each observed state in the model are
+  'hidden' states whose diversification dynamics and transition rates may differ from those of the
+  observed states on their own. So each observed character state carries an associated unobserved (hidden)
   state that can have its own speciation/extinction and transition rates. *(Exact rate parameterization and
   the state/transition matrix are in the inaccessible body.)*
-- **Character-independent diversification (CID) use.** The abstract states the model "can be used as
-  character-independent diversification models that allow for a complex diversification process that is
-  independent of the evolution of a character" — i.e., rate heterogeneity driven by the hidden state alone,
+- **Character-independent diversification (CID) use.** The abstract states the model can serve as
+  character-independent diversification models that permit a complex diversification process
+  decoupled from the evolution of a character — i.e., rate heterogeneity driven by the hidden state alone,
   decoupled from the observed trait. *(Specific CID variants/parameter counts are in the inaccessible body.)*
-- **Validation.** Assessed via "rigorous simulation tests" and application to empirical data. *(Simulation
+- **Validation.** Assessed via rigorous simulation tests and application to empirical data. *(Simulation
   design, sample sizes, and quantitative error rates are in the inaccessible body.)*
 - **Software.** Not named in the abstract. *(The R package/function names are in the inaccessible body /
   package docs; per project convention any package-doc value should be tagged `[tool-doc]`, not attributed
   to this paper.)*
 
 ## 6. Key claims / findings (all abstract-sourced)
-- HiSSE "specifically accounts for the presence of unmeasured factors that could impact diversification rates
-  estimated for the states of any observed trait," addressing a major BiSSE criticism.
+- HiSSE specifically accounts for unmeasured factors that could affect the diversification rates
+  estimated for the states of any observed trait, addressing a major BiSSE criticism.
 - Hidden states can have diversification and transition dynamics distinct from the observed states alone.
 - The model can be run as a character-independent diversification model (complex diversification independent
   of the character's evolution).
-- Under simulation and on empirical data, HiSSE "performs reasonably well, and can at least detect net
-  diversification rate differences between observed and hidden states and detect when diversification rate
-  differences do not correlate with the observed states."
-- The authors position HiSSE as giving "a more nuanced understanding of trait-dependent diversification."
+- Under simulation and on empirical data, HiSSE performs reasonably well and can at least pick up net
+  diversification-rate differences between observed and hidden states, and detect when diversification-rate
+  differences fail to track the observed states.
+- The authors position HiSSE as giving a more nuanced picture of trait-dependent diversification.
 - **No quantitative thresholds, Type-I rates, or effect sizes appear in the abstract**; those were not readable.
 
-## 7. Load-bearing statements — VERBATIM (license mode: permissive)
-License decision: the bioRxiv preprint of this paper is **CC-BY-NC-ND**, a Creative Commons license that permits
-short verbatim load-bearing quotation (the published OUP version is ARR, but the quoted sentences below are from
-the openly displayed abstract, which is covered by the CC preprint and is not paywalled). Quotes are limited to
-the abstract because the body was inaccessible.
-
-- On the false-association problem (Abstract): "It is still unclear, however, whether these models are uncovering
-  important drivers of diversification, or whether they are simply pointing to more complex patterns involving
-  many unmeasured and co-distributed factors."
-- On the fix / BiSSE criticism (Abstract): "an extension to the popular state-dependent speciation and extinction
-  models that specifically accounts for the presence of unmeasured factors that could impact diversification rates
-  estimated for the states of any observed trait, addressing at least one major criticism of BiSSE (Binary State
-  Speciation and Extinction) methods."
-- On the hidden state (Abstract): HiSSE "assumes that related to each observed state in the model are 'hidden'
-  states that exhibit potentially distinct diversification dynamics and transition rates than the observed states
-  in isolation."
-- On character-independent use / null framing (Abstract): "how our model can be used as character-independent
-  diversification models that allow for a complex diversification process that is independent of the evolution
-  of a character."
-- On performance (Abstract): HiSSE "performs reasonably well, and can at least detect net diversification rate
-  differences between observed and hidden states and detect when diversification rate differences do not
-  correlate with the observed states."
+## 7. Load-bearing statements — own-words (CC BY-NC-ND is own-words-only per license-policy.yml). Summarized from the openly displayed abstract; body inaccessible.
+- On the false-association problem: it remains unclear whether trait-dependent diversification models
+  are detecting genuine drivers of diversification or merely flagging more complex patterns driven by
+  many unmeasured, co-distributed factors.
+- On the fix / BiSSE criticism: HiSSE extends the popular state-dependent speciation-and-extinction
+  models to explicitly account for unmeasured factors that could affect the diversification rates
+  attributed to an observed trait's states — addressing a major criticism of BiSSE (Binary State
+  Speciation and Extinction).
+- On the hidden state: the model assumes each observed state has associated "hidden" states with
+  potentially distinct diversification dynamics and transition rates from the observed states alone.
+- On character-independent use / null framing: the framework can serve as a character-independent
+  diversification model, allowing a complex diversification process that is independent of the focal
+  character's evolution.
+- On performance: HiSSE performs reasonably well — at minimum detecting net diversification-rate
+  differences between observed and hidden states, and detecting when rate differences do not
+  correlate with the observed states.
 
 ## 8. Stated scope, assumptions, limitations (as far as readable)
-The abstract itself hedges performance ("performs reasonably well," "can *at least* detect…") and says the authors
-"discuss the remaining issues with state-dependent speciation and extinction models in general" — signaling the
+The abstract itself hedges performance (performing reasonably well, able at least to detect the differences) and says the authors
+discuss the outstanding problems with state-dependent speciation-and-extinction models in general — signaling the
 paper does not claim to fully resolve SSE-model problems. **The specific stated caveats live in the inaccessible
 Discussion.**
 
@@ -115,8 +109,8 @@ Discussion.**
 From the abstract, the named failure mode HiSSE targets: an observed-state SSE model (e.g., BiSSE) will attribute
 diversification-rate heterogeneity to the scored character even when the true driver is an unmeasured,
 co-distributed factor — a false association / spurious trait-dependence. HiSSE's character-independent
-configuration is offered as the check ("detect when diversification rate differences do not correlate with the
-observed states"). **Concrete detectors, diagnostics, model-comparison criteria (e.g., AIC deltas), and any
+configuration is offered as the check (detect when diversification-rate differences do not track the
+observed states). **Concrete detectors, diagnostics, model-comparison criteria (e.g., AIC deltas), and any
 quantified false-positive rates are in the inaccessible body — not captured here.** `[summarizer-inferred]` note:
 the abstract implies the character-independent model is meant as a null for comparison against the trait-dependent
 model, but the explicit "use it as the null before claiming trait-dependence" recommendation wording is in the
@@ -139,22 +133,22 @@ inaccessible body.
 Answering each guidance question against **readable text (abstract only)**; body was inaccessible (see §2).
 
 1. **Exact problem when observed-state SSE (BiSSE) attributes all rate heterogeneity to the focal character —
-   its own framing of false-association risk.** Partially answered. Abstract framing: models may be "simply
-   pointing to more complex patterns involving many unmeasured and co-distributed factors" rather than true
-   drivers; HiSSE "specifically accounts for the presence of unmeasured factors… addressing at least one major
-   criticism of BiSSE." The detailed statement of the false-association mechanism is in the inaccessible body.
+   its own framing of false-association risk.** Partially answered. Abstract framing: models may be simply
+   pointing to more complex patterns that involve many unmeasured, co-distributed factors rather than true
+   drivers; HiSSE specifically accounts for unmeasured factors, addressing at least one major
+   criticism of BiSSE. The detailed statement of the false-association mechanism is in the inaccessible body.
 
 2. **What a hidden state is; HiSSE structure; why it's a valid BiSSE null.** Partially answered. A hidden state
-   is an unobserved state linked to each observed state with "potentially distinct diversification dynamics and
-   transition rates than the observed states in isolation." The precise structure (rate matrix, transitions)
+   is an unobserved state linked to each observed state with diversification dynamics and
+   transition rates that may differ from those of the observed states on their own. The precise structure (rate matrix, transitions)
    enabling it as a null is in the inaccessible body; the abstract only asserts the character-independent
    configuration exists.
 
 3. **Explicit recommendation to use HiSSE / a character-independent (hidden-state-only) model as the null before
    claiming trait-dependent diversification — quote it.** NOT fully answerable from readable text. The abstract
-   describes the character-independent capability ("how our model can be used as character-independent
-   diversification models that allow for a complex diversification process that is independent of the evolution
-   of a character") but the explicit "use it as the null model" recommendation sentence is in the inaccessible
+   describes the character-independent capability (how their model can serve as character-independent
+   diversification models that permit a complex diversification process independent of the evolution
+   of a character) but the explicit "use it as the null model" recommendation sentence is in the inaccessible
    body and could not be quoted. **Flagged: the must-quote recommendation is behind the paywall.**
 
 4. **Does the paper claim anything about ANCESTRAL STATE / marginal reconstruction accuracy (vs. diversification
@@ -165,8 +159,8 @@ Answering each guidance question against **readable text (abstract only)**; body
    supports the diversification-inference claim, NOT an "ancestral-state silently wrong" claim. The ASR angle is
    unconfirmed and must be checked against the body before relying on this cite for reconstruction accuracy.**
 
-5. **Simulation Type-I / false-positive rates and conditions.** NOT in readable text. Abstract says only "rigorous
-   simulation tests" and that HiSSE "performs reasonably well"; no numbers. Rates/conditions are in the
+5. **Simulation Type-I / false-positive rates and conditions.** NOT in readable text. Abstract says only that validation
+   used rigorous simulation tests and that HiSSE performs reasonably well; no numbers. Rates/conditions are in the
    inaccessible body.
 
 6. **Software: R package and functions.** NOT in the abstract. (Known separately to be the `hisse` R package, but

@@ -3,7 +3,7 @@ import path from 'node:path';
 import yaml from 'js-yaml';
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { isValidLicenseId } from './lib/license-policy';
+import { isValidLicenseId, resolveLicenseRow } from './lib/license-policy';
 import {
   referenceKinds,
   referenceUsedAt,
@@ -89,13 +89,16 @@ const books = defineCollection({
       const attribution = String(book.attribution)
         .replace(/\{n\}/g, String(data.source_chapter ?? ''))
         .replace(/\{title\}/g, data.title);
-      return {
+      const merged = {
         ...data,
         license: book.license as string,
-        license_file: book.license_file as string,
+        license_file: book.license_file as string | undefined,
         attribution,
-        derived: book.derived as string,
+        derived: String(book.derived),
       };
+      // Same license coherence the source notes get — keyed on book.yml's posture.
+      licenseCoherence(merged, ctx);
+      return merged;
     }),
 });
 
@@ -108,19 +111,45 @@ const books = defineCollection({
 // `derived` records what modification was made (the CC-BY "changes" indication), and
 // is foregrounded in the UI. Provenance is descriptive (url/doi/version/access_date);
 // the sync-script + checksum layer is deferred to repo standup.
-const sourceNote = z.object({
-  title: z.string(),
-  type: z.enum(['paper', 'tutorial']),
-  source_id: z.string(),
-  source_url: z.string().url(),
-  doi: z.string().optional(),
-  version: z.string().optional(),
-  access_date: z.string(),
-  license: licenseId,
-  license_file: z.string().optional(),
-  attribution: z.string(),
-  derived: z.string(),
-});
+// A `derived` value declares verbatim carry when it is license-aware / keeps quotes
+// and is not explicitly own-words. own-words paraphrases redistribute no protected
+// expression, so they never need a license_file and never violate an NC/own-words row.
+const declaresVerbatimCarry = (derived: string): boolean =>
+  /license-aware|with-quotes|verbatim/i.test(derived) && !/own-words/i.test(derived);
+
+// License coherence: the id must resolve to a real row (not the defect/default row);
+// a note may not carry verbatim under an own-words-only license (the NC/copyleft
+// propagation the policy table exists to prevent); and verbatim carry under a row that
+// requires a license_file must declare one. Keys off `derived`, the recorded posture.
+const licenseCoherence = <T extends { license: string; license_file?: string; derived: string }>(
+  note: T,
+  ctx: z.RefinementCtx,
+) => {
+  const row = resolveLicenseRow(note.license);
+  if (row.defect)
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['license'], message: `license "${note.license}" resolves to the default row (unresolved/defect) — add a real row to license-policy.yml or fix the id` });
+  const carries = declaresVerbatimCarry(note.derived);
+  if (carries && row.policy === 'own-words-only')
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['derived'], message: `derived "${note.derived}" declares verbatim carry but license ${note.license} is own-words-only (paraphrase, or fix the license)` });
+  if (carries && row.license_file && !note.license_file)
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['license_file'], message: `verbatim carry under ${note.license} requires a license_file (vendored in LICENSES/)` });
+};
+
+const sourceNote = z
+  .object({
+    title: z.string(),
+    type: z.enum(['paper', 'tutorial']),
+    source_id: z.string(),
+    source_url: z.string().url(),
+    doi: z.string().optional(),
+    version: z.string().optional(),
+    access_date: z.string(),
+    license: licenseId,
+    license_file: z.string().optional(),
+    attribution: z.string(),
+    derived: z.string(),
+  })
+  .superRefine(licenseCoherence);
 
 const papers = defineCollection({
   loader: glob({ pattern: ['**/index.md'], base: '../content/research/papers', generateId: stripIndex }),

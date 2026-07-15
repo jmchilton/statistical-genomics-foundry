@@ -5,9 +5,9 @@ source_id: wang-2012-mcscanx
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3326336/
 doi: 10.1093/nar/gkr1293
 access_date: "2026-07-04"
-license: LicenseRef-CC-BY-NC-3.0
+license: CC-BY-NC-3.0
 attribution: "Wang Y, Tang H, DeBarry JD, Tan X, Li J, Wang X, Lee T-h, Jin H, Marler B, Guo H, Kissinger JC, Paterson AH. MCScanX: a toolkit for detection and evolutionary analysis of gene synteny and collinearity. Nucleic Acids Research 40(7):e49, 2012. DOI 10.1093/nar/gkr1293. Read via PMC open-access full text; note records CC BY-NC 3.0 posture."
-derived: license-aware-summary
+derived: own-words-summary
 ---
 
 # MCScanX — faithful source note
@@ -99,26 +99,19 @@ circle plotter, family tree plotter).
   `duplicate gene classifier`.
 - Distribution: 3 core programs + 12 downstream analysis programs.
 
-## 7. Load-bearing statements — VERBATIM (permissive: CC BY-NC 3.0)
-License mode: **permissive**. Article is "an Open Access article distributed under the terms
-of the Creative Commons Attribution Non-Commercial License
-(http://creativecommons.org/licenses/by-nc/3.0)". Short load-bearing quotes reproduced below.
-
-1. (Scoring defaults) "where by default *MatchScore*(*v*) = 50 for one gene pair, *GapPenalty*
-   = −1, and *NumberofGaps* (*u,v*), the maximum number of intervening genes between *u* and
-   *v*, should be fewer than 25."
-2. (Block-size threshold) "Non-overlapping chains with scores over 250 (i.e. involving at
-   least 5 collinear gene pairs) are reported."
-3. (Inputs) "the *MCScanX* takes only a simplified GFF format file and a BLASTP tabular file as
-   inputs. The simplified GFF file should contain the gene locations (which include
-   chromosome, gene symbol, start and end) for the genomes to be compared. The BLASTP input
-   file is one BLASTP output or combined multiple BLASTP outputs in tabular format (option
-   '-m8' in BLAST and '−outfmt 6' in BLAST+)."
-4. (Tandem/consecutive collapse) "if consecutive BLASTP matches have a common gene and its
-   paired genes are separated by fewer than five genes, these matches are collapsed using a
-   representative pair with the smallest BLASTP *E*-value."
-5. (Classification priority) "if a gene appears in multiple BLASTP hits, it will be assigned a
-   unique class according to the order of priority: WGD/segmental>tandem>proximal>dispersed."
+## 7. Load-bearing statements (own-words — CC BY-NC 3.0 is own-words-only per license-policy.yml; functional strings kept verbatim as facts)
+1. (Scoring defaults) by default `MatchScore`(v) = 50 per gene pair, `GapPenalty` = −1, and
+   `NumberofGaps`(u,v) — the maximum number of intervening genes between u and v — must be fewer than 25.
+2. (Block-size threshold) non-overlapping chains scoring over 250 (i.e. at least 5 collinear gene
+   pairs) are reported.
+3. (Inputs) MCScanX takes only a simplified GFF file and a BLASTP tabular file as inputs: the GFF gives
+   gene locations (chromosome, gene symbol, start, end) for the genomes compared, and the BLASTP file
+   is one or several combined BLASTP outputs in tabular format (`-m8` in BLAST, `-outfmt 6` in BLAST+).
+4. (Tandem/consecutive collapse) consecutive BLASTP matches sharing a gene whose paired genes are
+   separated by fewer than five genes are collapsed to a representative pair with the smallest BLASTP
+   E-value.
+5. (Classification priority) a gene appearing in multiple BLASTP hits is assigned one class by the
+   priority order WGD/segmental > tandem > proximal > dispersed.
 
 (Functional strings retained verbatim throughout: `-m8`, `-outfmt 6`, `MatchScore`,
 `GapPenalty`, `NumberofGaps`, values 50 / −1 / 25 / 250 / 5 / <20 / 10^-5, category names,

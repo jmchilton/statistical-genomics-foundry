@@ -5,9 +5,9 @@ source_id: fiddes-2018-cat
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6028123/
 doi: 10.1101/gr.233460.117
 access_date: "2026-07-03"
-license: LicenseRef-CC-BY-NC-4.0
+license: CC-BY-NC-4.0
 attribution: "Fiddes IT, Armstrong J, Diekhans M, Nachtweide S, Kronenberg ZN, Underwood JG, Gordon D, Earl D, Keane T, Eichler EE, Haussler D, Stanke M, Paten B. Comparative Annotation Toolkit (CAT)-simultaneous clade and personal genome annotation. Genome Research 28(7):1029-1038, 2018. DOI 10.1101/gr.233460.117. Read via PMC open-access full text; note records CC BY-NC 4.0 posture."
-derived: license-aware-summary
+derived: own-words-summary
 ---
 
 # Comparative Annotation Toolkit (CAT) — Fiddes et al. 2018
@@ -25,8 +25,8 @@ Full text read via PMC (open access). License: "© 2018 Fiddes et al.; Published
 Spring Harbor Laboratory Press"; distributed exclusively by CSHL Press for the first six
 months, then available under **Creative Commons Attribution-NonCommercial 4.0 International
 (CC BY-NC 4.0)**. Published 2018 → well past the 6-month embargo, so CC BY-NC applies.
-Quoting mode: **permissive** — short verbatim load-bearing quotes allowed with attribution
-(§7). No paywall boundary.
+Quoting mode: **own-words** — CC BY-NC resolves to own-words-only in `license-policy.yml`
+(NC kept out of casts); §7 paraphrased, functional strings kept verbatim. No paywall boundary.
 
 ## 3. Thesis (1 sentence)
 CAT is a fully open-source toolkit that uses a reference-free progressive whole-genome
@@ -50,19 +50,19 @@ by Progressive Cactus, plus a GFF3 annotation for the previously annotated genom
   highest-scoring alignment is chosen.
 - **AUGUSTUS**, run in up to four parameterizations:
   - **AugustusTM / AugustusTMR** — the two transMap-projection-based modes. AugustusTMR adds
-    RNA-seq hints ("RNA-seq helps fill in missing information in the alignment and resolve
-    evolutionary changes").
-  - **AugustusCGP** — comparative (Comparative Gene Prediction); "performs simultaneous
-    comparative prediction on all aligned genomes"; ab initio; RNA-seq "additionally helps
-    prevent false positives inherent in ab initio gene finding."
-  - **AugustusPB** — "uses long-read RNA-seq to discover novel isoforms" (PacBio Iso-Seq).
-  (Paper: "CAT will run AUGUSTUS in up to four distinct parameterizations, two of which rely
-  on transMap projections (AugustusTMR) and two that perform ab initio predictions
-  (AugustusCGP and AugustusPB).")
-- **homGeneMapping** — "uses the Cactus alignments to project features such as annotations and
-  RNA-seq support between the input genomes."
-- **Consensus-finding algorithm** (CAT's own) — "combines all sources of transcript evidence
-  into an annotation set," evaluating transMap transcripts against user-tunable RNA-seq /
+    RNA-seq hints (RNA-seq helps fill in information missing from the alignment and resolve
+    evolutionary changes).
+  - **AugustusCGP** — comparative (Comparative Gene Prediction); runs comparative prediction simultaneously
+    across all aligned genomes; ab initio; RNA-seq additionally helps
+    prevent false positives that are inherent to ab initio gene finding.
+  - **AugustusPB** — uses long-read RNA-seq to find novel isoforms (PacBio Iso-Seq).
+  (Paper: CAT runs AUGUSTUS in as many as four distinct parameterizations — two based
+  on transMap projections (AugustusTMR) and two performing ab initio predictions
+  (AugustusCGP and AugustusPB).)
+- **homGeneMapping** — uses the Cactus alignments to transfer features such as annotations and
+  RNA-seq support between the input genomes.
+- **Consensus-finding algorithm** (CAT's own) — merges every source of transcript evidence
+  into a single annotation set, evaluating transMap transcripts against user-tunable RNA-seq /
   annotation-support flags, then considering ab initio transcripts by locus assignment and
   their contribution of novel splice junctions supported by RNA-seq or Iso-Seq.
 
@@ -86,22 +86,18 @@ and a **UCSC comparative assembly hub** ready to load in the UCSC Genome Browser
 - Annotating multiple genomes simultaneously and consistently solves a key scalability issue
   and yields orthology mappings as a byproduct. (Discussion)
 
-## 7. Load-bearing statements (VERBATIM — permissive CC BY-NC license)
-1. (Abstract, thesis) "We describe the fully open source Comparative Annotation Toolkit (CAT),
-   which provides a flexible way to simultaneously annotate entire clades and identify
-   orthology relationships."
-2. (Results, inputs) "The only required inputs are a hierarchical alignment format (HAL)
-   multiple genome alignment as produced by Progressive Cactus and a GFF3 format annotation
-   file for the previously annotated genome(s)."
-3. (Results, components) "Based on input parameters, CAT will run AUGUSTUS in up to four
-   distinct parameterizations, two of which rely on transMap projections (AugustusTMR) and two
-   that perform ab initio predictions (AugustusCGP and AugustusPB)."
-4. (Methods, orchestration) "CAT is constructed using the Luigi workflow manager, with Toil
-   used for computationally intensive steps that work best when submitted to a compute
-   cluster."
-5. (Introduction, advantage) "Progressive Cactus alignments are not reference based, include
-   duplications, and are thus suitable for the annotation of many-to-many orthology
-   relationships."
+## 7. Load-bearing statements (own-words — CC BY-NC is own-words-only per license-policy.yml; tool/format names kept verbatim as facts)
+1. (Abstract, thesis) CAT is a fully open-source toolkit that annotates entire clades simultaneously
+   and identifies orthology relationships.
+2. (Results, inputs) the only required inputs are a HAL-format multiple genome alignment (as produced
+   by Progressive Cactus) and a GFF3 annotation for the previously annotated genome(s).
+3. (Results, components) depending on input parameters, CAT runs AUGUSTUS in up to four
+   parameterizations — two relying on transMap projections (AugustusTMR) and two performing ab initio
+   prediction (AugustusCGP, AugustusPB).
+4. (Methods, orchestration) CAT is built on the Luigi workflow manager, with Toil handling
+   compute-intensive steps suited to cluster submission.
+5. (Introduction, advantage) Progressive Cactus alignments are not reference-based and include
+   duplications, making them suitable for annotating many-to-many orthology relationships.
 
 ## 8. Stated scope, assumptions, limitations
 - Requires a Progressive Cactus / HAL alignment and at least one existing GFF3 annotation as

@@ -5,9 +5,9 @@ source_id: schneider-2009-alignment-error
 source_url: https://europepmc.org/article/MED/20333182
 doi: 10.1093/gbe/evp012
 access_date: "2026-07-05"
-license: LicenseRef-CC-BY-NC-2.5
-attribution: "Schneider A, Souvorov A, Sabath N, Landan G, Gonnet GH, Graur D. Genome Biology and Evolution 1:114-118, 2009. DOI 10.1093/gbe/evp012. PMID 20333182; PMCID PMC2817407. Full text read via Europe PMC fullTextXML; open access under the Creative Commons Attribution Non-Commercial License (CC BY-NC 2.5), permitting short verbatim quotes."
-derived: license-aware-summary
+license: CC-BY-NC-2.5
+attribution: "Schneider A, Souvorov A, Sabath N, Landan G, Gonnet GH, Graur D. Genome Biology and Evolution 1:114-118, 2009. DOI 10.1093/gbe/evp012. PMID 20333182; PMCID PMC2817407. Full text read via Europe PMC fullTextXML; open access under the Creative Commons Attribution Non-Commercial License (CC BY-NC 2.5); own-words summary (NC kept out of casts), functional strings kept verbatim as facts."
+derived: own-words-summary
 ---
 
 # Schneider et al. 2009 — Estimates of positive selection inflated by sequencing/annotation/alignment errors
@@ -93,35 +93,32 @@ quantitatively how much of this variation is an artifact of data-quality errors.
   genes. Read as evidence of residual dS (synonymous-rate) underestimation from saturation. Example
   dog–cow pairwise: 7.3% of genes had dS > 0.7, 13.7% had dS > 0.6, 26.0% had dS > 0.5.
 
-## 7. Load-bearing statements (verbatim — permissive license, CC BY-NC 2.5)
-1. (Mechanism, Introduction) "Because errors in sequencing, annotation, and alignment are
-   unaffected by codon position and subsequent effect on the amino acid sequence, they are equally
-   likely to affect synonymous as nonsynonymous sites."
-2. (Mechanism, Introduction) "errors that equally affect synonymous and nonsynonymous sites add a
-   noise component to dN/dS = 1. Although low levels of such 'neutral' noise will not generally
-   raise the overall ratio above 1, estimation models that allow for several categories of sites
-   may detect the noise component as a separate category. Consequently, such models will inflate
-   the fraction of inferred PSGs within a genome."
-3. (Combined effect, Abstract) "The inferred fraction of PSGs in sequences that are deficient in
-   all three criteria of coverage, annotation, and alignment is 7.2 times higher than that in
-   genes with high trace sequencing coverage, 'known' annotation status, and perfect alignment
-   scores."
-4. (HoT definition, Methods) "this methodology is based upon the a priori expectation that
-   sequence alignment results should be independent of the orientation of the input sequences.
-   Thus, for totally unambiguous cases, reversing residue order prior to alignment should yield an
-   exact reversed alignment of that obtained by using the unreversed sequences."
-5. (Conclusion) "We conclude that estimates on the prevalence of positive Darwinian selection may
-   be inflated and should be treated with caution."
+## 7. Load-bearing statements (own-words — CC BY-NC 2.5 is own-words-only per license-policy.yml; functional strings kept verbatim as facts)
+1. (Mechanism, Introduction) because sequencing, annotation, and alignment errors are independent of
+   codon position and amino-acid effect, they are equally likely to hit synonymous and nonsynonymous
+   sites.
+2. (Mechanism, Introduction) errors affecting both site classes equally add a noise component at
+   dN/dS = 1; low levels of this "neutral" noise won't generally raise the overall ratio above 1, but
+   estimation models allowing several site categories can detect the noise as a separate category and
+   thereby inflate the inferred fraction of positively selected genes (PSGs) in a genome.
+3. (Combined effect, Abstract) the inferred PSG fraction in sequences deficient in all three criteria
+   — coverage, annotation, and alignment — is 7.2 times higher than in genes with high trace
+   sequencing coverage, "known" annotation status, and perfect alignment scores.
+4. (HoT definition, Methods) the HoT method rests on the a priori expectation that alignment should be
+   independent of input-sequence orientation: for fully unambiguous cases, reversing residue order
+   before alignment should yield exactly the reversed alignment.
+5. (Conclusion) the authors conclude that estimates of the prevalence of positive Darwinian selection
+   may be inflated and should be treated with caution.
 
 ## 8. Stated scope, assumptions, limitations (authors' own)
-- The three factors are **not independent** — "their effects are not cumulative" — but all push in
+- The three factors are **not independent** — their effects do not simply add up — but all push in
   the same direction (inflation).
-- Authors name additional inflation sources they did not fully control: "purifying selection on
-  synonymous sites or failure to identify orthology correctly."
-- Residual dS underestimation from saturation persists "despite the use of sophisticated methods
-  to compensate for saturation," implying their good-gene estimates may still be somewhat inflated.
+- Authors name additional inflation sources they did not fully control: purifying selection on
+  synonymous sites, or a failure to identify orthology correctly.
+- Residual dS underestimation from saturation persists even though sophisticated methods
+  are used to compensate for saturation, implying their good-gene estimates may still be somewhat inflated.
 - Analysis restricted to 7 eutherian mammals with unambiguous phylogeny; adding taxa deemed
-  "phylogenetically contentious." Human excluded from coverage axis (no trace data kept).
+  phylogenetically contentious. Human excluded from coverage axis (no trace data kept).
 - Quality axes binarized (≥3× vs <3×; 100% vs <100% HoT; known vs inferred); 95% BLAST-identity
   threshold — authors say alternative thresholds did not change conclusions ("data not shown").
 
@@ -153,7 +150,7 @@ quantitatively how much of this variation is an artifact of data-quality errors.
 - No treatment of alignment-error effects on methods other than dN/dS codon models.
 
 ## 11. Open questions / ambiguities the source leaves unresolved
-- Because the three factors are non-independent and "not cumulative," the marginal contribution of
+- Because the three factors are non-independent and their effects are not cumulative, the marginal contribution of
   each (esp. alignment alone) to the combined 7× inflation is not decomposed.
 - The good-gene estimates may still be inflated by unaddressed dS saturation; the true PSG fraction
   is bounded but not pinned.
@@ -177,9 +174,10 @@ quantitatively how much of this variation is an artifact of data-quality errors.
 - **Recommended fix (quote):** The paper does not endorse a single tool. Its remedy is
   quality-filtering before/around codon-model inference — restricting to well-covered, "known"-
   annotated, unambiguously aligned genes (HoT = 100%) — plus interpretive caution. Closing
-  recommendation, verbatim: "We conclude that estimates on the prevalence of positive Darwinian
-  selection may be inflated and should be treated with caution." (§7 quote 5.) It uses HoT as the
+  recommendation, verbatim: the authors conclude that estimates of the prevalence of positive Darwinian
+  selection may be inflated and should be treated with caution. (§7 quote 5.) It uses HoT as the
   alignment-reliability check and codon-wise (codon-aware) alignment in its own pipeline, but does
   not prescribe codon-aware alignment as *the* named fix.
 - **License / must-quote:** Confirmed CC BY-NC 2.5 (open access) from the article permissions
-  statement — permissive mode; short verbatim load-bearing quotes used in §7 with locations.
+  statement — resolves to own-words-only in `license-policy.yml` (NC kept out of casts); §7
+  paraphrased, functional strings kept verbatim as facts.
