@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Fitting Statistical Models to Data"
 source: harmon-pcm
 source_chapter: 2

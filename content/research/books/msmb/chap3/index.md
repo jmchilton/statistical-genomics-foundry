@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Data Visualization"
 source: msmb
 source_chapter: 3

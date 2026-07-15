@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Networks and Trees"
 source: msmb
 source_chapter: 10

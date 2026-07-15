@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Statistical Modeling"
 source: msmb
 source_chapter: 2

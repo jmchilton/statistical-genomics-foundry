@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Multivariate Methods for Heterogeneous Data"
 source: msmb
 source_chapter: 9

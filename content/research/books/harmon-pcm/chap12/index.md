@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Beyond birth-death models"
 source: harmon-pcm
 source_chapter: 12

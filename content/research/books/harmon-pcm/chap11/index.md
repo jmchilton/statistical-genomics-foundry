@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Fitting birth-death models"
 source: harmon-pcm
 source_chapter: 11

@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Clustering"
 source: msmb
 source_chapter: 5

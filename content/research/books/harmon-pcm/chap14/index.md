@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Summary"
 source: harmon-pcm
 source_chapter: 14

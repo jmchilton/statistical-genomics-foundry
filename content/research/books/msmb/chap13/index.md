@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Design of High-Throughput Experiments and their Analyses"
 source: msmb
 source_chapter: 13
