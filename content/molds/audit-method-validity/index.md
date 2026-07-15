@@ -20,14 +20,10 @@ references:
     mode: condense
     evidence: corpus-observed
     purpose: "Rank-deficiency signature; the unfixable case that forces ESCALATE."
-  - kind: research
-    ref: "[[method-applicability-errors]]"
-    used_at: runtime
-    load: on-demand
-    trigger: "the named method may not exist, or its assumptions may not match the data regime/design"
-    mode: condense
-    evidence: corpus-observed
-    purpose: "Ground 'is this method real and appropriate?' in the two-prong applicability taxonomy. Appropriateness prong = corpus-observed (StatQA condition->method mapping); existence/invented-method prong = flagged white-space (no benchmark) per the leaf."
+  # TODO(author leaf): [[method-applicability-errors]] — the two-prong applicability
+  # taxonomy leaf (appropriateness = StatQA condition->method mapping, corpus-observed;
+  # existence/invented-method = flagged white-space, no benchmark). Not yet authored; add
+  # back as a research ref (mode: condense) once the note lands. Still cited in §3 prose.
   - kind: pattern
     ref: "[[garden-of-forking-paths]]"
     used_at: runtime
