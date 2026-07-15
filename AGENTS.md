@@ -2,13 +2,15 @@
 
 ## This is a pre-repo planning workspace
 
-This is **not yet a built project** — it is a design/research workspace deriving a new
-project from the Galaxy Workflow Foundry pattern, aimed at statistical genomics. There is
-**no build, validator, schema, package, cast, or fixture tooling here yet**. Do not look
-for `npm run validate`, `meta_schema.yml`, `packages/`, or `casts/` — they are deliberately
-deferred (see `README.md` "Status & next steps"). Right now there are only prose design
-docs (`docs/`), prior-art research (`content/research/`), and the positioning evidence
-(`positioning.md`). Treat this as authoring, not engineering.
+This is **mostly a design/research workspace** deriving a new project from the Galaxy
+Workflow Foundry pattern, aimed at statistical genomics. One engineering layer is standing
+up incrementally via issue #89 (the validation step-ladder): the `site/` Astro app now has a
+frontmatter contract (`site/src/content.config.ts` + `site/src/lib/frontmatter-schema.ts`), a
+validator (`npm test` / `npm run validate` in `site/`), and the root vocab registries
+(`meta_tags.yml`, `reference_contract.yml`, `license-policy.yml`). There is still **no
+`packages/`, `casts/`, ajv `meta_schema.yml`, or fixture tooling** — deliberately deferred
+(see `README.md` "Status & next steps" and "Deferred to repo standup" below). Everything else
+— `docs/`, `content/research/`, `positioning.md` — is authoring, not engineering.
 
 ## Read first
 
@@ -118,10 +120,13 @@ the convention now, don't formalize a schema.)
 These exist in the parent Foundry's `AGENTS.md` but describe machinery this workspace does
 not have. Port them (as an explicit diff) only when the actual repo stands up:
 
-- Frontmatter-is-contract rules, `meta_schema.yml` (Draft 07, `additionalProperties: false`),
-  `meta_tags.yml` tag registry.
-- `validate before commit`, Makefile targets, pre-commit hooks (the `site/` dev/build npm scripts
-  are the standing exception — see "The rendered site").
+- **[Standing up via issue #89 — an adapt, not the parent's port]** The frontmatter-is-contract
+  layer now exists as **one zod module** (`site/src/lib/frontmatter-schema.ts`) consumed by both
+  the site build and a standalone validator (`npm run validate` in `site/`) — deliberately *not*
+  a mirrored ajv `meta_schema.yml` + separate site schema (the parent's two-encoding drift,
+  avoided). `meta_tags.yml` + `reference_contract.yml` registries landed with it. Still deferred:
+  the parent's ajv Draft-07 `meta_schema.yml` form; `validate before commit` as a Makefile target
+  + pre-commit hooks (the `site/` npm scripts are the standing exception — see "The rendered site").
 - Mold IO schemas in packages; "don't edit generated files" (Dashboard/Index/casts).
 - Vendored planemo artifacts, generated `workflow-fixtures/`, the pnpm package layout.
 
