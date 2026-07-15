@@ -23,6 +23,8 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - run: npm ci
       - run: npm run typecheck
-      # `prebuild` runs the frontmatter guard; `build` is what deploy.yml runs on main.
-      # Running it here means content that cannot build fails the PR, not the deploy.
+      # Standalone frontmatter validator: negative fixtures + corpus conformance, sharing
+      # one schema with the build (issue #89 rung 3). Fails fast, before the fuller build.
+      - run: npm test
+      # `build` is what deploy.yml runs on main; running it here fails the PR, not deploy.
       - run: npm run build
