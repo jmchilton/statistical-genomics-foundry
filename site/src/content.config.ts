@@ -4,6 +4,43 @@ import yaml from 'js-yaml';
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { isValidLicenseId } from './lib/license-policy';
+import {
+  referenceKinds,
+  referenceUsedAt,
+  referenceLoad,
+  referenceModes,
+  referenceEvidence,
+} from './lib/reference-contract';
+import { isValidTag } from './lib/meta-tags';
+
+// Typed reference manifest (reference_contract.yml). The vocabularies are the
+// authority; the two cross-field rules (`on-demand` needs a trigger, `hypothesis`
+// evidence needs a verification) are stated in MOLD_SPEC prose and enforced here.
+const reference = z
+  .object({
+    kind: z.enum(referenceKinds()),
+    ref: z.string(),
+    used_at: z.enum(referenceUsedAt()),
+    load: z.enum(referenceLoad()),
+    mode: z.enum(referenceModes()),
+    evidence: z.enum(referenceEvidence()),
+    purpose: z.string().optional(),
+    trigger: z.string().optional(),
+    verification: z.string().optional(),
+    recheck: z.string().optional(),
+  })
+  .strict()
+  .superRefine((ref, ctx) => {
+    if (ref.load === 'on-demand' && !ref.trigger)
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['trigger'], message: `on-demand ref "${ref.ref}" requires a trigger` });
+    if (ref.evidence === 'hypothesis' && !ref.verification)
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['verification'], message: `hypothesis-evidence ref "${ref.ref}" requires a verification` });
+  });
+
+// A `tags:` value must resolve in meta_tags.yml (namespaced enum or open slug).
+const tag = z.string().refine(isValidTag, {
+  message: 'tag must be registered in meta_tags.yml (e.g. family/b, role/critique, domain/<slug>)',
+});
 
 // An SPDX id from license-policy.yml, or a LicenseRef-<slug> escape hatch.
 // The license → redistribution-policy table (galaxyproject/foundry-pattern#4)
@@ -97,16 +134,16 @@ const tutorials = defineCollection({
 
 // Molds: abstract action templates (the Mold-primary core). Only `index.md` bears
 // frontmatter; eval/scenarios live in siblings. Parent drops `axis` here — we group by
-// the soft `family/*` + `role/*` tags instead (MOLD_SPEC adaptation). `references` is the
-// typed manifest, kept loose for display (count only); full validation deferred to standup.
+// the namespaced `family/*` + `role/*` tags instead (MOLD_SPEC adaptation). `references`
+// is the typed manifest (reference_contract.yml).
 const molds = defineCollection({
   loader: glob({ pattern: ['**/index.md'], base: '../content/molds', generateId: stripIndex }),
   schema: z.object({
     type: z.literal('mold'),
     name: z.string(),
     summary: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    references: z.array(z.any()).optional(),
+    tags: z.array(tag).default([]),
+    references: z.array(reference).optional(),
   }),
 });
 
@@ -123,4 +160,20 @@ const patterns = defineCollection({
   }),
 });
 
-export const collections = { books, papers, tutorials, molds, patterns };
+// Experiment artifacts: candidate/doer/audit Molds produced by the blind-assembly
+// probes (content/research/experiments/<exp>/**/index.md). Structurally Molds, so
+// validated by the same schema — this is what brings the 12 previously-unglobbed
+// Mold-shaped files under the contract. Kept a separate collection so they don't
+// enter the production Molds index. No page route: validation-only.
+const experiments = defineCollection({
+  loader: glob({ pattern: ['**/index.md'], base: '../content/research/experiments', generateId: stripIndex }),
+  schema: z.object({
+    type: z.literal('mold'),
+    name: z.string(),
+    summary: z.string().optional(),
+    tags: z.array(tag).default([]),
+    references: z.array(reference).optional(),
+  }),
+});
+
+export const collections = { books, papers, tutorials, molds, patterns, experiments };

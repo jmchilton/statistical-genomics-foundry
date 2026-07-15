@@ -3,13 +3,12 @@ type: mold
 name: audit-wgd-inference
 tags:
   - family/b
-  - referee
-  - critique
+  - role/critique
 references:
   - kind: research
     ref: "[[vanneste-2013-ks-saturation]]"
     used_at: runtime
-    load: always
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "Cardinal validity axis: Ks saturation can manufacture a spurious tail 'saturation peak' that mimics a WGD even with no WGD present; bounds where Ks dating / mixture inference is trustworthy."

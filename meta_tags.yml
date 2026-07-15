@@ -1,0 +1,41 @@
+# Tag registry for Mold/Pattern frontmatter `tags:`.
+#
+# Adapted from the parent Foundry's meta_tags.yml (a flat registry), but our
+# tags are NAMESPACED (`family/*`, `role/*`, `domain/*`, `topic/*`) — the
+# MOLD_SPEC adaptation that replaces the parent's `axis` grouping. Seeded
+# corpus-first from the tags the authored Molds + Patterns actually use; a tag
+# outside this registry is drift (a build error once enforced).
+#
+# Two shapes:
+#   - `values`     namespace: a closed enum. The full `prefix/value` must be listed.
+#   - `open: true` namespace: `prefix/<slug>` with any kebab-case slug — domains
+#                  and topics proliferate by nature; the registry checks the
+#                  PREFIX is known, not the leaf.
+
+version: 1
+
+namespaces:
+  family:
+    label: Family
+    description: Which side of the analyze/referee split a Mold sits on (glossary Family A / Family B).
+    values:
+      family/a: Do the analysis (construct).
+      family/b: Referee the analysis (critique + calibrate).
+
+  role:
+    label: Role
+    description: The Family-A or Family-B role a Mold plays (glossary construct/critique/calibrate).
+    values:
+      role/construct: Family-A — frame, design-review, select, run.
+      role/critique: Family-B — reason about validity against known invalidity patterns.
+      role/calibrate: Family-B — construct and run the empirical check (null/simulation/controls/power).
+
+  domain:
+    label: Domain
+    description: Subject-matter area. Open-ended slug.
+    open: true
+
+  topic:
+    label: Topic
+    description: Finer-grained subject tag beneath a domain. Open-ended slug.
+    open: true

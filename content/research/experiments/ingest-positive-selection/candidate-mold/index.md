@@ -3,21 +3,21 @@ type: mold
 name: audit-positive-selection-claim
 tags:
   - family/b
-  - role/audit
+  - role/critique
   - domain/molecular-evolution
   - topic/dnds
 references:
   - kind: research
     ref: "[[alvarez-carretero-2023-paml-guide]]"
     used_at: runtime
-    load: always
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "Procedure spine: the codeml workflow, the four model families (M0 / site / branch / branch-site A), the nested LRT pairs and their df, and the named false-positive drivers to screen for."
   - kind: research
     ref: "[[paml-manual]]"
     used_at: runtime
-    load: always
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "Authoritative control-file specs (model/NSsites/fix_omega), the NSsites↔M-model table with #free-params, the M8a-vs-M8 and branch-site A-vs-A1 nulls, BEB scope, and the 50:50-mixture-vs-conservative-χ² null rule."
