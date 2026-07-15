@@ -5,9 +5,9 @@ source_id: messer-petrov-2013
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3666677/
 doi: 10.1073/pnas.1220835110
 access_date: "2026-07-05"
-license: LicenseRef-CC-BY-NC-ND
-attribution: "Messer PW, Petrov DA. PNAS 110(21):8615-8620, 2013. DOI 10.1073/pnas.1220835110. PMID 23650353; PMCID PMC3666677. Main text read via PMC HTML (display equations transcribed from served images); freely available through the PNAS open-access option (PNAS OA-option license is CC BY-NC-ND [summarizer-inferred: exact CC variant not printed on the PMC page]); short verbatim quotes and functional strings retained as facts."
-derived: license-aware-summary
+license: LicenseRef-all-rights-reserved
+attribution: "Messer PW, Petrov DA. PNAS 110(21):8615-8620, 2013. DOI 10.1073/pnas.1220835110. PMID 23650353; PMCID PMC3666677. Main text read via PMC HTML (display equations transcribed from served images); freely available through the PNAS open-access option, but the exact license is not printed on the page [summarizer-inferred; unverified, treated as all-rights-reserved]; own-words summary, functional strings retained as facts."
+derived: own-words-summary
 ---
 
 # Messer & Petrov 2013 — Frequent adaptation and the McDonald–Kreitman test
@@ -26,11 +26,11 @@ SI Materials and Methods, Table S1, Fig. S1) was **not** read — statements cit
 or "(SI Materials and Methods)" are referenced but their contents are outside this summary.
 
 ## 1.5 License mode
-**Permissive.** The PMC record states the article is "Freely available online through the PNAS
-open access option." PNAS's open-access-option articles of this era carry a Creative-Commons
-(BY-NC-type) posture permitting reproduction with attribution [summarizer-inferred: the specific
-CC variant is not printed on the PMC page]. Short verbatim load-bearing quotes are therefore used
-in §7. Equation forms and functional strings are reproduced verbatim regardless of license.
+**Own-words.** The PMC record states the article is "Freely available online through the PNAS
+open access option," but the specific license is not printed on the page [summarizer-inferred: the
+exact CC variant is not verifiable; Europe PMC reports no license]. Unverified → treated as
+restricted (`LicenseRef-all-rights-reserved`, own-words-only) under the default-deny rule. §7 is
+paraphrased; equation forms and functional strings are reproduced verbatim as facts regardless.
 
 ## 3. Thesis
 Linked selection (genetic draft + background selection) systematically biases the MK test and its
@@ -108,34 +108,31 @@ neutral sites. (d₀ = neutral divergence, p₀ = neutral polymorphism.)
   **negative** value, **α = −0.05**. *D. melanogaster*: asymptotic **α = 0.57 (0.54, 0.60)**, similar to
   (slightly higher than) prior estimates. CIs from 1,000 bootstrap replicates.
 
-## 7. Load-bearing statements (permissive mode — short verbatim quotes)
-- Downward-bias headline (Abstract): "in the presence of slightly deleterious mutations, MK estimates
-  of α severely underestimate the true rate of adaptation even if all polymorphisms with population
-  frequencies under 50% are excluded."
+## 7. Load-bearing statements (own-words — all-rights-reserved; equations/functional strings kept verbatim as facts)
+- Downward-bias headline (Abstract): when slightly deleterious mutations are present, standard MK
+  estimates of α severely underestimate the true adaptation rate — even after excluding all
+  polymorphisms below 50% population frequency.
 - **Asymptotic α(x) definition — verbatim (eq. [3]):**
   `α(x) = 1 − (d₀/d)(p(x)/p₀(x))`
   where p(x), p₀(x) are levels of polymorphism at functional and synonymous sites for the specific
   derived allele frequency x.
-- Why it cancels demography/draft (Discussion): "Because [α(x)] depends only on the ratio [p(x)/p₀(x)],
-  any biases affecting the SFS at functional and synonymous sites in the same way, regardless whether
-  due to demography or genetic draft, effectively cancel out. Furthermore, we can extrapolate [α(x)] to
-  [x → 1], where it should converge close to the true α, assuming that adaptive mutations do not
-  significantly contribute to polymorphism and that purifying selection has been sufficiently stable
-  over time."
-- **Fitted functional form — verbatim:** an exponential function of the form
+- Why it cancels demography/draft (Discussion): because α(x) depends only on the ratio p(x)/p₀(x),
+  any bias that shifts the SFS at functional and synonymous sites equally — whether from demography
+  or genetic draft — cancels; extrapolating α(x) to x → 1 should then converge near the true α,
+  provided adaptive mutations contribute little to polymorphism and purifying selection has been
+  roughly stable over time.
+- **Fitted functional form — verbatim:** an exponential of the form
   `α(x) = a + b·exp(−cx)`
-  fitted "for all `x ≥ 0.1` using nonlinear least-squares and extrapolating to `x → 1`" (Fig. 3A).
-  Rationale: "This makes intuitive sense for the case where deleterious mutations all have the same
-  selection coefficient, and levels of functional polymorphisms should thus decay approximately
-  exponentially over the respective levels of neutral polymorphisms with increasing frequency. However,
-  it is not clear which functional form should be fitted in scenarios where selection coefficients are
-  drawn from a broader distribution, unless the specific DFE were known."
-- Mechanism cutoffs don't fix it (Discussion i): "under recurrent selective sweeps, a slightly
-  deleterious mutation can easily hitchhike to substantial population frequencies, yet become unlinked
-  during the late phase of a sweep... spend substantial time as a frequent polymorphism... while it
-  slowly declines in frequency. At every stage of this process, the frequency of the mutation
-  overestimates its fixation probability. Such mutations are not effectively removed from a population
-  sample by excluding low-frequency polymorphisms."
+  fitted for all `x ≥ 0.1` by nonlinear least-squares and extrapolated to `x → 1` (Fig. 3A). The
+  authors motivate the exponential for the case of a single shared deleterious selection coefficient
+  (functional polymorphism then decays roughly exponentially relative to neutral with increasing
+  frequency), while noting the correct form is unclear when selection coefficients follow a broad
+  distribution unless the DFE is known.
+- Mechanism cutoffs don't fix it (Discussion): under recurrent sweeps a slightly deleterious mutation
+  can hitchhike to substantial frequency, become unlinked in the late phase, and persist as a common
+  polymorphism while slowly declining — at every stage its frequency overstates its fixation
+  probability, and excluding low-frequency polymorphisms does not remove such mutations from the
+  sample.
 
 ## 8. Stated scope, assumptions, limitations (the source's own caveats)
 - Asymptotic MK **assumes** (i) adaptive mutations do not significantly contribute to polymorphism and
@@ -144,8 +141,8 @@ neutral sites. (d₀ = neutral divergence, p₀ = neutral polymorphism.)
   functional form for a broad DFE is **not known unless the DFE is known**. The authors show the
   exponential still "works reasonably well" empirically for gamma-distributed coefficients but flag it
   as unproven generally.
-- "future analyses need to verify whether the asymptotic approach also works for a broader class of DFEs
-  and complex demographic scenarios" — and it is equally unclear whether DFE-alpha-with-correction would.
+- future work must check whether the asymptotic approach also holds for a wider class of DFEs
+  and complex demographic scenarios — and it is equally unclear whether DFE-alpha-with-correction would.
 - Simulation scenario is one gene structure / recombination regime at ~4% functional density; presented
   as conservative, not exhaustive.
 - Conclusions rest on forward simulations plus two real datasets; not a general analytic proof.
@@ -161,11 +158,11 @@ neutral sites. (d₀ = neutral divergence, p₀ = neutral polymorphism.)
   and shape → tend to **overestimate α** (constant-size model). Named symptom: gamma shape β overestimated
   up to ~2×.
 - **Demography-correcting methods**: recover α but **infer spurious demography** — DFE-alpha's step-change
-  model "always infers a population size expansion although there was no such expansion." Named detector:
+  model always infers a population-size expansion even though none occurred. Named detector:
   an inferred large past expansion (≥5-fold even at α = 0, ~10-fold by α ≈ 0.1) from synonymous-site SFS
   is a red flag that draft/background selection, not demography, is being fit. General warning:
-  "Estimating demography from neutral sites that are close to functional ones (such as synonymous sites)
-  should in general lead to erroneous inference of population expansions."
+  estimating demography from neutral sites that lie close to functional ones (such as synonymous sites)
+  will in general produce erroneous inferences of population expansions.
 - **No scalar N_e** can simultaneously reproduce fixation probabilities across selection-coefficient
   classes — so plugging a single effective N into diffusion formulas is invalid under moderate draft.
 
@@ -192,8 +189,8 @@ neutral sites. (d₀ = neutral divergence, p₀ = neutral polymorphism.)
   probability (little contribution to divergence d), so eq. [1] `α ≈ 1 − (d₀/d)(p/p₀)` inflates the
   subtracted term `(d₀/d)(p/p₀)` and drives α **down, even negative**. Frequency cutoffs don't rescue it
   because under recurrent sweeps a slightly deleterious mutation hitchhikes to high frequency, unlinks
-  late in the sweep, and lingers as a frequent (yet ultimately non-fixing) polymorphism — "at every
-  stage... the frequency of the mutation overestimates its fixation probability." Bias is worse for
+  late in the sweep, and lingers as a frequent (yet ultimately non-fixing) polymorphism — at every
+  stage the mutation's frequency overstates its fixation probability. Bias is worse for
   *weakly* than *strongly* deleterious mutations.
 - **Asymptotic-MK procedure + functional form + estimator equation verbatim:** Answered (§7). Compute
   frequency-resolved `α(x) = 1 − (d₀/d)(p(x)/p₀(x))` [eq. 3] across derived-allele-frequency bins, fit
@@ -205,9 +202,9 @@ neutral sites. (d₀ = neutral divergence, p₀ = neutral polymorphism.)
   `x ≥ 0.1`; goodness-of-fit and CIs come from 1,000 bootstrap replicates. A skill claiming "≥50 sites/bin"
   is **not supported by this source** — report as convention, not from this paper.
 - **Robustness to demography (and limits):** Answered (§7, §8). By construction α(x) depends only on the
-  ratio p(x)/p₀(x), so "any biases affecting the SFS at functional and synonymous sites in the same way,
-  regardless whether due to demography or genetic draft, effectively cancel out" — i.e., robust to
+  ratio p(x)/p₀(x), so any biases that shift the SFS at functional and synonymous sites in the same way,
+  whether from demography or genetic draft, effectively cancel out — i.e., robust to
   demography *to the extent it perturbs functional and synonymous SFS equally*. Limits: assumes adaptive
   mutations don't contribute much to polymorphism and purifying selection is stable over time; the
   exponential form is only justified for a single deleterious coefficient; authors explicitly flag that
-  robustness under "complex demographic scenarios" and broad DFEs is unverified.
+  robustness under complex demographic scenarios and broad DFEs is unverified.

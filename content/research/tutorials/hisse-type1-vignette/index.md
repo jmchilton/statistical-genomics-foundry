@@ -5,9 +5,9 @@ source_id: hisse-type1-vignette
 source_url: http://speciationextinction.info/articles/hisse-fisse-type1-vignette.html
 version: "hisse 2.1.11"
 access_date: "2026-07-03"
-license: LicenseRef-GPL
+license: GPL-2.0-or-later
 attribution: "Beaulieu JM. Type I errors, Model rejection, & HiSSE vs. FiSSE. hisse package vignette, rendered 2023-02-16; version pinned from CRAN hisse v2.1.11 in the source note. Rendered vignette and companion Rmd consulted."
-derived: license-aware-summary
+derived: own-words-summary
 ---
 
 # hisse vignette — "Type I errors, Model rejection, & HiSSE vs. FiSSE"
@@ -18,7 +18,7 @@ derived: license-aware-summary
 - Source type: R package vignette, `hisse` (GPL; see §7 license note).
 - Rendered: http://speciationextinction.info/articles/hisse-fisse-type1-vignette.html (page footer: "built on Feb. 16, 2023").
 - Raw Rmd: https://rdrr.io/cran/hisse/f/vignettes/hisse-fisse-type1-vignette.Rmd
-- Companion consulted for the current-interface API/code: "A newer, faster HiSSE function" (`hisse-new-vignette.Rmd`),
+- Companion consulted for the current-interface API/code: a newer, faster HiSSE function (`hisse-new-vignette.Rmd`),
   https://rdrr.io/cran/hisse/f/vignettes/hisse-new-vignette.Rmd
 - Version pin: `hisse` CRAN v2.1.11 (published ~2023-02-11 per CRAN); rendered vignette built 2023-02-16.
   [summarizer-inferred] exact vignette-to-version mapping — the vignette text carries no in-body version string;
@@ -97,8 +97,8 @@ gives the two observed states of hidden-class-A the same index (1) and the two o
 same index (2). This is the code-level expression of "character-independent."
 
 **Ancestral reconstruction / model-averaging functions (partially confirmed):**
-- `marginReconHiSSE()` — **confirmed to exist** (package man page: "Ancestral State Estimation based on Marginal
-  Reconstruction for the HiSSE model"). Its argument list was NOT visible in the vignette text read here — **flagged
+- `marginReconHiSSE()` — **confirmed to exist** (package man page: ancestral-state estimation via marginal
+  reconstruction for the HiSSE model). Its argument list was NOT visible in the vignette text read here — **flagged
   unconfirmed** (`phy`, `data`, `f`, `pars`, `hidden.states`, `aic`, `n.cores` are plausible but unverified from
   source).
 - `modelAveRates()` — listed as "Model average rates at tips and nodes" (current-interface model-averaging helper).
@@ -121,8 +121,8 @@ Rabosky & Goldberg):**
 - Testing the **full set (BiSSE + CID-2 + HiSSE + CID-4)** left **~16%** with substantial support for BiSSE *or*
   HiSSE — still above the 5% nominal error rate (the vignette concedes this).
 
-**(B) Re-analysis of Rabosky & Goldberg (2017)'s own simulated datasets (explicit re-fits, "code helpfully provided
-by Rabosky and Goldberg (2017)"):**
+**(B) Re-analysis of Rabosky & Goldberg (2017)'s own simulated datasets (explicit re-fits, code kindly provided
+by Rabosky and Goldberg (2017)):**
 - Re-fitting the same BiSSE + CID-2 + HiSSE set with the updated optimizer, on the trait-independent ("non-SDD")
   scenarios they did slightly *worse* than the original study: **of the 34 non-SDD scenarios, 13 had false-positive
   rates exceeding 25%** — attributed to optimization failures in the previous HiSSE version.
@@ -130,58 +130,43 @@ by Rabosky and Goldberg (2017)"):**
   unchanged, and **three scenarios remain problematic (scenarios 37, 41, 42; Fig. 2B)**.
 - Example turnaround: **scenario 50** (density-dependent tree, fast-evolving neutral trait, q=10) went from
   **84% → 8%** trait-dependent support once CID-4 was included.
-- HiSSE's model rejection used by R&G (2017) had "included three transition rates" — the vignette flags the model
+- HiSSE's model rejection used by R&G (2017) had included three transition rates — the vignette flags the model
   parameterization used against HiSSE as not matching what the authors intended.
 
 **FiSSE comparison:**
 - FiSSE's model-rejection performance is called "encouraging."
-- With CID-4 in the set, HiSSE's power "remains completely unchanged, and exhibits greater statistical power compared
-  to FiSSE (Fig. 2A)."
+- With CID-4 in the set, HiSSE's power remains entirely unchanged and shows greater statistical power compared
+  to FiSSE (Fig. 2A).
 
-## 7. Load-bearing statements — VERBATIM (license mode: permissive; `hisse` is GPL → short verbatim quotes allowed)
-All quotes from the rendered vignette (speciationextinction.info/articles/hisse-fisse-type1-vignette.html).
+## 7. Load-bearing statements — own-words. `hisse` is GPL-2.0-or-later (copyleft); per license-policy.yml a source note takes own-words rather than carrying copyleft prose into casts. Numeric facts kept verbatim.
+1. Null-model argument: a fairer comparison needs a "null" model with the same diversification-parameter
+   complexity but independent of the focal character's evolution, so any complex trait-dependent model
+   can be compared against it.
+2. CID concept: character-independent (CID) models assume a binary character's evolution is independent
+   of the diversification process, without forcing that process to be constant across the whole tree.
+3. CID-2 definition: contains four diversification-process parameters (two speciation and two extinction
+   rates).
+4. CID-4 definition: contains the same number of diversification parameters as the general HiSSE model,
+   linked across four hidden states.
+5. The ~80% → 1% result (authors' own simulation): without CID models in the candidate set, BiSSE had
+   substantial support nearly 80% of the time; adding just the CID-2 model dropped that to 1% on the
+   same data sets.
 
-1. Null-model argument (verbatim):
-   > "A fairer comparison would involve some sort of \"null\" model that contains the same degree of complexity in
-   > terms of numbers of parameters for diversification, but is also independent of the evolution of the focal
-   > character, to allow for comparisons among any complex, trait-dependent models of interest."
-
-2. CID concept (verbatim):
-   > "These character-independent (CID) models explicitly assume that the evolution of a binary character is
-   > independent of the diversification process without forcing the diversification process to be constant across the
-   > entire tree."
-
-3. CID-2 definition (verbatim):
-   > "The first model, which we refer to as \"CID-2\", contains four diversification process parameters (two
-   > speciation and two extinction rates)"
-
-4. CID-4 definition (verbatim):
-   > "The second model, which we refer to as \"CID-4\" contains the same number of diversification parameters as in
-   > the general HiSSE model that are linked across four hidden states."
-
-5. The ~80% → 1% result (verbatim, authors' own simulation):
-   > "Without our CID models being included in the set of models under evaluation, BiSSE had substantial support
-   > nearly 80% of the time. However, when we added just the CID-2 model, only 1% of those same data sets showed
-   > substantial support for BiSSE."
-
-Additional short functional/verbatim strings retained for recoverability (exempt regardless of license):
-- 16% full-set figure: "roughly 16% of the time either the BiSSE or HiSSE model had substantial support (though this
-  is still above the 5% nominal eror rate)" [sic — "eror" is verbatim in source].
-- R&G reanalysis count: "Of the 34 non-SDD, 13 had \"false positive\" rates that exceeded 25%".
-- Remaining bad scenarios: "three scenarios that remain problematic for HiSSE (scenarios 37, 41, and 42; Fig. 2B)".
-- Scenario 50: "went from 84% of the data sets supporting a trait-dependent model of diversification, to only 8%
-  support when CID-4 is included in the set."
-- FiSSE power: "the power to detect trait-dependent diversification remains completely unchanged, and exhibits
-  greater statistical power compared to FiSSE (Fig. 2A)."
+Additional numeric facts (verbatim as facts): full-set false-support rate ~16% (still above the 5%
+nominal error rate — "eror" is misspelled in the source); of the 34 non-SDD scenarios, 13 had "false
+positive" rates exceeding 25%; scenarios 37, 41, and 42 remain problematic for HiSSE (Fig. 2B);
+scenario 50 went from 84% of data sets supporting a trait-dependent model to 8% support once CID-4 is
+included; HiSSE's power to detect trait-dependent diversification is unchanged and exceeds FiSSE
+(Fig. 2A).
 
 ## 8. Stated scope, assumptions, limitations (the source's OWN caveats)
 - The vignette concedes the CID fix is not perfect: ~16% (own worst-case set) and 3 scenarios (37, 41, 42) in the R&G
   reanalysis remain above the nominal/25% false-positive bar even with CID-4 included.
-- The 13/34 elevated false positives are attributed to "optimization failures in the previous version of HiSSE" —
+- The 13/34 elevated false positives are attributed to optimizer failures in the earlier version of HiSSE —
   i.e. partly a software/optimizer issue, not solely a model-adequacy issue; the updated `sann=TRUE` optimizer is
   the remedy claimed.
 - The vignette does not dispute R&G (2017)'s *reported* results; it disputes how HiSSE was *configured* in that test
-  ("not conducted quite in the manner in which we intended"), notably the three-transition-rate HiSSE and the
+  (not carried out quite in the way the authors intended), notably the three-transition-rate HiSSE and the
   absence of CID-4.
 - CID nulls hold diversification *complexity/parameter count* matched to the trait-dependent model while forcing
   rates to depend only on hidden (unobserved) classes, not the observed focal trait.

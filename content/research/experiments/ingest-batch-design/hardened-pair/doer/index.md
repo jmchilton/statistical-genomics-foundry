@@ -10,21 +10,21 @@ references:
   - kind: research
     ref: "[[msmb-chap13]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "Design vocabulary for the frame + design-review phases: experiment taxonomy, noise-vs-bias, blocking/pairing/balance/randomization ('block what you can, randomize what you cannot'), effective sample size, and the rule that data already confounded at collection cannot be rescued by any analysis."
   - kind: research
     ref: "[[msmb-chap8]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "The design matrix carries the model's scientific content; a known nuisance factor enters as a blocking term (at a degrees-of-freedom cost); PCA/heatmap/p-value-histogram diagnostics for an unmodelled batch factor."
   - kind: research
     ref: "[[leek-2010]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "The detection recipe (cluster/MDS/PC-vs-batch-surrogate), the claim that normalization does not remove batch effects, the adjustment menu (covariate / ComBat / SVA), and the boundary condition: adjustment works only when batch is not highly confounded with biology."
@@ -71,7 +71,7 @@ references:
   - kind: research
     ref: "[[deseq2]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: verbatim
     evidence: corpus-observed
     purpose: "The batch-in-design idiom (~ batch + condition, variable of interest last), the raw-counts input rule, and the mechanical aliasing detector: the exact error 'the model matrix is not full rank, so the model cannot be fit as specified.' plus its two stated remedies."
@@ -86,7 +86,7 @@ references:
   - kind: research
     ref: "[[nygaard-2016]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: verbatim
     evidence: corpus-observed
     purpose: "The three-legged failure the doer must never build (unbalanced design + group-preserving batch removal + downstream analysis that ignores batch) and its endorsed remedy: account for batch in the statistical analysis."

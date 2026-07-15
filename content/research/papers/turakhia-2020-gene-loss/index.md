@@ -5,9 +5,9 @@ source_id: turakhia-2020-gene-loss
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7498332/
 doi: 10.1093/nar/gkaa550
 access_date: "2026-07-03"
-license: LicenseRef-CC-BY-NC-4.0
+license: CC-BY-NC-4.0
 attribution: "Turakhia Y, Chen HI, Marcovitz A, Bejerano G. A fully-automated method discovers loss of mouse-lethal and human-monogenic disease genes in 58 mammals. Nucleic Acids Research 48(16):e91, 2020. DOI 10.1093/nar/gkaa550. Read via Europe PMC/OUP open-access full text; note records CC BY-NC 4.0 posture."
-derived: license-aware-summary
+derived: own-words-summary
 ---
 
 # Turakhia, Chen, Marcovitz & Bejerano 2020 — automated high-confidence gene-loss detection (NAR 48(16):e91)
@@ -44,7 +44,8 @@ values are captured from prose. No paywall boundary — full method + results re
 
 License: **CC BY-NC 4.0** — verbatim: "Open Access article distributed under the terms of the
 Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/by-nc/4.0/)."
-Permissive → short verbatim load-bearing quotes used in §7 (permissive mode).
+CC BY-NC resolves to own-words-only in `license-policy.yml` (NC kept out of casts); §7 paraphrased,
+numeric thresholds/functional strings kept verbatim as facts.
 
 ## 3. Thesis (1 sentence)
 
@@ -55,11 +56,11 @@ losses from missing-annotation / assembly artifacts.
 
 ## 4. Problem & context
 
-Existing genome annotation tools annotate intact genes and "do not attempt to distinguish
-nonfunctional genes from genes missing annotation due to sequencing and assembly artifacts"
+Existing genome annotation tools annotate intact genes and do not try to separate
+nonfunctional genes from genes whose annotation is missing because of sequencing and assembly artifacts
 (Abstract). Gene-count per genome is artifactually driven by assembly contiguity: it correlates
-with assembly N50, e.g. absence of PAX6 in the dog annotation is "likely due to a sequencing
-gap," and TP53 + neighbors absent from alpaca despite a region of high similarity to human TP53
+with assembly N50, e.g. absence of PAX6 in the dog annotation is likely the result of a sequencing
+gap, and TP53 + neighbors absent from alpaca despite a region of high similarity to human TP53
 (implying a missed prediction). Prior loss-annotation required heavy manual curation → doesn't
 scale. Goal: fully-automated, scalable, high-confidence loss detection from a single reference
 annotation + raw assemblies + phylogeny.
@@ -122,7 +123,7 @@ Phylogenetic filter (final, most stringent):
 ## 6. Key claims / findings (atomic)
 
 - Method output: **412 unique human ortholog** erosion events (hcoErosions) across **58 mammals**
-  ("over 400", "affecting over 50 mammals"); 2192 unique gene-species and 539 gene-clade pairs
+  (the OUP page rounds these to over 400, affecting over 50 mammals); 2192 unique gene-species and 539 gene-clade pairs
   [gene-species/clade counts via OUP-page extraction; see §11].
 - hcoErosion gene set is **depleted** (not enriched) for:
   - mouse-lethal genes: P < 2.2e-16, fold = 8.43;
@@ -142,35 +143,32 @@ Phylogenetic filter (final, most stringent):
   disease genes, 3711 in reference set); 3617 mouse-lethal genes (50 MP 'lethal' phenotype terms);
   RVIS + pLI intolerance scores.
 
-## 7. Load-bearing statements (permissive license — verbatim, CC BY-NC; location noted)
+## 7. Load-bearing statements (own-words — CC BY-NC is own-words-only per license-policy.yml; numeric thresholds/functional strings kept verbatim as facts)
 
-1. Artifact-cause framing (Introduction): "the annotation completeness is artifactually dependent
-   on the level of assembly contiguity … absence of the critical chordate development gene PAX6 in
-   the dog annotation set is likely due to a sequencing gap in the genome assembly."
+1. Artifact-cause framing (Introduction): annotation completeness is artifactually dependent on
+   assembly contiguity — e.g. the apparent absence of the chordate development gene PAX6 from the dog
+   annotation set is likely a sequencing gap in the assembly rather than true loss.
 
-2. Confounders the phylogenetic filter guards against (Results, hcoErosion overview): "requiring
-   that all final candidate erosions were supported by observations from at least two closely
-   related species and affected ancestral genes—in order to minimize confounders due to assembly
-   artifacts, private (individual-specific) mutations, or reference genome biases."
+2. Confounders the phylogenetic filter guards against (Results, hcoErosion overview): every final
+   candidate erosion is required to be supported by observations from at least two closely related
+   species and to affect ancestral genes, minimizing confounders from assembly artifacts, private
+   (individual-specific) mutations, or reference-genome bias.
 
-3. Paralog exclusion + synteny thresholds (Methods, chain-picking): "we required the second-best
-   chain to have an alignment score at least 20 times lower than that of the best chain. To also
-   ensure high conservation of synteny, we required the number of bases in the aligning blocks of
-   the best chain be at least 20 times greater than the number of bases in the gene itself—i.e.
-   gene-in-synteny ≥ 20, where gene-in-synteny = length of Cb/length of gene. We also required
-   unique mapping of coordinates … all overlapping mappings were discarded."
+3. Paralog exclusion + synteny thresholds (Methods, chain-picking): the second-best chain must have an
+   alignment score at least 20 times lower than the best chain; the best chain's aligning blocks must
+   span at least 20 times the gene's own base count (gene-in-synteny ≥ 20, where gene-in-synteny =
+   length of Cb / length of gene); coordinates must map uniquely, and all overlapping mappings are
+   discarded.
 
-4. Exon-boundary + assembly-gap masking (Methods): "we excluded the first and last two amino acid
-   positions in each exon for all downstream analyses. Gaps in chain alignments found in regions
-   containing an assembly gap in the query species were masked out to avoid confusing them with
-   true deletions in the query genome."
+4. Exon-boundary + assembly-gap masking (Methods): the first and last two amino-acid positions of each
+   exon are excluded from downstream analyses, and chain-alignment gaps over a query-species assembly
+   gap are masked to avoid mistaking them for true deletions in the query genome.
 
-5. Aggregate vs. single-event features (Results): "Unlike Sharma et al., who used single-event
-   features, such as in-frame stop codons and frameshift indels, we considered two different
-   aggregate features of sequence erosion—i.e. the fraction of amino acids affected by
-   substitutions and the fraction of exonic amino acids out-right deleted with respect to the
-   sequence of the human ortholog. This way, we avoided making spurious outlier calls caused by
-   some mutations, such as stop codons near [the end of a gene]…"
+5. Aggregate vs. single-event features (Results): unlike Sharma et al., who used single-event features
+   such as in-frame stop codons and frameshift indels, this method uses two aggregate erosion features
+   — the fraction of amino acids affected by substitutions and the fraction of exonic amino acids
+   outright deleted relative to the human ortholog — avoiding spurious outlier calls caused by isolated
+   mutations such as stop codons near a gene's end.
 
 Functional strings (facts, verbatim): MD > 15 (outlier), MD ≤ 5 (conserved), 5 < MD ≤ 15
 (undetermined); ≥10% segmental-duplication overlap excluded; gene-in-synteny ≥ 20; second-best
@@ -179,11 +177,11 @@ FPR 8.82% / 2.94% / <10% / >30%.
 
 ## 8. Stated scope, assumptions, limitations (source's own)
 
-- Loss = loss/dramatic alteration of *coding potential*; the paper concedes "it is nearly
-  impossible to be certain that a gene locus no longer emits any kind of coding or non-coding
-  transcript" — i.e. it detects coding-sequence erosion, not transcription absence. Even with an
-  intact promoter / residual transcript, "the erosion of gene sequence implies that the gene does
-  not maintain its original function."
+- Loss = loss/dramatic alteration of *coding potential*; the paper concedes it is almost
+  impossible to be sure that a gene locus no longer produces any kind of coding or non-coding
+  transcript — i.e. it detects coding-sequence erosion, not transcription absence. Even with an
+  intact promoter / residual transcript, erosion of the gene sequence implies that the gene no longer
+  retains its original function.
 - Explicitly "very conservative" / "stringent" — trades sensitivity for precision; single-species
   and non-fixed losses are dropped by design.
 - Relies on aggregate erosion, so genes lost via a *single* clean early stop / small indel without
@@ -219,8 +217,8 @@ Spurious-loss causes the method is explicitly built to defeat, and the guard for
 - Does not classify or count individual inactivating-mutation types (frameshift / premature stop /
   splice-site) as evidence — it deliberately avoids that representation, so provides no per-mutation
   taxonomy.
-- Non-mammalian applicability asserted as future ("readily applicable … birds, vertebrates,
-  insects") but not demonstrated here.
+- Non-mammalian applicability asserted as future (readily applicable to birds, vertebrates, and
+  insects) but not demonstrated here.
 - No runtime/compute-cost figures given for "fully-automated" beyond the automation claim.
 
 ## 11. Open questions / ambiguities

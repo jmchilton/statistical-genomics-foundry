@@ -1,0 +1,89 @@
+# Typed-reference vocabulary for a Mold's `references[]` manifest.
+#
+# Adapted from the parent Galaxy Workflow Foundry's reference_contract.yml
+# (inherit / adapt / demote / add — the diff is the evidence):
+#   inherit: used_at, load, modes, evidence vocabularies unchanged.
+#   adapt:   `kinds` trimmed to what this instance authors (see below).
+#   demote:  `schema` kept in the vocabulary but rare here — our outputs are
+#            prose-shaped critiques/protocols, not structured artifacts
+#            (glossary "Schema (Mold IO)"; ARCHITECTURE §3).
+#   add:     `eval` kind — the abstract oracle, never packaged into a cast
+#            (glossary "Evaluation plan").
+#   drop:    parent's `cli-tool` — no tool-install refs authored here yet.
+#
+# The `modes` here are the casting transforms; which modes a given reference
+# may use is further constrained by its source license — see the `allowed_modes`
+# column of license-policy.yml (enforced at cast time, not here).
+
+version: 1
+
+kinds:
+  pattern:
+    label: Pattern
+    description: A statistical-method or invalidity pattern page. Usually condensed during casting.
+    ref_shape: wiki-link
+  research:
+    label: Research
+    description: Background synthesis from a source note, loaded by explicit progressive-disclosure metadata.
+    ref_shape: wiki-link
+  cli-command:
+    label: CLI Command
+    description: Command reference. Usually cast to a sidecar and loaded only when invoked.
+    ref_shape: wiki-link
+  schema:
+    label: Schema
+    description: Structured contract copied for validation or lookup. Rare (demoted).
+    ref_shape: wiki-link
+  prompt:
+    label: Prompt
+    description: Prompt fragment copied verbatim or inlined by the target adapter.
+    ref_shape: wiki-link
+  example:
+    label: Example
+    description: Fixture or exemplar copied verbatim.
+    ref_shape: path
+  eval:
+    label: Eval
+    description: Abstract oracle (property checks). Never packaged into a cast.
+    ref_shape: wiki-link
+
+used_at:
+  cast-time:
+    label: Cast Time
+    description: Used while building the cast artifact.
+  runtime:
+    label: Runtime
+    description: Consulted by the generated skill while doing work.
+  both:
+    label: Both
+    description: Used during casting and available to the generated skill at runtime.
+
+load:
+  upfront:
+    label: Upfront
+    description: Loaded with the generated skill's initial context or main instructions.
+  on-demand:
+    label: On Demand
+    description: Loaded only when the reference trigger applies. Requires a `trigger`.
+
+modes:
+  verbatim:
+    label: Verbatim
+    description: Copied without LLM rewrite. License must permit verbatim carry.
+  condense:
+    label: Condense
+    description: LLM condensation before final packaging.
+  sidecar:
+    label: Sidecar
+    description: Transformed into a structured runtime artifact beside the generated skill.
+
+evidence:
+  hypothesis:
+    label: Hypothesis
+    description: Added because it seems useful; not yet proven by a real cast run. Requires a `verification`.
+  corpus-observed:
+    label: Corpus Observed
+    description: Grounded in survey or research over real sources, upstream, or runtime behavior.
+  cast-validated:
+    label: Cast Validated
+    description: A generated skill used this reference successfully on real data.

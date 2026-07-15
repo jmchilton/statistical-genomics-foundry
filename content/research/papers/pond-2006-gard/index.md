@@ -5,9 +5,9 @@ source_id: pond-2006-gard
 source_url: https://academic.oup.com/mbe/article/23/10/1891/1096946
 doi: 10.1093/molbev/msl051
 access_date: "2026-07-05"
-license: LicenseRef-CC-BY-NC-2.0-UK
-attribution: "Kosakovsky Pond SL, Posada D, Gravenor MB, Woelk CH, Frost SDW. Molecular Biology and Evolution 23(10):1891-1901, 2006. DOI 10.1093/molbev/msl051. PMID 16818476. Read via OUP open-access full text; article footer states Open Access under the Creative Commons Attribution Non-Commercial License (CC BY-NC 2.0 UK), permitting short verbatim quotes."
-derived: license-aware-summary
+license: CC-BY-NC-2.0-UK
+attribution: "Kosakovsky Pond SL, Posada D, Gravenor MB, Woelk CH, Frost SDW. Molecular Biology and Evolution 23(10):1891-1901, 2006. DOI 10.1093/molbev/msl051. PMID 16818476. Read via OUP open-access full text; article footer states Open Access under the Creative Commons Attribution Non-Commercial License (CC BY-NC 2.0 UK); own-words summary (NC kept out of casts), functional strings kept verbatim as facts."
+derived: own-words-summary
 ---
 
 # Automated Phylogenetic Detection of Recombination Using a Genetic Algorithm (GARD)
@@ -48,9 +48,9 @@ false positives in downstream selection analysis.
 - Recombination (and gene conversion) means homologous sequences cannot be modeled by a single
   phylogeny — each nonrecombinant fragment has its own tree.
 - Ignoring recombination misleads phylogeny estimation and downstream inference; specifically, the
-  Nielsen & Yang (1998) likelihood methods for selection pressure on codon alignments "may suffer
-  from high rates of false positives when the sequences being analyzed have undergone recombination
-  (Anisimova et al. 2003; Shriner et al. 2003)."
+  Nielsen & Yang (1998) likelihood methods for selection pressure on codon alignments can suffer
+  high false-positive rates when the analyzed sequences have undergone recombination
+  (Anisimova et al. 2003; Shriner et al. 2003).
 - Existing recombination detectors (14+ compared by Posada & Crandall) give divergent results,
   often need a consensus approach, and many cannot localize break points, give statistical support,
   or emit the nonrecombinant partition needed for follow-on phylogenetic analysis.
@@ -151,35 +151,34 @@ spot). Biological: 24 sets from Posada (2002); 78 viral sets from Chare et al. (
   break decreases with more break points and higher divergence; always significantly smaller than
   random placement (all P < 0.001).
 - **Selection-inference correction (the prescreen payoff):** in the Neutral Scenario, uncorrected
-  single-partition FEL had Type I error "far in excess of the nominal P value" on the last-100-codon
+  single-partition FEL had Type I error far in excess of the nominal P value on the last-100-codon
   segment (wrong tree), while the first-400-codon segment error ≈ the P value. Splitting via the
-  single–break point scan and running FEL per fragment "restored good statistical properties of FEL."
+  single–break point scan and running FEL per fragment restored good statistical properties of FEL.
   **Exact error-rate magnitudes are in Fig. 3, not accessed — see §9.**
 - **Selection lists change materially (Table 4):** for 14 recombinant biological data sets, the set
   of positively selected codons (FEL, P < 0.1) differs substantially between uncorrected and
   corrected analyses — sites appear, disappear, and shift (e.g. Cache Valley G: 4 sites → none;
   Mumps HN: 399 → none; Puumala NP: 79 → none).
 
-## 7. Load-bearing statements (LICENSE MODE: PERMISSIVE — CC BY-NC 2.0 UK; short verbatim quotes)
+## 7. Load-bearing statements (own-words — CC BY-NC 2.0 UK is own-words-only per license-policy.yml; functional strings kept verbatim as facts)
 
-License basis: article footer states it is "an Open Access article distributed under the terms of
-the Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/by-nc/2.0/uk/)".
-CC BY-NC permits reproduction with attribution, so short load-bearing verbatim quotes are used.
+License basis: the article footer states it is an Open Access article under the Creative Commons
+Attribution Non-Commercial License (http://creativecommons.org/licenses/by-nc/2.0/uk/); per
+license-policy.yml the NC condition is kept out of casts, so load-bearing statements are own-words.
 
-1. Break-point criterion (Materials & Methods, single–break point step 4): "If Ai < A0 for at least
-   one i, then we deduce that some of the sequences in the alignment are recombinant."
-2. Fitness function (Searching for Multiple Break Points Using a GA): "The fitness of every model is
-   measured by its AICc score."
-3. Optional incongruence verification (Result Verification): "We used the Shimodaira and Hasegawa
-   (1999) test (SH test) and required that at least 1 pair of the adjacent segments show a
-   statistically significant (P < 0.01, when corrected for multiple tests) difference in tree
-   topologies."
-4. Downstream-selection motivation (Introduction): the Nielsen & Yang (1998) likelihood methods
-   "may suffer from high rates of false positives when the sequences being analyzed have undergone
-   recombination (Anisimova et al. 2003; Shriner et al. 2003)."
-5. Prescreen result (Results, Effect of Recombination): splitting each alignment into two fragments
-   identified by the single–break point scan and analyzing each with FEL "restored good statistical
-   properties of FEL."
+1. Break-point criterion (Materials & Methods, single–break-point step 4): if `Ai < A0` for at least
+   one i, some of the sequences in the alignment are inferred to be recombinant.
+2. Fitness function (GA search over multiple break points): each model's fitness is measured by its
+   AICc score.
+3. Optional incongruence verification (Result Verification): a Shimodaira–Hasegawa (1999) test (SH
+   test) is applied, requiring at least one pair of adjacent segments to show a statistically
+   significant topological difference (P < 0.01, corrected for multiple tests).
+4. Downstream-selection motivation (Introduction): the Nielsen & Yang (1998) likelihood methods can
+   suffer high false-positive rates when the analyzed sequences have undergone recombination
+   (Anisimova et al. 2003; Shriner et al. 2003).
+5. Prescreen result (Results, Effect of Recombination): splitting each alignment into the two fragments
+   identified by the single–break-point scan and analyzing each with FEL restored good statistical
+   properties.
 
 **Functional strings (verbatim, license-independent):** `AICc = −2 log L(θ̂|data) + 2p(N/(N−p−1))`;
 Akaike weight `wi = exp(−Δi/2) / Σr exp(−Δr/2)`, `Δi = AICc_i − min AICc`; validity requirement
@@ -195,40 +194,40 @@ termination `100 consecutive generations`; CHC population `2P − 2`; `P = 17`; 
 - Break points resolved only to the nearest variable site; cannot pinpoint between variable sites.
 - Point-substitution parameters (base freqs, substitution bias) estimated once on the whole alignment
   and **held fixed** across the GA run (assumed robust to recombination).
-- NJ trees used for expediency; "if additional accuracy is desired, a more computationally demanding
-  method can be invoked."
-- Incremental growth of B "may underestimate the correct number of break points"; a fixed range
+- NJ trees used for expediency; if greater accuracy is wanted, a more computationally demanding
+  method can be substituted.
+- Incremental growth of B may underestimate the true number of break points; a fixed range
   (e.g. B = 1…20) would be more careful but costlier. Making B a free run-time parameter is called
   challenging (dimension changes at run time).
-- SH-based requirement "may be too restrictive" (only Type 3 events give discordant topologies).
+- SH-based requirement may be too restrictive (only Type 3 events give discordant topologies).
 - Discordant signal can arise from causes other than recombination — spatially localized selection,
   substitution-rate variation, heterotachy, or hypermutation (e.g. A→I in SSPE measles) — not just
   recombination. Authors "stress the importance" of manually inspecting per-segment trees.
 
 ## 9. Failure modes / invalidity patterns
 
-- **No genetic diversity → undetectable.** "Like all methods, ours cannot detect recombination in
-  regions where there is no genetic diversity." Break points only sit on variable sites.
+- **No genetic diversity → undetectable.** like every method, this one cannot detect recombination in
+  regions that lack genetic diversity. Break points only sit on variable sites.
 - **AICc invalid if too few columns.** Requires `N > 2(2S − 3) + bp` (more alignment columns than
-  estimated parameters); AICc use "sensibly requires that there be more observations (alignment
-  columns) than the number of estimated model parameters."
+  estimated parameters); AICc use sensibly requires more observations (alignment
+  columns) than estimated model parameters.
 - **Short fragments / few sequences → underpowered.** Recombination signal saturates for small
   (8-seq) alignments; B underestimated; at high event counts, correctly-placed break points still
   cannot be statistically supported (Table 2). Symptom: SH-detectable count → 0 despite many true
-  events. Called "a fundamental limitation of all tests based on phylogenetic discordance."
+  events. Called a fundamental limitation of all tests that rely on phylogenetic discordance.
 - **False break points from non-recombination processes.** Localized selection, rate variation,
   heterotachy, or hypermutation can produce AICc-improving splits or topological discordance without
   recombination (measles M gene example). Diagnostic offered: the optional SH test distinguishes
   true topological incongruence from mere branch-length differences, but AICc-only calls can flag
-  Type 1/2 events or "the inadequacy of the model for character substitution."
+  Type 1/2 events or inadequacy of the character-substitution model.
 - **Overcounting break points** observed in Scenarios 1 & 2.
 - **Numerical saturation** can drive a branch length to numeric infinity (Table 1 note b,
   Mammalian PGK), voiding AICc for that data set.
 - **Downstream (why the prescreen exists):** ignoring recombination inflates FEL Type I error for
   selection above the nominal P value on mis-modeled segments; running codon-selection methods on a
   single tree over a recombinant alignment yields excess false-positive selected sites. Poisson
-  random field selection inference (Sawyer & Hartl 1992) conversely "may be misleading in the absence
-  of recombination."
+  random field selection inference (Sawyer & Hartl 1992) conversely can itself be misleading in the absence
+  of recombination.
 
 ## 10. What the source does NOT address (confident silences)
 
@@ -276,22 +275,22 @@ rule.
 inference — exact numbers.** The paper demonstrates the effect but **does not give the exact
 magnitude in the body text** — the tabulated FEL Type I error rates are inside **Fig. 3** (not
 accessed; see §2). Body-text statements: on the Neutral Scenario, uncorrected single-partition FEL
-Type I error on the last-100-codon segment was "far in excess of the nominal P value," while the
-first-400-codon segment error was "effectively the same as the P value"; per-fragment analysis
-"restored good statistical properties of FEL." Table 4 gives concrete *qualitative* impact — the set
+Type I error on the last-100-codon segment was far in excess of the nominal P value, while the
+first-400-codon segment error was effectively the same as the P value; per-fragment analysis
+restored good statistical properties of FEL. Table 4 gives concrete *qualitative* impact — the set
 of positively selected codons (FEL, P < 0.1) changes substantially in 14 recombinant biological data
 sets (sites added, dropped, shifted). **The exact numeric inflation factor is not recoverable from
 the accessed text; it requires Fig. 3.** `[boundary flag]`
 
 **Q: Stated runtime/scaling caveat.** Yes. Brute force over B break points is `~O(V^B)` and
-"rapidly becomes impractical" (HIV-1 ~10 kb, ¼ variable → ~10^9 models for 3 break points), hence the
-GA. A single GA run takes "several minutes to several hours" depending on alignment size and number
+rapidly becomes impractical (HIV-1 ~10 kb, ¼ variable → ~10^9 models for 3 break points), hence the
+GA. A single GA run takes several minutes to several hours depending on alignment size and number
 of break points; 100 small alignments screened in ~5 min on 24 nodes; runs use P = 17 nodes, CHC
 population 2P−2, ~10^3–10^4 models per run. Scaling caveat on *inference quality* (not just compute):
 recombination signal saturates and B is underestimated for small alignments (8 sequences) / short
 fragments, independent of the GA search.
 
 **Guidance license note reconciliation** `[summarizer-inferred]`: guidance said "OUP MBE →
-all-rights-reserved → own-words prose." The actual article is **Open Access under CC BY-NC 2.0 UK**,
-which permits reproduction. This note therefore used **permissive mode** (short verbatim quotes in
-§7) rather than own-words-only. Functional strings are verbatim as guidance directed.
+all-rights-reserved → own-words prose." The actual article is **Open Access under CC BY-NC 2.0 UK**.
+CC BY-NC resolves to own-words-only in `license-policy.yml` (the NC condition is kept out of casts),
+so this note is own-words after all — §7 paraphrased, functional strings verbatim as facts.

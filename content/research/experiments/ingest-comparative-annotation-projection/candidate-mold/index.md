@@ -8,7 +8,7 @@ references:
   - kind: research
     ref: "[[turakhia-2020-gene-loss]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: >
@@ -21,7 +21,7 @@ references:
   - kind: research
     ref: "[[kirilenko-2023-toga]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: >

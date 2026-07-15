@@ -4,7 +4,7 @@ name: audit-ancestral-reconstruction-validity
 tags:
   - family/b
   - role/critique
-  - role/calibrate-handoff
+  - role/calibrate
   - domain/phylogenetics
   - domain/ancestral-reconstruction
 references:

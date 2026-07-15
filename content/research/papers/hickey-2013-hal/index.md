@@ -5,7 +5,7 @@ source_id: hickey-2013-hal
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3654707/
 doi: 10.1093/bioinformatics/btt128
 access_date: "2026-07-03"
-license: LicenseRef-CC-BY-3.0
+license: CC-BY-3.0
 attribution: "Hickey G, Paten B, Earl D, Zerbino D, Haussler D. HAL: a hierarchical format for storing and analyzing multiple genome alignments. Bioinformatics 29(10):1341-1342, 2013. DOI 10.1093/bioinformatics/btt128. Read via PMC open-access full text; note flags CC BY 3.0 license discrepancy."
 derived: own-words-summary
 ---

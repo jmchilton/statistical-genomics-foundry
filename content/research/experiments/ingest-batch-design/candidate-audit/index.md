@@ -11,35 +11,35 @@ references:
   - kind: research
     ref: "[[deseq2]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: verbatim
     evidence: corpus-observed
     purpose: "Axis 1's mechanical detector: model-matrix rank. The exact error string, the two named remedies under perfect confounding, and the statement that there is no way to separate condition effects from batch effects."
   - kind: research
     ref: "[[leek-2010]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "Axis 1's qualitative anchor (bladder/sTCC: control samples clustering perfectly by processing date) and the boundary condition on the whole adjustment menu — it works only when batch is not highly confounded with biology."
   - kind: research
     ref: "[[nygaard-2016]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: verbatim
     evidence: corpus-observed
     purpose: "Axis 2 in full: the three-legged trigger, the exact no-inflation condition (n_iA:n_iB = n_A:n_B for all batches i), the effective-vs-nominal ratio as the over-confidence index, the reanalysis counts (2011 vs 11; 1003 vs 377), and the null-data check parameters the Calibrate role runs."
   - kind: research
     ref: "[[zhang-2020-combat-seq]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: verbatim
     evidence: corpus-observed
     purpose: "Axis 3: the diagnose-before-you-transform rule, the over-correction regime (FPR 0.059–0.067 when the batch effect is mean-only), the Gaussian-on-counts anti-pattern (negative values; P = 0.0033), and its own confounded-design limitation."
   - kind: research
     ref: "[[sva]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: verbatim
     evidence: corpus-observed
     purpose: "Axis 3 + Axis 4 detectors: the stated input contracts (ComBat=cleaned/normalized, ComBat_seq=raw counts, one batch only, svaseq needs dat+constant > 0), the console strings (`Using null model in ComBat-seq.`, the supervised-sva warning), the SVs-in-both-models rule, and the §10 statement that sva is inappropriate when latent structure IS the biology."
@@ -54,14 +54,14 @@ references:
   - kind: research
     ref: "[[msmb-chap8]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "Calibrate's cheap first pass: the p-value histogram oracle (uniform + left peak = calibrated; right-rising tilt = batch effects; depletion of small p-values = an unmodelled balanced covariate), and the known-truth simulation that demonstrates it and its cure."
   - kind: research
     ref: "[[msmb-chap13]]"
     used_at: runtime
-    load: eager
+    load: upfront
     mode: condense
     evidence: corpus-observed
     purpose: "The escalation authority (already-confounded collected data cannot be rescued by any analysis) and the Calibrate method itself: simulate under a known data-generating truth and check whether the procedure recovers it — 'validity is demonstrated empirically rather than asserted from a method's name.'"
