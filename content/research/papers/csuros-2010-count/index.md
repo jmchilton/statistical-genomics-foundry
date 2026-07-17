@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: LicenseRef-all-rights-reserved
 attribution: "Csűrös M. Count: evolutionary analysis of phylogenetic profiles with parsimony and likelihood. Bioinformatics 26(15):1910-1912, 2010. DOI 10.1093/bioinformatics/btq315. Oxford University Press article page; summarized in own words."
 derived: own-words-summary
+tags:
+  - domain/gene-family-evolution
+  - domain/ancestral-reconstruction
 ---
 
 # Count: evolutionary analysis of phylogenetic profiles with parsimony and likelihood

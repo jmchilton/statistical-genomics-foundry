@@ -4,6 +4,9 @@ title: "Design of High-Throughput Experiments and their Analyses"
 source: msmb
 source_chapter: 13
 source_url: https://www.huber.embl.de/msmb/13-chap.html
+tags:
+  - domain/experimental-design
+  - domain/batch-effects
 ---
 
 # Design of High-Throughput Experiments and their Analyses — MSMB Chapter 13 (summary)

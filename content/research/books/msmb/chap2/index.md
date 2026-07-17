@@ -4,6 +4,8 @@ title: "Statistical Modeling"
 source: msmb
 source_chapter: 2
 source_url: https://www.huber.embl.de/msmb/02-chap.html
+tags:
+  - domain/statistical-inference
 ---
 
 # Statistical Modeling — MSMB Chapter 2 (summary)

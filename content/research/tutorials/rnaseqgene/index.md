@@ -10,6 +10,9 @@ license: Artistic-2.0
 license_file: LICENSES/Artistic-2.0.LICENSE
 attribution: "Michael I. Love, Simon Anders, Vladislav Kim, Wolfgang Huber. rnaseqGene Bioconductor workflow package, version 1.36.0 (Bioconductor 3.23). Licensed Artistic-2.0. https://bioconductor.org/packages/release/workflows/html/rnaseqGene.html — read from the rendered vignette HTML; an F1000Research version exists (DOI 10.12688/f1000research.7563.1) and is stated to differ."
 derived: license-aware-summary
+tags:
+  - domain/differential-expression
+  - domain/batch-effects
 ---
 
 # rnaseqGene — RNA-seq workflow: gene-level exploratory analysis and differential expression

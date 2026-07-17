@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: CC-BY-NC-ND-4.0
 attribution: "Beaulieu JM, O'Meara BC. Detecting Hidden Diversification Shifts in Models of Trait-Dependent Speciation and Extinction. Systematic Biology 65(4):583-601, 2016. DOI 10.1093/sysbio/syw022. Published version is Oxford University Press; abstract/preprint access noted in the source note."
 derived: abstract-only-own-words-summary
+tags:
+  - domain/diversification-rates
+  - domain/phylogenetics
 ---
 
 # Beaulieu & O'Meara 2016 — HiSSE (Hidden State Speciation and Extinction)

@@ -4,6 +4,8 @@ title: "Clustering"
 source: msmb
 source_chapter: 5
 source_url: https://www.huber.embl.de/msmb/05-chap.html
+tags:
+  - domain/clustering
 ---
 
 # Clustering — MSMB Chapter 5 (summary)

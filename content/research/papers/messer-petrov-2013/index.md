@@ -8,6 +8,9 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Messer PW, Petrov DA. PNAS 110(21):8615-8620, 2013. DOI 10.1073/pnas.1220835110. PMID 23650353; PMCID PMC3666677. Main text read via PMC HTML (display equations transcribed from served images); freely available through the PNAS open-access option, but the exact license is not printed on the page [summarizer-inferred; unverified, treated as all-rights-reserved]; own-words summary, functional strings retained as facts."
 derived: own-words-summary
+tags:
+  - domain/molecular-evolution
+  - domain/population-genetics
 ---
 
 # Messer & Petrov 2013 — Frequent adaptation and the McDonald–Kreitman test

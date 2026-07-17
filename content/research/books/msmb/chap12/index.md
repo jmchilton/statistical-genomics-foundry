@@ -4,6 +4,8 @@ title: "Supervised Learning"
 source: msmb
 source_chapter: 12
 source_url: https://www.huber.embl.de/msmb/12-chap.html
+tags:
+  - domain/supervised-learning
 ---
 
 # Supervised Learning — MSMB Chapter 12 (summary)

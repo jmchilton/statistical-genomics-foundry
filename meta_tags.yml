@@ -1,30 +1,35 @@
-# Tag registry for Mold/Pattern frontmatter `tags:`.
+# Tag registry for Mold/Pattern/source-note frontmatter `tags:`.
 #
-# Adapted from the parent Foundry's meta_tags.yml (a flat registry), but our
-# tags are NAMESPACED (`family/*`, `role/*`, `domain/*`, `topic/*`) — the
-# MOLD_SPEC adaptation that replaces the parent's `axis` grouping. Seeded
-# corpus-first from the tags the authored Molds + Patterns actually use; a tag
-# outside this registry is drift (a build error once enforced).
+# Adapted from the parent Foundry's meta_tags.yml (a flat registry), but our tags are
+# NAMESPACED (`family/*`, `role/*`, `domain/*`) — the MOLD_SPEC adaptation that replaces
+# the parent's `axis` grouping. A tag outside this registry is drift (a build error).
 #
-# Two shapes:
-#   - `values`     namespace: a closed enum. The full `prefix/value` must be listed.
-#   - `open: true` namespace: `prefix/<slug>` with any kebab-case slug — domains
-#                  and topics proliferate by nature; the registry checks the
-#                  PREFIX is known, not the leaf.
+# Two namespace shapes (all three namespaces below are currently `values`/closed; the
+# `open` capability is retained in the loader but unused since domain was closed):
+#   - `values` namespace: a closed enum. The full `prefix/value` must be listed.
+#   - `open: true` namespace: `prefix/<slug>` with any kebab-case slug.
+#
+# APPLICABILITY (enforced in site/src/lib/frontmatter-schema.ts, not here):
+#   - `family/*` + `role/*` are STRUCTURAL — Mold-only; forbidden on source notes/patterns.
+#   - `domain/*` is SUBJECT-MATTER — required (>=1) on every content file, all types.
+# `domain/*` is a CLOSED, curated vocabulary (issue #89 rung 6): seeded corpus-first from
+# the subjects the 127 corpus notes actually cover (fold-map: near-synonyms + method-confounds
+# collapsed to a parent subject). `topic/*` (the parent's finer open tier) was fused into
+# `domain/*` — one subject namespace, closed — so the vocabulary can't proliferate.
 
-version: 1
+version: 2
 
 namespaces:
   family:
     label: Family
-    description: Which side of the analyze/referee split a Mold sits on (glossary Family A / Family B).
+    description: Which side of the analyze/referee split a Mold sits on (glossary Family A / Family B). Mold-only.
     values:
       family/a: Do the analysis (construct).
       family/b: Referee the analysis (critique + calibrate).
 
   role:
     label: Role
-    description: The Family-A or Family-B role a Mold plays (glossary construct/critique/calibrate).
+    description: The Family-A or Family-B role a Mold plays (glossary construct/critique/calibrate). Mold-only.
     values:
       role/construct: Family-A — frame, design-review, select, run.
       role/critique: Family-B — reason about validity against known invalidity patterns.
@@ -32,10 +37,52 @@ namespaces:
 
   domain:
     label: Domain
-    description: Subject-matter area. Open-ended slug.
-    open: true
-
-  topic:
-    label: Topic
-    description: Finer-grained subject tag beneath a domain. Open-ended slug.
-    open: true
+    description: Subject-matter area. Closed, curated vocabulary; required (>=1) on every content file.
+    values:
+      # --- Statistical validity (Family-B core concerns) ---
+      domain/experimental-design: Design, blocking, randomization; confounding avoidance.
+      domain/batch-effects: Technical/processing variation and its correction (incl. latent-factor/surrogate-variable methods).
+      domain/differential-expression: RNA-seq / omics differential-expression testing.
+      domain/multiple-testing: Multiplicity, FWER/FDR control.
+      domain/selective-inference: Select-then-test / double-dipping / post-selection inference.
+      domain/causal-inference: DAGs, collider and selection bias.
+      # --- General statistical methods (textbook breadth) ---
+      domain/statistical-inference: Estimation and testing frameworks (ML, Bayesian).
+      domain/hypothesis-testing: Single-test framework and test choice.
+      domain/model-selection: AIC/BIC/LRT; statistical-method applicability.
+      domain/dimensionality-reduction: PCA/SVD/MDS/ordination and multivariate structure.
+      domain/clustering: Unsupervised grouping and cluster validation.
+      domain/supervised-learning: Classification/regression, overfitting, regularization.
+      domain/mixture-models: Mixture models and EM.
+      domain/count-data-modeling: Overdispersion, negative-binomial / gamma-Poisson GLMs.
+      domain/data-visualization: Grammar of graphics, plot choice, ECDF.
+      domain/spatial-statistics: Spatial point processes, intensity, Ripley's K.
+      domain/network-analysis: Graphs/networks, enrichment, modules.
+      domain/image-analysis: Image-as-data, segmentation, feature extraction.
+      # --- Molecular evolution & phylogenetics ---
+      domain/phylogenetics: Tree inference and phylogenetic (comparative) models.
+      domain/molecular-evolution: Sequence evolution, substitution models, convergence, recombination.
+      domain/dnds: dN/dS (omega) selection tests.
+      domain/gc-biased-gene-conversion: gBGC as a selection confound.
+      domain/trait-evolution: Continuous and discrete trait-evolution models on trees.
+      domain/diversification-rates: Birth-death and state-dependent (SSE/BiSSE/HiSSE) diversification.
+      domain/ancestral-reconstruction: Ancestral sequence / character-state reconstruction.
+      domain/population-genetics: Polymorphism/divergence, McDonald-Kreitman, DFE.
+      # --- Comparative & evolutionary genomics ---
+      domain/comparative-genomics: Cross-species genome comparison and orthology inference.
+      domain/genome-alignment: Pairwise and whole-genome alignment (chains/nets, HAL).
+      domain/synteny: Collinearity / conserved gene order.
+      domain/structural-variation: Inversions/translocations/duplications/CNVs and rearrangements.
+      domain/genome-annotation: Gene annotation and annotation projection/lift-over.
+      domain/pangenomics: Core/accessory pangenome, pangenome graphs.
+      domain/gene-family-evolution: Gene-family gain/loss/duplication over a phylogeny.
+      domain/whole-genome-duplication: Polyploidy / WGD detection (Ks distributions, syntenic depth).
+      domain/genome-assembly: Assembly quality/completeness and its downstream error.
+      domain/variant-calling: Small-variant / SV discovery and genotyping.
+      domain/gene-loss: Gene loss / erosion detection vs assembly artifact.
+      # --- Assays / data types ---
+      domain/single-cell-genomics: Droplet single-cell genomics, demultiplexing, doublet detection.
+      domain/proteomics: Mass-spectrometry quantitative proteomics.
+      domain/dna-methylation: WGBS / differentially-methylated-region detection.
+      # --- Protein ---
+      domain/protein-engineering: Engineering enzyme variants from reconstructions.

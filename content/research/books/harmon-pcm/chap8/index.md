@@ -4,6 +4,10 @@ title: "Fitting models of discrete character evolution"
 source: harmon-pcm
 source_chapter: 8
 source_url: https://lukejharmon.github.io/pcm/chapter8_fitdiscrete/
+tags:
+  - domain/phylogenetics
+  - domain/trait-evolution
+  - domain/ancestral-reconstruction
 ---
 
 # Harmon PCM Chapter 8 — Fitting models of discrete character evolution (summary)

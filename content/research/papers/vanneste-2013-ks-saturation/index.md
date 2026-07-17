@@ -8,6 +8,9 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Vanneste K, Van de Peer Y, Maere S. Inference of Genome Duplications from Age Distributions Revisited. Molecular Biology and Evolution 30(1):177-190, 2013. DOI 10.1093/molbev/mss214. Own-words summary from the OUP article page."
 derived: own-words-summary
+tags:
+  - domain/whole-genome-duplication
+  - domain/molecular-evolution
 ---
 
 # Vanneste, Van de Peer & Maere 2013 — Inference of genome duplications from age distributions revisited

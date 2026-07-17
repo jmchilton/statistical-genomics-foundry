@@ -11,6 +11,9 @@ license: MIT
 license_file: LICENSES/MIT.LICENSE
 attribution: "designit: Blocking and Randomization for Experimental Design, version 0.5.0 (published 2024-03-21). Davydov I, Siebourg-Polster J, Steiner G, Rudolph J, Zhang JD, Banfai B. © F. Hoffmann-La Roche, MIT licensed. https://cran.r-project.org/package=designit — read from the CRAN source tarball (DESCRIPTION, NAMESPACE, R/, vignettes, inst/doc)."
 derived: license-aware-summary
+tags:
+  - domain/experimental-design
+  - domain/batch-effects
 ---
 
 # designit (R package) — v0.5.0

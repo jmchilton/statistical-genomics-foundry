@@ -8,6 +8,10 @@ access_date: "2026-07-06"
 license: LicenseRef-all-rights-reserved
 attribution: "Ratnakumar A, Mousset S, Glemin S, Berglund J, Galtier N, Duret L, Webster MT. Philosophical Transactions of the Royal Society B 365(1552):2571-2580, 2010. DOI 10.1098/rstb.2010.0007. PMID 20643747; PMCID PMC2935097. Full text read via PMC; (c) 2010 The Royal Society, free-to-read, no CC license - all rights reserved."
 derived: own-words-summary
+tags:
+  - domain/gc-biased-gene-conversion
+  - domain/dnds
+  - domain/molecular-evolution
 ---
 
 # Ratnakumar et al. 2010 — Detecting positive selection within genomes: the problem of biased gene conversion

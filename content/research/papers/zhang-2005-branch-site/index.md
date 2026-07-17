@@ -8,6 +8,9 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Zhang J, Nielsen R, Yang Z. Molecular Biology and Evolution 22(12):2472-2479, 2005. DOI 10.1093/molbev/msi237. PMID 16107592. Read as the publisher PDF (msi237.pdf) via an Internet Archive Wayback capture of the OUP article-PDF URL; free PDF classified BRONZE (free-to-read, no CC license) - all rights reserved."
 derived: own-words-summary
+tags:
+  - domain/dnds
+  - domain/molecular-evolution
 ---
 
 # Zhang, Nielsen & Yang 2005 — Evaluation of an improved branch-site likelihood method

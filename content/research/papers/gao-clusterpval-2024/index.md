@@ -8,6 +8,9 @@ access_date: "2026-06-30"
 license: LicenseRef-arXiv-nonexclusive-distrib-1.0
 attribution: "Gao LL, Bien J, Witten D. \"Selective Inference for Hierarchical Clustering.\" Journal of the American Statistical Association 119(545):332–342, 2024. DOI 10.1080/01621459.2022.2116331. Read via arXiv:2012.02936v3 (31 Oct 2022, \"Final accepted version\"). Own-words summary; restrictive license."
 derived: own-words-summary
+tags:
+  - domain/selective-inference
+  - domain/clustering
 ---
 
 *Faithful clean-context note: read only the arXiv PDF (2012.02936v3) and this source's `guidance.md`. arXiv license tag is the default non-exclusive distribution license (not CC), so the prose is own-words paraphrase; only functional strings (equation forms, the conditioning event, exact numbers, the R package name) are reproduced verbatim as facts. Project framing lives in the flagged footer.*

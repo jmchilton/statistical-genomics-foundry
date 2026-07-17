@@ -10,6 +10,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Alvarez-Carretero S, Kapli P, Yang Z. Molecular Biology and Evolution 40(4):msad041, 2023. DOI 10.1093/molbev/msad041. PMCID PMC10127084. Targets PAML v4.10.6 (CODEML). Full text read via Europe PMC JATS XML, Open Access under CC-BY 4.0, permitting short verbatim quotes."
 derived: license-aware-summary
+tags:
+  - domain/dnds
+  - domain/molecular-evolution
 ---
 
 # Álvarez-Carretero, Kapli & Yang 2023 — Beginner's Guide on the Use of PAML to Detect Positive Selection

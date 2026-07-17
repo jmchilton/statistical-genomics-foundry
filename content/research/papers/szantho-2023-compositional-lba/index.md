@@ -9,6 +9,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Szánthó LL, Lartillot N, Szöllősi GJ, Schrempf D. Compositionally Constrained Sites Drive Long-Branch Attraction. Systematic Biology 72(4):767-780, 2023. DOI 10.1093/sysbio/syad013. Open-access full text on PMC under CC-BY 4.0."
 derived: license-aware-summary
+tags:
+  - domain/phylogenetics
+  - domain/molecular-evolution
 ---
 
 # Compositionally Constrained Sites Drive Long-Branch Attraction

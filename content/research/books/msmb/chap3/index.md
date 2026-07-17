@@ -4,6 +4,8 @@ title: "Data Visualization"
 source: msmb
 source_chapter: 3
 source_url: https://www.huber.embl.de/msmb/03-chap.html
+tags:
+  - domain/data-visualization
 ---
 
 # Data Visualization — MSMB Chapter 3 (summary)

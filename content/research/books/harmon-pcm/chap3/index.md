@@ -4,6 +4,9 @@ title: "Introduction to Brownian Motion"
 source: harmon-pcm
 source_chapter: 3
 source_url: https://lukejharmon.github.io/pcm/chapter3_bmintro/
+tags:
+  - domain/phylogenetics
+  - domain/trait-evolution
 ---
 
 # Harmon PCM Chapter 3 — Introduction to Brownian Motion (summary)

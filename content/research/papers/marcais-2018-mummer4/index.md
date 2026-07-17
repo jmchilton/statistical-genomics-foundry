@@ -9,6 +9,8 @@ license: CC0-1.0
 license_file: LICENSES/CC0-1.0.LICENSE
 attribution: "Marçais G, Delcher AL, Phillippy AM, Coston R, Salzberg SL, Zimin A. MUMmer4: A fast and versatile genome alignment system. PLOS Computational Biology 14(1):e1005944, 2018. DOI 10.1371/journal.pcbi.1005944. Article page states CC0 public domain dedication."
 derived: license-aware-summary
+tags:
+  - domain/genome-alignment
 ---
 
 # MUMmer4: A fast and versatile genome alignment system

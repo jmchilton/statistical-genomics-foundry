@@ -8,6 +8,9 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Anisimova M, Nielsen R, Yang Z. Genetics 164(3):1229-1236, 2003. DOI 10.1093/genetics/164.3.1229. PMID 12871927; PMCID PMC1462615. Full-text PDF read via the Europe PMC render endpoint. Bronze OA (free-to-read at publisher; Copyright 2003 Genetics Society of America, license None) - all rights reserved."
 derived: own-words-summary
+tags:
+  - domain/dnds
+  - domain/molecular-evolution
 ---
 
 # Anisimova, Nielsen & Yang 2003 — Effect of recombination on the LRT for positive selection at amino acid sites

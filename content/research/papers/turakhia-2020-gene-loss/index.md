@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: CC-BY-NC-4.0
 attribution: "Turakhia Y, Chen HI, Marcovitz A, Bejerano G. A fully-automated method discovers loss of mouse-lethal and human-monogenic disease genes in 58 mammals. Nucleic Acids Research 48(16):e91, 2020. DOI 10.1093/nar/gkaa550. Read via Europe PMC/OUP open-access full text; note records CC BY-NC 4.0 posture."
 derived: own-words-summary
+tags:
+  - domain/gene-loss
+  - domain/comparative-genomics
 ---
 
 # Turakhia, Chen, Marcovitz & Bejerano 2020 — automated high-confidence gene-loss detection (NAR 48(16):e91)

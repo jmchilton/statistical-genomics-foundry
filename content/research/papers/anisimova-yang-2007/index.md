@@ -8,6 +8,9 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Anisimova M, Yang Z. Molecular Biology and Evolution 24(5):1219-1228, 2007. DOI 10.1093/molbev/msm042. PMID 17339634. Abstract read verbatim from Europe PMC; body/tables read via WebFetch against the OUP free-to-read HTML (direct access Cloudflare-blocked). BRONZE OA (free-to-read, license null) - all rights reserved."
 derived: own-words-summary
+tags:
+  - domain/dnds
+  - domain/multiple-testing
 ---
 
 # Anisimova & Yang 2007 — Multiple hypothesis testing for lineages under positive selection

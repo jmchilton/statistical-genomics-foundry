@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: LicenseRef-all-rights-reserved
 attribution: "Hahn MW, De Bie T, Stajich JE, Nguyen C, Cristianini N. Estimating the tempo and mode of gene family evolution from comparative genomic data. Genome Research 15(8):1153-1160, 2005. DOI 10.1101/gr.3567505. Free full text read via PMC; summarized in own words."
 derived: own-words-summary
+tags:
+  - domain/gene-family-evolution
+  - domain/phylogenetics
 ---
 
 # Hahn et al. 2005 — Estimating the tempo and mode of gene family evolution

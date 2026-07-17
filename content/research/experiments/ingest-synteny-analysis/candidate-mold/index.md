@@ -4,6 +4,8 @@ name: audit-synteny-claim
 tags:
   - family/b
   - role/critique
+  - domain/synteny
+  - domain/structural-variation
 references:
   - kind: research
     ref: "[[wang-2012-mcscanx]]"

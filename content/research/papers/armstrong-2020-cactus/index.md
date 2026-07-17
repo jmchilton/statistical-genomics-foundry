@@ -9,6 +9,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Armstrong J, Hickey G, Diekhans M, Fiddes IT, Novak AM, Deran A, Fang Q, Xie D, Feng S, Stiller J, et al. Progressive Cactus is a multiple-genome aligner for the thousand-genome era. Nature 587(7833):246-251, 2020. DOI 10.1038/s41586-020-2871-y. Read via PMC open-access full text under CC-BY 4.0."
 derived: license-aware-summary
+tags:
+  - domain/genome-alignment
+  - domain/phylogenetics
 ---
 
 # Progressive Cactus (Armstrong et al. 2020) — faithful source note

@@ -4,6 +4,9 @@ title: "Models of discrete character evolution"
 source: harmon-pcm
 source_chapter: 7
 source_url: https://lukejharmon.github.io/pcm/chapter7_introdiscrete/
+tags:
+  - domain/phylogenetics
+  - domain/trait-evolution
 ---
 
 # Harmon PCM Chapter 7 — Models of discrete character evolution (summary)

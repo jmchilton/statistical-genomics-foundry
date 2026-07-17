@@ -8,6 +8,9 @@ access_date: "2026-07-05"
 license: CC-BY-NC-2.5
 attribution: "Schneider A, Souvorov A, Sabath N, Landan G, Gonnet GH, Graur D. Genome Biology and Evolution 1:114-118, 2009. DOI 10.1093/gbe/evp012. PMID 20333182; PMCID PMC2817407. Full text read via Europe PMC fullTextXML; open access under the Creative Commons Attribution Non-Commercial License (CC BY-NC 2.5); own-words summary (NC kept out of casts), functional strings kept verbatim as facts."
 derived: own-words-summary
+tags:
+  - domain/dnds
+  - domain/molecular-evolution
 ---
 
 # Schneider et al. 2009 — Estimates of positive selection inflated by sequencing/annotation/alignment errors

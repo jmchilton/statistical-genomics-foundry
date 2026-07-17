@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: GPL-2.0-or-later
 attribution: "Beaulieu JM. Type I errors, Model rejection, & HiSSE vs. FiSSE. hisse package vignette, rendered 2023-02-16; version pinned from CRAN hisse v2.1.11 in the source note. Rendered vignette and companion Rmd consulted."
 derived: own-words-summary
+tags:
+  - domain/phylogenetics
+  - domain/diversification-rates
 ---
 
 # hisse vignette — "Type I errors, Model rejection, & HiSSE vs. FiSSE"

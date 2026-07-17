@@ -4,6 +4,8 @@ name: audit-wgd-inference
 tags:
   - family/b
   - role/critique
+  - domain/whole-genome-duplication
+  - domain/dnds
 references:
   - kind: research
     ref: "[[vanneste-2013-ks-saturation]]"

@@ -8,6 +8,10 @@ access_date: "2026-07-13"
 license: LicenseRef-all-rights-reserved
 attribution: "Kang HM, Subramaniam M, Targ S, Nguyen M, Maliskova L, McCarthy E, Wan E, Wong S, Byrnes L, Lanata CM, Gate RE, Mostafavi S, Marson A, Zaitlen N, Criswell LA, Ye CJ. Multiplexed droplet single-cell RNA-sequencing using natural genetic variation. Nat Biotechnol 36(1):89-94, 2018. DOI 10.1038/nbt.4042. Read via the NIHMS author manuscript on PMC (PMC5784859, NIHMSID NIHMS921103); Nature author manuscript = all rights reserved, NOT Creative Commons. Summarized in own words."
 derived: own-words-summary
+tags:
+  - domain/single-cell-genomics
+  - domain/batch-effects
+  - domain/experimental-design
 ---
 
 # Kang 2018 — demuxlet: multiplexed droplet scRNA-seq using natural genetic variation

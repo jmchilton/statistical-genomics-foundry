@@ -3,6 +3,9 @@ type: pattern
 name: double-dipping
 pole: cautionary-bad
 status: stub
+tags:
+  - domain/selective-inference
+  - domain/multiple-testing
 ---
 
 # Double-dipping (circular / post-selection inference)

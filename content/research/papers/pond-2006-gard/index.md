@@ -8,6 +8,10 @@ access_date: "2026-07-05"
 license: CC-BY-NC-2.0-UK
 attribution: "Kosakovsky Pond SL, Posada D, Gravenor MB, Woelk CH, Frost SDW. Molecular Biology and Evolution 23(10):1891-1901, 2006. DOI 10.1093/molbev/msl051. PMID 16818476. Read via OUP open-access full text; article footer states Open Access under the Creative Commons Attribution Non-Commercial License (CC BY-NC 2.0 UK); own-words summary (NC kept out of casts), functional strings kept verbatim as facts."
 derived: own-words-summary
+tags:
+  - domain/molecular-evolution
+  - domain/phylogenetics
+  - domain/dnds
 ---
 
 # Automated Phylogenetic Detection of Recombination Using a Genetic Algorithm (GARD)

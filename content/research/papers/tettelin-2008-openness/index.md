@@ -8,6 +8,8 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Tettelin H, Riley D, Cattuto C, Medini D. Comparative genomics: the bacterial pan-genome. Current Opinion in Microbiology 11(5):472-477, 2008. DOI 10.1016/j.mib.2008.09.006. Abstract-only own-words summary from PubMed and DOI metadata because the full text was not accessible."
 derived: abstract-only-own-words-summary
+tags:
+  - domain/pangenomics
 ---
 
 # Tettelin et al. 2008 — Comparative genomics: the bacterial pan-genome

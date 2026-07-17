@@ -4,6 +4,9 @@ title: "Multivariate Brownian Motion"
 source: harmon-pcm
 source_chapter: 5
 source_url: https://lukejharmon.github.io/pcm/chapter5_mvbm/
+tags:
+  - domain/phylogenetics
+  - domain/trait-evolution
 ---
 
 # Harmon PCM Chapter 5 — Multivariate Brownian Motion (summary)

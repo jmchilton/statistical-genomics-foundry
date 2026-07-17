@@ -22,6 +22,7 @@ const validSourceNote = (overrides: Record<string, unknown> = {}) => ({
   license: 'MIT',
   attribution: 'X et al. 2020',
   derived: 'own-words-summary',
+  tags: ['domain/batch-effects'],
   ...overrides,
 });
 
@@ -38,7 +39,7 @@ const validReference = (overrides: Record<string, unknown> = {}) => ({
 const validMold = (overrides: Record<string, unknown> = {}) => ({
   type: 'mold',
   name: 'double-dip-referee',
-  tags: ['family/b', 'role/critique'],
+  tags: ['family/b', 'role/critique', 'domain/selective-inference'],
   references: [validReference()],
   ...overrides,
 });
@@ -60,6 +61,7 @@ const validBookChapter = (overrides: Record<string, unknown> = {}) => ({
   source: 'msmb',
   source_chapter: 1,
   source_url: 'https://example.org/ch1',
+  tags: ['domain/mixture-models'],
   ...overrides,
 });
 
@@ -167,12 +169,59 @@ describe('reference manifest (via mold schema)', () => {
 });
 
 describe('pattern schema', () => {
-  it('accepts a minimal pattern', () => {
-    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping' })).toEqual([]);
+  it('accepts a minimal pattern with a domain tag', () => {
+    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping', tags: ['domain/selective-inference'] })).toEqual([]);
   });
 
   it('rejects a non-corpus pole value', () => {
-    const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', pole: 'neither' }), 'pole');
+    const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', pole: 'neither', tags: ['domain/selective-inference'] }), 'pole');
     expect(issues.length).toBeGreaterThan(0);
+  });
+});
+
+// Rung 6: tag applicability. domain/* is required (>=1) everywhere; family/*+role/* are
+// structural (Mold-only) and a category error on a source note; the domain vocab is closed.
+describe('tag applicability', () => {
+  it('rejects a source note carrying zero domain tags', () => {
+    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: [] })), 'tags');
+    expect(issues.some((i) => /domain\/\* tag is required/.test(i.message))).toBe(true);
+  });
+
+  it('rejects a structural (family/role) tag on a source note', () => {
+    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/batch-effects', 'family/b'] })), 'tags');
+    expect(issues.some((i) => /Mold-only/.test(i.message))).toBe(true);
+  });
+
+  // The book path runs requireNoteTags inside .transform() — a different code path from the
+  // sourceNote/pattern .superRefine, and no real book lacks tags, so gate it explicitly.
+  it('rejects a book chapter carrying zero domain tags', () => {
+    const issues = atPath(issuesOf(bookSchema, validBookChapter({ tags: [] })), 'tags');
+    expect(issues.some((i) => /domain\/\* tag is required/.test(i.message))).toBe(true);
+  });
+
+  it('rejects a structural (family/role) tag on a pattern', () => {
+    const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', tags: ['domain/selective-inference', 'family/b'] }), 'tags');
+    expect(issues.some((i) => /Mold-only/.test(i.message))).toBe(true);
+  });
+
+  it('rejects a Mold missing its domain tag', () => {
+    const issues = atPath(issuesOf(moldSchema, validMold({ tags: ['family/b', 'role/critique'] })), 'tags');
+    expect(issues.some((i) => /domain\/\* tag is required/.test(i.message))).toBe(true);
+  });
+
+  it('rejects a Mold missing family/role', () => {
+    const issues = atPath(issuesOf(moldSchema, validMold({ tags: ['domain/selective-inference'] })), 'tags');
+    expect(issues.some((i) => /family\/\* tag/.test(i.message))).toBe(true);
+    expect(issues.some((i) => /role\/\* tag/.test(i.message))).toBe(true);
+  });
+
+  it('rejects a domain slug outside the closed vocabulary', () => {
+    const issues = issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/not-a-real-domain'] }));
+    expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
+  });
+
+  it('rejects a retired topic/* tag', () => {
+    const issues = issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/dnds', 'topic/dnds'] }));
+    expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
   });
 });

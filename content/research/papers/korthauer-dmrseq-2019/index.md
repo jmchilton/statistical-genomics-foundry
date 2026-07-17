@@ -9,6 +9,10 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Korthauer K, Chakraborty S, Benjamini Y, Irizarry RA. bioRxiv 183210 (2017). Published: Biostatistics 20(3):367-383, 2019. The CC-BY-4.0 license and this note cover the bioRxiv PREPRINT (v1, 2017-08-31; license=cc_by per bioRxiv API), NOT the paywalled published Biostatistics 2019 version."
 derived: "Verbatim load-bearing quotes permitted (CC-BY). Quotes in section 7 are exact from the preprint; equation/table/figure images were not machine-readable and are described, not transcribed."
+tags:
+  - domain/dna-methylation
+  - domain/multiple-testing
+  - domain/selective-inference
 ---
 
 *Faithful clean-context note: read ONLY the source (bioRxiv 183210 v1 full text, via Wayback snapshot) + its `guidance.md`. License mode = **CC-BY**, so short verbatim load-bearing quotes are reproduced. Boundary: this is the **2017 preprint**, not the 2019 published Biostatistics article; the published PMC record (PMC6587918) carries only the abstract under an Oxford "publisher-standard" (paywalled) license. Equations, tables, figures, and the Supplementary Materials were NOT readable — items deferred there are flagged as unanswered. Project framing lives in the flagged footer.*
