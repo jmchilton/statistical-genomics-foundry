@@ -27,7 +27,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim asserts a species pan-genome is open or closed via a growth-law / power-law fit"
-    mode: sidecar
+    mode: condense
     evidence: corpus-observed
     purpose: "Flag that a defensible open/closed verdict needs a growth-law fit with a stated inequality and adequate genomes — but the exact functional form, exponent symbol, boundary value, and minimum-genome count are NOT recoverable from this (paywalled) note. See [GAP] markers in Gate B4."
   - kind: research

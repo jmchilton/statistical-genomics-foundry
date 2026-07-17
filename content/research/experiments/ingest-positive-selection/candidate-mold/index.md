@@ -18,7 +18,7 @@ references:
     ref: "[[paml-manual]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: sidecar
     evidence: corpus-observed
     purpose: "Authoritative control-file specs (model/NSsites/fix_omega), the NSsites↔M-model table with #free-params, the M8a-vs-M8 and branch-site A-vs-A1 nulls, BEB scope, and the 50:50-mixture-vs-conservative-χ² null rule."
   - kind: research

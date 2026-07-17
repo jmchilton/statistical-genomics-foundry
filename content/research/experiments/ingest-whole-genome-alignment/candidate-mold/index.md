@@ -18,7 +18,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when a pairwise alignment used a minimap2 asm preset and the claim is a false-absence / unaligned-region call"
-    mode: verbatim
+    mode: condense
     evidence: corpus-observed
     purpose: "Preset divergence ceilings (asm5 won't extend past 5% divergence; asm10 ~1% avg; asm20 ~several % avg) so a below-ceiling run can't support absence-of-homology. Records that no numeric identity floor exists."
   - kind: research
@@ -50,7 +50,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the genomes have WGD/ploidy differences and the claim is under- or over-matched homologous copies"
-    mode: verbatim
+    mode: condense
     evidence: corpus-observed
     purpose: "WGD control is -R (reference max alignment depth) / -Q (query max alignment depth), e.g. maize<->sorghum -R 1 -Q 2; anchors = reference full-length CDS (needs GFF3). No --ploidy flag, no minimum anchor-identity threshold in the source."
   - kind: research

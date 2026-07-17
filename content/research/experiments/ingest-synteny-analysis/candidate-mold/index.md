@@ -10,7 +10,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim rests on MCScanX collinear blocks, its gene classifier, or tandem handling"
-    mode: verbatim
+    mode: condense
     evidence: corpus-observed
     purpose: "MCScanX defaults (match 50 / gap -1 / gaps <25 / block score >250 = >=5 pairs / E 1e-5), tandem-collapse-within-5-genes, and WGD/tandem/proximal/dispersed classifier — grounds the block-count, tandem-inflation, and TE-anchor gates. Note quantifies NO TE inflation fold."
   - kind: research
@@ -18,7 +18,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim rests on MCScan (2008) blocks, depth/multiplicity, or a cscore stringency argument"
-    mode: verbatim
+    mode: condense
     evidence: corpus-observed
     purpose: "Original MCScan cutoffs (score >300, E<1e-10, tandem <50 kb, BLASTP best-5 E<=1e-5) and depth-read-against-per-lineage-history. Anchors the WGD-depth and stringency gates; establishes cscore is ABSENT from the paper (JCVI-software only)."
   - kind: research
@@ -50,7 +50,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim involves WGD/polyploidy, alignment depth, or an AnchorWave --ploidy citation"
-    mode: verbatim
+    mode: condense
     evidence: corpus-observed
     purpose: "AnchorWave controls WGD depth via -R/-Q (there is NO --ploidy flag in the paper); anchors=reference CDS. Grounds the WGD 1:many gate and the --ploidy confabulation flag."
   - kind: research

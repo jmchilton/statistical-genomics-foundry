@@ -19,13 +19,18 @@ const NOTE_COLLECTIONS: { dir: string; route: string }[] = [
   { dir: 'patterns', route: 'patterns' },
 ];
 
-function slugify(name: string): string {
+export function slugify(name: string): string {
   return name
     .toLowerCase()
     .replace(/\s+-\s+/g, '-')
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9\-]/g, '')
     .replace(/-+/g, '-');
+}
+
+/** True when a string is a bare `[[...]]` wiki link (the reference-manifest ref form). */
+export function isWikiLink(s: string): boolean {
+  return /^\[\[.+\]\]$/.test(s.trim());
 }
 
 // Note ids (dir holding an index.md), relative to `base`, with `/index` implied.
@@ -44,7 +49,7 @@ function noteIds(base: string): string[] {
   return out;
 }
 
-function stripBrackets(wikiLink: string): string {
+export function stripBrackets(wikiLink: string): string {
   return wikiLink.replace(/^\[\[/, '').replace(/\]\]$/, '');
 }
 
