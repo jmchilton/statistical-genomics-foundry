@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Testing"
 source: msmb
 source_chapter: 6

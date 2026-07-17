@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sourceNoteSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
+import { sourceNoteSchema, moldSchema, patternSchema, bookSchema, typeSchema, TYPES } from '../src/lib/frontmatter-schema';
 
 // Negative-fixtures table: each deliberately-broken frontmatter asserts the SPECIFIC
 // error it must raise, against the same schema the site builds with (issue #89 rung 3).
@@ -43,9 +43,49 @@ const validMold = (overrides: Record<string, unknown> = {}) => ({
   ...overrides,
 });
 
+// Rung 6: `type` is the first universally-required field. One registry (TYPES) is the
+// authority; every collection's type draws from it — a corpus-real subset, never an
+// invented value. Parent-diff (paper/tutorial split, net-new `book`) documented at TYPES.
+describe('type registry', () => {
+  it('accepts every corpus-real type and rejects an out-of-registry value', () => {
+    for (const t of TYPES) expect(typeSchema.safeParse(t).success).toBe(true);
+    expect(typeSchema.safeParse('cli-tool').success).toBe(false); // a parent type we defer
+    expect(typeSchema.safeParse('research').success).toBe(false); // parent umbrella we split
+  });
+});
+
+const validBookChapter = (overrides: Record<string, unknown> = {}) => ({
+  type: 'book',
+  title: 'A Chapter',
+  source: 'msmb',
+  source_chapter: 1,
+  source_url: 'https://example.org/ch1',
+  ...overrides,
+});
+
+describe('book schema', () => {
+  it('accepts a chapter with type: book', () => {
+    expect(issuesOf(bookSchema, validBookChapter())).toEqual([]);
+  });
+
+  it('requires type on a book chapter', () => {
+    const bad = validBookChapter();
+    delete (bad as Record<string, unknown>).type;
+    expect(atPath(issuesOf(bookSchema, bad), 'type').length).toBeGreaterThan(0);
+  });
+
+  it('rejects a non-book type on a book chapter', () => {
+    expect(atPath(issuesOf(bookSchema, validBookChapter({ type: 'paper' })), 'type').length).toBeGreaterThan(0);
+  });
+});
+
 describe('sourceNote schema', () => {
   it('accepts a minimal own-words note', () => {
     expect(issuesOf(sourceNoteSchema, validSourceNote())).toEqual([]);
+  });
+
+  it('rejects a type outside the paper/tutorial subset', () => {
+    expect(atPath(issuesOf(sourceNoteSchema, validSourceNote({ type: 'book' })), 'type').length).toBeGreaterThan(0);
   });
 
   // The #87-class footgun: an unquoted `access_date: 2026-07-13` parses to a Date, not a

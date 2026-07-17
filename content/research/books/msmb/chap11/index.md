@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Image Data"
 source: msmb
 source_chapter: 11

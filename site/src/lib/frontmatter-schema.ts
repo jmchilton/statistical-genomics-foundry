@@ -18,6 +18,16 @@ import {
 } from './reference-contract';
 import { isValidTag } from './meta-tags';
 
+// The `type` vocabulary — one named registry, the authority for this field the way
+// meta_tags.yml is for tags (issue #89 rung 6). Corpus-real values only. Diff from parent
+// (meta_schema.yml): the parent lumps all literature under `research`; we split by genre
+// (`paper`/`tutorial`/`book` — `book` is net-new here). The parent's machinery types
+// (source-pattern, cli-tool, cli-command, pipeline, schema, prompt) are deferred until that
+// machinery stands up — enrolling them now would validate files that cannot exist yet.
+export const TYPES = ['mold', 'pattern', 'paper', 'tutorial', 'book'] as const;
+export type ContentType = (typeof TYPES)[number];
+export const typeSchema = z.enum(TYPES);
+
 // Strip the trailing `/index` so entry ids stay clean (`msmb/chap1`, `leek-2010`)
 // rather than `.../index` — keeps URLs and wiki-link basenames unique per note.
 export const stripIndex = ({ entry }: { entry: string }) =>
@@ -95,7 +105,7 @@ const licenseCoherence = <T extends { license: string; license_file?: string; de
 export const sourceNoteSchema = z
   .object({
     title: z.string(),
-    type: z.enum(['paper', 'tutorial']),
+    type: z.enum(['paper', 'tutorial']), // registry subset (see TYPES)
     source_id: z.string(),
     source_url: z.string().url(),
     doi: z.string().optional(),
@@ -128,6 +138,7 @@ function loadBookMeta(source: string): Record<string, unknown> {
 export const bookSchema = z
   .object({
     title: z.string(),
+    type: z.literal('book' satisfies ContentType),
     source: z.string(),
     source_chapter: z.number().int().optional(),
     source_url: z.string().url(),
@@ -159,7 +170,7 @@ export const bookSchema = z
 // is the typed manifest (reference_contract.yml). Experiment artifacts (the blind-assembly
 // candidate/doer/audit Molds) are structurally Molds, so they share this schema.
 export const moldSchema = z.object({
-  type: z.literal('mold'),
+  type: z.literal('mold' satisfies ContentType),
   name: z.string(),
   summary: z.string().optional(),
   tags: z.array(tag).default([]),
@@ -171,7 +182,7 @@ export const moldSchema = z.object({
 // frontmatter. Kept loose — corpus-first stubs grow as real cases demand. (`status` stays
 // free text: the inherited status lifecycle is a rung-6 port, not tightened here.)
 export const patternSchema = z.object({
-  type: z.literal('pattern'),
+  type: z.literal('pattern' satisfies ContentType),
   name: z.string(),
   pole: z.enum(['cautionary-bad', 'established-good']).optional(),
   status: z.string().optional(),

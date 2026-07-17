@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Generative Models for Discrete Data"
 source: msmb
 source_chapter: 1

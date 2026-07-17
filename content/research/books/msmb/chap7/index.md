@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Multivariate Analysis"
 source: msmb
 source_chapter: 7
