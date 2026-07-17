@@ -3,6 +3,9 @@ type: pattern
 name: batch-aliased-with-condition
 pole: cautionary-bad
 status: stub
+tags:
+  - domain/batch-effects
+  - domain/experimental-design
 ---
 
 # Batch aliased with condition (confounding / non-identifiability / correct-then-test)

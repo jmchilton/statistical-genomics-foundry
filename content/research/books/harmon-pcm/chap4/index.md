@@ -4,6 +4,9 @@ title: "Fitting Brownian Motion"
 source: harmon-pcm
 source_chapter: 4
 source_url: https://lukejharmon.github.io/pcm/chapter4_fitbm/
+tags:
+  - domain/phylogenetics
+  - domain/trait-evolution
 ---
 
 # Harmon PCM Chapter 4 — Fitting Brownian Motion (summary)

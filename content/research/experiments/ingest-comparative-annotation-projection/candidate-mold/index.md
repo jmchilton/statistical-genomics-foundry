@@ -4,6 +4,8 @@ name: audit-gene-loss-call
 tags:
   - family/b
   - role/critique
+  - domain/gene-loss
+  - domain/comparative-genomics
 references:
   - kind: research
     ref: "[[turakhia-2020-gene-loss]]"

@@ -9,6 +9,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Murrell B, Wertheim JO, Moola S, Weighill T, Scheffler K, Kosakovsky Pond SL. PLoS Genetics 8(7):e1002764, 2012. DOI 10.1371/journal.pgen.1002764. Read via PLoS open-access HTML plus the printable PDF (numeric/symbolic values); open access under the Creative Commons Attribution License (PLoS house license CC BY 4.0), permitting verbatim quotes."
 derived: license-aware-summary
+tags:
+  - domain/dnds
+  - domain/molecular-evolution
 ---
 
 # Murrell et al. 2012 — MEME (Mixed Effects Model of Evolution)

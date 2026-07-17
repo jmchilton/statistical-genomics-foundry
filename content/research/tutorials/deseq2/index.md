@@ -8,6 +8,9 @@ access_date: "2026-07-13"
 license: LGPL-3.0-or-later
 attribution: "Love MI, Anders S, Huber W. Analyzing RNA-seq data with DESeq2 — Bioconductor package vignette, DESeq2 v1.52.0. License LGPL (>= 3) per the DESeq2 Bioconductor landing page. Methods: Love, Huber & Anders, Genome Biology 2014;15:550."
 derived: own-words-summary
+tags:
+  - domain/differential-expression
+  - domain/batch-effects
 ---
 
 # DESeq2 vignette — "Analyzing RNA-seq data with DESeq2"

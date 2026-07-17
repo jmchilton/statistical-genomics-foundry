@@ -62,6 +62,29 @@ const tag = z.string().refine(isValidTag, {
   message: 'tag must be registered in meta_tags.yml (e.g. family/b, role/critique, domain/<slug>)',
 });
 
+// Tag applicability (issue #89 rung 6). Two namespace kinds with different reach:
+// `domain/*` is subject-matter — required (>=1) on every content file; `family/*`+`role/*`
+// are structural (the analyze/referee split) — Mold-only, a category error on a source note.
+const hasDomain = (tags: string[]) => tags.some((t) => t.startsWith('domain/'));
+const structuralIn = (tags: string[]) => tags.filter((t) => t.startsWith('family/') || t.startsWith('role/'));
+
+const requireNoteTags = (tags: string[], ctx: z.RefinementCtx) => {
+  if (!hasDomain(tags))
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['tags'], message: 'at least one domain/* tag is required' });
+  const structural = structuralIn(tags);
+  if (structural.length)
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['tags'], message: `family/* and role/* are Mold-only structural tags (remove ${structural.join(', ')})` });
+};
+
+const requireMoldTags = (tags: string[], ctx: z.RefinementCtx) => {
+  if (!hasDomain(tags))
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['tags'], message: 'at least one domain/* tag is required' });
+  if (!tags.some((t) => t.startsWith('family/')))
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['tags'], message: 'a Mold requires a family/* tag' });
+  if (!tags.some((t) => t.startsWith('role/')))
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['tags'], message: 'a Mold requires a role/* tag' });
+};
+
 // An SPDX id from license-policy.yml, or a LicenseRef-<slug> escape hatch.
 // The license → redistribution-policy table (galaxyproject/foundry-pattern#4)
 // is the source of truth for what each id means.
@@ -115,8 +138,10 @@ export const sourceNoteSchema = z
     license_file: z.string().optional(),
     attribution: z.string(),
     derived: z.string(),
+    tags: z.array(tag).default([]),
   })
-  .superRefine(licenseCoherence);
+  .superRefine(licenseCoherence)
+  .superRefine((note, ctx) => requireNoteTags(note.tags, ctx));
 
 // Book notes: summaries of external textbooks (e.g. MSMB chapters). Book-level metadata
 // (license/license_file/attribution/derived) lives ONCE per book in
@@ -142,8 +167,10 @@ export const bookSchema = z
     source: z.string(),
     source_chapter: z.number().int().optional(),
     source_url: z.string().url(),
+    tags: z.array(tag).default([]),
   })
   .transform((data, ctx) => {
+    requireNoteTags(data.tags, ctx);
     const book = loadBookMeta(data.source);
     if (!isValidLicenseId(book.license as string)) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, message: `book.yml license "${String(book.license)}" is not a valid id (source: ${data.source})` });
@@ -175,18 +202,21 @@ export const moldSchema = z.object({
   summary: z.string().optional(),
   tags: z.array(tag).default([]),
   references: z.array(reference).optional(),
-});
+}).superRefine((mold, ctx) => requireMoldTags(mold.tags, ctx));
 
 // Patterns: the cautionary-bad / established-good corpus leaves referenced by referee
 // Molds (`[[double-dipping]]`, `[[garden-of-forking-paths]]`, …). Only `index.md` bears
 // frontmatter. Kept loose — corpus-first stubs grow as real cases demand. (`status` stays
 // free text: the inherited status lifecycle is a rung-6 port, not tightened here.)
-export const patternSchema = z.object({
-  type: z.literal('pattern' satisfies ContentType),
-  name: z.string(),
-  pole: z.enum(['cautionary-bad', 'established-good']).optional(),
-  status: z.string().optional(),
-});
+export const patternSchema = z
+  .object({
+    type: z.literal('pattern' satisfies ContentType),
+    name: z.string(),
+    pole: z.enum(['cautionary-bad', 'established-good']).optional(),
+    status: z.string().optional(),
+    tags: z.array(tag).default([]),
+  })
+  .superRefine((pattern, ctx) => requireNoteTags(pattern.tags, ctx));
 
 // Single source for the collection ⇒ (glob base, schema) mapping, so `content.config.ts`
 // and the corpus-conformance validator route files the same way. Bases are relative to

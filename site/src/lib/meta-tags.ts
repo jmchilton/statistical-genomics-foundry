@@ -5,7 +5,7 @@ import yaml from 'js-yaml';
 
 // Tag registry at the repo root (../meta_tags.yml), shared between the schema and
 // any future validator. Adapted from galaxyproject/foundry's meta_tags.yml, but
-// namespaced (`family/*`, `role/*`, `domain/*`, `topic/*`).
+// namespaced (`family/*`, `role/*`, `domain/*`).
 const TAGS_FILE = path.resolve('../meta_tags.yml');
 
 interface Namespace {

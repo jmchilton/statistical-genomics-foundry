@@ -8,6 +8,9 @@ access_date: "2026-07-01"
 license: LicenseRef-arXiv-nonexclusive-distrib-1.0
 attribution: "Zhu Y, Du S, Li B, Luo Y, Tang N. Are Large Language Models Good Statisticians? NeurIPS 2024 Datasets & Benchmarks Track. arXiv:2406.07815. The `license` covers the arXiv paper (the note's load-bearing source); the StatQA code + dataset (GitHub HKUSTDial/StatQA) are separately GPL-3.0. Summarized in own words — no source prose reproduced."
 derived: own-words-summary
+tags:
+  - domain/model-selection
+  - domain/hypothesis-testing
 ---
 
 *Faithful clean-context summary of one source; the summarizer read the arXiv PDF v2 + the GitHub repo, seeing only the source and this note's guidance file. Project framing lives in the flagged footer. License mode: paper is arXiv-nonexclusive → own-words throughout; short functional strings — exact method names, error-type labels, field names, numeric scores, prompt strings — kept verbatim as facts. Repo is GPL-3.0 (quotable) but the load-bearing content is the paper's, so the note stays own-words.*

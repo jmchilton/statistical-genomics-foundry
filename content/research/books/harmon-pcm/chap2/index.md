@@ -4,6 +4,9 @@ title: "Fitting Statistical Models to Data"
 source: harmon-pcm
 source_chapter: 2
 source_url: https://lukejharmon.github.io/pcm/chapter2_stats/
+tags:
+  - domain/statistical-inference
+  - domain/model-selection
 ---
 
 # Harmon PCM Chapter 2 — Fitting Statistical Models to Data (summary)

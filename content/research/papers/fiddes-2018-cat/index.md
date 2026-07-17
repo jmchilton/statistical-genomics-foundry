@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: CC-BY-NC-4.0
 attribution: "Fiddes IT, Armstrong J, Diekhans M, Nachtweide S, Kronenberg ZN, Underwood JG, Gordon D, Earl D, Keane T, Eichler EE, Haussler D, Stanke M, Paten B. Comparative Annotation Toolkit (CAT)-simultaneous clade and personal genome annotation. Genome Research 28(7):1029-1038, 2018. DOI 10.1101/gr.233460.117. Read via PMC open-access full text; note records CC BY-NC 4.0 posture."
 derived: own-words-summary
+tags:
+  - domain/genome-annotation
+  - domain/genome-alignment
 ---
 
 # Comparative Annotation Toolkit (CAT) — Fiddes et al. 2018

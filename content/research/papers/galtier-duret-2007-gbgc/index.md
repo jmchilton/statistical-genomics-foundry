@@ -8,6 +8,9 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Galtier N, Duret L. Trends in Genetics 23(6):273-277, 2007 (Epub 2007 Apr 5). DOI 10.1016/j.tig.2007.03.011. PMID 17418442. Abstract-only: full text behind the Elsevier/Trends in Genetics paywall (HTTP 403); only the NLM/PubMed abstract (via NCBI eutils efetch) was read. All rights reserved."
 derived: abstract-only-own-words-summary
+tags:
+  - domain/gc-biased-gene-conversion
+  - domain/molecular-evolution
 ---
 
 # Galtier & Duret 2007 — Adaptation or biased gene conversion?

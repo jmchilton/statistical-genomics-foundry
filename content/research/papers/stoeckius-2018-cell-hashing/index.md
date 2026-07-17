@@ -8,6 +8,8 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Stoeckius M, Zheng S, Houck-Loomis B, Hao S, Yeung BZ, Mauck WM III, Smibert P, Satija R. Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics. Genome Biology. 2018;19:224. doi:10.1186/s13059-018-1603-1. Licensed CC BY 4.0."
 derived: license-aware-summary
+tags:
+  - domain/single-cell-genomics
 ---
 
 # Stoeckius et al. 2018 — Cell Hashing (Genome Biology 19:224)

@@ -9,6 +9,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Lucaci AG, Zehr JD, Enard D, Thornton JW, Kosakovsky Pond SL. Molecular Biology and Evolution 40(7):msad150, 2023. DOI 10.1093/molbev/msad150. PMID 37395787; PMCID PMC10336034. Published MBE version read via Europe PMC full-text XML, Open Access under CC-BY 4.0 (preprint bioRxiv 10.1101/2022.12.02.518889 was CC BY-NC; MBE version is canonical here)."
 derived: license-aware-summary
+tags:
+  - domain/dnds
+  - domain/molecular-evolution
 ---
 
 # Evolutionary shortcuts via multinucleotide substitutions and their impact on natural selection analyses (Lucaci et al. 2023)

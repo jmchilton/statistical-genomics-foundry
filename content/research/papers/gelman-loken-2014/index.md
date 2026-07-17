@@ -7,6 +7,9 @@ access_date: "2026-07-01"
 license: LicenseRef-all-rights-reserved
 attribution: "Andrew Gelman (Dept. of Statistics, Columbia University) and Eric Loken (Dept. of Human Development and Family Studies, Penn State), dated 14 Nov 2013. Published version: American Scientist 102(6):460, 2014, 'The Statistical Crisis in Science.'"
 derived: own-words-summary
+tags:
+  - domain/multiple-testing
+  - domain/experimental-design
 ---
 
 *Faithful clean-context summary of one source; read source-only (the 17-page Columbia working paper) plus this note's guidance. Project framing lives in the flagged footer. License mode: own-words throughout; functional strings — the title, numeric study details, verbatim study phrasings — kept verbatim as facts.*

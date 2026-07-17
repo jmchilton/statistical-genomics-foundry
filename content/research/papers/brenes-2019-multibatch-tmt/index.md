@@ -9,6 +9,9 @@ license_file: LICENSES/CC-BY-4.0.LICENSE
 license_statement: "Author's Choice—Final version open access under the terms of the Creative Commons CC-BY license."
 attribution: "Brenes A, Hukelmann J, Bensaddek D, Lamond AI. 'Multibatch TMT Reveals False Positives, Batch Effects and Missing Values.' Mol Cell Proteomics 2019;18(10):1967–1980. © 2019 Brenes et al. Licensed CC BY 4.0."
 derived: license-aware-summary
+tags:
+  - domain/batch-effects
+  - domain/proteomics
 ---
 
 # Brenes et al. 2019 — Multibatch TMT Reveals False Positives, Batch Effects and Missing Values

@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: LicenseRef-all-rights-reserved
 attribution: "Cunningham CW. Some Limitations of Ancestral Character-State Reconstruction When Testing Evolutionary Hypotheses. Systematic Biology 48(3):665-674, 1999. DOI 10.1080/106351599260238. Read from accessible first-page preview only; summarized in own words."
 derived: own-words-summary
+tags:
+  - domain/ancestral-reconstruction
+  - domain/phylogenetics
 ---
 
 # Some Limitations of Ancestral Character-State Reconstruction When Testing Evolutionary Hypotheses (Cunningham 1999)

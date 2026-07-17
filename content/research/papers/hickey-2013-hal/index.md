@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: CC-BY-3.0
 attribution: "Hickey G, Paten B, Earl D, Zerbino D, Haussler D. HAL: a hierarchical format for storing and analyzing multiple genome alignments. Bioinformatics 29(10):1341-1342, 2013. DOI 10.1093/bioinformatics/btt128. Read via PMC open-access full text; note flags CC BY 3.0 license discrepancy."
 derived: own-words-summary
+tags:
+  - domain/genome-alignment
+  - domain/comparative-genomics
 ---
 
 # HAL: a hierarchical format for storing and analyzing multiple genome alignments

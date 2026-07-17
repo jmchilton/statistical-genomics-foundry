@@ -8,6 +8,10 @@ access_date: "2026-07-03"
 license: LicenseRef-all-rights-reserved
 attribution: "Kent WJ, Baertsch R, Hinrichs A, Miller W, Haussler D. Evolution's cauldron: Duplication, deletion, and rearrangement in the mouse and human genomes. PNAS 100(20):11484-11489, 2003. DOI 10.1073/pnas.1932072100. Free full text read via PMC; summarized in own words."
 derived: own-words-summary
+tags:
+  - domain/genome-alignment
+  - domain/comparative-genomics
+  - domain/structural-variation
 ---
 
 # Kent et al. 2003 — Evolution's cauldron (chains & nets)

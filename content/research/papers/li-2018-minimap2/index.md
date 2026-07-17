@@ -9,6 +9,8 @@ access_date: "2026-07-03"
 license: LicenseRef-arXiv-nonexclusive-distrib-1.0
 attribution: "Li H. Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics 34(18):3094-3100, 2018. DOI 10.1093/bioinformatics/bty191. Read from arXiv:1708.01492v5 via ar5iv plus minimap2 manual v2.28 for preset table; summarized in own words."
 derived: own-words-summary
+tags:
+  - domain/genome-alignment
 ---
 
 # Li 2018 — Minimap2: pairwise alignment for nucleotide sequences

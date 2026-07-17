@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: LicenseRef-all-rights-reserved
 attribution: "Hochberg GKA, Thornton JW. Reconstructing Ancient Proteins to Understand the Causes of Structure and Function. Annual Review of Biophysics 46:247-269, 2017. DOI 10.1146/annurev-biophys-070816-033631. Read via NIH Public Access author manuscript on PMC; summarized in own words."
 derived: own-words-summary
+tags:
+  - domain/ancestral-reconstruction
+  - domain/molecular-evolution
 ---
 
 # Hochberg & Thornton 2017 — Reconstructing Ancient Proteins to Understand the Causes of Structure and Function

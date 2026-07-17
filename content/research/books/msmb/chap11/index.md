@@ -4,6 +4,9 @@ title: "Image Data"
 source: msmb
 source_chapter: 11
 source_url: https://www.huber.embl.de/msmb/11-chap.html
+tags:
+  - domain/image-analysis
+  - domain/spatial-statistics
 ---
 
 # Image Data — MSMB Chapter 11 (summary)

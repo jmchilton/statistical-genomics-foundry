@@ -4,6 +4,9 @@ title: "High-Throughput Count Data and Generalized Linear Models"
 source: msmb
 source_chapter: 8
 source_url: https://www.huber.embl.de/msmb/08-chap.html
+tags:
+  - domain/differential-expression
+  - domain/count-data-modeling
 ---
 
 # High-Throughput Count Data and Generalized Linear Models — MSMB Chapter 8 (summary)

@@ -4,6 +4,9 @@ title: "Characters and diversification rates"
 source: harmon-pcm
 source_chapter: 13
 source_url: https://lukejharmon.github.io/pcm/chapter13_chardiv/
+tags:
+  - domain/phylogenetics
+  - domain/diversification-rates
 ---
 
 # Harmon PCM Chapter 13 — Characters and diversification rates (summary)

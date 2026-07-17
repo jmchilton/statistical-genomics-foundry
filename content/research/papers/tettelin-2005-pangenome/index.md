@@ -8,6 +8,8 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Tettelin H, Masignani V, Cieslewicz MJ, Donati C, Medini D, et al. Genome analysis of multiple pathogenic isolates of Streptococcus agalactiae: implications for the microbial pan-genome. PNAS 102(39):13950-13955, 2005. DOI 10.1073/pnas.0506758102. Own-words summary from the PMC full text."
 derived: own-words-summary
+tags:
+  - domain/pangenomics
 ---
 
 # Tettelin et al. 2005 — the microbial "pan-genome"

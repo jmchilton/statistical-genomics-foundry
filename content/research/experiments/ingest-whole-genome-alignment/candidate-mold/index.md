@@ -4,6 +4,8 @@ name: audit-whole-genome-alignment
 tags:
   - family/b
   - role/critique
+  - domain/genome-alignment
+  - domain/comparative-genomics
 references:
   - kind: research
     ref: "[[kent-2003-chain-net]]"

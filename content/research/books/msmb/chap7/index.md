@@ -4,6 +4,8 @@ title: "Multivariate Analysis"
 source: msmb
 source_chapter: 7
 source_url: https://www.huber.embl.de/msmb/07-chap.html
+tags:
+  - domain/dimensionality-reduction
 ---
 
 # Multivariate Analysis — MSMB Chapter 7 (summary)

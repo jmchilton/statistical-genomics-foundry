@@ -9,6 +9,10 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Liao W-W, Asri M, Ebler J, et al. A draft human pangenome reference. Nature 617(7960):312-324, 2023. DOI 10.1038/s41586-023-05896-x. Summary derived from the open-access PMC full text."
 derived: license-aware-summary
+tags:
+  - domain/pangenomics
+  - domain/variant-calling
+  - domain/genome-alignment
 ---
 
 # Liao et al. 2023 — A draft human pangenome reference

@@ -4,6 +4,9 @@ title: "Beyond the Mk model"
 source: harmon-pcm
 source_chapter: 9
 source_url: https://lukejharmon.github.io/pcm/chapter9_beyondmk/
+tags:
+  - domain/phylogenetics
+  - domain/trait-evolution
 ---
 
 # Harmon PCM Chapter 9 — Beyond the Mk model (summary)

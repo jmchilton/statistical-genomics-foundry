@@ -4,6 +4,9 @@ title: "Testing"
 source: msmb
 source_chapter: 6
 source_url: https://www.huber.embl.de/msmb/06-chap.html
+tags:
+  - domain/hypothesis-testing
+  - domain/multiple-testing
 ---
 
 # Testing — MSMB Chapter 6 (summary)

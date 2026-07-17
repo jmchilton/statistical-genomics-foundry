@@ -9,6 +9,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Goel M, Sun H, Jiao W-B, Schneeberger K. SyRI: finding genomic rearrangements and local sequence differences from whole-genome assemblies. Genome Biology 20:277, 2019. DOI 10.1186/s13059-019-1911-0. Read via PMC/Europe PMC open-access full text under CC-BY 4.0."
 derived: license-aware-summary
+tags:
+  - domain/structural-variation
+  - domain/genome-alignment
 ---
 
 # SyRI (Goel et al. 2019) — source note

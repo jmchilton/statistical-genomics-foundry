@@ -9,6 +9,9 @@ license: CC-BY-2.5
 license_file: LICENSES/CC-BY-2.5.LICENSE
 attribution: "Leek JT, Storey JD. Capturing Heterogeneity in Gene Expression Studies by Surrogate Variable Analysis. PLoS Genetics 3(9):e161, 2007. https://doi.org/10.1371/journal.pgen.0030161 — PLOS open access under the Creative Commons Attribution License. Read from PLOS full text + article XML (equations recovered from XML; PMC was Cloudflare-blocked)."
 derived: license-aware-summary
+tags:
+  - domain/batch-effects
+  - domain/differential-expression
 ---
 
 # Leek & Storey 2007 — Surrogate Variable Analysis (SVA)

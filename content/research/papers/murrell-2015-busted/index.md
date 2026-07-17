@@ -8,6 +8,9 @@ access_date: "2026-07-05"
 license: LicenseRef-all-rights-reserved
 attribution: "Murrell B, Weaver S, Smith MD, Wertheim JO, Murrell S, Aylward A, Eren K, Pollner T, Martin DP, Smith DM, Scheffler K, Kosakovsky Pond SL. Molecular Biology and Evolution 32(5):1365-1371, 2015. DOI 10.1093/molbev/msv035. PMID 25701167; PMCID PMC4408417. Full text read via PMC; copyright 'The Author 2015 ... All rights reserved', no CC license."
 derived: own-words-summary
+tags:
+  - domain/dnds
+  - domain/molecular-evolution
 ---
 
 # Gene-wide identification of episodic selection (BUSTED)

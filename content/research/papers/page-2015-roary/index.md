@@ -9,6 +9,8 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Page AJ, Cummins CA, Hunt M, Wong VK, Reuter S, Holden MTG, Fookes M, Falush D, Keane JA, Parkhill J. Roary: rapid large-scale prokaryote pan genome analysis. Bioinformatics 31(22):3691-3693, 2015. DOI 10.1093/bioinformatics/btv421. Summary derived from the open-access PMC full text."
 derived: license-aware-summary
+tags:
+  - domain/pangenomics
 ---
 
 # Roary: rapid large-scale prokaryote pan genome analysis (Page et al. 2015)

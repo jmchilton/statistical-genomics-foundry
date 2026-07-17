@@ -7,6 +7,9 @@ access_date: "2026-07-03"
 license: LicenseRef-all-rights-reserved
 attribution: "Attribution check for the downstream citation 'Fitch WM 1976, J Mol Evol 7:271'. CrossRef and PubMed metadata show page 271 is Zuckerkandl E, Evolutionary processes and evolutionary noise at the molecular level, Journal of Molecular Evolution 7:269-311, 1976. DOI 10.1007/BF01743626. No full text read; note summarized in own words."
 derived: attribution-check-own-words
+tags:
+  - domain/synteny
+  - domain/molecular-evolution
 ---
 
 # Fitch 1976 (J Mol Evol 7:271) — definitional attribution check

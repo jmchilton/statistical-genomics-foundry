@@ -9,6 +9,10 @@ access_date: "2026-07-03"
 license: CC-BY-NC-ND-4.0
 attribution: "Song B, Marco-Sola S, Moreto M, Johnson L, Buckler ES, Stitzer MC. AnchorWave: Sensitive alignment of genomes with high sequence diversity, extensive structural polymorphism, and whole-genome duplication. PNAS 119(1):e2113075119, 2022. DOI 10.1073/pnas.2113075119. Read via PMC Open-Access BioC API; note records CC BY-NC-ND posture."
 derived: own-words-summary
+tags:
+  - domain/genome-alignment
+  - domain/comparative-genomics
+  - domain/whole-genome-duplication
 ---
 
 # Song et al. 2022 — AnchorWave (PNAS)

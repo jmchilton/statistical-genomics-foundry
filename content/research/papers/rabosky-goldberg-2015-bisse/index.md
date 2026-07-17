@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: LicenseRef-arXiv-nonexclusive-distrib-1.0
 attribution: "Rabosky DL, Goldberg EE. Model Inadequacy and Mistaken Inferences of Trait-Dependent Speciation. Systematic Biology 64(2):340-355, 2015. DOI 10.1093/sysbio/syu131. Read from arXiv:1412.7082; summarized in own words under arXiv's nonexclusive distribution license."
 derived: own-words-summary
+tags:
+  - domain/phylogenetics
+  - domain/diversification-rates
 ---
 
 # Rabosky & Goldberg 2015 — Model Inadequacy and Mistaken Inferences of Trait-Dependent Speciation

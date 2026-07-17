@@ -4,6 +4,9 @@ title: "Fitting birth-death models"
 source: harmon-pcm
 source_chapter: 11
 source_url: https://lukejharmon.github.io/pcm/chapter11_fitbd/
+tags:
+  - domain/phylogenetics
+  - domain/diversification-rates
 ---
 
 # Harmon PCM Chapter 11 — Fitting birth-death models (summary)

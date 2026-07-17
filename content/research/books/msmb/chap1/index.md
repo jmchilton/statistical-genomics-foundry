@@ -4,6 +4,9 @@ title: "Generative Models for Discrete Data"
 source: msmb
 source_chapter: 1
 source_url: https://www.huber.embl.de/msmb/01-chap.html
+tags:
+  - domain/statistical-inference
+  - domain/multiple-testing
 ---
 
 # Generative Models for Discrete Data — MSMB Chapter 1 (summary)

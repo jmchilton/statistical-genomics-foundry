@@ -5,7 +5,7 @@ tags:
   - family/b
   - role/critique
   - domain/molecular-evolution
-  - topic/dnds
+  - domain/dnds
 references:
   - kind: research
     ref: "[[alvarez-carretero-2023-paml-guide]]"

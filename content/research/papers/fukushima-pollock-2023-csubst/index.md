@@ -8,6 +8,10 @@ license: MIT
 license_file: LICENSES/MIT.LICENSE
 attribution: "Fukushima K, Pollock DD. Nature Ecology & Evolution 7:155-170, 2023. DOI 10.1038/s41559-022-01932-7. Paywalled primary NOT read; summarized from OPEN surrogates only - the author-written CSUBST repository/wiki (github.com/kfuku52/csubst, MIT License, (c) Kenji Fukushima; primary provenance) and the Barua et al. 2026 application (MBE 43(1):msag015, CC-BY 4.0, via PMC12849823). Mixed posture: dominant source is MIT-licensed docs, one CC-BY surrogate."
 derived: license-aware-summary
+tags:
+  - domain/dnds
+  - domain/molecular-evolution
+  - domain/phylogenetics
 ---
 
 # CSUBST / ω_C (Fukushima & Pollock 2023) — faithful source note

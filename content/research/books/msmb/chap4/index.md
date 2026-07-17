@@ -4,6 +4,9 @@ title: "Mixture Models"
 source: msmb
 source_chapter: 4
 source_url: https://www.huber.embl.de/msmb/04-chap.html
+tags:
+  - domain/mixture-models
+  - domain/count-data-modeling
 ---
 
 # Mixture Models — MSMB Chapter 4 (summary)

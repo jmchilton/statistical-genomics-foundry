@@ -8,6 +8,8 @@ access_date: "2026-06-30"
 license: LicenseRef-all-rights-reserved
 attribution: "Kriegeskorte N, Simmons WK, Bellgowan PSF, Baker CI. Circular analysis in systems neuroscience: the dangers of double dipping. Nature Neuroscience 12(5):535–540, 2009. DOI 10.1038/nn.2303. Read via the NIH-PA author manuscript on PMC; final version © Nature Neuroscience. Summarized in own words — no source text reproduced."
 derived: own-words-summary
+tags:
+  - domain/selective-inference
 ---
 
 *Faithful clean-context summary of one source; read source-only (the PMC author manuscript) plus this note's guidance file. Project framing lives in the flagged footer. License mode: own-words paraphrase throughout (restrictive source); only short functional strings — numeric thresholds, named statistical conditions, contrast-vector forms — kept verbatim as facts.*

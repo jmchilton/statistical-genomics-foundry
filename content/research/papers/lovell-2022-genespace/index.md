@@ -10,6 +10,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Lovell JT, Sreedasyam A, Schranz ME, Wilson M, Carlson JW, Harkess A, Emms D, Goodstein DM, Schmutz J. GENESPACE tracks regions of interest and gene copy number variation across multiple genomes. eLife 11:e78526, 2022. DOI 10.7554/eLife.78526. Read via eLife and PMC full text under eLife CC-BY posture."
 derived: license-aware-summary
+tags:
+  - domain/synteny
+  - domain/comparative-genomics
 ---
 
 # Lovell et al. 2022 — GENESPACE

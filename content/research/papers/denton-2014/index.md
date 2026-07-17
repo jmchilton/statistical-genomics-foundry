@@ -9,6 +9,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Denton JF, Lugo-Martinez J, Tucker AE, Schrider DR, Warren WC, Hahn MW. Extensive Error in the Number of Genes Inferred from Draft Genome Assemblies. PLOS Computational Biology 10(12):e1003998, 2014. DOI 10.1371/journal.pcbi.1003998. Open access under CC-BY."
 derived: license-aware-summary
+tags:
+  - domain/genome-assembly
+  - domain/gene-family-evolution
 ---
 
 # Denton et al. 2014 — Extensive Error in the Number of Genes Inferred from Draft Genome Assemblies

@@ -8,6 +8,9 @@ access_date: "2026-06-30"
 license: LicenseRef-arXiv-nonexclusive-distrib-1.0
 attribution: "Neufeld A, Gao LL, Popp J, Battle A, Witten D. Biostatistics 25(1):270–287, 2024. Preprint arXiv:2207.00554v2 (18 Oct 2022)."
 derived: "own-words paraphrase (license is non-CC); functional strings (formulas, parameter names, package/function names, numeric thresholds) kept verbatim as facts"
+tags:
+  - domain/single-cell-genomics
+  - domain/selective-inference
 ---
 
 *Faithful clean-context note. License check: arXiv abstract page shows `nonexclusive-distrib/1.0/`, not a Creative Commons license, so this note is OWN-WORDS paraphrase. Only functional strings (equations, parameter names like ε, distribution forms, package/function names, recommended numeric values) are reproduced verbatim, as facts. Worked from arXiv full text (v2, Oct 2022); the published Biostatistics 2024 version was not separately consulted. Project framing lives in the flagged footer.*

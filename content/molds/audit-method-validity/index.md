@@ -2,7 +2,7 @@
 type: mold
 name: audit-method-validity
 summary: "Reasons about an analysis's method validity from its method + data-handling trace, emitting a verdict that gates certification — never CERTIFY on its own."
-tags: [family/b, role/critique]
+tags: [family/b, role/critique, domain/selective-inference, domain/batch-effects, domain/multiple-testing]
 references:
   - kind: pattern
     ref: "[[double-dipping]]"

@@ -12,6 +12,8 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Munafò MR, Tilling K, Taylor AE, Evans DM, Davey Smith G. Collider scope: when selection bias can substantially influence observed associations. International Journal of Epidemiology 47(1):226–235, 2018. https://doi.org/10.1093/ije/dyx206 — open access under CC BY 4.0. Read from the PMC deposit (PMC5837306); Figures 1–3 are images (captions only) and Supplementary Data not retrieved."
 derived: license-aware-summary
+tags:
+  - domain/causal-inference
 ---
 
 # Collider scope: when selection bias can substantially influence observed associations

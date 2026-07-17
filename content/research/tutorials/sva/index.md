@@ -10,6 +10,9 @@ license: Artistic-2.0
 license_file: LICENSES/Artistic-2.0.LICENSE
 attribution: "sva: Surrogate Variable Analysis, version 3.60.0 (Bioconductor 3.23). Leek JT, Johnson WE, Parker HS, Fertig EJ, Jaffe AE, Storey JD, Zhang Y, Collado-Torres L. Artistic-2.0. https://bioconductor.org/packages/release/bioc/html/sva.html — signatures and defaults read off the reference manual (the vignette prints call sites only)."
 derived: license-aware-summary
+tags:
+  - domain/batch-effects
+  - domain/differential-expression
 ---
 
 # sva — Bioconductor package vignette

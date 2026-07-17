@@ -8,6 +8,9 @@ access_date: "2026-07-01"
 license: LicenseRef-all-rights-reserved
 attribution: "Simmons JP, Nelson LD, Simonsohn U. Psychological Science 22(11):1359–1366, 2011 (SAGE / Association for Psychological Science). Version of record read via a UBC-hosted PDF copy."
 derived: own-words-summary
+tags:
+  - domain/experimental-design
+  - domain/multiple-testing
 ---
 
 *Faithful clean-context summary of one source; read source-only (the version-of-record PDF via a UBC-hosted copy) plus this note's guidance. Project framing lives in the flagged footer. License mode: own-words paraphrase; numeric results and the disclosure checklist kept verbatim as functional strings / a reproducible checklist.*

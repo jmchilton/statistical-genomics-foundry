@@ -9,6 +9,8 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Delmont TO, Eren AM. Linking pangenomes and metagenomes: the Prochlorococcus metapangenome. PeerJ 6:e4320, 2018. DOI 10.7717/peerj.4320. Summary derived from the open-access PeerJ/Europe PMC full text."
 derived: license-aware-summary
+tags:
+  - domain/pangenomics
 ---
 
 # Delmont & Eren 2018 — the *Prochlorococcus* metapangenome (anvi'o pangenomics)

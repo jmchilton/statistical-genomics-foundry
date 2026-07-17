@@ -8,6 +8,9 @@ access_date: "2026-07-03"
 license: LicenseRef-all-rights-reserved
 attribution: "Sharma V, Schwede P, Hiller M. CESAR 2.0 substantially improves speed and accuracy of comparative gene annotation. Bioinformatics 33(24):3985-3987, 2017. DOI 10.1093/bioinformatics/btx527. Oxford University Press article page; summarized in own words."
 derived: own-words-summary
+tags:
+  - domain/comparative-genomics
+  - domain/genome-annotation
 ---
 
 # CESAR 2.0 substantially improves speed and accuracy of comparative gene annotation
