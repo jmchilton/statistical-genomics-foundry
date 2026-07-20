@@ -1,0 +1,11 @@
+---
+// The clickable tag chips shown on a detail page — each links to its /tags/<tag> page.
+interface Props {
+  tags: string[];
+}
+const { tags } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+{tags.map(t => (
+  <a href={`${base}/tags/${t}/`} class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-secondary) px-2 py-0.5 font-mono no-underline hover:border-(--color-galaxy-primary) hover:text-(--color-text-primary) transition-colors">{t}</a>
+))}

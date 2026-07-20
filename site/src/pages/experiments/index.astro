@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { roleOf, familyOf } from '../../lib/tags';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const entries = (await getCollection('experiments')).sort((a, b) => a.id.localeCompare(b.id));
+
+// Group by the leading experiment folder; variants (candidate-mold, hardened-pair/doer, …)
+// list under it. Preserve first-seen order (entries already sorted by id).
+type Entry = (typeof entries)[number];
+const groups: { key: string; items: Entry[] }[] = [];
+for (const e of entries) {
+  const key = e.id.split('/')[0];
+  let g = groups.find(x => x.key === key);
+  if (!g) groups.push((g = { key, items: [] }));
+  g.items.push(e);
+}
+---
+<Base title="Experiments">
+  <span class="eyebrow mb-3">Experiments</span>
+  <h1 class="text-3xl font-bold mb-2">Experiments</h1>
+  <p class="text-(--color-text-secondary) max-w-2xl mb-2">
+    Blind-assembly artifacts — candidate doer/audit Mold pairs authored from source notes alone,
+    then diffed against the target skill. Structurally Molds; grouped by the ingest run that produced them.
+  </p>
+  <p class="text-sm text-(--color-text-muted) mb-8">{entries.length} artifacts · {groups.length} runs</p>
+
+  {groups.map(g => (
+    <section class="mb-8" aria-labelledby={`exp-${g.key}`}>
+      <h2 id={`exp-${g.key}`} class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-3 font-mono normal-case">{g.key}</h2>
+      <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+        {g.items.map(e => {
+          const variant = e.id.split('/').slice(1).join(' / ');
+          const role = roleOf(e.data.tags);
+          const family = familyOf(e.data.tags);
+          return (
+            <li>
+              <a href={`${base}/experiments/${e.id}/`} class="card flex flex-col">
+                <div class="text-xs font-mono text-(--color-text-muted)">{variant}</div>
+                <div class="font-mono font-semibold text-(--color-text-primary) mt-0.5">{e.data.name}</div>
+                {e.data.summary && <div class="text-sm text-(--color-text-secondary) mt-1 grow">{e.data.summary}</div>}
+                <div class="flex flex-wrap items-center gap-2 mt-3 text-xs text-(--color-text-muted)">
+                  {family && <span>Family {family.toUpperCase()}</span>}
+                  {role && <span class="rounded bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-1.5 py-0.5 font-mono">{role}</span>}
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</Base>

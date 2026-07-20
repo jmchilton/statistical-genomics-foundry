@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getEntriesByTag } from '../../lib/tags';
+import { namespaces, tagValueDescription } from '../../lib/meta-tags';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const byTag = await getEntriesByTag();
+const used = [...byTag.keys()].sort();
+const nsGlob = namespaces().map(ns => `${ns.key}/*`).join(', ');
+
+// Group tags-in-use by namespace, in the registry's declared order.
+const sections = namespaces()
+  .map(ns => ({
+    ns,
+    tags: used
+      .filter(t => t.startsWith(`${ns.key}/`))
+      .map(t => ({ tag: t, count: byTag.get(t)!.length, desc: tagValueDescription(t) })),
+  }))
+  .filter(s => s.tags.length > 0);
+---
+<Base title="Tags">
+  <span class="eyebrow mb-3">Tags</span>
+  <h1 class="text-3xl font-bold mb-2">Tags</h1>
+  <p class="text-(--color-text-secondary) max-w-2xl mb-8">
+    The inverse of the chips on each page — every tag in use, and what carries it. Tags are
+    namespaced (<code>{nsGlob}</code>) and validated against <code>meta_tags.yml</code>.
+    {used.length} tags across molds and experiments.
+  </p>
+
+  {sections.map(s => (
+    <section class="mb-8" aria-labelledby={`ns-${s.ns.key}`}>
+      <h2 id={`ns-${s.ns.key}`} class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-1">{s.ns.label}</h2>
+      <p class="text-sm text-(--color-text-secondary) max-w-2xl mb-3">{s.ns.description}</p>
+      <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+        {s.tags.map(t => (
+          <li>
+            <a href={`${base}/tags/${t.tag}/`} class="card flex flex-col">
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="font-mono font-semibold text-(--color-text-primary)">{t.tag}</span>
+                <span class="text-xs text-(--color-text-muted) shrink-0">{t.count} {t.count === 1 ? 'entry' : 'entries'}</span>
+              </div>
+              {t.desc && <div class="text-sm text-(--color-text-secondary) mt-1">{t.desc}</div>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</Base>

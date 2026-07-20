@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import TagChips from '../../components/TagChips.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('experiments');
+  return entries.map(entry => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+// Ids are multi-segment (`ingest-batch-design/hardened-pair/doer`); name is not
+// unique across variants, so surface the path context above the tags.
+const [group, ...rest] = entry.id.split('/');
+const variant = rest.join(' / ');
+---
+<Base title={d.name}>
+  <div data-pagefind-body>
+    <a href={`${base}/experiments/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← Experiments</a>
+    <div class="mt-3 text-xs font-mono text-(--color-text-muted)">{group}{variant && ` · ${variant}`}</div>
+    <div class="flex flex-wrap items-center gap-2 mt-2 mb-6 text-xs">
+      <TagChips tags={d.tags} />
+    </div>
+    <article class="prose prose-slate max-w-none dark:prose-invert">
+      <Content />
+    </article>
+  </div>
+</Base>

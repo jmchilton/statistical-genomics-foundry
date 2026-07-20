@@ -40,3 +40,31 @@ export function isValidTag(tag: string): boolean {
   if (ns.open) return OPEN_SLUG_RE.test(tag.slice(slash + 1));
   return false;
 }
+
+export interface NamespaceInfo {
+  key: string;
+  label: string;
+  description: string;
+  open: boolean;
+}
+
+/** Registry namespaces in declared order — the tag index groups by these. */
+export function namespaces(): NamespaceInfo[] {
+  return Object.entries(load().namespaces).map(([key, ns]) => ({
+    key,
+    label: ns.label,
+    description: ns.description,
+    open: !!ns.open,
+  }));
+}
+
+export function namespaceLabel(key: string): string {
+  return load().namespaces[key]?.label ?? key;
+}
+
+/** An enumerated tag's registry gloss; undefined for open-namespace leaves. */
+export function tagValueDescription(tag: string): string | undefined {
+  const slash = tag.indexOf('/');
+  if (slash < 0) return undefined;
+  return load().namespaces[tag.slice(0, slash)]?.values?.[tag];
+}

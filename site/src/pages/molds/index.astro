@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import Base from '../../layouts/Base.astro';
+import { roleOf, familyOf } from '../../lib/tags';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCompare(b.data.name));
@@ -12,9 +13,6 @@ const FAMILIES = [
   { key: 'a', label: 'Family A', sub: 'Analyze' },
   { key: 'b', label: 'Family B', sub: 'Referee' },
 ] as const;
-
-const familyOf = (tags: string[]) => tags.find(t => t.startsWith('family/'))?.split('/')[1] ?? null;
-const roleOf = (tags: string[]) => tags.find(t => t.startsWith('role/'))?.split('/')[1] ?? null;
 
 // Sibling-file presence — the eval/scenarios discipline, surfaced like the parent's eval check.
 const hasSibling = (id: string, file: string) =>
