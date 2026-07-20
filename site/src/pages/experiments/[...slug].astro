@@ -6,7 +6,7 @@ import Base from '../../layouts/Base.astro';
 import ArtifactMeta from '../../components/ArtifactMeta.astro';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('molds');
+  const entries = await getCollection('experiments');
   return entries.map(entry => ({
     params: { slug: entry.id },
     props: { entry },
@@ -19,12 +19,12 @@ const { Content } = await render(entry);
 const d = entry.data;
 
 const hasSibling = (file: string) =>
-  existsSync(fileURLToPath(new URL(`../../../../content/molds/${entry.id}/${file}`, import.meta.url)));
+  existsSync(fileURLToPath(new URL(`../../../../content/research/experiments/${entry.id}/${file}`, import.meta.url)));
 ---
 <Base title={d.name}>
   <div data-pagefind-body>
-    <a href={`${base}/molds/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← Molds</a>
-    <ArtifactMeta kind={d.type} tags={d.tags} />
+    <a href={`${base}/experiments/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← Experiments</a>
+    <ArtifactMeta kind="experiment" tags={d.tags} />
     <div class="flex flex-wrap items-center gap-2 -mt-3 mb-6 text-xs text-(--color-text-muted)">
       <span>eval {hasSibling('eval.md') ? '✓' : '—'} · scenarios {hasSibling('scenarios.md') ? '✓' : '—'}</span>
     </div>

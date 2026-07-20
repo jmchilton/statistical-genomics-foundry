@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import ArtifactMeta from '../../components/ArtifactMeta.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('patterns');
@@ -18,10 +19,13 @@ const d = entry.data;
 <Base title={d.name}>
   <div data-pagefind-body>
     <a href={`${base}/patterns/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← Patterns</a>
-    <div class="flex flex-wrap items-center gap-2 mt-3 mb-6 text-xs">
-      {d.pole && <span class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-secondary) px-2 py-0.5 font-mono">{d.pole}</span>}
-      {d.status && <span class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-muted) px-2 py-0.5 font-mono">{d.status}</span>}
-    </div>
+    <ArtifactMeta kind={d.type} tags={d.tags} />
+    {(d.pole || d.status) && (
+      <div class="flex flex-wrap items-center gap-2 -mt-3 mb-6 text-xs">
+        {d.pole && <span class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-secondary) px-2 py-0.5 font-mono">{d.pole}</span>}
+        {d.status && <span class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-muted) px-2 py-0.5 font-mono">{d.status}</span>}
+      </div>
+    )}
     <article class="prose prose-slate max-w-none dark:prose-invert">
       <Content />
     </article>
