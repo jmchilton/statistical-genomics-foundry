@@ -40,3 +40,50 @@ export function isValidTag(tag: string): boolean {
   if (ns.open) return OPEN_SLUG_RE.test(tag.slice(slash + 1));
   return false;
 }
+
+// Registry-backed view of a tag, for the UI: namespace metadata + the per-value gloss
+// (the "help message" the schema documents). Unregistered/malformed → null.
+export interface TagInfo {
+  tag: string;
+  namespace: string;
+  leaf: string;
+  namespaceLabel: string;
+  namespaceDescription: string;
+  gloss?: string;
+}
+
+export function tagInfo(tag: string): TagInfo | null {
+  const slash = tag.indexOf('/');
+  if (slash < 0) return null;
+  const nsKey = tag.slice(0, slash);
+  const ns = load().namespaces[nsKey];
+  if (!ns) return null;
+  return {
+    tag,
+    namespace: nsKey,
+    leaf: tag.slice(slash + 1),
+    namespaceLabel: ns.label,
+    namespaceDescription: ns.description,
+    gloss: ns.values?.[tag],
+  };
+}
+
+// The whole closed vocabulary, grouped by namespace — drives the /tags index (which
+// doubles as the documented-vocabulary reference).
+export interface NamespaceView {
+  key: string;
+  label: string;
+  description: string;
+  open: boolean;
+  values: { tag: string; gloss: string }[];
+}
+
+export function namespaceViews(): NamespaceView[] {
+  return Object.entries(load().namespaces).map(([key, ns]) => ({
+    key,
+    label: ns.label,
+    description: ns.description,
+    open: !!ns.open,
+    values: Object.entries(ns.values ?? {}).map(([tag, gloss]) => ({ tag, gloss })),
+  }));
+}

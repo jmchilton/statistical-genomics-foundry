@@ -28,6 +28,17 @@ export const TYPES = ['mold', 'pattern', 'paper', 'tutorial', 'book'] as const;
 export type ContentType = (typeof TYPES)[number];
 export const typeSchema = z.enum(TYPES);
 
+// One-line help text per type, co-located with the registry so the UI (type badges)
+// surfaces the same authority the schema enforces. Keyed by ContentType so a new type
+// can't ship without a gloss (the test asserts completeness).
+export const TYPE_INFO: Record<ContentType, string> = {
+  mold: 'Abstract action template — a typed reference manifest plus a procedural skeleton, cast into a self-contained skill.',
+  pattern: 'Corpus leaf: an established-good method pattern or a cautionary-bad invalidity pattern, referenced by referee Molds.',
+  paper: 'Faithful research note on a primary paper — own-words synthesis plus short load-bearing quotes, with full citation.',
+  tutorial: 'Faithful note on a tutorial / how-to source, captured for recoverability.',
+  book: 'Chapter-level summary of an external textbook — own-words or license-aware per the book’s license.',
+};
+
 // Strip the trailing `/index` so entry ids stay clean (`msmb/chap1`, `leek-2010`)
 // rather than `.../index` — keeps URLs and wiki-link basenames unique per note.
 export const stripIndex = ({ entry }: { entry: string }) =>

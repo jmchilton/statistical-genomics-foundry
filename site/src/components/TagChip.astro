@@ -1,0 +1,38 @@
+---
+// A single tag rendered as an inverse link to its /tags/<tag>/ page, carrying the
+// registry gloss as its tooltip (the schema's "help message"). Namespace-tinted so
+// structural (family/role) tags read differently from subject-matter (domain) tags.
+import { tagInfo } from '../lib/meta-tags';
+interface Props { tag: string; }
+const { tag } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const info = tagInfo(tag);
+const title = info?.gloss ?? info?.namespaceDescription ?? tag;
+---
+<a href={`${base}/tags/${tag}/`} title={title} class="tag-chip" data-ns={info?.namespace}>
+  {info ? (<><span class="tag-ns">{info.namespace}/</span>{info.leaf}</>) : tag}
+</a>
+
+<style>
+  .tag-chip {
+    display: inline-flex;
+    align-items: baseline;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-decoration: none;
+    border: 1px solid var(--color-border-subtle);
+    background: var(--color-surface-raised);
+    color: var(--color-text-secondary);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .tag-chip:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text-primary);
+  }
+  .tag-ns { opacity: 0.6; }
+  .tag-chip[data-ns='domain'] { background: color-mix(in srgb, #2563eb 12%, transparent); }
+  .tag-chip[data-ns='family'] { background: color-mix(in srgb, #7c3aed 14%, transparent); }
+  .tag-chip[data-ns='role'] { background: color-mix(in srgb, #0d9488 14%, transparent); }
+</style>

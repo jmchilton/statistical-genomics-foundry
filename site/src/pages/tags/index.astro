@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import { namespaceViews } from '../../lib/meta-tags';
+import { allArtifacts } from '../../lib/tagged-content';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Usage counts drive both the badge and whether a tag links out: an unused vocabulary
+// entry is documented here but has no /tags/<tag>/ page, so render it as plain text.
+const counts = new Map<string, number>();
+for (const a of await allArtifacts()) for (const t of a.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+
+const namespaces = namespaceViews();
+const total = [...counts.values()].reduce((n, c) => n + c, 0);
+---
+<Base title="Tags">
+  <span class="eyebrow mb-3">Vocabulary</span>
+  <h1 class="text-3xl font-bold mb-2">Tags</h1>
+  <p class="text-(--color-text-secondary) max-w-2xl mb-2">
+    The closed, curated tag vocabulary (<code>meta_tags.yml</code>). <strong>domain/*</strong> is
+    subject matter, required on every artifact; <strong>family/*</strong> and <strong>role/*</strong>
+    are structural — Mold-only. Each tag links to the artifacts that carry it.
+  </p>
+  <p class="text-sm text-(--color-text-muted) mb-8">{total} tag applications across the corpus</p>
+
+  {namespaces.map((ns) => (
+    <section class="mb-10" aria-labelledby={`ns-${ns.key}`}>
+      <h2 id={`ns-${ns.key}`} class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-1">
+        {ns.label} <span class="font-mono font-normal normal-case">{ns.key}/*</span>
+      </h2>
+      <p class="text-sm text-(--color-text-secondary) mb-3">{ns.description}</p>
+      <ul class="list-none p-0 m-0 grid gap-2 sm:grid-cols-2">
+        {ns.values.map((v) => {
+          const n = counts.get(v.tag) ?? 0;
+          return (
+            <li class="flex items-baseline gap-2">
+              {n > 0 ? (
+                <a href={`${base}/tags/${v.tag}/`} class="font-mono text-sm text-(--color-link) hover:text-(--color-link-hover) no-underline shrink-0">{v.tag}</a>
+              ) : (
+                <span class="font-mono text-sm text-(--color-text-muted) shrink-0">{v.tag}</span>
+              )}
+              <span class="text-xs text-(--color-text-muted) shrink-0">{n}</span>
+              <span class="text-xs text-(--color-text-secondary) truncate" title={v.gloss}>{v.gloss}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</Base>
