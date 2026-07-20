@@ -1,17 +1,27 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 // The inverse of the per-page tag chips: which entries carry a given tag.
-// Only `moldSchema` collections have a `tags` field, and only routed ones can be
-// linked — today that's `molds` + `experiments` (the other collections have no
-// tags). To add another: extend the union + `LABELS` below, and add a `toRows`
-// spread in `getTaggedEntries` (the url assumes the route path equals the name).
+// Every content schema now has a `tags` field, and each collection's route path
+// equals its name (the `url` builder relies on that), so all six are linkable.
+// To add another: extend the union + `COLLECTION_LABEL`, and add a block in
+// `getTaggedEntries` naming its display field (`name` vs `title`).
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-export type TaggedCollection = 'molds' | 'experiments';
+export type TaggedCollection =
+  | 'molds'
+  | 'experiments'
+  | 'papers'
+  | 'tutorials'
+  | 'books'
+  | 'patterns';
 
 export const COLLECTION_LABEL: Record<TaggedCollection, string> = {
   molds: 'Molds',
   experiments: 'Experiments',
+  papers: 'Papers',
+  tutorials: 'Tutorials',
+  books: 'Books',
+  patterns: 'Patterns',
 };
 
 export interface TaggedEntry {
@@ -23,25 +33,24 @@ export interface TaggedEntry {
   url: string;
 }
 
-// Both collections share `moldSchema`, so a single mold entry type covers either.
-type Moldish = CollectionEntry<'molds'> | CollectionEntry<'experiments'>;
-
-function toRows(collection: TaggedCollection, entries: Moldish[]): TaggedEntry[] {
-  return entries.map(e => ({
-    collection,
-    id: e.id,
-    name: e.data.name,
-    summary: e.data.summary,
-    tags: e.data.tags ?? [],
-    url: `${base}/${collection}/${e.id}/`,
-  }));
-}
+const row = (
+  collection: TaggedCollection,
+  id: string,
+  name: string,
+  summary: string | undefined,
+  tags: string[],
+): TaggedEntry => ({ collection, id, name, summary, tags, url: `${base}/${collection}/${id}/` });
 
 export async function getTaggedEntries(): Promise<TaggedEntry[]> {
-  return [
-    ...toRows('molds', await getCollection('molds')),
-    ...toRows('experiments', await getCollection('experiments')),
-  ];
+  const rows: TaggedEntry[] = [];
+  // Molds carry `name` + `summary`; source notes carry `title` and no summary.
+  for (const e of await getCollection('molds')) rows.push(row('molds', e.id, e.data.name, e.data.summary, e.data.tags));
+  for (const e of await getCollection('experiments')) rows.push(row('experiments', e.id, e.data.name, e.data.summary, e.data.tags));
+  for (const e of await getCollection('papers')) rows.push(row('papers', e.id, e.data.title, undefined, e.data.tags));
+  for (const e of await getCollection('tutorials')) rows.push(row('tutorials', e.id, e.data.title, undefined, e.data.tags));
+  for (const e of await getCollection('books')) rows.push(row('books', e.id, e.data.title, undefined, e.data.tags));
+  for (const e of await getCollection('patterns')) rows.push(row('patterns', e.id, e.data.name, undefined, e.data.tags));
+  return rows;
 }
 
 /** tag → entries carrying it. The key is the full namespaced tag (`family/b`). */

@@ -13,7 +13,11 @@ const { tag, entries } = Astro.props as { tag: string; entries: TaggedEntry[] };
 const desc = tagValueDescription(tag);
 const nsLabel = namespaceLabel(tag.split('/')[0]);
 
-const sorted = [...entries].sort((a, b) => a.collection.localeCompare(b.collection) || a.id.localeCompare(b.id));
+// Group by collection, in the declared label order (molds/experiments first, then notes).
+const order = Object.keys(COLLECTION_LABEL);
+const sorted = [...entries].sort(
+  (a, b) => order.indexOf(a.collection) - order.indexOf(b.collection) || a.id.localeCompare(b.id),
+);
 const groups: { collection: TaggedCollection; items: TaggedEntry[] }[] = [];
 for (const e of sorted) {
   let g = groups.find(x => x.collection === e.collection);
