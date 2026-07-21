@@ -1,16 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import { roleOf, familyOf } from '../lib/tags';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const bookCount = (await getCollection('books')).length;
 const paperCount = (await getCollection('papers')).length;
 const tutorialCount = (await getCollection('tutorials')).length;
 const patternCount = (await getCollection('patterns')).length;
+const experimentCount = (await getCollection('experiments')).length;
 
 const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCompare(b.data.name));
-const roleOf = (tags: string[]) => tags.find(t => t.startsWith('role/'))?.split('/')[1] ?? null;
-const familyOf = (tags: string[]) => tags.find(t => t.startsWith('family/'))?.split('/')[1] ?? null;
 ---
 <Base title="Statistical Genomics Foundry">
   <section class="mb-12">
@@ -97,6 +97,16 @@ const familyOf = (tags: string[]) => tags.find(t => t.startsWith('family/'))?.sp
             <div class="font-semibold text-(--color-text-primary) mb-1">Patterns</div>
             <div class="text-sm text-(--color-text-secondary)">
               {patternCount} corpus leaves — named invalidity signatures and established-good practice the referee Molds delegate to.
+            </div>
+          </a>
+        </li>
+      )}
+      {experimentCount > 0 && (
+        <li>
+          <a href={`${base}/experiments/`} class="card">
+            <div class="font-semibold text-(--color-text-primary) mb-1">Experiments</div>
+            <div class="text-sm text-(--color-text-secondary)">
+              {experimentCount} blind-assembly artifacts — candidate doer/audit Mold pairs authored from source notes, then diffed against the target skill.
             </div>
           </a>
         </li>

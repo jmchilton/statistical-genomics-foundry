@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getEntriesByTag, COLLECTION_LABEL, type TaggedEntry, type TaggedCollection } from '../../lib/tags';
+import { tagValueDescription, namespaceLabel } from '../../lib/meta-tags';
+
+export async function getStaticPaths() {
+  const byTag = await getEntriesByTag();
+  return [...byTag.entries()].map(([tag, entries]) => ({ params: { tag }, props: { tag, entries } }));
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { tag, entries } = Astro.props as { tag: string; entries: TaggedEntry[] };
+const desc = tagValueDescription(tag);
+const nsLabel = namespaceLabel(tag.split('/')[0]);
+
+// Group by collection, in the declared label order (molds/experiments first, then notes).
+const order = Object.keys(COLLECTION_LABEL);
+const sorted = [...entries].sort(
+  (a, b) => order.indexOf(a.collection) - order.indexOf(b.collection) || a.id.localeCompare(b.id),
+);
+const groups: { collection: TaggedCollection; items: TaggedEntry[] }[] = [];
+for (const e of sorted) {
+  let g = groups.find(x => x.collection === e.collection);
+  if (!g) groups.push((g = { collection: e.collection, items: [] }));
+  g.items.push(e);
+}
+---
+<Base title={`Tag: ${tag}`}>
+  <a href={`${base}/tags/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← All tags</a>
+  <span class="eyebrow mt-3 mb-2">{nsLabel}</span>
+  <h1 class="text-3xl font-bold font-mono mb-2">{tag}</h1>
+  {desc && <p class="text-(--color-text-secondary) max-w-2xl mb-2">{desc}</p>}
+  <p class="text-sm text-(--color-text-muted) mb-8">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</p>
+
+  {groups.map(g => (
+    <section class="mb-8" aria-labelledby={`tag-${g.collection}`}>
+      <h2 id={`tag-${g.collection}`} class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted) mb-3">{COLLECTION_LABEL[g.collection]}</h2>
+      <ul class="list-none p-0 m-0 grid gap-3 sm:grid-cols-2">
+        {g.items.map(e => (
+          <li>
+            <a href={e.url} class="card flex flex-col">
+              {e.collection === 'experiments' && <div class="text-xs font-mono text-(--color-text-muted)">{e.id}</div>}
+              <div class="font-mono font-semibold text-(--color-text-primary) mt-0.5">{e.name}</div>
+              {e.summary && <div class="text-sm text-(--color-text-secondary) mt-1 grow">{e.summary}</div>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</Base>

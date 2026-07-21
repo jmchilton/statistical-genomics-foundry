@@ -86,6 +86,24 @@ describe('sourceNote schema', () => {
     );
     expect(issues.some((i) => /license_file/.test(i.message))).toBe(true);
   });
+
+  it('accepts a registered tag and defaults tags to []', () => {
+    expect(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/batch-effects'] }))).toEqual([]);
+    const parsed = sourceNoteSchema.parse(validSourceNote());
+    expect(parsed.tags).toEqual([]);
+  });
+
+  it('rejects an unregistered tag on a source note', () => {
+    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['not/a-real-namespace'] })), 'tags.0');
+    expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
+  });
+
+  // domain/* is a closed enum: a known prefix with an unregistered leaf is drift,
+  // not a free-form slug. Guards the closed-registry posture.
+  it('rejects an unregistered leaf under the closed domain namespace', () => {
+    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/not-a-real-domain'] })), 'tags.0');
+    expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
+  });
 });
 
 describe('reference manifest (via mold schema)', () => {
@@ -134,5 +152,10 @@ describe('pattern schema', () => {
   it('rejects a non-corpus pole value', () => {
     const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', pole: 'neither' }), 'pole');
     expect(issues.length).toBeGreaterThan(0);
+  });
+
+  it('rejects an unregistered tag on a pattern', () => {
+    const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', tags: ['not/a-real-namespace'] }), 'tags.0');
+    expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
   });
 });

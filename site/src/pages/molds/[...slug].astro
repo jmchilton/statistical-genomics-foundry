@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import Base from '../../layouts/Base.astro';
+import TagChips from '../../components/TagChips.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('molds');
@@ -24,7 +25,7 @@ const hasSibling = (file: string) =>
   <div data-pagefind-body>
     <a href={`${base}/molds/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← Molds</a>
     <div class="flex flex-wrap items-center gap-2 mt-3 mb-6 text-xs">
-      {d.tags.map(t => <span class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-secondary) px-2 py-0.5 font-mono">{t}</span>)}
+      <TagChips tags={d.tags} />
       <span class="text-(--color-text-muted)">eval {hasSibling('eval.md') ? '✓' : '—'} · scenarios {hasSibling('scenarios.md') ? '✓' : '—'}</span>
     </div>
     <article class="prose prose-slate max-w-none dark:prose-invert">

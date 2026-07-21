@@ -49,8 +49,12 @@ const reference = z
 
 // A `tags:` value must resolve in meta_tags.yml (namespaced enum or open slug).
 const tag = z.string().refine(isValidTag, {
-  message: 'tag must be registered in meta_tags.yml (e.g. family/b, role/critique, domain/<slug>)',
+  message: 'tag must be registered in meta_tags.yml (e.g. family/b, role/critique, domain/batch-effects)',
 });
+
+// `tags:` on every content type — the browse axis the site's /tags pages index.
+// Seeded on Molds; extended to source notes + patterns so the corpus is tag-navigable.
+const tagsArray = z.array(tag).default([]);
 
 // An SPDX id from license-policy.yml, or a LicenseRef-<slug> escape hatch.
 // The license → redistribution-policy table (galaxyproject/foundry-pattern#4)
@@ -105,6 +109,7 @@ export const sourceNoteSchema = z
     license_file: z.string().optional(),
     attribution: z.string(),
     derived: z.string(),
+    tags: tagsArray,
   })
   .superRefine(licenseCoherence);
 
@@ -131,6 +136,7 @@ export const bookSchema = z
     source: z.string(),
     source_chapter: z.number().int().optional(),
     source_url: z.string().url(),
+    tags: tagsArray,
   })
   .transform((data, ctx) => {
     const book = loadBookMeta(data.source);
@@ -162,7 +168,7 @@ export const moldSchema = z.object({
   type: z.literal('mold'),
   name: z.string(),
   summary: z.string().optional(),
-  tags: z.array(tag).default([]),
+  tags: tagsArray,
   references: z.array(reference).optional(),
 });
 
@@ -175,6 +181,7 @@ export const patternSchema = z.object({
   name: z.string(),
   pole: z.enum(['cautionary-bad', 'established-good']).optional(),
   status: z.string().optional(),
+  tags: tagsArray,
 });
 
 // Single source for the collection ⇒ (glob base, schema) mapping, so `content.config.ts`
