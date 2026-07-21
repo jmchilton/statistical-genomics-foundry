@@ -49,7 +49,7 @@ const reference = z
 
 // A `tags:` value must resolve in meta_tags.yml (namespaced enum or open slug).
 const tag = z.string().refine(isValidTag, {
-  message: 'tag must be registered in meta_tags.yml (e.g. family/b, role/critique, domain/<slug>)',
+  message: 'tag must be registered in meta_tags.yml (e.g. family/b, role/critique, domain/batch-effects)',
 });
 
 // `tags:` on every content type — the browse axis the site's /tags pages index.

@@ -97,6 +97,13 @@ describe('sourceNote schema', () => {
     const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['not/a-real-namespace'] })), 'tags.0');
     expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
   });
+
+  // domain/* is a closed enum: a known prefix with an unregistered leaf is drift,
+  // not a free-form slug. Guards the closed-registry posture.
+  it('rejects an unregistered leaf under the closed domain namespace', () => {
+    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/not-a-real-domain'] })), 'tags.0');
+    expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
+  });
 });
 
 describe('reference manifest (via mold schema)', () => {

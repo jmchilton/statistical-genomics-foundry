@@ -6,11 +6,11 @@
 # corpus-first from the tags the authored Molds + Patterns actually use; a tag
 # outside this registry is drift (a build error once enforced).
 #
-# Two shapes:
-#   - `values`     namespace: a closed enum. The full `prefix/value` must be listed.
-#   - `open: true` namespace: `prefix/<slug>` with any kebab-case slug — domains
-#                  and topics proliferate by nature; the registry checks the
-#                  PREFIX is known, not the leaf.
+# Every namespace is a CLOSED enum: the full `prefix/value` must be listed here
+# with a one-line gloss, so every tag the corpus can carry is documented. Adding a
+# new domain/topic is a deliberate registry edit, not a free-form slug. (The loader
+# still supports `open: true` namespaces — `prefix/<any-kebab-slug>` — but this
+# registry uses none: closed keeps the browse axis curated and self-documenting.)
 
 version: 1
 
@@ -32,10 +32,18 @@ namespaces:
 
   domain:
     label: Domain
-    description: Subject-matter area. Open-ended slug.
-    open: true
+    description: Subject-matter area a Mold/note applies to. Closed enum — add a documented row per domain.
+    values:
+      domain/ancestral-reconstruction: Inferring ancestral sequence/character states across a phylogeny.
+      domain/batch-effects: Technical, non-biological variation that confounds measured signal.
+      domain/experimental-design: Sample allocation, blocking, and randomization decided before data collection.
+      domain/gene-family-evolution: Gene gain/loss/duplication dynamics across lineages.
+      domain/molecular-evolution: Sequence change over evolutionary time (substitution, selection).
+      domain/pangenomics: Analysis across a species' full core/accessory gene complement.
+      domain/phylogenetics: Inferring evolutionary trees from molecular data.
 
   topic:
     label: Topic
-    description: Finer-grained subject tag beneath a domain. Open-ended slug.
-    open: true
+    description: Finer-grained subject beneath a domain. Closed enum — add a documented row per topic.
+    values:
+      topic/dnds: Nonsynonymous/synonymous substitution-rate ratio; a test for selection (under molecular-evolution).
