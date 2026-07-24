@@ -41,7 +41,7 @@ against bioSkills' category names, stop and confirm before spending subagent bud
 
 ## Phase 0 — ground yourself
 
-Read: `docs/glossary.md` (vocabulary authority), `docs/MOLD_SPEC.md` (the Mold contract you'll
+Read: `content/meta/glossary.md` (vocabulary authority), `docs/MOLD_SPEC.md` (the Mold contract you'll
 assemble against), `content/research/05-skill-backing-references.md` (the recoverability framework +
 already-verified sources for the 10 cross-cutting skills), `content/research/projects/bioskills.md` (what
 bioSkills is and where it leads/lags), and `.claude/commands/summarize-source.md` (the ingest
@@ -115,7 +115,7 @@ flags and that guidance questions were answered or explicitly marked unanswered.
 Spawn ONE assembler subagent for the **pair** (both Molds share the same note set, so one blind
 context keeps them coherent — the doer's gate handoff can reference the audit's actual axes).
 **Critical: it sees ONLY the imported `index.md` notes** (the ones Phase 1 marked
-reuse/new/re-summarize) + `docs/MOLD_SPEC.md` + `docs/glossary.md` + `docs/REFEREE_LOOP.md` + the
+reuse/new/re-summarize) + `docs/MOLD_SPEC.md` + `content/meta/glossary.md` + `docs/REFEREE_LOOP.md` + the
 `docs/MOLDS.md` naming convention. **It must NOT see the SKILL.md** — this holds for the doer too;
 a blind doer is what measures whether the *doing* traces to primaries. It returns a draft, writes
 nothing. Its job:

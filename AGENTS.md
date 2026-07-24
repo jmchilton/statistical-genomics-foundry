@@ -14,7 +14,7 @@ validator (`npm test` / `npm run validate` in `site/`), and the root vocab regis
 
 ## Read first
 
-**Read `docs/glossary.md` immediately at session start.** This project uses domain-specific
+**Read `content/meta/glossary.md` immediately at session start.** This project uses domain-specific
 terminology — Mold, Cast, Pattern, Pipeline, Phase, Provenance, Referee, the Gate, Family A /
 Family B, the bipolar corpus, the construct/critique/calibrate roles — that is *not* standard
 statistics, genomics, or Galaxy vocabulary, and some of it diverges from the parent Foundry.

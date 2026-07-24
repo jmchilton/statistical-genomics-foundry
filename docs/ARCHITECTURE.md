@@ -75,7 +75,7 @@ Inherits the parent's shape; adjusted for Mold-primary IA and the lighter schema
 │   │   └── projects/               # prior-art related-project notes + SOTA lens surveys (a dump — pending organization)
 │   ├── protocols/ (≈ pipelines/)   # methodology protocols incl. the method-validation arc
 │   ├── schemas/                    # minimal — only genuinely structured IO
-│   ├── glossary.md                 # ✅ adapted (drafted in docs/; relocates to content/ at standup)
+│   ├── meta/glossary.md            # ✅ adapted (now at content/meta/; skipped by the validator)
 │   └── log.md
 ├── casts/<target>/<name>/          # generated skill artifacts + _provenance.json
 ├── packages/                       # build/validate tooling (port build-cli; lighten schema pkgs)
