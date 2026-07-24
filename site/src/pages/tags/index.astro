@@ -1,20 +1,21 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getEntriesByTag } from '../../lib/tags';
-import { namespaces, tagValueDescription } from '../../lib/meta-tags';
+import { facets, facetOf, tagDescription } from '../../lib/meta-tags';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const byTag = await getEntriesByTag();
 const used = [...byTag.keys()].sort();
-const nsGlob = namespaces().map(ns => `${ns.key}/*`).join(', ');
+const facetList = facets().map(f => f.label).join(', ');
 
-// Group tags-in-use by namespace, in the registry's declared order.
-const sections = namespaces()
+// Group tags-in-use by the facet that DECLARED each one — not by its `/` prefix. Every
+// registered tag has a declaring facet, so no tag can fall through into an "other" bucket.
+const sections = facets()
   .map(ns => ({
     ns,
     tags: used
-      .filter(t => t.startsWith(`${ns.key}/`))
-      .map(t => ({ tag: t, count: byTag.get(t)!.length, desc: tagValueDescription(t) })),
+      .filter(t => facetOf(t) === ns.key)
+      .map(t => ({ tag: t, count: byTag.get(t)!.length, desc: tagDescription(t) })),
   }))
   .filter(s => s.tags.length > 0);
 ---
@@ -23,8 +24,8 @@ const sections = namespaces()
   <h1 class="text-3xl font-bold mb-2">Tags</h1>
   <p class="text-(--color-text-secondary) max-w-2xl mb-8">
     The inverse of the chips on each page — every tag in use, and what carries it. Tags are
-    namespaced (<code>{nsGlob}</code>) and validated against <code>meta_tags.yml</code>.
-    {used.length} tags in use across the corpus.
+    grouped into facets ({facetList}) and validated against <code>meta_tags.yml</code>, which
+    documents every one of them. {used.length} tags in use across the corpus.
   </p>
 
   {sections.map(s => (

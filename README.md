@@ -50,7 +50,7 @@ LICENSES/, license-policy.yml  ← third-party license copies + redistribution p
 - ✅ Adapted GUIDING_PRINCIPLES + net-new REFEREE_LOOP.
 - ✅ Adapted MOLD_SPEC + CORPUS + COMPILATION_PIPELINE + glossary. **Prose doc scaffold complete.**
 - ✅ Repo published + knowledge site live (Astro → GitHub Pages).
-- ⏭️ Machine-checkable contract: `meta_schema.yml` + `meta_tags.yml` (drop conversion axes, add Family A/B + role tags).
+- ✅ Machine-checkable contract: one zod frontmatter module (no ajv mirror) + `meta_tags.yml` — closed facets `family`/`role`/`domain`/`topic`, every tag glossed, `tags` min(1).
 - ⏭️ Decide project name; prototype flagship Mold (recommendation: `audit-method-validity`).
 
 ## Provenance note

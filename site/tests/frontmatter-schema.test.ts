@@ -3,6 +3,7 @@ import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import yaml from 'js-yaml';
 import { sourceNoteSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
+import { buildTagIndex, facetOf, type TagRegistry } from '../src/lib/meta-tags';
 
 // Negative-fixtures table: each deliberately-broken frontmatter asserts the SPECIFIC
 // error it must raise, against the same schema the site builds with (issue #89 rung 3).
@@ -122,34 +123,70 @@ describe('sourceNote schema', () => {
   });
 });
 
-// EVERY namespace is closed, forever: every tag the corpus can carry must have a
-// registry gloss to document and browse by. The loader no longer honors `open:`, so
-// a re-added `open: true` would be a SILENT no-op — this asserts the registry never
-// grows one, turning that silent footgun into a failing test.
+const readRegistry = () =>
+  yaml.load(fs.readFileSync(path.resolve('../meta_tags.yml'), 'utf-8')) as {
+    facets: Record<string, { values?: Record<string, string>; [k: string]: unknown }>;
+  };
+
+// EVERY facet is closed, forever: every tag the corpus can carry must have a registry
+// gloss to document and browse by. The loader does not honor `open:`, so a re-added
+// `open: true` would be a SILENT no-op — this asserts the registry never grows one,
+// turning that silent footgun into a failing test.
 describe('closed-registry invariant', () => {
-  it('declares no open namespaces in meta_tags.yml', () => {
-    const registry = yaml.load(
-      fs.readFileSync(path.resolve('../meta_tags.yml'), 'utf-8'),
-    ) as { namespaces: Record<string, Record<string, unknown>> };
-    const open = Object.entries(registry.namespaces)
-      .filter(([, ns]) => 'open' in ns)
+  it('declares no open facets in meta_tags.yml', () => {
+    const open = Object.entries(readRegistry().facets)
+      .filter(([, f]) => 'open' in f)
       .map(([key]) => key);
     expect(open).toEqual([]);
   });
 
   it('gives every registered tag a non-empty gloss', () => {
-    const undocumented = Object.entries(
-      (
-        yaml.load(fs.readFileSync(path.resolve('../meta_tags.yml'), 'utf-8')) as {
-          namespaces: Record<string, { values?: Record<string, string> }>;
-        }
-      ).namespaces,
-    ).flatMap(([, ns]) =>
-      Object.entries(ns.values ?? {})
+    const undocumented = Object.values(readRegistry().facets).flatMap(f =>
+      Object.entries(f.values ?? {})
         .filter(([, gloss]) => !gloss || !String(gloss).trim())
         .map(([tag]) => tag),
     );
     expect(undocumented).toEqual([]);
+  });
+});
+
+// Membership is DECLARED, not parsed off the `/` prefix. Against the real registry a
+// bare tag is indistinguishable from an unregistered one (both invalid), so the shared
+// format's key property is proven here on a synthetic registry instead.
+describe('declared membership (shared registry format)', () => {
+  const synthetic: TagRegistry = {
+    version: 1,
+    facets: {
+      meta: { label: 'Meta', description: 'Foundry-meta notes.', values: { meta: 'A meta note.' } },
+      domain: { label: 'Domain', description: 'Subject area.', values: { 'domain/x': 'An X.' } },
+    },
+  };
+
+  it('resolves a bare key exactly like a slashed one', () => {
+    const index = buildTagIndex(synthetic);
+    expect(index.get('meta')).toEqual({ facet: 'meta', gloss: 'A meta note.' });
+    expect(index.get('domain/x')).toEqual({ facet: 'domain', gloss: 'An X.' });
+  });
+
+  // A tag whose text starts with a facet name but which no facet declares must NOT
+  // validate — otherwise membership would be prefix-parsing wearing a new name.
+  it('does not admit an undeclared tag that merely looks namespaced', () => {
+    expect(buildTagIndex(synthetic).has('domain/unlisted')).toBe(false);
+  });
+
+  it('attributes each real tag to the facet that declared it', () => {
+    expect(facetOf('domain/batch-effects')).toBe('domain');
+    expect(facetOf('family/b')).toBe('family');
+    expect(facetOf('domain/not-a-real-domain')).toBeUndefined();
+  });
+
+  // The /tags index groups by declaring facet, so every tag in use must resolve to one
+  // — a tag that resolved to none would silently vanish from the browse surface.
+  it('gives every registered tag a declaring facet', () => {
+    const orphans = Object.values(readRegistry().facets)
+      .flatMap(f => Object.keys(f.values ?? {}))
+      .filter(tag => facetOf(tag) === undefined);
+    expect(orphans).toEqual([]);
   });
 });
 
