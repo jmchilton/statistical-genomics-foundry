@@ -144,6 +144,19 @@ Every note declares its kind exactly once, in frontmatter, as `type:`. That fiel
 
 **Collection and kind are deliberately not one-to-one.** `COLLECTIONS` maps six browse collections onto those five kinds: `experiments` holds the candidate Molds produced by the blind-assembly runs, which *are* Molds and declare `type: mold`. The collection is a location — it earns its own route, and its notes sit beside their `comparison.md` / `gap-closing.md` narratives (which carry no frontmatter and are never loaded). The kind is what the note *is*. Keeping that mapping explicit is what lets a catalog enumerate five kinds while the site routes six collections.
 
+### The note envelope — partially adopted
+
+The parent puts a common envelope on *every* note: `status`, `created`, `revised`, `revision`, `ai_generated`, and a required `summary`. We have taken the part that pays for itself now and left the rest genuinely unported, rather than pretending to a convergence we have not done:
+
+| field | here | why |
+|---|---|---|
+| `summary` | **required on `mold`**, 20–160 chars | The site prints it in every tag-browse row; optional meant 12 of 13 Molds listed as a bare name. The bounds are the parent's. |
+| `status` | **required on `pattern`**, parent's lifecycle enum | Was free text, and the only value in use was `stub` — outside the vocabulary every other Foundry note is held to. `stub` → `draft`. |
+| `created` / `revised` / `revision` | not ported | Only honest if backfilled from git history; stamping today's date on a 127-note corpus would manufacture provenance rather than record it. |
+| `ai_generated` | not ported | Needs a per-note truth we do not currently track. |
+
+That leaves a real, documented difference for the kind catalog to show, which is the point: the substrate is what both instances turned out to need, not what one of them happened to build first.
+
 `site/tests/registry-drift.test.ts` holds the kinds to the same both-ways rule as the tag registry: no kind defined but declared by zero notes, and no kind without a collection to put notes in — a kind nothing routes to is unauthorable, so its schema could never run.
 
 This converges with the parent Foundry, where `type` is likewise the sole note-kind discriminator (galaxyproject/foundry#374). The two instances differ in how many kinds they define and what fields those kinds require; they agree that a note names its own kind. Kinds therefore enumerate mechanically in both repos, which is what a cross-instance kind catalog (galaxyproject/foundry-pattern#13) reads.

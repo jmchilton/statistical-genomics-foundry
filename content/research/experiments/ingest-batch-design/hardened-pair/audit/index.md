@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-batch-design-validity
+summary: "Hardened referee for a batch-aware analysis: the same per-axis verdicts as the candidate, tightened by what the gap-closing round found it had missed."
 tags:
   - family/b
   - role/critique

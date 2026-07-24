@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-positive-selection-claim
+summary: "Audits a dN/dS positive-selection claim at the layer beneath the p-value, then passes it, flags it with a remedy, or rejects it as invalid as stated."
 tags:
   - family/b
   - role/critique

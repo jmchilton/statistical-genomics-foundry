@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-batch-design-validity
+summary: "Referees a batch-aware analysis for method validity, not result, returning PASS/FLAG/FAIL/UNDETERMINED per axis with the source that names the failure."
 tags:
   - family/b
   - role/critique

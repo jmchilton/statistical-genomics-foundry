@@ -1,6 +1,7 @@
 ---
 type: mold
 name: separate-batch-from-biology
+summary: "Hardened batch-separation doer: adds an exact-pin toolchain phase so signatures drifting within a minor release cannot silently change what runs."
 tags:
   - family/a
   - role/construct

@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-synteny-claim
+summary: "Screens a synteny or rearrangement conclusion for the cardinal sin of an artifact read as biology, flagging anything that flips with tool stringency."
 tags:
   - family/b
   - role/critique

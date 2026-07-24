@@ -44,6 +44,7 @@ const validReference = (overrides: Record<string, unknown> = {}) => ({
 const validMold = (overrides: Record<string, unknown> = {}) => ({
   type: 'mold',
   name: 'double-dip-referee',
+  summary: 'Referees an analysis for circular inference and gates certification on the verdict.',
   tags: ['family/b', 'role/critique'],
   references: [validReference()],
   ...overrides,
@@ -230,7 +231,7 @@ describe('reference manifest (via mold schema)', () => {
 
 describe('pattern schema', () => {
   it('accepts a minimal pattern', () => {
-    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping', tags: ['domain/statistical-inference'] })).toEqual([]);
+    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping', status: 'draft', tags: ['domain/statistical-inference'] })).toEqual([]);
   });
 
   // issue #100: patterns are min(1) too — a tagless pattern fails.
@@ -289,5 +290,36 @@ describe('strict frontmatter (undeclared keys are rejected)', () => {
   it('rejects a Date for published (must be a quoted string)', () => {
     const note = validSourceNote({ type: 'tutorial', published: new Date('2024-03-21') });
     expect(atPath(issuesOf(tutorialSchema, note), 'published').length).toBeGreaterThan(0);
+  });
+});
+
+// The subset of the parent's note envelope adopted so far. The rest (created/revised/
+// revision/ai_generated) stays unported deliberately — see docs/ARCHITECTURE.md §9.
+describe('note envelope (partial convergence with the parent)', () => {
+  it('requires a summary on a mold', () => {
+    const { summary, ...noSummary } = validMold();
+    expect(atPath(issuesOf(moldSchema, noSummary), 'summary').length).toBeGreaterThan(0);
+  });
+
+  // Bounded like the parent's: a summary too short to say anything, or too long to sit in
+  // a browse row, is as useless as none. The site prints it in every tag-browse row.
+  it('rejects a summary shorter than 20 chars', () => {
+    expect(atPath(issuesOf(moldSchema, validMold({ summary: 'too short' })), 'summary').length).toBeGreaterThan(0);
+  });
+
+  it('rejects a summary longer than 160 chars', () => {
+    expect(atPath(issuesOf(moldSchema, validMold({ summary: 'x'.repeat(161) })), 'summary').length).toBeGreaterThan(0);
+  });
+
+  // `stub` was the real value here before the enum landed — free text let a pattern sit
+  // outside the lifecycle vocabulary every other Foundry note is held to.
+  it('rejects a status outside the lifecycle enum', () => {
+    const note = { type: 'pattern', name: 'x', status: 'stub', tags: ['domain/batch-effects'] };
+    expect(atPath(issuesOf(patternSchema, note), 'status').length).toBeGreaterThan(0);
+  });
+
+  it('requires a status on a pattern', () => {
+    const note = { type: 'pattern', name: 'x', tags: ['domain/batch-effects'] };
+    expect(atPath(issuesOf(patternSchema, note), 'status').length).toBeGreaterThan(0);
   });
 });

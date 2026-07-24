@@ -216,20 +216,26 @@ export const bookSchema = z
 export const moldSchema = z.object({
   type: z.literal('mold'),
   name: z.string(),
-  summary: z.string().optional(),
+  // Required, and bounded like the parent's: long enough to say what the Mold does, short
+  // enough to sit in a browse row. The site prints it in every tag-browse row, so an
+  // optional summary meant 12 of 13 Molds listed as a bare name.
+  summary: z.string().min(20).max(160),
   tags: tagsArray,
   references: z.array(reference).optional(),
 }).strict();
 
 // Patterns: the cautionary-bad / established-good corpus leaves referenced by referee
 // Molds (`[[double-dipping]]`, `[[garden-of-forking-paths]]`, …). Only `index.md` bears
-// frontmatter. Kept loose — corpus-first stubs grow as real cases demand. (`status` stays
-// free text: the inherited status lifecycle is a rung-6 port, not tightened here.)
+// frontmatter. Kept loose — corpus-first stubs grow as real cases demand. `status` is the
+// parent's lifecycle enum, adopted here: free text let `stub` sit outside the vocabulary
+// every other Foundry note is held to, and a lifecycle you cannot enumerate cannot be
+// browsed or reported on. The rest of the parent's envelope (created/revised/revision/
+// ai_generated) is still deliberately unported.
 export const patternSchema = z.object({
   type: z.literal('pattern'),
   name: z.string(),
   pole: z.enum(['cautionary-bad', 'established-good']).optional(),
-  status: z.string().optional(),
+  status: z.enum(['draft', 'reviewed', 'revised', 'stale', 'archived']),
   tags: tagsArray,
 }).strict();
 
