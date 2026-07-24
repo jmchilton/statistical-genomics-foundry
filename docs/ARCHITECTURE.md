@@ -19,7 +19,7 @@ These are the load-bearing abstractions we take from the Foundry pattern. They g
 - **Progressive disclosure** — Pipelines disclose the journey, Molds disclose the action, typed references disclose the dependency surface. Both an authoring principle and a runtime contract.
 - **The human-navigable site** — an Astro renderer over typed content collections, with wiki-link panels, backlinks, tag browses, and raw-text endpoints. This *is* Pillar 3.
 - **Validator-as-cross-resolver** — one shared slug+resolver module, used by both validator and site; cross-file wiki-link resolution with referential integrity (not just format-linting). This is the verified edge over bioSkills' format-validated paths.
-- **Generated indexes with drift gates** (`--check`), **status lifecycle** (`draft|reviewed|revised|stale|archived`), **append-only operations log**, **controlled tag registry** (`meta_tags.yml`), **strict frontmatter schema** (`meta_schema.yml`, `additionalProperties: false`).
+- **Generated indexes with drift gates** (`--check`), **status lifecycle** (`draft|reviewed|revised|stale|archived`), **append-only operations log**, **controlled tag registry** (`meta_tags.yml` — see §8), **strict frontmatter schema** (the parent mirrors an ajv `meta_schema.yml`; we keep one zod module, `.strict()`, no mirror).
 - **Casting is the integration boundary** — Molds are durable source; cast skills are generated target artifacts; portability across runtimes is a casting concern.
 
 ## 2. Domain adaptations (same shape, different content)
@@ -56,8 +56,9 @@ Inherits the parent's shape; adjusted for Mold-primary IA and the lighter schema
 <repo>/
 ├── README.md
 ├── AGENTS.md / CLAUDE.md            # authoring rules (to port + adapt)
-├── meta_schema.yml                 # frontmatter contract (port + adapt: drop conversion axes)
-├── meta_tags.yml                   # tag registry (new vocabulary: family-a/family-b, method areas)
+├── meta_tags.yml                   # tag registry — facets: family/role/domain/topic (§8)
+│                                   # (frontmatter contract lives in site/src/lib/frontmatter-schema.ts,
+│                                   #  one zod module, not the parent's ajv meta_schema.yml)
 ├── docs/
 │   ├── POSITIONING.md              # ✅ written
 │   ├── ARCHITECTURE.md             # ✅ this doc
@@ -92,7 +93,35 @@ In rough priority order:
 4. ✅ **CORPUS.md** — adapted; URL-not-mirror preserved, corpus swapped to a bipolar methods + cautionary-examples corpus.
 5. ✅ **COMPILATION_PIPELINE.md** — adapted; casting + provenance mostly portable, schema kind demoted, empirical-checks-run-at-runtime nuance added.
 6. ✅ **glossary.md** — adapted; conversion terms dropped, Family A/B + referee + gate + construct/critique/calibrate + bipolar-corpus added.
-7. **meta_schema.yml / meta_tags.yml** — encode the adapted note types, drop conversion axes, add the new tag families. *(next — moves from prose into machine-checkable contract)*
+7. ✅ **The frontmatter contract** — done, but *not* as the parent's `meta_schema.yml`. We author it once as a zod module (`site/src/lib/frontmatter-schema.ts`) consumed by both the site build and the standalone validator, so there is no ajv mirror to drift against. `meta_tags.yml` landed alongside it — see §8.
 8. **HARNESS_PIPELINES.md / SCHEMA_PACKAGES.md** — port last; both lighten under our Mold-primary, schema-light stance.
 
-**Doc scaffold is now complete in prose.** What remains (items 7–8) is the machine-checkable contract layer (`meta_schema.yml`, `meta_tags.yml`) and the two lightest design docs — i.e. the transition from *design docs* to *standing up the actual repo*.
+**Doc scaffold is complete in prose, and the contract layer is live.** What remains is item 8, the two lightest design docs.
+
+## 8. Tag system
+
+`meta_tags.yml` at the repo root is the controlled tag vocabulary. `site/src/lib/meta-tags.ts` loads it, and the zod contract refines every `tags[]` entry through `isValidTag` — so the vocabulary changes in one file and the schema code stays static.
+
+Tags are grouped into **facets** — `family`, `role`, `domain`, `topic` — each declaring a `label`, a `description`, and its `values` (tag → one-line gloss):
+
+```yaml
+version: 1
+facets:
+  domain:
+    label: Domain
+    description: Subject-matter area a Mold/note applies to.
+    values:
+      domain/batch-effects: Technical, non-biological variation that confounds measured signal.
+```
+
+Three rules carry the weight:
+
+- **Membership is declared, not parsed.** A tag is valid because its facet lists it under `values`, never because its text starts with a facet name — `domain/unlisted` is invalid despite looking namespaced. The slash is a naming convention, so a bare key would be an ordinary member; our vocabulary happens to be entirely slashed, but the format does not require it. Browse pages group by the *declaring* facet, which is what makes an "other" bucket impossible rather than merely empty.
+- **Every facet is closed.** Each tag is listed with a gloss, and there is no open/free-form/prefix-wildcard escape hatch — not in this registry and not in the loader. Every tag the corpus can carry stays documented and browsable, permanently.
+- **`tags` is `min(1)`.** Every note carries at least one facet tag. Molds and experiments take `family/*` + `role/*`; source notes and patterns take `domain/*` + `topic/*` subject facets.
+
+Note-kind is the `type:` discriminator and is never copied into `tags:` — tags are cross-cutting facets only.
+
+`site/tests/registry-drift.test.ts` checks that the registry and the corpus agree *both* ways: the schema rejects a note carrying an unregistered tag, and the drift test rejects a registered tag carried by zero notes, or a facet with no members in use. Its scope is the vocabulary we authored — the inherited registries (`license-policy.yml`, and `reference_contract.yml`'s `used_at`/`load`/`modes`/`evidence`) are copied complete, so unused rows there are inheritance, not drift.
+
+The registry **format** is shared across Foundry instances — specified in [galaxyproject/foundry-pattern](https://github.com/galaxyproject/foundry-pattern), `content/pattern/standing-up-a-foundry.instructions.txt` — so a format change is a cross-repo change. The facet **vocabulary** above is ours alone: the Galaxy Workflow Foundry's facets (`source`, `target`, `tool`, `cli`, `topic`, `meta`) are its own, and only `topic` collides by name — theirs groups pattern maps, ours sits beneath a `domain`.

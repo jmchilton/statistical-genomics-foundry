@@ -1,20 +1,27 @@
 # Tag registry for Mold/Pattern frontmatter `tags:`.
 #
-# Adapted from the parent Foundry's meta_tags.yml (a flat registry), but our
-# tags are NAMESPACED (`family/*`, `role/*`, `domain/*`, `topic/*`) — the
-# MOLD_SPEC adaptation that replaces the parent's `axis` grouping. Seeded
-# corpus-first from the tags the authored Molds + Patterns actually use; a tag
-# outside this registry is drift (a build error once enforced).
+# Tags are grouped into FACETS (`family`, `role`, `domain`, `topic`) — the MOLD_SPEC
+# adaptation that replaces the parent's `axis` grouping. Seeded corpus-first from the
+# tags the authored Molds + Patterns actually use; a tag outside this registry is drift.
 #
-# Every namespace is a CLOSED enum: the full `prefix/value` must be listed here
-# with a one-line gloss, so every tag the corpus can carry is documented. Adding a
-# new domain/topic is a deliberate registry edit, not a free-form slug. There is no
-# open/free-form escape hatch — not in this registry and not in the loader. Every
-# tag is browsable with a gloss to render, forever; an undocumented tag is drift.
+# Membership is DECLARED, not parsed off the `/` prefix: a tag is valid because its
+# facet lists it under `values`, never because its text starts with a facet name. The
+# slash is therefore a naming convention, and a bare key (no slash) would be an ordinary
+# member — our vocabulary happens to be entirely slashed, but the format does not require
+# it. Browse pages group by the DECLARING facet, so an "other" bucket cannot arise.
+#
+# Every facet is a CLOSED enum: each tag is listed here with a one-line gloss, so every
+# tag the corpus can carry is documented. Adding one is a deliberate registry edit, not a
+# free-form slug. There is no open/free-form escape hatch — not in this registry and not
+# in the loader. Every tag stays browsable with a gloss to render, forever.
+#
+# The FORMAT is shared across Foundry instances (spec: galaxyproject/foundry-pattern,
+# content/pattern/standing-up-a-foundry.instructions.txt) — treat a format change as a
+# cross-repo change. The facet VOCABULARY below is ours alone.
 
 version: 1
 
-namespaces:
+facets:
   family:
     label: Family
     description: Which side of the analyze/referee split a Mold sits on (glossary Family A / Family B).

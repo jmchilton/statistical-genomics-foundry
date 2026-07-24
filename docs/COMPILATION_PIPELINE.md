@@ -1,6 +1,6 @@
 # Compilation Pipeline / Casting (adapted from the Galaxy Workflow Foundry)
 
-> Adapted from the parent's `docs/COMPILATION_PIPELINE.md`. This doc is **mostly portable** — the casting mechanism (deterministic assembly + per-kind dispatch + LLM condensation only where needed) and the **provenance schema** are domain-neutral, and the provenance contract *is* Pillar 1 (source→cast→provenance). The adaptations are narrow: the `schema` kind is demoted, the tool ecosystem changes, and one nuance matters — **the referee's empirical checks run at the generated skill's runtime, not at cast time.** Status: adaptation; same "lock the contract, not the implementation" stance as the parent.
+> Adapted from the parent's `docs/COMPILATION_PIPELINE.md`. This doc is **mostly portable** — the casting mechanism (deterministic assembly + per-kind dispatch + LLM condensation only where needed) and the **provenance schema** are domain-neutral, and the provenance contract *is* Pillar 1 (source→cast→provenance). The adaptations are narrow: the `schema` kind is dropped from `reference_contract.yml` entirely (our outputs are prose-shaped, so no Mold has needed one — re-add it when the first does), the tool ecosystem changes, and one nuance matters — **the referee's empirical checks run at the generated skill's runtime, not at cast time.** Status: adaptation; same "lock the contract, not the implementation" stance as the parent.
 
 ## What casting is (inherited)
 
@@ -49,5 +49,5 @@ Every cast writes a required `_provenance.json`: the Mold object (name, path, re
 
 ## Minimum exercise (adapted)
 - One target: **Claude**. One pinned casting model.
-- Cast 3–4 diverse Molds end-to-end once authored: a **critique** referee (`audit-method-validity` — exercises `pattern` + `research` from the cautionary-bad corpus), a **calibrate** referee (`derive-null-and-calibration` — exercises the runtime-empirical-check packaging + maybe a `cli-command`), a **Family A** guardrail (`map-question-to-established-method` — exercises established-good corpus refs), and one with a planted-invalid `example`/`scenario`. Diversity exercises the per-kind dispatch.
+- Cast 3–4 diverse Molds end-to-end once authored: a **critique** referee (`audit-method-validity` — exercises `pattern` + `research` from the cautionary-bad corpus), a **calibrate** referee (`derive-null-and-calibration` — exercises the runtime-empirical-check packaging + maybe a `cli-command`), a **Family A** guardrail (`map-question-to-established-method` — exercises established-good corpus refs), and one with a planted-invalid `example`/`scenario` (which means re-adding the `example` kind to `reference_contract.yml` — it is not registered today, since nothing references one yet). Diversity exercises the per-kind dispatch.
 - Commit casts; review the actual `SKILL.md` + `_provenance.json` outputs. If they look reasonable and provenance holds, scale.

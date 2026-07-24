@@ -3,13 +3,18 @@
 # Adapted from the parent Galaxy Workflow Foundry's reference_contract.yml
 # (inherit / adapt / demote / add — the diff is the evidence):
 #   inherit: used_at, load, modes, evidence vocabularies unchanged.
-#   adapt:   `kinds` trimmed to what this instance authors (see below).
-#   demote:  `schema` kept in the vocabulary but rare here — our outputs are
-#            prose-shaped critiques/protocols, not structured artifacts
-#            (glossary "Schema (Mold IO)"; ARCHITECTURE §3).
-#   add:     `eval` kind — the abstract oracle, never packaged into a cast
-#            (glossary "Evaluation plan").
-#   drop:    parent's `cli-tool` — no tool-install refs authored here yet.
+#   adapt:   `kinds` trimmed to what this instance actually authors — corpus-first,
+#            so this list is exactly the three kinds real Molds reference today.
+#   drop:    parent's `cli-tool` (no tool-install refs authored here); `schema`
+#            (our outputs are prose-shaped critiques/protocols, not structured
+#            artifacts — glossary "Schema (Mold IO)", ARCHITECTURE §3); `prompt`
+#            and `example` (inherited, never authored against); and `eval` — the
+#            abstract oracle is real (glossary "Evaluation plan") but it lives in
+#            an `eval.md` sibling, and no Mold has needed it as a manifest entry.
+#
+# Re-adding any of these is a deliberate one-line edit made when a Mold first
+# needs it — registering vocabulary ahead of content is what the drift check in
+# site/tests/registry-drift.test.ts exists to catch.
 #
 # The `modes` here are the casting transforms; which modes a given reference
 # may use is further constrained by its source license — see the `allowed_modes`
@@ -29,22 +34,6 @@ kinds:
   cli-command:
     label: CLI Command
     description: Command reference. Usually cast to a sidecar and loaded only when invoked.
-    ref_shape: wiki-link
-  schema:
-    label: Schema
-    description: Structured contract copied for validation or lookup. Rare (demoted).
-    ref_shape: wiki-link
-  prompt:
-    label: Prompt
-    description: Prompt fragment copied verbatim or inlined by the target adapter.
-    ref_shape: wiki-link
-  example:
-    label: Example
-    description: Fixture or exemplar copied verbatim.
-    ref_shape: path
-  eval:
-    label: Eval
-    description: Abstract oracle (property checks). Never packaged into a cast.
     ref_shape: wiki-link
 
 used_at:
