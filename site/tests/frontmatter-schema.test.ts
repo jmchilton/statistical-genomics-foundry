@@ -13,6 +13,7 @@ const atPath = (issues: ReturnType<typeof issuesOf>, p: string) =>
   issues.filter((i) => i.path.join('.') === p);
 
 // own-words note under a permissive license: no verbatim carry, so no license_file needed.
+// Carries a facet tag so it satisfies the `tags` min(1) rule (issue #100) by default.
 const validSourceNote = (overrides: Record<string, unknown> = {}) => ({
   title: 'A Note',
   type: 'paper',
@@ -22,6 +23,7 @@ const validSourceNote = (overrides: Record<string, unknown> = {}) => ({
   license: 'MIT',
   attribution: 'X et al. 2020',
   derived: 'own-words-summary',
+  tags: ['domain/batch-effects'],
   ...overrides,
 });
 
@@ -87,10 +89,21 @@ describe('sourceNote schema', () => {
     expect(issues.some((i) => /license_file/.test(i.message))).toBe(true);
   });
 
-  it('accepts a registered tag and defaults tags to []', () => {
+  it('accepts a registered tag', () => {
     expect(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/batch-effects'] }))).toEqual([]);
-    const parsed = sourceNoteSchema.parse(validSourceNote());
-    expect(parsed.tags).toEqual([]);
+  });
+
+  // issue #100: `tags` is min(1) — an empty array (or omitted tags) fails, so every
+  // note carries ≥1 facet. The negative fixture the issue asks for.
+  it('rejects an empty tags array (min 1)', () => {
+    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: [] })), 'tags');
+    expect(issues.some((i) => /≥1 facet tag|meta_tags\.yml/.test(i.message))).toBe(true);
+  });
+
+  it('rejects a note with no tags field (min 1)', () => {
+    const bad = validSourceNote();
+    delete (bad as Record<string, unknown>).tags;
+    expect(atPath(issuesOf(sourceNoteSchema, bad), 'tags').length).toBeGreaterThan(0);
   });
 
   it('rejects an unregistered tag on a source note', () => {
@@ -146,11 +159,16 @@ describe('reference manifest (via mold schema)', () => {
 
 describe('pattern schema', () => {
   it('accepts a minimal pattern', () => {
-    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping' })).toEqual([]);
+    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping', tags: ['domain/statistical-inference'] })).toEqual([]);
+  });
+
+  // issue #100: patterns are min(1) too — a tagless pattern fails.
+  it('rejects a pattern with no tags (min 1)', () => {
+    expect(atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x' }), 'tags').length).toBeGreaterThan(0);
   });
 
   it('rejects a non-corpus pole value', () => {
-    const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', pole: 'neither' }), 'pole');
+    const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', pole: 'neither', tags: ['domain/batch-effects'] }), 'pole');
     expect(issues.length).toBeGreaterThan(0);
   });
 

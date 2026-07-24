@@ -36,14 +36,38 @@ namespaces:
     values:
       domain/ancestral-reconstruction: Inferring ancestral sequence/character states across a phylogeny.
       domain/batch-effects: Technical, non-biological variation that confounds measured signal.
+      domain/clustering: Unsupervised grouping into discrete categories; distance choice and cluster validation.
+      domain/comparative-annotation: Projecting/transferring gene annotations across genomes (liftover, CESAR, TOGA, CAT, Liftoff).
+      domain/data-visualization: Constructing honest exploratory/publication data displays; artifacts of scale, smoothing, ordering.
+      domain/differential-expression: Testing expression/abundance differences (RNA-seq, microarray, methylation).
+      domain/dimensionality-reduction: Ordination / low-dimensional embedding of high-dim data (PCA, SVD, MDS, t-SNE).
       domain/experimental-design: Sample allocation, blocking, and randomization decided before data collection.
       domain/gene-family-evolution: Gene gain/loss/duplication dynamics across lineages.
+      domain/image-analysis: "Turning digital images into quantitative measurements: segmentation, filtering, feature extraction."
       domain/molecular-evolution: Sequence change over evolutionary time (substitution, selection).
       domain/pangenomics: Analysis across a species' full core/accessory gene complement.
+      domain/phylogenetic-comparative-methods: Trait evolution and diversification inferred on a fixed phylogeny (PGLS, BiSSE/HiSSE).
       domain/phylogenetics: Inferring evolutionary trees from molecular data.
+      domain/single-cell-genomics: Single-cell / droplet assays (demultiplexing, hashing, count-splitting, cluster inference).
+      domain/spatial-statistics: Spatial point patterns vs a complete-spatial-randomness baseline (point processes, Ripley's K).
+      domain/statistical-inference: General validity of statistical inference — multiple testing, post-selection, confounding, reproducibility.
+      domain/supervised-learning: Learning a predictive rule from labeled data while guarding against overfitting.
+      domain/synteny: Conserved gene order / collinearity across genomes (MCScanX, SyRI, GENESPACE).
+      domain/whole-genome-alignment: Genome-to-genome alignment / homology mapping (Cactus, HAL, minimap2, MUMmer, chain/net).
+      domain/whole-genome-duplication: Polyploidy / WGD detection via Ks distributions and duplicate retention.
 
   topic:
     label: Topic
     description: Finer-grained subject beneath a domain. Closed enum — add a documented row per topic.
     values:
+      topic/confounding: Batch / surrogate-variable / collider confounding of a biological contrast.
       topic/dnds: Nonsynonymous/synonymous substitution-rate ratio; a test for selection (under molecular-evolution).
+      topic/gc-biased-gene-conversion: gBGC as a confound of selection signals.
+      topic/ks-distribution: Ks-based WGD dating / substitution saturation.
+      topic/liftover: Coordinate/annotation liftover across assemblies.
+      topic/multiple-testing: FWER/FDR control across many simultaneous tests.
+      topic/pangenome-openness: Open/closed pangenome; core/accessory dynamics.
+      topic/positive-selection: Codon-model tests for positive selection (BUSTED/MEME/aBSREL/branch-site).
+      topic/post-selection-inference: Double-dipping / selective inference / count-splitting.
+      topic/recombination: Recombination detection (e.g. GARD) affecting selection inference.
+      topic/reproducibility: Forking paths, p-hacking, researcher degrees of freedom.

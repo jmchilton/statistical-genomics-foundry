@@ -8,6 +8,9 @@ access_date: "2026-07-04"
 license: CC-BY-NC-3.0
 attribution: "Wang Y, Tang H, DeBarry JD, Tan X, Li J, Wang X, Lee T-h, Jin H, Marler B, Guo H, Kissinger JC, Paterson AH. MCScanX: a toolkit for detection and evolutionary analysis of gene synteny and collinearity. Nucleic Acids Research 40(7):e49, 2012. DOI 10.1093/nar/gkr1293. Read via PMC open-access full text; note records CC BY-NC 3.0 posture."
 derived: own-words-summary
+tags:
+  - domain/synteny
+  - domain/gene-family-evolution
 ---
 
 # MCScanX — faithful source note

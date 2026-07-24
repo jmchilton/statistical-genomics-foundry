@@ -53,8 +53,12 @@ const tag = z.string().refine(isValidTag, {
 });
 
 // `tags:` on every content type — the browse axis the site's /tags pages index.
-// Seeded on Molds; extended to source notes + patterns so the corpus is tag-navigable.
-const tagsArray = z.array(tag).default([]);
+// `.min(1)`: every note MUST carry ≥1 facet tag (issue #100 — converges with the
+// Galaxy Workflow Foundry's "min(1) everywhere"). Molds/experiments take family/role;
+// source notes + patterns take domain/topic subject facets.
+const tagsArray = z.array(tag).min(1, {
+  message: 'every note must carry ≥1 facet tag registered in meta_tags.yml (e.g. domain/batch-effects)',
+});
 
 // An SPDX id from license-policy.yml, or a LicenseRef-<slug> escape hatch.
 // The license → redistribution-policy table (galaxyproject/foundry-pattern#4)

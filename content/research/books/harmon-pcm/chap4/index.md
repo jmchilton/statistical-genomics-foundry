@@ -3,6 +3,8 @@ title: "Fitting Brownian Motion"
 source: harmon-pcm
 source_chapter: 4
 source_url: https://lukejharmon.github.io/pcm/chapter4_fitbm/
+tags:
+  - domain/phylogenetic-comparative-methods
 ---
 
 # Harmon PCM Chapter 4 — Fitting Brownian Motion (summary)

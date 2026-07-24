@@ -9,6 +9,10 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Yang H, Harrington CA, Vartanian K, Coldren CD, Hall R, Churchill GA. Randomization in Laboratory Procedure Is Key to Obtaining Reproducible Microarray Results. PLoS ONE 2008;3(11):e3724. Copyright 2008 Yang et al. NOTE: the article prints the CC-BY license WITHOUT a version number (see Access note); CC-BY-4.0 is taken from PLOS's own CrossRef license deposit for this DOI. Either candidate version (2.5 or 4.0) resolves to verbatim-ok, so posture is unaffected."
 derived: license-aware-summary
+tags:
+  - domain/batch-effects
+  - domain/experimental-design
+  - topic/confounding
 ---
 
 # Yang et al. 2008 — Randomization in Laboratory Procedure Is Key to Obtaining Reproducible Microarray Results

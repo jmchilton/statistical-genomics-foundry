@@ -3,6 +3,8 @@ title: "A Macroevolutionary Research Program"
 source: harmon-pcm
 source_chapter: 1
 source_url: https://lukejharmon.github.io/pcm/chapter1_introduction/
+tags:
+  - domain/phylogenetic-comparative-methods
 ---
 
 # Harmon PCM Chapter 1 — A Macroevolutionary Research Program (summary)

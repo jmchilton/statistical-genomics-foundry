@@ -3,6 +3,8 @@ title: "Summary"
 source: harmon-pcm
 source_chapter: 14
 source_url: https://lukejharmon.github.io/pcm/chapter14_summary/
+tags:
+  - domain/phylogenetic-comparative-methods
 ---
 
 # Harmon PCM Chapter 14 — Summary (summary)
