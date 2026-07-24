@@ -47,7 +47,8 @@ const reference = z
       ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['verification'], message: `hypothesis-evidence ref "${ref.ref}" requires a verification` });
   });
 
-// A `tags:` value must resolve in meta_tags.yml (namespaced enum or open slug).
+// A `tags:` value must resolve to a documented entry in meta_tags.yml. Every
+// namespace is a closed enum — there is no free-form slug escape hatch.
 const tag = z.string().refine(isValidTag, {
   message: 'tag must be registered in meta_tags.yml (e.g. family/b, role/critique, domain/batch-effects)',
 });
