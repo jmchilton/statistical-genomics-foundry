@@ -95,28 +95,11 @@ describe('registry drift (authored vocabulary vs corpus)', () => {
     expect(empty, `\nfacets with no tags in use: ${empty.join(', ')}`).toEqual([]);
   });
 
-  // `kinds` is the one reference-contract vocabulary this instance trimmed rather than
-  // inherited, so it is ours to keep honest — but four kinds are unused ON PURPOSE, and
-  // reference_contract.yml's own header says so for two of them. Rather than assert a
-  // rule the repo does not hold, or exempt them silently, the exemptions are listed here
-  // with their reason. A FIFTH unused kind still fails, and deleting a line from this
-  // list is how a forward declaration gets retired.
-  const UNUSED_KINDS_BY_DESIGN: Record<string, string> = {
-    schema: 'demoted — outputs here are prose-shaped critiques, not structured artifacts (contract header)',
-    eval: 'net-new abstract oracle, never packaged into a cast (contract header)',
-    prompt: 'inherited from the parent contract; no Mold authored against it yet',
-    example: 'inherited from the parent contract; no Mold authored against it yet',
-  };
-
-  it('has no reference kind unused without a recorded reason', () => {
-    const dead = referenceKinds().filter(k => !kindsInUse.has(k) && !(k in UNUSED_KINDS_BY_DESIGN));
+  // `kinds` is the one reference-contract vocabulary this instance trims rather than
+  // inherits, so it is ours to keep honest — and it is now exactly the kinds real Molds
+  // reference. Re-add a kind when a Mold needs it, not before.
+  it('has no reference kind used by zero notes', () => {
+    const dead = referenceKinds().filter(k => !kindsInUse.has(k));
     expect(dead, `\nreference kinds registered but unused: ${dead.join(', ')}`).toEqual([]);
-  });
-
-  // The exemption list is itself vocabulary that can rot: once a kind comes into use, its
-  // entry here is stale and should go.
-  it('lists no exemption for a kind that is now in use', () => {
-    const stale = Object.keys(UNUSED_KINDS_BY_DESIGN).filter(k => kindsInUse.has(k));
-    expect(stale, `\nnow in use — drop from UNUSED_KINDS_BY_DESIGN: ${stale.join(', ')}`).toEqual([]);
   });
 });
