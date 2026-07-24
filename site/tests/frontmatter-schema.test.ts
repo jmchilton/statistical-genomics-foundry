@@ -1,4 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, it, expect } from 'vitest';
+import yaml from 'js-yaml';
 import { sourceNoteSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
 
 // Negative-fixtures table: each deliberately-broken frontmatter asserts the SPECIFIC
@@ -116,6 +119,37 @@ describe('sourceNote schema', () => {
   it('rejects an unregistered leaf under the closed domain namespace', () => {
     const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/not-a-real-domain'] })), 'tags.0');
     expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
+  });
+});
+
+// EVERY namespace is closed, forever: every tag the corpus can carry must have a
+// registry gloss to document and browse by. The loader no longer honors `open:`, so
+// a re-added `open: true` would be a SILENT no-op — this asserts the registry never
+// grows one, turning that silent footgun into a failing test.
+describe('closed-registry invariant', () => {
+  it('declares no open namespaces in meta_tags.yml', () => {
+    const registry = yaml.load(
+      fs.readFileSync(path.resolve('../meta_tags.yml'), 'utf-8'),
+    ) as { namespaces: Record<string, Record<string, unknown>> };
+    const open = Object.entries(registry.namespaces)
+      .filter(([, ns]) => 'open' in ns)
+      .map(([key]) => key);
+    expect(open).toEqual([]);
+  });
+
+  it('gives every registered tag a non-empty gloss', () => {
+    const undocumented = Object.entries(
+      (
+        yaml.load(fs.readFileSync(path.resolve('../meta_tags.yml'), 'utf-8')) as {
+          namespaces: Record<string, { values?: Record<string, string> }>;
+        }
+      ).namespaces,
+    ).flatMap(([, ns]) =>
+      Object.entries(ns.values ?? {})
+        .filter(([, gloss]) => !gloss || !String(gloss).trim())
+        .map(([tag]) => tag),
+    );
+    expect(undocumented).toEqual([]);
   });
 });
 

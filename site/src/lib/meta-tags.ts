@@ -12,7 +12,6 @@ interface Namespace {
   label: string;
   description: string;
   values?: Record<string, string>;
-  open?: boolean;
 }
 
 interface TagRegistry {
@@ -27,25 +26,20 @@ function load(): TagRegistry {
   return cached;
 }
 
-const OPEN_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-
-/** A tag is valid if its namespace is registered and either the full tag is an
- *  enumerated value, or the namespace is `open` and the leaf is a kebab-case slug. */
+/** A tag is valid if its namespace is registered AND the full tag is an enumerated
+ *  value of it. Every namespace is closed — there is no free-form/open escape hatch,
+ *  so every tag the corpus can carry has a registry gloss to render and browse by. */
 export function isValidTag(tag: string): boolean {
   const slash = tag.indexOf('/');
   if (slash < 0) return false;
   const ns = load().namespaces[tag.slice(0, slash)];
-  if (!ns) return false;
-  if (ns.values && tag in ns.values) return true;
-  if (ns.open) return OPEN_SLUG_RE.test(tag.slice(slash + 1));
-  return false;
+  return !!ns?.values && tag in ns.values;
 }
 
 export interface NamespaceInfo {
   key: string;
   label: string;
   description: string;
-  open: boolean;
 }
 
 /** Registry namespaces in declared order — the tag index groups by these. */
@@ -54,7 +48,6 @@ export function namespaces(): NamespaceInfo[] {
     key,
     label: ns.label,
     description: ns.description,
-    open: !!ns.open,
   }));
 }
 
@@ -62,7 +55,7 @@ export function namespaceLabel(key: string): string {
   return load().namespaces[key]?.label ?? key;
 }
 
-/** An enumerated tag's registry gloss; undefined for open-namespace leaves. */
+/** A tag's registry gloss. Every valid tag has one; undefined means unregistered. */
 export function tagValueDescription(tag: string): string | undefined {
   const slash = tag.indexOf('/');
   if (slash < 0) return undefined;

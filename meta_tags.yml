@@ -8,9 +8,9 @@
 #
 # Every namespace is a CLOSED enum: the full `prefix/value` must be listed here
 # with a one-line gloss, so every tag the corpus can carry is documented. Adding a
-# new domain/topic is a deliberate registry edit, not a free-form slug. (The loader
-# still supports `open: true` namespaces — `prefix/<any-kebab-slug>` — but this
-# registry uses none: closed keeps the browse axis curated and self-documenting.)
+# new domain/topic is a deliberate registry edit, not a free-form slug. There is no
+# open/free-form escape hatch — not in this registry and not in the loader. Every
+# tag is browsable with a gloss to render, forever; an undocumented tag is drift.
 
 version: 1
 
