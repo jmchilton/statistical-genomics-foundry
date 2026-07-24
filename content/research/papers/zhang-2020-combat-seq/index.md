@@ -12,6 +12,9 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Zhang Y, Parmigiani G, Johnson WE. ComBat-seq: batch effect adjustment for RNA-seq count data. NAR Genomics and Bioinformatics 2(3):lqaa078, 2020. https://doi.org/10.1093/nargab/lqaa078 — open access under CC BY 4.0. Read from PMC efetch JATS XML (full body, 17 refs); Supplementary Material S1–S5 not read."
 derived: license-aware-summary
+tags:
+  - domain/batch-effects
+  - domain/differential-expression
 ---
 
 # ComBat-seq: batch effect adjustment for RNA-seq count data

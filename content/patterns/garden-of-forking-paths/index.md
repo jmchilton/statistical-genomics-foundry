@@ -3,6 +3,10 @@ type: pattern
 name: garden-of-forking-paths
 pole: cautionary-bad
 status: stub
+tags:
+  - domain/statistical-inference
+  - topic/reproducibility
+  - topic/multiple-testing
 ---
 
 # Garden of forking paths (researcher degrees of freedom / undeclared analysis family)

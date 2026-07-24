@@ -3,6 +3,8 @@ title: "Introduction to birth-death models"
 source: harmon-pcm
 source_chapter: 10
 source_url: https://lukejharmon.github.io/pcm/chapter10_birthdeath/
+tags:
+  - domain/phylogenetic-comparative-methods
 ---
 
 # Harmon PCM Chapter 10 — Introduction to birth-death models (summary)

@@ -8,6 +8,9 @@ license: GPL-2.0-or-later
 license_file: LICENSES/GPL-2.0-or-later.LICENSE
 attribution: "Gordon K. Smyth et al., limma (Bioconductor). Package version 3.68.4. Licensed GPL (>=2)."
 derived: license-aware-summary
+tags:
+  - domain/differential-expression
+  - domain/batch-effects
 ---
 
 # limma — package documentation (reference manual + User's Guide)

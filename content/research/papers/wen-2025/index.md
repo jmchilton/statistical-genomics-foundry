@@ -9,6 +9,10 @@ license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
 attribution: "Wen B, Freestone J, Riffle M, MacCoss MJ, Noble WS, Keich U. Nature Methods 22(7):1454-1463, 2025."
 derived: faithful-summary-with-quotes
+tags:
+  - domain/statistical-inference
+  - topic/multiple-testing
+  - topic/post-selection-inference
 ---
 
 # Wen et al. 2025 — Entrapment assessment of FDR control in MS/MS

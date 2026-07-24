@@ -3,6 +3,8 @@ title: "Beyond the Mk model"
 source: harmon-pcm
 source_chapter: 9
 source_url: https://lukejharmon.github.io/pcm/chapter9_beyondmk/
+tags:
+  - domain/phylogenetic-comparative-methods
 ---
 
 # Harmon PCM Chapter 9 — Beyond the Mk model (summary)

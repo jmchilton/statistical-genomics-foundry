@@ -3,6 +3,9 @@ title: "Multivariate Methods for Heterogeneous Data"
 source: msmb
 source_chapter: 9
 source_url: https://www.huber.embl.de/msmb/09-chap.html
+tags:
+  - domain/dimensionality-reduction
+  - domain/batch-effects
 ---
 
 # Multivariate Methods for Heterogeneous Data — MSMB Chapter 9 (summary)

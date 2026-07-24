@@ -3,6 +3,8 @@ title: "Beyond birth-death models"
 source: harmon-pcm
 source_chapter: 12
 source_url: https://lukejharmon.github.io/pcm/chapter12_beyondbd/
+tags:
+  - domain/phylogenetic-comparative-methods
 ---
 
 # Harmon PCM Chapter 12 — Beyond birth-death models (summary)

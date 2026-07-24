@@ -3,6 +3,8 @@ title: "Beyond Brownian Motion"
 source: harmon-pcm
 source_chapter: 6
 source_url: https://lukejharmon.github.io/pcm/chapter6_beyondbm/
+tags:
+  - domain/phylogenetic-comparative-methods
 ---
 
 # Harmon PCM Chapter 6 — Beyond Brownian Motion (summary)
