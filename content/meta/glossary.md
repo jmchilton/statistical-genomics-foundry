@@ -1,6 +1,6 @@
 # Glossary (adapted from the Galaxy Workflow Foundry)
 
-> Hand-curated, alphabetical. Adapted from the parent's `content/glossary.md`: Foundry-pattern terms (Mold, Cast, Pattern, Pipeline, Phase, Provenance, the eval/scenario split) carry over; Galaxy-specific terms (gxformat2, gxwf, planemo, IWC, freeform-summary, composed/direct paths, discover-or-author, topology-repair, source/target/tool axes) are **dropped**; new terms for our identity (Family A/B, the referee, the gate, the bipolar corpus, the construct/critique/calibrate roles) are **added**. If two docs disagree on a term, this file wins. (Will relocate to `content/glossary.md` at repo standup; skipped by the validator, like the parent's.)
+> Hand-curated, alphabetical. Adapted from the parent's `content/meta/glossary.md`: Foundry-pattern terms (Mold, Cast, Pattern, Pipeline, Phase, Provenance, the eval/scenario split) carry over; Galaxy-specific terms (gxformat2, gxwf, planemo, IWC, freeform-summary, composed/direct paths, discover-or-author, topology-repair, source/target/tool axes) are **dropped**; new terms for our identity (Family A/B, the referee, the gate, the bipolar corpus, the construct/critique/calibrate roles) are **added**. If two docs disagree on a term, this file wins. (Lives at `content/meta/glossary.md`; skipped by the validator, like the parent's.)
 
 ---
 

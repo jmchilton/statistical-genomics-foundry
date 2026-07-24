@@ -30,7 +30,7 @@ categories, stop and confirm before spending subagent budget.
 
 ## Phase 0 — ground (you)
 
-Read `docs/glossary.md` (vocabulary) and the four axis files under
+Read `content/meta/glossary.md` (vocabulary) and the four axis files under
 `content/research/mold-eval/rubrics/` **plus its `README.md`** — the vector-not-GPA rule and the
 `[observed]` / `[design-inference]` / `[verify]` honesty tags live there. **These are the grading
 authority; do not paraphrase their bands into this run.**
