@@ -18,10 +18,6 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Cast** *(verb)* — produce a self-contained skill artifact from a Mold via casting. *(noun)* — one casting result for a (Mold, target) pair.
 
-**Cast artifact** — the compiled output of casting: self-contained, condensed, frozen against the source version, no links back, no runtime dependency on the Foundry. Carries `_provenance.json`.
-
-**Cast target** — an output format casting can produce (Claude skill, generic, web). One Mold may cast to several.
-
 **Casting** — the deterministic-assembly-plus-LLM-condensation process that turns a Mold into a cast artifact, via per-kind dispatch over its references. See `COMPILATION_PIPELINE.md`.
 
 **Cautionary-bad** — the corpus pole of named invalidity patterns (double-dipping, batch confounding, naive multiple-testing, forking paths) with their signatures and remedies. Grounds the referee. No parent analog.
@@ -40,9 +36,11 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Family B** — *referee the analysis*: audit method validity (Critique) and construct the empirical checks the field trusts (Calibrate). The project's teeth.
 
-**Foundry** — the standalone, navigable knowledge base where Molds, patterns, corpus notes, and protocols live and from which casting reads. Working name: **Statistical Genomics Foundry** (provisional). Instance #2 in the Foundry-pattern lineage (Galaxy = #1).
+**Foundry** — the standalone, navigable knowledge base where Molds, patterns, corpus notes, and protocols live and from which casting reads. Working name: **Statistical Genomics Foundry** (provisional). Instance #2 in the Foundry-pattern lineage (Galaxy = #1). The substrate term for this source-of-truth artifact is **Knowledge Base (KB)**.
 
 **Gate / gate obligation** — the invariant that a Family-A protocol may not terminate in self-certification; it must hand off to a Family-B referee whose verdict gates certification. The project's defining structural rule. Encoded at the protocol altitude, not as a Mold property.
+
+**Knowledge Base (KB)** — the inspectable, human-readable source of truth at the center of the instance — the standalone, navigable site where Molds, patterns, corpus notes, and protocols live and from which casting reads. Authored to be *read and learned by a human*, not merely stored for retrieval. The KB is the source; a **skill artifact** is the package. This instance colloquially calls it *the Foundry* (see **Foundry**).
 
 **License-aware summary** — a **Source note** whose license resolves to `verbatim-ok` in `license-policy.yml`, so short *load-bearing* verbatim quotes are permitted (marked as such). `derived: license-aware-summary`. E.g. `harmon-pcm` (CC-BY). Contrast **Own-words summary**; the choice between them is **Summary posture**.
 
@@ -64,7 +62,7 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Referee** — a Family-B Mold (or protocol stage) that judges an analysis's method validity using empirical checks rather than the agent's own reasoning. Non-self-certifying. The novelty vs the parent: the referee is a *Mold*, not a deterministic CLI.
 
-**Reference kind** — the type discriminator on a Mold's typed references, controlling casting behavior: `pattern`, `research`, `cli-command`, `schema` (demoted), `prompt`, `example`, `eval` (never packaged).
+**Reference** *(a.k.a. reference kind)* — a typed dependency a Mold declares; the *kind* discriminator controls casting behavior: `pattern`, `research`, `cli-command`, `schema` (demoted), `prompt`, `example`, `eval` (never packaged).
 
 **Rubric** — a standing, living scorecard grading a Family-A doer skill on one **Assessment axis**
 (A–F, half steps), grounded in probe evidence and updated as more skills are graded. Net-new to this
@@ -78,9 +76,13 @@ recoverability probe; **Refereeability** grades the **Gate** obligation. Prose c
 
 **Self-certification** — the failure mode the project exists to stop: an agent doing an analysis and blessing its own validity in the same breath, with fluent rationale and no external check. The gate obligation forbids it.
 
+**Skill artifact** *(a.k.a. cast artifact)* — the compiled output of casting: self-contained, condensed, frozen against the source version, no links back, no runtime dependency on the Foundry. Carries `_provenance.json`.
+
 **Source note** — a per-source reading note under `content/research/<papers|tutorials|books>/<id>/`: a regenerable **faithful summary** (`index.md`) plus, *by exception*, an owned **guidance** file (`guidance.md`). A regenerable cast (what the source says), kept separate from our framing. Graded by recoverability, not coverage. Its **Summary posture** is license-driven. For books, book-invariant metadata lives once in a co-located `book.yml`. See `AGENTS.md` "Source notes earn their keep by recoverability."
 
 **Summary posture** — whether a **Source note** is an **Own-words summary** or a **License-aware summary**. **Determined by the source's license** (`license-policy.yml` `policy`: `own-words-only` vs `verbatim-ok`), *not* by source type — a book is not inherently own-words (`msmb` is; `harmon-pcm`, CC-BY, is license-aware). Recorded in the note's `derived:` field. The two summary commands split by *workflow* (bulk book vs single source), not by posture.
+
+**Target** *(a.k.a. cast target)* — an output format casting can produce (Claude skill, generic, web). One Mold may cast to several.
 
 **Usage note / Refinement note** *(`usage.md` / `refinement.md`)* — author-facing illustration / open design questions about a Mold. Never packaged into casts. Carried over unchanged from the parent.
 
