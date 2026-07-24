@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Supervised Learning"
 source: msmb
 source_chapter: 12

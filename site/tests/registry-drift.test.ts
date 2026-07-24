@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
 import { describe, it, expect } from 'vitest';
-import { COLLECTIONS } from '../src/lib/frontmatter-schema';
+import { COLLECTIONS, NOTE_KINDS, type NoteKind } from '../src/lib/frontmatter-schema';
 import { facets, facetOf } from '../src/lib/meta-tags';
 import { referenceKinds } from '../src/lib/reference-contract';
 
@@ -31,6 +31,7 @@ function walkIndexFiles(baseAbs: string): string[] {
 }
 
 interface NoteFrontmatter {
+  type?: unknown;
   tags?: unknown;
   references?: unknown;
 }
@@ -53,7 +54,11 @@ const tagsInUse = new Set(
   notes.flatMap(n => (Array.isArray(n.tags) ? n.tags.filter((t): t is string => typeof t === 'string') : [])),
 );
 
-const kindsInUse = new Set(
+// Note kinds (the `type:` discriminator) — distinct from the REFERENCE kinds below, which
+// are a reference_contract.yml vocabulary. Both are called "kind"; only these name a note.
+const noteKindsInUse = new Set(notes.map(n => n.type).filter((t): t is string => typeof t === 'string'));
+
+const referenceKindsInUse = new Set(
   notes.flatMap(n =>
     Array.isArray(n.references)
       ? n.references
@@ -75,10 +80,11 @@ const registeredTags = () =>
 describe('registry drift (authored vocabulary vs corpus)', () => {
   // Guards the walk itself: if the frontmatter reader silently stopped matching, every
   // set below would be empty and every assertion would pass vacuously.
-  it('found tags and reference kinds to check', () => {
+  it('found tags, note kinds and reference kinds to check', () => {
     expect(notes.length).toBeGreaterThan(0);
     expect(tagsInUse.size).toBeGreaterThan(0);
-    expect(kindsInUse.size).toBeGreaterThan(0);
+    expect(noteKindsInUse.size).toBeGreaterThan(0);
+    expect(referenceKindsInUse.size).toBeGreaterThan(0);
   });
 
   it('has no registered tag carried by zero notes', () => {
@@ -99,7 +105,24 @@ describe('registry drift (authored vocabulary vs corpus)', () => {
   // inherits, so it is ours to keep honest — and it is now exactly the kinds real Molds
   // reference. Re-add a kind when a Mold needs it, not before.
   it('has no reference kind used by zero notes', () => {
-    const dead = referenceKinds().filter(k => !kindsInUse.has(k));
+    const dead = referenceKinds().filter(k => !referenceKindsInUse.has(k));
     expect(dead, `\nreference kinds registered but unused: ${dead.join(', ')}`).toEqual([]);
+  });
+
+  // The same both-ways rule applied to the note kinds. A kind defined in NOTE_KINDS but
+  // declared by no note is a schema with no corpus — the per-kind docs and examples a kind
+  // catalog renders would describe something that does not exist here.
+  it('has no note kind declared by zero notes', () => {
+    const dead = Object.keys(NOTE_KINDS).filter(k => !noteKindsInUse.has(k));
+    expect(dead, `\nnote kinds defined but unused: ${dead.join(', ')}`).toEqual([]);
+  });
+
+  // The converse of "every kind has notes": every kind must have somewhere to PUT notes.
+  // A kind no collection routes to is unauthorable — its schema can never run, so the
+  // check above would be the only thing that ever noticed.
+  it('routes every note kind to at least one collection', () => {
+    const routed = new Set(Object.values(COLLECTIONS).map(c => c.kind));
+    const unroutable = Object.keys(NOTE_KINDS).filter(k => !routed.has(k as NoteKind));
+    expect(unroutable, `\nnote kinds with no collection: ${unroutable.join(', ')}`).toEqual([]);
   });
 });

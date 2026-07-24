@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Fitting models of discrete character evolution"
 source: harmon-pcm
 source_chapter: 8

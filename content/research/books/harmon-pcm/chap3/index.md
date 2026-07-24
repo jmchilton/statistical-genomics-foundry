@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Introduction to Brownian Motion"
 source: harmon-pcm
 source_chapter: 3

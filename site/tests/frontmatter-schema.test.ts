@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import yaml from 'js-yaml';
-import { sourceNoteSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
+import { paperSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
 import { buildTagIndex, facetOf, type TagRegistry } from '../src/lib/meta-tags';
 
 // Negative-fixtures table: each deliberately-broken frontmatter asserts the SPECIFIC
@@ -51,35 +51,35 @@ const validMold = (overrides: Record<string, unknown> = {}) => ({
 
 describe('sourceNote schema', () => {
   it('accepts a minimal own-words note', () => {
-    expect(issuesOf(sourceNoteSchema, validSourceNote())).toEqual([]);
+    expect(issuesOf(paperSchema, validSourceNote())).toEqual([]);
   });
 
   // The #87-class footgun: an unquoted `access_date: 2026-07-13` parses to a Date, not a
   // string, and used to survive until deploy. z.string() must reject it.
   it('rejects an unquoted date (YAML Date, not string) in a required field', () => {
-    const issues = issuesOf(sourceNoteSchema, validSourceNote({ access_date: new Date('2026-07-13') }));
+    const issues = issuesOf(paperSchema, validSourceNote({ access_date: new Date('2026-07-13') }));
     expect(atPath(issues, 'access_date').length).toBeGreaterThan(0);
   });
 
   it('rejects a missing required field', () => {
     const bad = validSourceNote();
     delete (bad as Record<string, unknown>).license;
-    expect(atPath(issuesOf(sourceNoteSchema, bad), 'license').length).toBeGreaterThan(0);
+    expect(atPath(issuesOf(paperSchema, bad), 'license').length).toBeGreaterThan(0);
   });
 
   it('rejects an unknown license id', () => {
-    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ license: 'not-a-real-license' })), 'license');
+    const issues = atPath(issuesOf(paperSchema, validSourceNote({ license: 'not-a-real-license' })), 'license');
     expect(issues.some((i) => /SPDX|license-policy/.test(i.message))).toBe(true);
   });
 
   it('flags a LicenseRef that resolves to the defect/default row', () => {
-    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ license: 'LicenseRef-unregistered-xyz' })), 'license');
+    const issues = atPath(issuesOf(paperSchema, validSourceNote({ license: 'LicenseRef-unregistered-xyz' })), 'license');
     expect(issues.some((i) => /default row|defect/.test(i.message))).toBe(true);
   });
 
   it('rejects verbatim carry under an own-words-only (NC) license', () => {
     const issues = atPath(
-      issuesOf(sourceNoteSchema, validSourceNote({ license: 'CC-BY-NC-4.0', derived: 'license-aware-summary' })),
+      issuesOf(paperSchema, validSourceNote({ license: 'CC-BY-NC-4.0', derived: 'license-aware-summary' })),
       'derived',
     );
     expect(issues.some((i) => /own-words-only/.test(i.message))).toBe(true);
@@ -87,38 +87,38 @@ describe('sourceNote schema', () => {
 
   it('requires a license_file when carrying verbatim under a verbatim-ok license', () => {
     const issues = atPath(
-      issuesOf(sourceNoteSchema, validSourceNote({ license: 'CC-BY-4.0', derived: 'license-aware-summary' })),
+      issuesOf(paperSchema, validSourceNote({ license: 'CC-BY-4.0', derived: 'license-aware-summary' })),
       'license_file',
     );
     expect(issues.some((i) => /license_file/.test(i.message))).toBe(true);
   });
 
   it('accepts a registered tag', () => {
-    expect(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/batch-effects'] }))).toEqual([]);
+    expect(issuesOf(paperSchema, validSourceNote({ tags: ['domain/batch-effects'] }))).toEqual([]);
   });
 
   // issue #100: `tags` is min(1) — an empty array (or omitted tags) fails, so every
   // note carries ≥1 facet. The negative fixture the issue asks for.
   it('rejects an empty tags array (min 1)', () => {
-    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: [] })), 'tags');
+    const issues = atPath(issuesOf(paperSchema, validSourceNote({ tags: [] })), 'tags');
     expect(issues.some((i) => /≥1 facet tag|meta_tags\.yml/.test(i.message))).toBe(true);
   });
 
   it('rejects a note with no tags field (min 1)', () => {
     const bad = validSourceNote();
     delete (bad as Record<string, unknown>).tags;
-    expect(atPath(issuesOf(sourceNoteSchema, bad), 'tags').length).toBeGreaterThan(0);
+    expect(atPath(issuesOf(paperSchema, bad), 'tags').length).toBeGreaterThan(0);
   });
 
   it('rejects an unregistered tag on a source note', () => {
-    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['not/a-real-namespace'] })), 'tags.0');
+    const issues = atPath(issuesOf(paperSchema, validSourceNote({ tags: ['not/a-real-namespace'] })), 'tags.0');
     expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
   });
 
   // domain/* is a closed enum: a known prefix with an unregistered leaf is drift,
   // not a free-form slug. Guards the closed-registry posture.
   it('rejects an unregistered leaf under the closed domain namespace', () => {
-    const issues = atPath(issuesOf(sourceNoteSchema, validSourceNote({ tags: ['domain/not-a-real-domain'] })), 'tags.0');
+    const issues = atPath(issuesOf(paperSchema, validSourceNote({ tags: ['domain/not-a-real-domain'] })), 'tags.0');
     expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
   });
 });

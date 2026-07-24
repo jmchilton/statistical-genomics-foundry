@@ -74,3 +74,18 @@ restrictive license a "must-quote" becomes a faithful own-words paraphrase).
 Be faithful over comprehensive; do not editorialize; do not relate the source to any external
 framework. Do NOT add project framing to `index.md` — that lives in a separate flagged footer the
 note author maintains, not here.
+
+## Step 3 — frontmatter
+The note needs a YAML frontmatter block or it fails validation. `site/src/lib/frontmatter-schema.ts`
+is the authority on the full field set; two rules are easy to get wrong:
+
+- **`type:` must match the collection in `$1`** — `type: paper` under `papers/`, `type: tutorial`
+  under `tutorials/`. It is the note-kind discriminator that selects the schema, and each kind is a
+  literal, so a note filed in the wrong directory is an error rather than a silent pass (see
+  `docs/ARCHITECTURE.md` §9).
+- **`tags:` needs ≥1 tag registered in `meta_tags.yml`** — `domain/*` + `topic/*` subject facets for
+  a source note. Pick from what is registered; never invent one, since every facet is a closed enum.
+
+Record the license posture you determined in Step 1.5 as the `license` id, and set `derived` to the
+mode you actually used — the schema cross-checks the two, and an own-words-only license paired with
+a verbatim-carry `derived` is rejected.

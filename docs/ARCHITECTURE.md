@@ -125,3 +125,23 @@ Note-kind is the `type:` discriminator and is never copied into `tags:` — tags
 `site/tests/registry-drift.test.ts` checks that the registry and the corpus agree *both* ways: the schema rejects a note carrying an unregistered tag, and the drift test rejects a registered tag carried by zero notes, or a facet with no members in use. Its scope is the vocabulary we authored — the inherited registries (`license-policy.yml`, and `reference_contract.yml`'s `used_at`/`load`/`modes`/`evidence`) are copied complete, so unused rows there are inheritance, not drift.
 
 The registry **format** is shared across Foundry instances — specified in [galaxyproject/foundry-pattern](https://github.com/galaxyproject/foundry-pattern), `content/pattern/standing-up-a-foundry.instructions.txt` — so a format change is a cross-repo change. The facet **vocabulary** above is ours alone: the Galaxy Workflow Foundry's facets (`source`, `target`, `tool`, `cli`, `topic`, `meta`) are its own, and only `topic` collides by name — theirs groups pattern maps, ours sits beneath a `domain`.
+
+## 9. Note kinds
+
+Every note declares its kind exactly once, in frontmatter, as `type:`. That field is the **sole discriminator**: the kind picks the schema, and nothing infers a kind from a directory, a filename, or a tag. Five kinds are defined, each with the one schema that validates it (`NOTE_KINDS` in `site/src/lib/frontmatter-schema.ts`):
+
+| kind | schema | what it is |
+|---|---|---|
+| `book` | `bookSchema` | a chapter summary of an external textbook; book-level license/attribution merges in from `book.yml` |
+| `paper` | `paperSchema` | a faithful summary of a paper, with provenance and a resolved license posture |
+| `tutorial` | `tutorialSchema` | the same, for a vignette or package tutorial |
+| `mold` | `moldSchema` | an abstract action template — the Mold-primary core, incl. referee Molds |
+| `pattern` | `patternSchema` | a cautionary-bad or established-good corpus leaf |
+
+`papers` and `tutorials` are two schemas over one shared field set rather than one schema with a `z.enum(['paper','tutorial'])`, because the enum let a `type: paper` note sit under `content/research/tutorials/` and still validate. A literal per kind makes the collection and the declared kind agree, or fail.
+
+**Collection and kind are deliberately not one-to-one.** `COLLECTIONS` maps six browse collections onto those five kinds: `experiments` holds the candidate Molds produced by the blind-assembly runs, which *are* Molds and declare `type: mold`. The collection is a location — it earns its own route, and its notes sit beside their `comparison.md` / `gap-closing.md` narratives (which carry no frontmatter and are never loaded). The kind is what the note *is*. Keeping that mapping explicit is what lets a catalog enumerate five kinds while the site routes six collections.
+
+`site/tests/registry-drift.test.ts` holds the kinds to the same both-ways rule as the tag registry: no kind defined but declared by zero notes, and no kind without a collection to put notes in — a kind nothing routes to is unauthorable, so its schema could never run.
+
+This converges with the parent Foundry, where `type` is likewise the sole note-kind discriminator (galaxyproject/foundry#374). The two instances differ in how many kinds they define and what fields those kinds require; they agree that a note names its own kind. Kinds therefore enumerate mechanically in both repos, which is what a cross-instance kind catalog (galaxyproject/foundry-pattern#13) reads.

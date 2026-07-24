@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Characters and diversification rates"
 source: harmon-pcm
 source_chapter: 13
