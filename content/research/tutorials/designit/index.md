@@ -5,7 +5,7 @@ source_id: designit
 source_url: https://cran.r-project.org/package=designit
 docs_url: https://bedapub.github.io/designit/
 version: "0.5.0"
-published: 2024-03-21
+published: "2024-03-21"
 access_date: "2026-07-13"
 license: MIT
 license_file: LICENSES/MIT.LICENSE

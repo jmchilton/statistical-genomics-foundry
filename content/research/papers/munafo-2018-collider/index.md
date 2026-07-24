@@ -6,7 +6,7 @@ source_url: https://academic.oup.com/ije/article/47/1/226/4259077
 oa_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5837306/
 doi: 10.1093/ije/dyx206
 pmcid: PMC5837306
-pmid: 29040562
+pmid: "29040562"
 access_date: "2026-07-13"
 license: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE

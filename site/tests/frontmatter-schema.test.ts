@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import yaml from 'js-yaml';
-import { paperSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
+import { paperSchema, tutorialSchema, bookSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
 import { buildTagIndex, facetOf, type TagRegistry } from '../src/lib/meta-tags';
 
 // Negative-fixtures table: each deliberately-broken frontmatter asserts the SPECIFIC
@@ -246,5 +246,48 @@ describe('pattern schema', () => {
   it('rejects an unregistered tag on a pattern', () => {
     const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', tags: ['not/a-real-namespace'] }), 'tags.0');
     expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
+  });
+});
+
+// Every kind is `.strict()`, converging with the parent Foundry, where every note schema
+// has been strict all along. Without it an undeclared key is silently accepted, and the
+// corpus quietly accumulates a private vocabulary: turning strict on for the first time
+// surfaced 11 such keys across 7 notes (oa_url, pmid, pmcid, arxiv, license_statement,
+// docs_url, bioconductor_release, published) — all real fields nobody had ever declared.
+// A typo'd key is the same defect wearing a worse disguise, so assert per kind.
+describe('strict frontmatter (undeclared keys are rejected)', () => {
+  const unknownKey = (issues: ReturnType<typeof issuesOf>) =>
+    issues.some((i) => /[Uu]nrecognized key/.test(i.message));
+
+  it('rejects an undeclared key on a paper', () => {
+    expect(unknownKey(issuesOf(paperSchema, validSourceNote({ impct_factor: 12 })))).toBe(true);
+  });
+
+  it('rejects an undeclared key on a tutorial', () => {
+    const note = validSourceNote({ type: 'tutorial', biocondutor_release: '3.23' });
+    expect(unknownKey(issuesOf(tutorialSchema, note))).toBe(true);
+  });
+
+  it('rejects an undeclared key on a mold', () => {
+    expect(unknownKey(issuesOf(moldSchema, validMold({ axis: 'source-specific' })))).toBe(true);
+  });
+
+  it('rejects an undeclared key on a pattern', () => {
+    const note = { type: 'pattern', name: 'x', tags: ['domain/batch-effects'], polarity: 'bad' };
+    expect(unknownKey(issuesOf(patternSchema, note))).toBe(true);
+  });
+
+  // Book chapters are the strictest case: license/attribution/derived are book.yml's job,
+  // so a chapter repeating them is drift between the two, not extra detail.
+  it('rejects a book chapter restating book-level license metadata', () => {
+    const note = { type: 'book', title: 'C1', source: 'msmb', source_url: 'https://example.org/1', tags: ['domain/statistical-inference'], license: 'MIT' };
+    expect(unknownKey(issuesOf(bookSchema, note))).toBe(true);
+  });
+
+  // The #87 footgun, extended to the new date-shaped field: `published: 2024-03-21`
+  // unquoted is a Date to YAML, and it hid in an undeclared key until strict found it.
+  it('rejects a Date for published (must be a quoted string)', () => {
+    const note = validSourceNote({ type: 'tutorial', published: new Date('2024-03-21') });
+    expect(atPath(issuesOf(tutorialSchema, note), 'published').length).toBeGreaterThan(0);
   });
 });

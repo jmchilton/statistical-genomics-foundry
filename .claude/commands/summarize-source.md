@@ -85,6 +85,11 @@ is the authority on the full field set; two rules are easy to get wrong:
   `docs/ARCHITECTURE.md` §9).
 - **`tags:` needs ≥1 tag registered in `meta_tags.yml`** — `domain/*` + `topic/*` subject facets for
   a source note. Pick from what is registered; never invent one, since every facet is a closed enum.
+- **Undeclared keys are rejected** — the schema is `.strict()`. Papers may carry `doi`, `pmid`,
+  `pmcid`, `arxiv`, `oa_url`; tutorials `docs_url`, `bioconductor_release`, `published`. If the
+  source has provenance that fits none of them, add the field to the schema rather than smuggling
+  it into frontmatter — an undeclared key is unvalidated, which is how two of these acquired
+  YAML-coercion bugs. Quote every identifier and date (`pmid: "33015620"`, not `pmid: 33015620`).
 
 Record the license posture you determined in Step 1.5 as the `license` id, and set `derived` to the
 mode you actually used — the schema cross-checks the two, and an own-words-only license paired with
