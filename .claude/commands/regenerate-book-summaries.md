@@ -49,10 +49,13 @@ license/attribution/derived live once in `book.yml`, merged by the Astro `books`
 
    ```
    ---
+   type: book
    title: "<chapter title>"
    source: <source>
    source_chapter: <n>
    source_url: <url from manifest.tsv>
+   tags:
+     - <facet tags — see below>
    ---
 
    # <chapter title> — <short_title> Chapter <n> (summary)
@@ -61,6 +64,15 @@ license/attribution/derived live once in `book.yml`, merged by the Astro `books`
 
    <body>
    ```
+
+   `type: book` is required and constant — it is the note-kind discriminator the schema
+   selects on (`docs/ARCHITECTURE.md` §9), and it lives per-note, not in `book.yml`.
+
+   **`tags:` must survive the regeneration.** Every note requires ≥1 registered facet tag
+   (`min(1)`), and this command rewrites the whole file — so read the existing
+   `chap<n>/index.md` first and carry its `tags:` block through verbatim. Only when the
+   chapter is genuinely new, assign `domain/*` + `topic/*` tags from `meta_tags.yml` that
+   match the chapter's subject; never invent a tag that is not registered there.
 
    Do NOT write license/license_file/attribution/derived into the chapter — those are merged
    from `book.yml`. Refuse to write if a subagent returned empty/whitespace output; report which

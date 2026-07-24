@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Models of discrete character evolution"
 source: harmon-pcm
 source_chapter: 7

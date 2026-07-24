@@ -101,21 +101,31 @@ const licenseCoherence = <T extends { license: string; license_file?: string; de
 // `derived` records what modification was made (the CC-BY "changes" indication), and
 // is foregrounded in the UI. Provenance is descriptive (url/doi/version/access_date);
 // the sync-script + checksum layer is deferred to repo standup.
-export const sourceNoteSchema = z
-  .object({
-    title: z.string(),
-    type: z.enum(['paper', 'tutorial']),
-    source_id: z.string(),
-    source_url: z.string().url(),
-    doi: z.string().optional(),
-    version: z.string().optional(),
-    access_date: z.string(),
-    license: licenseId,
-    license_file: z.string().optional(),
-    attribution: z.string(),
-    derived: z.string(),
-    tags: tagsArray,
-  })
+const sourceNoteFields = {
+  title: z.string(),
+  source_id: z.string(),
+  source_url: z.string().url(),
+  doi: z.string().optional(),
+  version: z.string().optional(),
+  access_date: z.string(),
+  license: licenseId,
+  license_file: z.string().optional(),
+  attribution: z.string(),
+  derived: z.string(),
+  tags: tagsArray,
+};
+
+// Papers and tutorials share every field above; only the `type` literal differs. They are
+// two schemas rather than one `z.enum(['paper','tutorial'])` because `type` is the SOLE
+// note-kind discriminator (converging with the parent Foundry's #374): one kind, one
+// schema. The enum let a `type: paper` note sit in content/research/tutorials/ and still
+// validate; a literal per kind makes the collection and the declared kind agree, or fail.
+export const paperSchema = z
+  .object({ type: z.literal('paper'), ...sourceNoteFields })
+  .superRefine(licenseCoherence);
+
+export const tutorialSchema = z
+  .object({ type: z.literal('tutorial'), ...sourceNoteFields })
   .superRefine(licenseCoherence);
 
 // Book notes: summaries of external textbooks (e.g. MSMB chapters). Book-level metadata
@@ -133,10 +143,14 @@ function loadBookMeta(source: string): Record<string, unknown> {
   return meta;
 }
 
-// Chapter frontmatter carries only what varies per chapter; book-level fields are merged
+// Chapter frontmatter declares its kind (`type: book`) and otherwise carries only what
+// varies per chapter — the kind is per-note, not per-book, so it is not a book.yml field
+// even though it is constant within a book: every note in the corpus names its own kind.
+// Book-level fields are merged
 // from book.yml. `attribution` may be a template ({n}/{title} filled from the chapter).
 export const bookSchema = z
   .object({
+    type: z.literal('book'),
     title: z.string(),
     source: z.string(),
     source_chapter: z.number().int().optional(),
@@ -189,14 +203,34 @@ export const patternSchema = z.object({
   tags: tagsArray,
 });
 
-// Single source for the collection ⇒ (glob base, schema) mapping, so `content.config.ts`
+// The note KINDS this Foundry defines — the complete set of `type` values the corpus may
+// declare, each with the one schema that validates it. `type` is the SOLE discriminator:
+// every note declares its kind exactly once, in frontmatter, and the kind picks the schema.
+// Nothing infers a kind from a directory or a tag.
+export const NOTE_KINDS = {
+  book: bookSchema,
+  paper: paperSchema,
+  tutorial: tutorialSchema,
+  mold: moldSchema,
+  pattern: patternSchema,
+} as const;
+
+export type NoteKind = keyof typeof NOTE_KINDS;
+
+// Single source for the collection ⇒ (glob base, kind) mapping, so `content.config.ts`
 // and the corpus-conformance validator route files the same way. Bases are relative to
 // the Astro project root (site/), matching the loaders' cwd.
+//
+// Collection and kind are DELIBERATELY not one-to-one: `experiments` holds candidate Molds
+// produced by the blind-assembly runs, which are structurally Molds and declare `type: mold`.
+// The collection is a location (it gets its own browse route and its notes sit beside their
+// comparison/gap-closing narratives); the kind is what the note IS. Keeping the mapping
+// explicit is what lets a kind catalog enumerate 5 kinds while the site routes 6 collections.
 export const COLLECTIONS = {
-  books: { base: '../content/research/books', schema: bookSchema },
-  papers: { base: '../content/research/papers', schema: sourceNoteSchema },
-  tutorials: { base: '../content/research/tutorials', schema: sourceNoteSchema },
-  molds: { base: '../content/molds', schema: moldSchema },
-  patterns: { base: '../content/patterns', schema: patternSchema },
-  experiments: { base: '../content/research/experiments', schema: moldSchema },
-} as const;
+  books: { base: '../content/research/books', kind: 'book', schema: NOTE_KINDS.book },
+  papers: { base: '../content/research/papers', kind: 'paper', schema: NOTE_KINDS.paper },
+  tutorials: { base: '../content/research/tutorials', kind: 'tutorial', schema: NOTE_KINDS.tutorial },
+  molds: { base: '../content/molds', kind: 'mold', schema: NOTE_KINDS.mold },
+  patterns: { base: '../content/patterns', kind: 'pattern', schema: NOTE_KINDS.pattern },
+  experiments: { base: '../content/research/experiments', kind: 'mold', schema: NOTE_KINDS.mold },
+} as const satisfies Record<string, { base: string; kind: NoteKind; schema: unknown }>;

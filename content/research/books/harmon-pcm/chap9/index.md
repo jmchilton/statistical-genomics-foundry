@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Beyond the Mk model"
 source: harmon-pcm
 source_chapter: 9

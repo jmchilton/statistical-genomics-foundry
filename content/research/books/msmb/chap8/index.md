@@ -1,4 +1,5 @@
 ---
+type: book
 title: "High-Throughput Count Data and Generalized Linear Models"
 source: msmb
 source_chapter: 8

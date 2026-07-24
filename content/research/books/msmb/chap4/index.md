@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Mixture Models"
 source: msmb
 source_chapter: 4

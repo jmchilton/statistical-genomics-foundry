@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Beyond Brownian Motion"
 source: harmon-pcm
 source_chapter: 6

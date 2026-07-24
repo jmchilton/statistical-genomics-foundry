@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Fitting Brownian Motion"
 source: harmon-pcm
 source_chapter: 4

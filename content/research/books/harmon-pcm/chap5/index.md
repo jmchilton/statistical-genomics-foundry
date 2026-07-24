@@ -1,4 +1,5 @@
 ---
+type: book
 title: "Multivariate Brownian Motion"
 source: harmon-pcm
 source_chapter: 5

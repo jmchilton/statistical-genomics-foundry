@@ -1,4 +1,5 @@
 ---
+type: book
 title: "A Macroevolutionary Research Program"
 source: harmon-pcm
 source_chapter: 1
