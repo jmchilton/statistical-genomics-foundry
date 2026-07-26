@@ -119,16 +119,14 @@ const sourceNoteFields = {
   tags: tagsArray,
 };
 
-// Papers and tutorials build on the shared set above but are TWO schemas, not one schema
-// with a `z.enum(['paper','tutorial'])`, because `type` is the SOLE note-kind discriminator
-// (converging with the parent Foundry's #374): one kind, one schema. The enum let a
-// `type: paper` note sit in content/research/tutorials/ and still validate; a literal per
-// kind makes the collection and the declared kind agree, or fail.
+// Papers and tutorials share the fields above but are TWO schemas, not one schema with a
+// `z.enum(['paper','tutorial'])`, because `type` is the SOLE note-kind discriminator: one
+// kind, one schema. The enum let a `type: paper` note sit in content/research/tutorials/
+// and still validate; a literal per kind makes the collection and the declared kind agree.
 //
-// The split is also what lets the two DIFFER: a paper carries bibliographic identifiers, a
-// tutorial the release it documents. Under one shared enum every field had to be legal on
-// both. Identifiers are strings, never numbers — an unquoted `pmid: 33015620` is an integer
-// to YAML, and an id is an opaque label we never do arithmetic on.
+// The split also lets the kinds DIFFER: a paper carries bibliographic identifiers, a
+// tutorial the release it documents. Identifiers are strings, never numbers — an unquoted
+// `pmid: 33015620` is an integer to YAML, and an id is an opaque label, never arithmetic.
 export const paperSchema = z
   .object({
     type: z.literal('paper'),
@@ -150,7 +148,7 @@ export const tutorialSchema = z
     docs_url: z.string().url().optional(),
     // The Bioconductor release `version` belongs to — the pair pins the vignette.
     bioconductor_release: z.string().optional(),
-    // Quoted, like `access_date`: bare `2024-03-21` is a Date to YAML, not a string (#87).
+    // Quoted, like `access_date`: bare `2024-03-21` is a Date to YAML, not a string.
     published: z.string().optional(),
   })
   .strict()
@@ -216,9 +214,9 @@ export const bookSchema = z
 export const moldSchema = z.object({
   type: z.literal('mold'),
   name: z.string(),
-  // Required, and bounded like the parent's: long enough to say what the Mold does, short
-  // enough to sit in a browse row. The site prints it in every tag-browse row, so an
-  // optional summary meant 12 of 13 Molds listed as a bare name.
+  // Required, 20–160 chars: long enough to say what the Mold does, short enough to sit in a
+  // browse row. The site prints it in every tag-browse row, so an optional summary would
+  // list a Mold as a bare name.
   summary: z.string().min(20).max(160),
   tags: tagsArray,
   references: z.array(reference).optional(),
@@ -226,11 +224,8 @@ export const moldSchema = z.object({
 
 // Patterns: the cautionary-bad / established-good corpus leaves referenced by referee
 // Molds (`[[double-dipping]]`, `[[garden-of-forking-paths]]`, …). Only `index.md` bears
-// frontmatter. Kept loose — corpus-first stubs grow as real cases demand. `status` is the
-// parent's lifecycle enum, adopted here: free text let `stub` sit outside the vocabulary
-// every other Foundry note is held to, and a lifecycle you cannot enumerate cannot be
-// browsed or reported on. The rest of the parent's envelope (created/revised/revision/
-// ai_generated) is still deliberately unported.
+// frontmatter. Kept loose — corpus-first stubs grow as real cases demand. `status` is a
+// closed lifecycle enum, not free text, so it stays browsable and reportable.
 export const patternSchema = z.object({
   type: z.literal('pattern'),
   name: z.string(),
