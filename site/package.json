@@ -7,6 +7,8 @@
     "dev": "astro dev",
     "build": "astro build --force",
     "typecheck": "astro check",
+    "kinds": "vite-node scripts/generate-kind-manifest.ts",
+    "check:kinds": "vite-node scripts/generate-kind-manifest.ts --check",
     "test": "vitest run",
     "test:watch": "vitest",
     "validate": "vitest run",

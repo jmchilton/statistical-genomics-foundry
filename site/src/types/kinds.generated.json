@@ -1,0 +1,296 @@
+{
+  "instance": "statistical-genomics-foundry",
+  "version": 1,
+  "kinds": [
+    {
+      "kind": "book",
+      "title": "Book Chapter",
+      "origin": "instance",
+      "summary": "An own-words summary of one chapter of an external textbook, merged with the book-level licence record it belongs to.",
+      "doc": "# Book Chapter\n\nA **Book Chapter** note is an own-words summary of one chapter of an external textbook (the\nMSMB chapters, for instance). One directory per book, one `index.md` per chapter.\n\n## The one kind whose entry is assembled\n\nEvery other kind validates the frontmatter in front of it. This one **merges**: book-level\nmetadata — `license`, `license_file`, `attribution`, `derived` — lives ONCE per book in\n`content/research/books/<id>/book.yml`, and is merged into each chapter at load so downstream\npages read one complete record.\n\nThe alternative was repeating four fields across every chapter of every book, where they would\ndrift within a single book. Instead the chapter carries only what varies per chapter, and\n`.strict()` keeps the merge **one-way**: a chapter that restates `license` or `attribution` is\n*rejected*, not silently shadowing the book. That rejection is the rule that makes the merge\ntrustworthy rather than merely convenient.\n\n`attribution` in `book.yml` may be a template — `{n}` and `{title}` are filled from the\nchapter — so per-chapter credit lines are generated rather than transcribed.\n\n## Why each required field is required\n\n- **`title`** — the chapter's own title, and half of the attribution template's input.\n- **`source`** — the book directory id. This is the join key the merge reads `book.yml` by, so\n  a wrong value is a load error rather than a quiet mismatch.\n- **`source_url`** — the chapter's own URL. Distinct from the book's, and the provenance for\n  this specific chapter.\n- **`tags`** (min 1) — the browse axis, as on every kind.\n\n`source_chapter` is optional: not every book numbers its chapters, and the attribution template\ntolerates its absence.\n\n## `type` is per-note, not per-book\n\n`type: book` sits in the chapter's frontmatter even though it is constant within a book, and\neven though it *could* have been a `book.yml` field. Every note in the corpus names its own\nkind — a note whose kind you have to look up elsewhere is a note the validator cannot route on\nits own.\n\n## Redistribution\n\nChapters are `own-words-summary`, always: the source text is not reproduced, and\n`scripts/sync-book.sh` fetches the raw chapters into a gitignored directory pinned by\n`SHA256SUMS`. What is committed is the manifest, the pin, and our derived summary.",
+      "fields": [
+        {
+          "name": "source",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "source_url",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "tags",
+          "required": true,
+          "type": "string[]"
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "required": true,
+          "type": "\"book\""
+        },
+        {
+          "name": "source_chapter",
+          "required": false,
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "kind": "paper",
+      "title": "Paper",
+      "origin": "instance",
+      "summary": "A faithful summary of one published paper, carrying the provenance and licence posture the summary was made under.",
+      "doc": "# Paper\n\nA **Paper** note is a faithful summary of one published paper, carrying the provenance and\nlicence posture the summary was made under.\n\nPapers and tutorials share a field set but are **two kinds, not one kind with a\n`z.enum(['paper','tutorial'])`**, because `type` is the sole note-kind discriminator: one kind,\none schema. The enum let a `type: paper` note sit in `content/research/tutorials/` and still\nvalidate; a literal per kind makes the collection and the declared kind agree. The split also\nlets the kinds genuinely differ — a paper carries bibliographic identifiers, a tutorial the\nrelease it documents — which under a shared enum would have had to be legal on both.\n\n## Why each required field is required\n\n- **`source_id`**, **`source_url`** — what was summarized, and where it lives. Never a mirror\n  of the source itself: the URL is the provenance, the summary is ours.\n- **`access_date`** — when we read it. A string, always quoted: bare `2026-01-01` is a `Date`\n  to YAML, and there is a negative fixture holding that line.\n- **`license`** — an SPDX id resolving against `license-policy.yml`. This is what decides the\n  summary posture, not the source type.\n- **`attribution`** — the credit line the licence obliges.\n- **`derived`** — what modification was made (the CC-BY \"changes\" indication), and the field the\n  coherence rule keys off. `own-words-summary` redistributes no protected expression;\n  `license-aware-with-quotes` does, and the schema then demands a licence that permits it.\n- **`title`** and **`tags`** (min 1) — papers take `domain/*` and `topic/*` subject facets.\n\n## Identifiers are strings\n\n`pmid`, `pmcid`, `arxiv`, `oa_url` are all optional and all **strings**. An unquoted\n`pmid: 33015620` is an integer to YAML, and an identifier is an opaque label — never\narithmetic. These four were carried by real notes for months without being declared, which is\nwhat `.strict()` surfaced: undeclared meant unchecked, and two of them held the wrong type.\n\n## The cross-field rule this kind enforces\n\nLicence coherence: the id must resolve to a real policy row; a note may not declare verbatim\ncarry under an own-words-only licence; and verbatim carry under a row that requires a\n`license_file` must declare one.",
+      "fields": [
+        {
+          "name": "access_date",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "attribution",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "derived",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "license",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "source_id",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "source_url",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "tags",
+          "required": true,
+          "type": "string[]"
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "required": true,
+          "type": "\"paper\""
+        },
+        {
+          "name": "arxiv",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "doi",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "license_file",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "license_statement",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "oa_url",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "pmcid",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "pmid",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "required": false,
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "kind": "tutorial",
+      "title": "Tutorial",
+      "origin": "instance",
+      "summary": "A faithful summary of one package vignette or tutorial, pinned to the release it documents.",
+      "doc": "# Tutorial\n\nA **Tutorial** note is a faithful summary of one package vignette or tutorial — the\nBioconductor/CRAN documentation a Mold needs the exact procedure from.\n\nIt shares the source-note field set with `paper` but is a separate kind: `type` is the sole\ndiscriminator, so one kind means one schema, and the split is what lets each kind carry what it\nactually needs. See `paper/kind.md` for why that beats a shared `z.enum(['paper','tutorial'])`.\n\n## Why each required field is required\n\nIdentical to `paper`: `source_id`, `source_url`, `access_date`, `license`, `attribution`,\n`derived`, `title`, and `tags` (min 1). See `paper/kind.md` — the reasoning is the same, and\nstating it once is the point of the shared `sourceNoteFields` in `types/context.ts`.\n\n## What is tutorial-specific\n\n- **`docs_url`** — the documentation site, distinct from `source_url`, which points at the\n  package record. For a vignette these are genuinely two different pages.\n- **`bioconductor_release`** — the release the `version` belongs to. The pair pins the\n  vignette: a Bioconductor package version means nothing without its release, and a vignette\n  summarized against 3.18 can be silently wrong for 3.20.\n- **`published`** — a **string**, quoted. Bare `2024-03-21` is a `Date` to YAML, not a string;\n  a fixture asserts that a `Date` here is rejected.\n\nAll three were carried by real notes before they were declared. `.strict()` is what surfaced\nthem, and `published` was one of the two that held the wrong type as a result.\n\n## The cross-field rule this kind enforces\n\nLicence coherence, exactly as on `paper`.",
+      "fields": [
+        {
+          "name": "access_date",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "attribution",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "derived",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "license",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "source_id",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "source_url",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "tags",
+          "required": true,
+          "type": "string[]"
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "required": true,
+          "type": "\"tutorial\""
+        },
+        {
+          "name": "bioconductor_release",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "docs_url",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "doi",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "license_file",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "license_statement",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "published",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "required": false,
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "kind": "mold",
+      "title": "Mold",
+      "origin": "substrate",
+      "summary": "One abstract action, described as a typed reference manifest that casting compiles into a skill artifact.",
+      "doc": "# Mold\n\nA **Mold** describes *one abstract action* — audit this method, construct this calibration —\nnot a document and not a tutorial. Its body says how to do the action; its frontmatter declares\nthe *typed reference manifest* naming every note the cast must carry, and how.\n\nMolds are the substrate's centre of gravity, and in this Foundry they are the primary artifact:\nthe catalog leads, and a Mold may legitimately belong to no pipeline at all. Only `index.md`\nbears frontmatter — `eval.md`, `scenarios.md`, `usage.md`, and `refinement.md` are siblings.\n\n## Why each required field is required\n\n- **`name`** — the stable slug the cast bundle and every wiki-link address the Mold by.\n- **`summary`** — required, 20–160 characters. The site prints it in *every* tag-browse row,\n  so an optional summary means half the catalog renders as a bare name. The bounds are the\n  parent Foundry's, adopted unchanged.\n- **`tags`** (min 1) — the browse axis. Molds take `family/*` and `role/*`; this is the\n  MOLD_SPEC adaptation that replaces the parent's `axis` enum, which described a *conversion*\n  and does not apply to a Foundry that converts nothing.\n\n## Optional fields\n\n- **`references`** — the typed manifest. Each entry draws `kind` / `used_at` / `load` / `mode` /\n  `evidence` from `reference_contract.yml`. Three rules the schema enforces: `load: on-demand`\n  requires a `trigger`, `evidence: hypothesis` requires a `verification`, and the whole entry\n  is `.strict()`.\n- **`recheck`** on a reference — a standing flag that the cited source has an unresolved\n  question hanging over it (an unretrieved Author Correction, a paywalled erratum) and that\n  nothing from it may be used load-bearing until that is settled. This field has no analog in\n  the parent, and it is the honest record of a source we could not fully verify.\n\n## Experiment artifacts\n\nThe blind-assembly candidate/doer/audit artifacts under `content/research/experiments/` are\nstructurally Molds and declare `type: mold`. They live in their own collection because they sit\nbeside their comparison narratives, not because they are a different kind — which is exactly why\ncollection and kind are not one-to-one here.",
+      "fields": [
+        {
+          "name": "name",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "summary",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "tags",
+          "required": true,
+          "type": "string[]"
+        },
+        {
+          "name": "type",
+          "required": true,
+          "type": "\"mold\""
+        },
+        {
+          "name": "references",
+          "required": false,
+          "type": "object[]"
+        }
+      ]
+    },
+    {
+      "kind": "pattern",
+      "title": "Pattern",
+      "origin": "substrate",
+      "summary": "One named methodological pattern — established-good or cautionary-bad — that a referee Mold reasons against.",
+      "doc": "# Pattern\n\nA **Pattern** is one named methodological pattern the referee Molds reason against —\n`[[double-dipping]]`, `[[garden-of-forking-paths]]`, `[[batch-aliased-with-condition]]`. Only\n`index.md` bears frontmatter.\n\n## The bipolar corpus\n\n`pole` is this instance's sharpest divergence from the parent Foundry, and the reason this kind\nexists in the shape it does. The parent's corpus is the IWC workflow set — *all positive\nexemplars*, because a converter only needs to know what good output looks like. A referee does\nnot: **a checker that has only seen good examples cannot recognize a bad one.**\n\nSo the corpus has two poles:\n\n- **`established-good`** — methods plus the validity conditions under which they hold. Grounds\n  \"pick an established method, don't invent one.\"\n- **`cautionary-bad`** — named invalidity patterns, their signatures, and their remedies.\n  Grounds the referee's ability to *catch* something.\n\nThe second pole has no parent analog. It is not an oversight there and not an extension here —\nit is what the domain requires.\n\n## Why each required field is required\n\n- **`name`** — the slug every `[[wiki-link]]` and reference resolves to.\n- **`status`** — the parent's lifecycle enum (`draft` / `reviewed` / `revised` / `stale` /\n  `archived`), required. It was free text carrying the single value `stub`, which is outside\n  the vocabulary every other Foundry note is held to; a closed enum stays browsable and\n  reportable.\n- **`tags`** (min 1) — patterns take the `domain/*` and `topic/*` subject facets.\n\n`pole` is optional because the corpus is stub-first: a pattern can be named before it is\nclassified. Where it is set, it is what the referee Molds select on.",
+      "fields": [
+        {
+          "name": "name",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "required": true,
+          "type": "draft | reviewed | revised | stale | archived"
+        },
+        {
+          "name": "tags",
+          "required": true,
+          "type": "string[]"
+        },
+        {
+          "name": "type",
+          "required": true,
+          "type": "\"pattern\""
+        },
+        {
+          "name": "pole",
+          "required": false,
+          "type": "cautionary-bad | established-good"
+        }
+      ]
+    }
+  ]
+}
