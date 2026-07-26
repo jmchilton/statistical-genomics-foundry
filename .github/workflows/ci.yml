@@ -23,6 +23,9 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - run: npm ci
       - run: npm run typecheck
+      # The committed kind manifest must match what the schemas currently say. It is derived,
+      # so it cannot drift from the schema — only from the schema's last regeneration.
+      - run: npm run check:kinds
       # Standalone frontmatter validator: negative fixtures + corpus conformance, sharing
       # one schema with the build (issue #89 rung 3). Fails fast, before the fuller build.
       - run: npm test

@@ -5,7 +5,8 @@
 This is **mostly a design/research workspace** deriving a new project from the Galaxy
 Workflow Foundry pattern, aimed at statistical genomics. One engineering layer is standing
 up incrementally via issue #89 (the validation step-ladder): the `site/` Astro app now has a
-frontmatter contract (`site/src/content.config.ts` + `site/src/lib/frontmatter-schema.ts`), a
+frontmatter contract (a directory per note kind under `site/src/types/`, assembled by
+`site/src/lib/frontmatter-schema.ts` and consumed by `site/src/content.config.ts`), a
 validator (`npm test` / `npm run validate` in `site/`), and the root vocab registries
 (`meta_tags.yml`, `reference_contract.yml`, `license-policy.yml`). There is still **no
 `packages/`, `casts/`, ajv `meta_schema.yml`, or fixture tooling** — deliberately deferred
@@ -121,10 +122,11 @@ These exist in the parent Foundry's `AGENTS.md` but describe machinery this work
 not have. Port them (as an explicit diff) only when the actual repo stands up:
 
 - **[Standing up via issue #89 — an adapt, not the parent's port]** The frontmatter-is-contract
-  layer now exists as **one zod module** (`site/src/lib/frontmatter-schema.ts`) consumed by both
-  the site build and a standalone validator (`npm run validate` in `site/`) — deliberately *not*
-  a mirrored ajv `meta_schema.yml` + separate site schema (the parent's two-encoding drift,
-  avoided). `meta_tags.yml` + `reference_contract.yml` registries landed with it. Still deferred:
+  layer now exists as **one zod encoding** — a directory per kind under `site/src/types/`,
+  assembled by `site/src/lib/frontmatter-schema.ts` — consumed by both the site build and a
+  standalone validator (`npm run validate` in `site/`), and deliberately *not* a mirrored ajv
+  `meta_schema.yml` + separate site schema (the parent's two-encoding drift, avoided).
+  `meta_tags.yml` + `reference_contract.yml` registries landed with it. Still deferred:
   the parent's ajv Draft-07 `meta_schema.yml` form; `validate before commit` as a Makefile target
   + pre-commit hooks (the `site/` npm scripts are the standing exception — see "The rendered site").
 - Mold IO schemas in packages; "don't edit generated files" (Dashboard/Index/casts).

@@ -128,15 +128,19 @@ The registry **format** is shared across Foundry instances — specified in [gal
 
 ## 9. Note kinds
 
-Every note declares its kind exactly once, in frontmatter, as `type:`. That field is the **sole discriminator**: the kind picks the schema, and nothing infers a kind from a directory, a filename, or a tag. Five kinds are defined, each with the one schema that validates it (`NOTE_KINDS` in `site/src/lib/frontmatter-schema.ts`):
+Every note declares its kind exactly once, in frontmatter, as `type:`. That field is the **sole discriminator**: the kind picks the schema, and nothing infers a kind from a directory, a filename, or a tag. Five kinds are defined, **one per directory** under `site/src/types/`:
 
-| kind | schema | what it is |
+| kind | directory | what it is |
 |---|---|---|
-| `book` | `bookSchema` | a chapter summary of an external textbook; book-level license/attribution merges in from `book.yml` |
-| `paper` | `paperSchema` | a faithful summary of a paper, with provenance and a resolved license posture |
-| `tutorial` | `tutorialSchema` | the same, for a vignette or package tutorial |
-| `mold` | `moldSchema` | an abstract action template — the Mold-primary core, incl. referee Molds |
-| `pattern` | `patternSchema` | a cautionary-bad or established-good corpus leaf |
+| `book` | `types/book/` | a chapter summary of an external textbook; book-level license/attribution merges in from `book.yml` |
+| `paper` | `types/paper/` | a faithful summary of a paper, with provenance and a resolved license posture |
+| `tutorial` | `types/tutorial/` | the same, for a vignette or package tutorial |
+| `mold` | `types/mold/` | an abstract action template — the Mold-primary core, incl. referee Molds |
+| `pattern` | `types/pattern/` | a cautionary-bad or established-good corpus leaf |
+
+Each directory holds `schema.ts` (the contract), `kind.md` (what the kind is *for*, and why each required field is required), and `example.md` (a minimal valid note, which `site/tests/kind-directories.test.ts` parses against that kind's own schema — so the documentation stays executable). `types/context.ts` holds the base envelope and the field primitives shared by more than one kind; `types/index.ts` is the one enumeration, and a drift test asserts it matches the directory listing both ways. `site/src/lib/frontmatter-schema.ts` is now only the assembler composing them into `NOTE_KINDS` and `COLLECTIONS`.
+
+The layout is a shared contract — [galaxyproject/foundry-pattern#13](https://github.com/galaxyproject/foundry-pattern/issues/13), PART 3 of the standing-up checklist — implemented independently here and in the parent. `site/src/types/kinds.generated.json` is the machine-readable form of the table above, with each kind's required-metadata list **derived from its zod shape** rather than written by hand; `npm run kinds` regenerates it and CI checks it is current. The pattern site renders ours beside the parent's as a cross-instance kind catalog.
 
 `papers` and `tutorials` are two schemas over one shared field set rather than one schema with a `z.enum(['paper','tutorial'])`, because the enum let a `type: paper` note sit under `content/research/tutorials/` and still validate. A literal per kind makes the collection and the declared kind agree, or fail. The split is also what lets the two kinds *differ* — bibliographic identifiers (`pmid`, `pmcid`, `arxiv`, `oa_url`) belong to papers, release metadata (`bioconductor_release`, `docs_url`, `published`) to tutorials; under one shared enum every field had to be legal on both.
 
