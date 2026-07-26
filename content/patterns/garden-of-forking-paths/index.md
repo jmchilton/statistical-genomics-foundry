@@ -2,7 +2,7 @@
 type: pattern
 name: garden-of-forking-paths
 pole: cautionary-bad
-status: stub
+status: draft
 tags:
   - domain/statistical-inference
   - topic/reproducibility

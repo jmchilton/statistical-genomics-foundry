@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import yaml from 'js-yaml';
-import { paperSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
+import { paperSchema, tutorialSchema, bookSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
 import { buildTagIndex, facetOf, type TagRegistry } from '../src/lib/meta-tags';
 
 // Negative-fixtures table: each deliberately-broken frontmatter asserts the SPECIFIC
@@ -44,6 +44,7 @@ const validReference = (overrides: Record<string, unknown> = {}) => ({
 const validMold = (overrides: Record<string, unknown> = {}) => ({
   type: 'mold',
   name: 'double-dip-referee',
+  summary: 'Referees an analysis for circular inference and gates certification on the verdict.',
   tags: ['family/b', 'role/critique'],
   references: [validReference()],
   ...overrides,
@@ -230,7 +231,7 @@ describe('reference manifest (via mold schema)', () => {
 
 describe('pattern schema', () => {
   it('accepts a minimal pattern', () => {
-    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping', tags: ['domain/statistical-inference'] })).toEqual([]);
+    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping', status: 'draft', tags: ['domain/statistical-inference'] })).toEqual([]);
   });
 
   // issue #100: patterns are min(1) too — a tagless pattern fails.
@@ -246,5 +247,76 @@ describe('pattern schema', () => {
   it('rejects an unregistered tag on a pattern', () => {
     const issues = atPath(issuesOf(patternSchema, { type: 'pattern', name: 'x', tags: ['not/a-real-namespace'] }), 'tags.0');
     expect(issues.some((i) => /meta_tags\.yml/.test(i.message))).toBe(true);
+  });
+});
+
+// Every kind is `.strict()`: an undeclared frontmatter key is rejected, not silently
+// accepted, so the corpus can't grow a private vocabulary of unvalidated fields. A typo'd
+// key is the same defect wearing a worse disguise, so assert it per kind.
+describe('strict frontmatter (undeclared keys are rejected)', () => {
+  const unknownKey = (issues: ReturnType<typeof issuesOf>) =>
+    issues.some((i) => /[Uu]nrecognized key/.test(i.message));
+
+  it('rejects an undeclared key on a paper', () => {
+    expect(unknownKey(issuesOf(paperSchema, validSourceNote({ impct_factor: 12 })))).toBe(true);
+  });
+
+  it('rejects an undeclared key on a tutorial', () => {
+    const note = validSourceNote({ type: 'tutorial', biocondutor_release: '3.23' });
+    expect(unknownKey(issuesOf(tutorialSchema, note))).toBe(true);
+  });
+
+  it('rejects an undeclared key on a mold', () => {
+    expect(unknownKey(issuesOf(moldSchema, validMold({ axis: 'source-specific' })))).toBe(true);
+  });
+
+  it('rejects an undeclared key on a pattern', () => {
+    const note = { type: 'pattern', name: 'x', tags: ['domain/batch-effects'], polarity: 'bad' };
+    expect(unknownKey(issuesOf(patternSchema, note))).toBe(true);
+  });
+
+  // Book chapters are the strictest case: license/attribution/derived are book.yml's job,
+  // so a chapter repeating them is drift between the two, not extra detail.
+  it('rejects a book chapter restating book-level license metadata', () => {
+    const note = { type: 'book', title: 'C1', source: 'msmb', source_url: 'https://example.org/1', tags: ['domain/statistical-inference'], license: 'MIT' };
+    expect(unknownKey(issuesOf(bookSchema, note))).toBe(true);
+  });
+
+  // `published: 2024-03-21` unquoted is a Date to YAML, not a string — the same footgun
+  // the access_date guard covers, on a new date-shaped field.
+  it('rejects a Date for published (must be a quoted string)', () => {
+    const note = validSourceNote({ type: 'tutorial', published: new Date('2024-03-21') });
+    expect(atPath(issuesOf(tutorialSchema, note), 'published').length).toBeGreaterThan(0);
+  });
+});
+
+// The note-envelope fields adopted so far (summary, status). The rest —
+// created/revised/revision/ai_generated — stays unported; see docs/ARCHITECTURE.md §9.
+describe('note envelope (adopted subset)', () => {
+  it('requires a summary on a mold', () => {
+    const { summary, ...noSummary } = validMold();
+    expect(atPath(issuesOf(moldSchema, noSummary), 'summary').length).toBeGreaterThan(0);
+  });
+
+  // A summary too short to say anything, or too long to sit in a browse row, is as useless
+  // as none. The site prints it in every tag-browse row.
+  it('rejects a summary shorter than 20 chars', () => {
+    expect(atPath(issuesOf(moldSchema, validMold({ summary: 'too short' })), 'summary').length).toBeGreaterThan(0);
+  });
+
+  it('rejects a summary longer than 160 chars', () => {
+    expect(atPath(issuesOf(moldSchema, validMold({ summary: 'x'.repeat(161) })), 'summary').length).toBeGreaterThan(0);
+  });
+
+  // Free text would let a pattern carry a status the browse/report views can't enumerate
+  // (e.g. `stub`); the closed enum is the guard.
+  it('rejects a status outside the lifecycle enum', () => {
+    const note = { type: 'pattern', name: 'x', status: 'stub', tags: ['domain/batch-effects'] };
+    expect(atPath(issuesOf(patternSchema, note), 'status').length).toBeGreaterThan(0);
+  });
+
+  it('requires a status on a pattern', () => {
+    const note = { type: 'pattern', name: 'x', tags: ['domain/batch-effects'] };
+    expect(atPath(issuesOf(patternSchema, note), 'status').length).toBeGreaterThan(0);
   });
 });

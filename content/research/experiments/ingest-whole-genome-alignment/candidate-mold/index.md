@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-whole-genome-alignment
+summary: "Referees a whole-genome alignment and the biology drawn from it, flagging rather than passing any claim it cannot clear from the evidence supplied."
 tags:
   - family/b
   - role/critique

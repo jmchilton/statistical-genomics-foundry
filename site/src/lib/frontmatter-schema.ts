@@ -112,20 +112,46 @@ const sourceNoteFields = {
   license_file: z.string().optional(),
   attribution: z.string(),
   derived: z.string(),
+  // The source's own licence wording, verbatim, when the posture is not obvious from the
+  // id alone (e.g. an "Author's Choice" CC-BY notice on an otherwise subscription journal).
+  // Evidence for the `license` id above, not a substitute for it.
+  license_statement: z.string().optional(),
   tags: tagsArray,
 };
 
-// Papers and tutorials share every field above; only the `type` literal differs. They are
-// two schemas rather than one `z.enum(['paper','tutorial'])` because `type` is the SOLE
-// note-kind discriminator (converging with the parent Foundry's #374): one kind, one
-// schema. The enum let a `type: paper` note sit in content/research/tutorials/ and still
-// validate; a literal per kind makes the collection and the declared kind agree, or fail.
+// Papers and tutorials share the fields above but are TWO schemas, not one schema with a
+// `z.enum(['paper','tutorial'])`, because `type` is the SOLE note-kind discriminator: one
+// kind, one schema. The enum let a `type: paper` note sit in content/research/tutorials/
+// and still validate; a literal per kind makes the collection and the declared kind agree.
+//
+// The split also lets the kinds DIFFER: a paper carries bibliographic identifiers, a
+// tutorial the release it documents. Identifiers are strings, never numbers — an unquoted
+// `pmid: 33015620` is an integer to YAML, and an id is an opaque label, never arithmetic.
 export const paperSchema = z
-  .object({ type: z.literal('paper'), ...sourceNoteFields })
+  .object({
+    type: z.literal('paper'),
+    ...sourceNoteFields,
+    pmid: z.string().optional(),
+    pmcid: z.string().optional(),
+    arxiv: z.string().url().optional(),
+    // Free mirror of a paywalled record (PMC, institutional repository).
+    oa_url: z.string().url().optional(),
+  })
+  .strict()
   .superRefine(licenseCoherence);
 
 export const tutorialSchema = z
-  .object({ type: z.literal('tutorial'), ...sourceNoteFields })
+  .object({
+    type: z.literal('tutorial'),
+    ...sourceNoteFields,
+    // Docs site distinct from `source_url` (which points at the package record).
+    docs_url: z.string().url().optional(),
+    // The Bioconductor release `version` belongs to — the pair pins the vignette.
+    bioconductor_release: z.string().optional(),
+    // Quoted, like `access_date`: bare `2024-03-21` is a Date to YAML, not a string.
+    published: z.string().optional(),
+  })
+  .strict()
   .superRefine(licenseCoherence);
 
 // Book notes: summaries of external textbooks (e.g. MSMB chapters). Book-level metadata
@@ -146,8 +172,9 @@ function loadBookMeta(source: string): Record<string, unknown> {
 // Chapter frontmatter declares its kind (`type: book`) and otherwise carries only what
 // varies per chapter — the kind is per-note, not per-book, so it is not a book.yml field
 // even though it is constant within a book: every note in the corpus names its own kind.
-// Book-level fields are merged
-// from book.yml. `attribution` may be a template ({n}/{title} filled from the chapter).
+// Book-level fields are merged from book.yml, and `.strict()` keeps that one-way: a chapter
+// restating `license`/`attribution`/`derived` is rejected rather than silently shadowing the
+// book. `attribution` may be a template ({n}/{title} filled from the chapter).
 export const bookSchema = z
   .object({
     type: z.literal('book'),
@@ -157,6 +184,7 @@ export const bookSchema = z
     source_url: z.string().url(),
     tags: tagsArray,
   })
+  .strict()
   .transform((data, ctx) => {
     const book = loadBookMeta(data.source);
     if (!isValidLicenseId(book.license as string)) {
@@ -186,22 +214,25 @@ export const bookSchema = z
 export const moldSchema = z.object({
   type: z.literal('mold'),
   name: z.string(),
-  summary: z.string().optional(),
+  // Required, 20–160 chars: long enough to say what the Mold does, short enough to sit in a
+  // browse row. The site prints it in every tag-browse row, so an optional summary would
+  // list a Mold as a bare name.
+  summary: z.string().min(20).max(160),
   tags: tagsArray,
   references: z.array(reference).optional(),
-});
+}).strict();
 
 // Patterns: the cautionary-bad / established-good corpus leaves referenced by referee
 // Molds (`[[double-dipping]]`, `[[garden-of-forking-paths]]`, …). Only `index.md` bears
-// frontmatter. Kept loose — corpus-first stubs grow as real cases demand. (`status` stays
-// free text: the inherited status lifecycle is a rung-6 port, not tightened here.)
+// frontmatter. Kept loose — corpus-first stubs grow as real cases demand. `status` is a
+// closed lifecycle enum, not free text, so it stays browsable and reportable.
 export const patternSchema = z.object({
   type: z.literal('pattern'),
   name: z.string(),
   pole: z.enum(['cautionary-bad', 'established-good']).optional(),
-  status: z.string().optional(),
+  status: z.enum(['draft', 'reviewed', 'revised', 'stale', 'archived']),
   tags: tagsArray,
-});
+}).strict();
 
 // The note KINDS this Foundry defines — the complete set of `type` values the corpus may
 // declare, each with the one schema that validates it. `type` is the SOLE discriminator:

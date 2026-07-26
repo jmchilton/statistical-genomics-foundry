@@ -138,9 +138,24 @@ Every note declares its kind exactly once, in frontmatter, as `type:`. That fiel
 | `mold` | `moldSchema` | an abstract action template — the Mold-primary core, incl. referee Molds |
 | `pattern` | `patternSchema` | a cautionary-bad or established-good corpus leaf |
 
-`papers` and `tutorials` are two schemas over one shared field set rather than one schema with a `z.enum(['paper','tutorial'])`, because the enum let a `type: paper` note sit under `content/research/tutorials/` and still validate. A literal per kind makes the collection and the declared kind agree, or fail.
+`papers` and `tutorials` are two schemas over one shared field set rather than one schema with a `z.enum(['paper','tutorial'])`, because the enum let a `type: paper` note sit under `content/research/tutorials/` and still validate. A literal per kind makes the collection and the declared kind agree, or fail. The split is also what lets the two kinds *differ* — bibliographic identifiers (`pmid`, `pmcid`, `arxiv`, `oa_url`) belong to papers, release metadata (`bioconductor_release`, `docs_url`, `published`) to tutorials; under one shared enum every field had to be legal on both.
+
+**Every kind is `.strict()`** — an undeclared frontmatter key is an error, not extra detail. This is the parent Foundry's posture (17 `.strict()` calls to our previous one), and adopting it was not free: turning it on surfaced 11 keys across 7 notes that no schema had ever declared. All were real, useful fields — `/summarize-source` even asks for an "open-access URL if any" — so they were declared rather than deleted. Two had also quietly acquired the [#87](https://github.com/jmchilton/statistical-genomics-foundry/issues/87) footgun *because* they were undeclared and so unvalidated: unquoted `pmid: 33015620` parses as an integer and `published: 2024-03-21` as a `Date`. Both are quoted strings now. Strictness is what stops the next such key accumulating silently — and it is why a book chapter cannot shadow `book.yml`'s license metadata by restating it.
 
 **Collection and kind are deliberately not one-to-one.** `COLLECTIONS` maps six browse collections onto those five kinds: `experiments` holds the candidate Molds produced by the blind-assembly runs, which *are* Molds and declare `type: mold`. The collection is a location — it earns its own route, and its notes sit beside their `comparison.md` / `gap-closing.md` narratives (which carry no frontmatter and are never loaded). The kind is what the note *is*. Keeping that mapping explicit is what lets a catalog enumerate five kinds while the site routes six collections.
+
+### The note envelope — partially adopted
+
+The parent puts a common envelope on *every* note: `status`, `created`, `revised`, `revision`, `ai_generated`, and a required `summary`. We have taken the part that pays for itself now and left the rest genuinely unported, rather than pretending to a convergence we have not done:
+
+| field | here | why |
+|---|---|---|
+| `summary` | **required on `mold`**, 20–160 chars | The site prints it in every tag-browse row; optional meant 12 of 13 Molds listed as a bare name. The bounds are the parent's. |
+| `status` | **required on `pattern`**, parent's lifecycle enum | Was free text, and the only value in use was `stub` — outside the vocabulary every other Foundry note is held to. `stub` → `draft`. |
+| `created` / `revised` / `revision` | not ported | Only honest if backfilled from git history; stamping today's date on a 127-note corpus would manufacture provenance rather than record it. |
+| `ai_generated` | not ported | Needs a per-note truth we do not currently track. |
+
+That leaves a real, documented difference for the kind catalog to show, which is the point: the substrate is what both instances turned out to need, not what one of them happened to build first.
 
 `site/tests/registry-drift.test.ts` holds the kinds to the same both-ways rule as the tag registry: no kind defined but declared by zero notes, and no kind without a collection to put notes in — a kind nothing routes to is unauthorable, so its schema could never run.
 

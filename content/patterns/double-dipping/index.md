@@ -2,7 +2,7 @@
 type: pattern
 name: double-dipping
 pole: cautionary-bad
-status: stub
+status: draft
 tags:
   - domain/statistical-inference
   - topic/post-selection-inference

@@ -5,7 +5,7 @@ source_id: zhang-2020-combat-seq
 source_url: https://academic.oup.com/nargab/article/2/3/lqaa078/5909519
 oa_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7518324/
 doi: 10.1093/nargab/lqaa078
-pmid: 33015620
+pmid: "33015620"
 pmcid: PMC7518324
 access_date: "2026-07-13"
 license: CC-BY-4.0

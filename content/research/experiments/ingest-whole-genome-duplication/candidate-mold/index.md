@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-wgd-inference
+summary: "Referees a whole-genome-duplication inference against the known artifact axes; a claim that cannot clear an axis is flagged, never silently passed."
 tags:
   - family/b
   - role/critique
