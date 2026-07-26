@@ -1,6 +1,7 @@
 ---
 type: mold
 name: separate-batch-from-biology
+summary: "Keeps technical variation separable from biology at assignment, detection, and adjustment; emits a result plus the method description a referee will judge."
 tags:
   - family/a
   - role/construct

@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-ancestral-reconstruction-validity
+summary: "Judges whether an ancestral sequence or character-state reconstruction has earned its reliability claims, emitting a per-axis pass/flag/fail verdict."
 tags:
   - family/b
   - role/critique

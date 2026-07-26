@@ -32,6 +32,7 @@ Top-level Mold `.md` files carry no frontmatter except `index.md` (and the `refi
 `index.md` must declare:
 - `type: mold`
 - `name`
+- `summary` — one line, 20–160 chars, saying what the Mold does and (for a referee) what it refuses to do. Required, and bounded as in the parent: the browse rows print it, so a Mold without one lists as a bare name. Write a statement about the Mold, not a restatement of `name`.
 - `references:` entries for operational dependencies
 - **Family + role tags** (soft, not a schema enum yet — see below). Provisionally: a `family/a` or `family/b` tag, and a role hint via naming (`audit-*`, `review-*`, `derive-*`, plain verbs).
 

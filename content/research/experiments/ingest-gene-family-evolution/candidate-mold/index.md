@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-gene-family-birth-death
+summary: "Audits a gene-family birth-death analysis for method validity: assumptions met, the named method real and appropriate, the error rate actually controlled."
 tags:
   - family/b
   - role/critique

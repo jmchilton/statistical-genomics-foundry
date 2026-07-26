@@ -2,7 +2,7 @@
 type: pattern
 name: batch-aliased-with-condition
 pole: cautionary-bad
-status: stub
+status: draft
 tags:
   - domain/batch-effects
   - domain/experimental-design

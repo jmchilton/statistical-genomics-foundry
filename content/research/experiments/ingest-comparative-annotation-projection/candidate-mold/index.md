@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-gene-loss-call
+summary: "Decides whether a gene-loss call is an established loss or a technical artifact, working ordered gates in which silence is never taken as evidence."
 tags:
   - family/b
   - role/critique

@@ -1,6 +1,7 @@
 ---
 type: mold
 name: audit-pangenome-claim
+summary: "Catches pangenome claims that are silently wrong — artifact-inflated, mis-partitioned, over-claimed, or reference-free in name only — gate by gate."
 tags:
   - family/b
   - role/critique

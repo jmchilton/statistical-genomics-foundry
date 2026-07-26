@@ -44,6 +44,7 @@ const validReference = (overrides: Record<string, unknown> = {}) => ({
 const validMold = (overrides: Record<string, unknown> = {}) => ({
   type: 'mold',
   name: 'double-dip-referee',
+  summary: 'Referees an analysis for circular inference and gates certification on the verdict.',
   tags: ['family/b', 'role/critique'],
   references: [validReference()],
   ...overrides,
@@ -230,7 +231,7 @@ describe('reference manifest (via mold schema)', () => {
 
 describe('pattern schema', () => {
   it('accepts a minimal pattern', () => {
-    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping', tags: ['domain/statistical-inference'] })).toEqual([]);
+    expect(issuesOf(patternSchema, { type: 'pattern', name: 'double-dipping', status: 'draft', tags: ['domain/statistical-inference'] })).toEqual([]);
   });
 
   // issue #100: patterns are min(1) too — a tagless pattern fails.
@@ -249,12 +250,9 @@ describe('pattern schema', () => {
   });
 });
 
-// Every kind is `.strict()`, converging with the parent Foundry, where every note schema
-// has been strict all along. Without it an undeclared key is silently accepted, and the
-// corpus quietly accumulates a private vocabulary: turning strict on for the first time
-// surfaced 11 such keys across 7 notes (oa_url, pmid, pmcid, arxiv, license_statement,
-// docs_url, bioconductor_release, published) — all real fields nobody had ever declared.
-// A typo'd key is the same defect wearing a worse disguise, so assert per kind.
+// Every kind is `.strict()`: an undeclared frontmatter key is rejected, not silently
+// accepted, so the corpus can't grow a private vocabulary of unvalidated fields. A typo'd
+// key is the same defect wearing a worse disguise, so assert it per kind.
 describe('strict frontmatter (undeclared keys are rejected)', () => {
   const unknownKey = (issues: ReturnType<typeof issuesOf>) =>
     issues.some((i) => /[Uu]nrecognized key/.test(i.message));
@@ -284,10 +282,41 @@ describe('strict frontmatter (undeclared keys are rejected)', () => {
     expect(unknownKey(issuesOf(bookSchema, note))).toBe(true);
   });
 
-  // The #87 footgun, extended to the new date-shaped field: `published: 2024-03-21`
-  // unquoted is a Date to YAML, and it hid in an undeclared key until strict found it.
+  // `published: 2024-03-21` unquoted is a Date to YAML, not a string — the same footgun
+  // the access_date guard covers, on a new date-shaped field.
   it('rejects a Date for published (must be a quoted string)', () => {
     const note = validSourceNote({ type: 'tutorial', published: new Date('2024-03-21') });
     expect(atPath(issuesOf(tutorialSchema, note), 'published').length).toBeGreaterThan(0);
+  });
+});
+
+// The note-envelope fields adopted so far (summary, status). The rest —
+// created/revised/revision/ai_generated — stays unported; see docs/ARCHITECTURE.md §9.
+describe('note envelope (adopted subset)', () => {
+  it('requires a summary on a mold', () => {
+    const { summary, ...noSummary } = validMold();
+    expect(atPath(issuesOf(moldSchema, noSummary), 'summary').length).toBeGreaterThan(0);
+  });
+
+  // A summary too short to say anything, or too long to sit in a browse row, is as useless
+  // as none. The site prints it in every tag-browse row.
+  it('rejects a summary shorter than 20 chars', () => {
+    expect(atPath(issuesOf(moldSchema, validMold({ summary: 'too short' })), 'summary').length).toBeGreaterThan(0);
+  });
+
+  it('rejects a summary longer than 160 chars', () => {
+    expect(atPath(issuesOf(moldSchema, validMold({ summary: 'x'.repeat(161) })), 'summary').length).toBeGreaterThan(0);
+  });
+
+  // Free text would let a pattern carry a status the browse/report views can't enumerate
+  // (e.g. `stub`); the closed enum is the guard.
+  it('rejects a status outside the lifecycle enum', () => {
+    const note = { type: 'pattern', name: 'x', status: 'stub', tags: ['domain/batch-effects'] };
+    expect(atPath(issuesOf(patternSchema, note), 'status').length).toBeGreaterThan(0);
+  });
+
+  it('requires a status on a pattern', () => {
+    const note = { type: 'pattern', name: 'x', tags: ['domain/batch-effects'] };
+    expect(atPath(issuesOf(patternSchema, note), 'status').length).toBeGreaterThan(0);
   });
 });
