@@ -18,7 +18,7 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Cast** *(verb)* — produce a self-contained skill artifact from a Mold via casting. *(noun)* — one casting result for a (Mold, target) pair.
 
-**Casting** — the deterministic-assembly-plus-LLM-condensation process that turns a Mold into a cast artifact, via per-kind dispatch over its references. See `COMPILATION_PIPELINE.md`.
+**Casting** — the deterministic-assembly process that turns a Mold into a cast artifact, via per-kind dispatch over its references. The parent Foundry's pipeline allows an LLM condensation phase; this one does not implement it, so every carry here is deterministic. See `COMPILATION_PIPELINE.md`.
 
 **Cautionary-bad** — the corpus pole of named invalidity patterns (double-dipping, batch confounding, naive multiple-testing, forking paths) with their signatures and remedies. Grounds the referee. No parent analog.
 
@@ -52,7 +52,7 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Own-words summary** — a **Source note** whose license resolves to `own-words-only` in the **License-policy table**, rendered entirely in new expression — no transcription — with only short **functional strings** (error text, parameter names, numeric thresholds, equation forms) kept verbatim as facts. `derived: own-words-summary`. E.g. `msmb` (CC-BY-NC-SA). Contrast **License-aware summary**.
 
-**Pattern page** — reference content describing a statistical-method pattern (established-good) or an invalidity pattern (cautionary-bad). Wiki-linked from Molds; condensed into casts. Cites corpus sources by URL/DOI.
+**Pattern page** — reference content describing a statistical-method pattern (established-good) or an invalidity pattern (cautionary-bad). Wiki-linked from Molds; carried into casts. Cites corpus sources by URL/DOI.
 
 **Phase** — one atomic unit of a Protocol's ordered sequence: a Mold reference, a `[loop]`-flagged Mold, or a non-Mold annotation (`[branch]` routing, `[gate]` checkpoint). The phase-kind set is open. The `[gate]` kind is the likely encoding of the gate obligation.
 

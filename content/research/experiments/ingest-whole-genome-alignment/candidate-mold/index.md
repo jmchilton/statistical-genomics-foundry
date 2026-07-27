@@ -11,7 +11,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim rests on a reference-anchored chain/net (presence/absence, SV, synteny) that could flip with reference choice"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the reference-bias check: the net is asymmetric (human-net keeps only the single best mouse DNA per human position; mouse-net is built oppositely) so target-net != query-net."
   - kind: research
@@ -27,7 +27,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when a pairwise alignment used nucmer/MUMmer and the claim is false-absence or a repeat-region call"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "nucmer is less sensitive (long exact-match seeds + default reference-uniqueness -> 3-5% fewer reads than BWA/Bowtie2); --maxmatch recovers repeats at run-time cost. No minimum-identity floor is stated."
   - kind: research
@@ -35,7 +35,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the alignment is reference-free multiple (Progressive Cactus / HAL) and the claim is an ancestral sequence, region-absent, or synteny call"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Soft-masking is a stated precondition (unmasked repeats blow up runtime + hurt quality); guide-tree drives progressive decomposition and ancestral reconstruction; accuracy degrades with divergence (F1 0.989 primate vs 0.795 mammal)."
   - kind: research
@@ -43,7 +43,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim was extracted from a HAL file via halLiftover/halBranchMutations or crosses a tool-version boundary"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "HAL extraction tooling (halLiftover BED->BED, halBranchMutations per-branch BED); the paper states NO format versioning / compatibility policy — the version-breakage axis has no in-source rule."
   - kind: research
@@ -59,7 +59,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when a gene-loss/orthology conclusion is drawn downstream and the pipeline fed a Cactus HAL to a chain-consuming tool"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Linkage only: TOGA consumes pairwise chains (LASTZ->axtChain), NOT Cactus HAL / halSynteny — a HAL-fed-to-TOGA pipeline is a format mismatch, not biology."
 ---

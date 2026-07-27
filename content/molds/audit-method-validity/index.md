@@ -9,7 +9,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "feature selection and the hypothesis test share the same data/cells/samples"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Signature catalog + remedy (count-splitting / selection-aware null) for circular / post-selection inference."
   - kind: pattern
@@ -17,7 +17,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "a technical batch factor co-varies with the biological contrast"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Rank-deficiency signature; the unfixable case that forces ESCALATE."
   - kind: research
@@ -25,7 +25,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "the named method may not exist, or its assumptions may not match the data regime/design"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground 'is this method real and appropriate?' in the two-prong applicability taxonomy. Appropriateness prong = corpus-observed (StatQA condition->method mapping); existence/invented-method prong = flagged white-space (no benchmark) per the leaf."
   - kind: pattern
@@ -33,7 +33,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "analytic choices were made after seeing the data; the test family is undeclared"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Signature for undeclared researcher degrees of freedom."
 # Deeper per-dimension referees ([[multiple-testing-strategy]], [[check-assumptions]],

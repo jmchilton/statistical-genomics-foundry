@@ -13,9 +13,9 @@ Organize the knowledge well — typed frontmatter, registered tags, wiki-linked 
 These are the load-bearing abstractions we take from the Foundry pattern. They give us **Pillar 1 (source→cast→provenance)** and **Pillar 3 (human-foregrounded KB)** for free — which is the whole reason we derive from the Foundry rather than starting fresh.
 
 - **Mold** — an abstract, structured template: a typed reference manifest (frontmatter declaring typed references to heterogeneous artifacts) + a procedural body skeleton. Directory note (`molds/<slug>/index.md` + siblings).
-- **Cast / Casting / Cast artifact / Cast target** — the LLM-driven process that turns a Mold into a self-contained, frozen, portable skill artifact with no link back to the source. Per-kind dispatch over references (patterns condensed, schemas copied, examples copied, prompts inlined, evals dropped).
+- **Cast / Casting / Cast artifact / Cast target** — the process that turns a Mold into a self-contained, frozen, portable skill artifact with no link back to the source. Per-kind dispatch over references (patterns and notes copied, prompts inlined, evals dropped). Deterministic here: this Foundry does not implement an LLM condensation phase.
 - **Provenance** — every derived artifact records what produced it (source hash, model, prompt version, resolved-ref hashes, timestamp). The single cleanest distinction from prior art (Pillar 1).
-- **Pattern / reference content** — reference pages wiki-linked from Molds, condensed into casts.
+- **Pattern / reference content** — reference pages wiki-linked from Molds, carried into casts.
 - **Progressive disclosure** — Pipelines disclose the journey, Molds disclose the action, typed references disclose the dependency surface. Both an authoring principle and a runtime contract.
 - **The human-navigable site** — an Astro renderer over typed content collections, with wiki-link panels, backlinks, tag browses, and raw-text endpoints. This *is* Pillar 3.
 - **Validator-as-cross-resolver** — one shared slug+resolver module, used by both validator and site; cross-file wiki-link resolution with referential integrity (not just format-linting). This is the verified edge over bioSkills' format-validated paths.

@@ -12,7 +12,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim is a bacterial/prokaryotic gene-content pangenome (accessory/core gene counts, gene gain-loss, pan-GWAS)"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the annotation-error-inflation gate: fragmented assemblies / contamination / inconsistent per-isolate calls inflate the accessory genome, and inflation scales with sample size."
   - kind: research
@@ -20,7 +20,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim reports a total pan-genome / core-genome size or an open-vs-closed verdict for a bacterial species"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the sampling-dependence gate: an open pan-genome grows without bound, so any total-gene count is a lower bound at current sampling; core=100% presence in the founding definition."
   - kind: research
@@ -36,7 +36,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim classifies gene families into persistent/shell/cloud (or soft-core) partitions, or names PPanGGOLiN"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the partition-method gate: PPanGGOLiN classifies by BMM+EM+MRF over the pangenome graph (not a frequency threshold, not an HMM); needs a minimum genome count; the soft-core threshold underestimates the persistent genome."
   - kind: research
@@ -44,7 +44,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim reports a core-genome size at a presence threshold, or names Roary, or compares core sizes across tools/studies"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the core-threshold gate: Roary's core = gene in >=99% of samples (a specific, tool-defined cutoff); Roary assumes same-species pre-annotated GFF3 input and makes no annotation-error-robustness claim."
   - kind: research
@@ -52,7 +52,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim mixes pangenome core/accessory with metagenomic abundance (metapangenome, ECG/EAG), or names anvi'o"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the label-inversion gate: environmental core/accessory (ECG/EAG) is metagenome-relative and can invert pangenome core/accessory labels; detection needs >50% of positions at >=1X."
   - kind: research
@@ -60,7 +60,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim is a eukaryotic pangenome graph built with Minigraph-Cactus (or claims reference-free / reports a graph VCF)"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the reference-bias and clipping gates: Minigraph-Cactus is reference-anchored (requires a reference backbone), clips unaligned >=10kb regions to the reference allele, exports reference-relative VCF, and its graph depends on the chosen reference."
   - kind: research
@@ -68,7 +68,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim is a human/eukaryotic graph-genotyping result, reports variants-per-haplotype, or compares graph builders"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the repetitive-region and builder-topology gates: graph genotyping degrades in highly repetitive regions; graph builders (PGGB vs Minigraph/MC) disagree on topology at copy-number-polymorphic loci."
   - kind: research
@@ -76,7 +76,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim rests on a whole-genome multiple alignment, claims reference-free alignment, or spans divergent clades"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the reference-free contrast and masking/divergence gates: Progressive Cactus is genuinely reference-free; it requires soft-masked input; alignment accuracy drops with clade divergence (F1 0.989 primate vs 0.795 mammal)."
 ---

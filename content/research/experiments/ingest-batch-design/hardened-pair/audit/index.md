@@ -20,7 +20,7 @@ references:
     ref: "[[leek-2010]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Axis 1's qualitative anchor (bladder/sTCC: control samples clustering perfectly by processing date) and the boundary condition on the whole adjustment menu — it works only when batch is not highly confounded with biology."
   - kind: research
@@ -49,21 +49,21 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when latent factors were estimated, or when a null must be constructed for an eigenvalue/variance-explained statistic"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The Calibrate primitives: the validity criterion (null p-values must be Uniform(0,1); nested KS test), the row-permutation eigengene null (T_k = d_k²/Σd_ℓ², p_k = #{T_k^0b ≥ T_k}/B, monotonicity forced), and the diagnostic direction of bias (hidden factor correlated with the primary variable → null p-values biased toward zero; uncorrelated → toward one)."
   - kind: research
     ref: "[[msmb-chap8]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Calibrate's cheap first pass: the p-value histogram oracle (uniform + left peak = calibrated; right-rising tilt = batch effects; depletion of small p-values = an unmodelled balanced covariate), and the known-truth simulation that demonstrates it and its cure."
   - kind: research
     ref: "[[msmb-chap13]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The escalation authority (already-confounded collected data cannot be rescued by any analysis) and the Calibrate method itself: simulate under a known data-generating truth and check whether the procedure recovers it — 'validity is demonstrated empirically rather than asserted from a method's name.'"
   - kind: research
@@ -79,7 +79,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the artifact under review is a sample-to-batch allocation"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The allocation negative control: the complete-randomization arm (χ² p = 0.021 / 0.014 / 0.005) against which an optimized allocation is judged; and the source's own refusal to name an acceptance threshold, which the referee must honour."
   - kind: research
@@ -95,7 +95,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when only a selected subset of an available cohort was assayed"
-    mode: condense
+    mode: verbatim
     evidence: hypothesis
     verification: "Cited ONLY for Axis 5 (selection into the assayed subset). The source never mentions batch effects, batch design, or technical covariates; the note states that any transfer to batch-covariate adjustment is an external inference, not the source's claim. This referee must not cite it for the confounder-vs-collider adjust/don't-adjust rule, which the source never states."
     purpose: "Axis 5: the collider mechanism (two variables independently causing a third; conditioning on it induces association), the operational detector (regress subset membership on the exposure, the outcome, and a polygenic score), and the negligibility condition (Box 3)."

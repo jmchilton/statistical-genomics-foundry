@@ -2,9 +2,10 @@
 #
 # Adapted from the parent Galaxy Workflow Foundry's reference_contract.yml
 # (inherit / adapt / demote / add — the diff is the evidence):
-#   inherit: used_at, load, modes, evidence vocabularies unchanged.
+#   inherit: used_at, load, evidence vocabularies unchanged.
 #   adapt:   `kinds` trimmed to what this instance actually authors — corpus-first,
 #            so this list is exactly the three kinds real Molds reference today.
+#            `modes` trimmed the same way, and for a sharper reason: see below.
 #   drop:    parent's `cli-tool` (no tool-install refs authored here); `schema`
 #            (our outputs are prose-shaped critiques/protocols, not structured
 #            artifacts — glossary "Schema (Mold IO)", ARCHITECTURE §3); `prompt`
@@ -16,16 +17,35 @@
 # needs it — registering vocabulary ahead of content is what the drift check in
 # site/tests/registry-drift.test.ts exists to catch.
 #
-# The `modes` here are the casting transforms; which modes a given reference
-# may use is further constrained by its source license — see the `allowed_modes`
-# column of license-policy.yml (enforced at cast time, not here).
+# The `modes` here are the casting transforms.
+#
+# `condense` is deliberately ABSENT. It is not description, it is capacity: it
+# commits this Foundry to an LLM phase in its caster, and with it the unfilled-slot
+# bookkeeping, the prompt/model provenance a reproducible cast needs, and the loss
+# of byte-stable output that makes a `--check` gate possible at all. We have no
+# caster yet, so that capacity has earned nothing.
+#
+# The corpus agreed before this was written: every `condense` ref here was
+# `load: on-demand` — progressive disclosure, not condensation, was already doing
+# the size work — and the parent Foundry, which DID build the LLM phase, has since
+# gone to zero condense refs of its own ("the prior condense was always a verbatim
+# passthrough, so the cast is fully deterministic").
+#
+# Re-add it the day a Mold genuinely needs an LLM pass, and build the phase then.
+#
+# Note that `mode` does NOT answer "may this text be redistributed" — that is a
+# question about the SOURCE, decided at ingestion and recorded in a note's
+# `derived:` posture. A note that is our own-words summary is our prose, and casting
+# it verbatim redistributes our words, not the paper's. license-policy.yml governs
+# third-party pass-through content only, and says so in its own `global_rules`
+# (`foundry_content_out_of_scope`).
 
 version: 1
 
 kinds:
   pattern:
     label: Pattern
-    description: A statistical-method or invalidity pattern page. Usually condensed during casting.
+    description: A statistical-method or invalidity pattern page. Carried verbatim into casts.
     ref_shape: wiki-link
   research:
     label: Research
@@ -59,9 +79,6 @@ modes:
   verbatim:
     label: Verbatim
     description: Copied without LLM rewrite. License must permit verbatim carry.
-  condense:
-    label: Condense
-    description: LLM condensation before final packaging.
   sidecar:
     label: Sidecar
     description: Transformed into a structured runtime artifact beside the generated skill.

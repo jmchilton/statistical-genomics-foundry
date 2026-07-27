@@ -12,7 +12,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the analysis fits a birth-death process to gene-family sizes over a species tree and flags 'rapidly evolving' / lineage-specific families"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the core model (single per-gene rate λ, λ=μ) and its stated invalidity patterns: single-global-rate assumption, gene-independence broken by WGD/polyploidy, TE outliers, uniform-root-prior bias, and the by-chance false-positive baseline (35/1254 expected at P<0.01)."
   - kind: research
@@ -20,7 +20,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the named tool is CAFE (v1) or the analysis reports per-family / per-branch p-values from a fitted single-global-λ birth-death model"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the tool's real requirements (Newick, rooted + bifurcating tree, branch lengths in units of time), the Monte-Carlo per-family p-value, the three branch-attribution methods (Viterbi / branch cutting / likelihood-ratio test), and the confident silence: CAFE performs NO multiple-testing / FDR correction across families."
   - kind: research
@@ -28,7 +28,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the named tool is CAFE5 or the analysis claims per-family p-values / Type-I error control / a minimum orthogroup count from CAFE5"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Bound what CAFE5 does (gamma rate-categories among families, K chosen a priori, empirical-Bayes posterior rate-category probability) vs. what it does NOT claim (no per-family p-value, no Type-I error control, no stated minimum #families). Anti-mis-attribution reference."
   - kind: research
@@ -36,7 +36,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the named tool is Count or ancestral gene-content states (Dollo/Wagner parsimony or likelihood BD) are reconstructed and used as if observed"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the alternative ASR toolkit (Dollo/Wagner/asymmetric-Wagner parsimony, PGL, phylogenetic birth-death-immigration with per-branch μ/λ/κ) and that its probabilistic branch counts are expectations → fractional. Also records that Count states NO ultrametric/time-scaling tree requirement."
   - kind: research
@@ -44,7 +44,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the family-size matrix comes from a PROKARYOTIC pangenome and was not polished for annotation error before the birth-death fit"
-    mode: condense
+    mode: verbatim
     evidence: hypothesis
     verification: "Panaroo grounds annotation-error inflation of gene-family-size differences ONLY for prokaryotic pangenomes; it explicitly does NOT generalize to eukaryotes or to CAFE-style BD models (its sole eukaryote mention is a Denton-et-al. citation, not a Panaroo claim). Using this as a general audit trigger beyond bacterial pangenomes is our inference; verify per input organism before flagging. See [GAP] in body."
     purpose: "Ground the cautionary pattern: fragmented assemblies / contamination / mis-assembly / inconsistent per-isolate calls inflate apparent gene-family-size differences, and error scales with sample size (accessory genome grows with #genomes) — a garbage-in driver of spurious 'unusual' families upstream of any BD model."
@@ -53,7 +53,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when many families/branches are tested at once, or when p-value calibration / null adequacy is in question"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the multiple-testing remedy (BH-FDR, Bonferroni/FWER, FWER blow-up at scale), the p-value-histogram diagnostic, the integer-count discreteness artifact that breaks null p-value uniformity, and pseudoreplication (dependence masquerading as more data)."
   - kind: research
@@ -61,7 +61,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the family-size matrix comes from a EUKARYOTIC draft / fragmented / incomplete genome assembly and was not audited for gene-number annotation error before the birth-death fit"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground the eukaryotic garbage-in pattern: draft assemblies mis-size >40% of gene families in BOTH directions — fragmentation (one gene split across contigs) and split alleles (haplotypes) over-count → false EXPANSION; missing / incomplete genes under-count → false CONTRACTION (fosmid outlier: >half of families missing copies). Warning signal = low CEGMA core-gene completeness / low contiguity (predates BUSCO, prescribes NO numeric cutoff, relationship reported only categorically); remedy = RNA-Seq to reconnect fragmented gene models. Scope: eukaryote-only (chicken/chimp/Drosophila-Daphnia sim), and Denton itself does NOT name CAFE / birth-death — it grounds wrong family SIZES; the bridge to inflated BD RATES is carried by [[han-2013-cafe3]]."
   - kind: research
@@ -69,7 +69,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the birth-death fit is run on gene-family sizes from error-prone (fragmented / incomplete) assemblies without a measurement-error model, or when the named tool is CAFE 3 / the analysis claims error-corrected gain-loss rates"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground error-aware birth-death: uncorrected annotation/assembly error makes gene-family gain/loss (λ) rates be CONSISTENTLY OVERESTIMATED (abstract-verified), and CAFE 3's measurement-error model — error matrix Θ = P(observe w | true x) with rate ε, entering Felsenstein pruning at the leaf nodes, estimated via `caferror.py` grid-search and applied via the `errormodel` command — recovers accurate rates. Simulation magnitudes (true λ=0.0012 → ~2.3x inflation at ε=0.1, ~7.5x at ε=0.4; corrected to within ~2%) are BODY-TEXT and RETRIEVAL-UNCERTAIN (note §2): cite as illustrative simulation values, not verified thresholds, and re-check the PDF before making any threshold load-bearing. Han states NO ε cutoff above which correction is mandatory; correction validity rests on stated assumptions (i.i.d. families; error depends on observed-minus-true count, not true size; stationary error)."
 ---

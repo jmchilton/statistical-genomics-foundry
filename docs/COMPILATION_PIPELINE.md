@@ -4,14 +4,14 @@
 
 ## What casting is (inherited)
 
-Casting takes a Mold (typed reference manifest + procedural body) and its declared references, and produces a target-specific, **isolated** cast artifact — no links back, no runtime dependency on the source. The generated skill body is a **deterministic** render of the Mold body + artifacts + resolved references; individual `mode: condense` references may be LLM-produced and recorded in provenance. If a cast looks under-instructed, improve the Mold body or referenced notes and re-cast — never hand-edit generated `SKILL.md`.
+Casting takes a Mold (typed reference manifest + procedural body) and its declared references, and produces a target-specific, **isolated** cast artifact — no links back, no runtime dependency on the source. The generated skill body is a **deterministic** render of the Mold body + artifacts + resolved references. The parent's pipeline additionally allows `mode: condense` references to be LLM-produced; **this Foundry does not implement that phase** — see `reference_contract.yml` for why, and expect every carry here to be deterministic. If a cast looks under-instructed, improve the Mold body or referenced notes and re-cast — never hand-edit generated `SKILL.md`.
 
 Casting is **per-kind dispatch**, not one resolve-and-inline pass:
 
 | Reference kind | Casting transformation | Lands at | Notes for us |
 |---|---|---|---|
-| `pattern` | verbatim or LLM-condense per `mode` | `references/patterns/<slug>.md` | statistical-method + invalidity patterns; heavy use |
-| `research` | verbatim or condense per `mode` | `references/notes/<basename>` | corpus notes (methods + cautionary examples); **our heaviest kind** |
+| `pattern` | verbatim copy | `references/patterns/<slug>.md` | statistical-method + invalidity patterns; heavy use |
+| `research` | verbatim copy | `references/notes/<basename>` | corpus notes (methods + cautionary examples); **our heaviest kind**. Size is managed by `load: on-demand` + `trigger`, not by condensation |
 | `cli-command` | deterministic JSON sidecar | `references/cli/<slug>.json` | our tool ecosystem (R/Bioconductor, PLINK, …); author lazily |
 | `schema` | verbatim copy of the serialized export | `references/schemas/<slug>.schema.json` | **demoted** — rare (prose-shaped outputs); reserved for genuinely structured artifacts |
 | `prompt` | raw sidecar copied verbatim | `references/prompts/<slug>.md` | unchanged |
@@ -19,7 +19,9 @@ Casting is **per-kind dispatch**, not one resolve-and-inline pass:
 | `eval` | **never packaged** | — | Foundry-only |
 | `mold` (smell) | discouraged | — | factor shared content into other kinds |
 
-Verbatim paths are deterministic; LLM condensation is reserved for `pattern`/`research`. `mode: condense` is a two-phase contract: the deterministic caster writes a `pending_llm: true` placeholder; the `/cast` LLM phase fills it; the verifier rejects committed provenance with any unfilled entry.
+Every path here is deterministic, because `condense` is not in our `modes` vocabulary.
+
+The parent's two-phase contract — the deterministic caster writes a `pending_llm: true` placeholder, the `/cast` LLM phase fills it, the verifier rejects committed provenance with any unfilled entry — is the machinery we are declining until a Mold needs it. Skipping it is what lets a cast here be byte-stable, and therefore `--check`-able.
 
 ## Cast from structure, not rendered prose (inherited principle, our examples)
 
@@ -39,7 +41,7 @@ Every cast writes a required `_provenance.json`: the Mold object (name, path, re
 - **Triggers:** manual (`cast <mold> --target=<target>`), CI on Mold change (re-cast + surface diff), watch-on-change.
 - **Drift:** a cast is stale when the Mold hash, any ref src/dst hash, the deterministic `SKILL.md` render, the target adapter, or the casting model changes. A `--check`/verifier enumerates stale casts.
 - **Versioning:** no semver on Molds or casts; identity = content hash + commit SHA; re-casting is the migration path.
-- **Reproducibility:** deterministic assembly is byte-stable aside from timestamps; LLM-condensed refs are traceable via recorded prompt+model identity.
+- **Reproducibility:** assembly is byte-stable aside from timestamps. With no LLM phase there is no prompt+model identity to record and no non-reproducible byte in the output — the parent needs both because it kept `condense`.
 
 ## What casting does NOT do (inherited, adapted)
 - Does not write to the source KB (read-only against `content/`; all writes go to `casts/`).

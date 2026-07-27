@@ -10,7 +10,7 @@ references:
     ref: "[[vanneste-2013-ks-saturation]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Cardinal validity axis: Ks saturation can manufacture a spurious tail 'saturation peak' that mimics a WGD even with no WGD present; bounds where Ks dating / mixture inference is trustworthy."
   - kind: research
@@ -18,7 +18,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when checking wgd/Ks-pipeline defaults, the Ks saturation cutoff, or a tool-identity claim (e.g. which collinearity engine wgd v2 uses)"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Reference pipeline + exact defaults (--kscutoff, node-weighting, mixture components) and the i-ADHoRe-not-MCScanX fact for method-identity checks."
   - kind: research
@@ -26,7 +26,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim positions a WGD before/after a speciation, or compares Ks across differently-evolving lineages"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Cross-lineage synonymous-substitution-rate differences invalidate naive mixed-plot placement; RRT-style branch-decomposition correction is the remedy."
   - kind: research
@@ -34,7 +34,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when duplication-mode classification, or tandem/proximal contamination of a Ks peak, is at issue"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Five duplication modes (WGD/tandem/proximal/transposed/dispersed); WGD = intra-genome collinear pairs; guards the 'segmental'/'tandem=5' mislabel."
   - kind: research
@@ -42,7 +42,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when assessing synteny-anchor / collinear-block criteria or duplicate-class definitions"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Collinear-block thresholds (score>250 / >=5 pairs, gap<25, E<1e-5) and tandem=rank-diff-1 / proximal<20 definitions; WGD signal = anchors in collinear blocks."
   - kind: research
@@ -50,7 +50,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when a specific ploidy level (duplication vs triplication) or syntenic depth/multiplicity is claimed"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Syntenic depth/multiplicity as the ploidy index; unpurged tandems inflate multiplicity; depth must be read against an assumed per-lineage event history."
   - kind: research
@@ -58,7 +58,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when synteny/orthology block-size params or array-collapse of tandem arrays are in question"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Synteny-anchored orthology with array-representative collapse of tandem arrays; blkSize=5 (unique hits, not orthogroups), synBuff=100, nGaps=5."
   - kind: research
@@ -66,7 +66,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when a gene-family expansion / birth-death rate-shift is offered as independent WGD corroboration"
-    mode: condense
+    mode: verbatim
     evidence: hypothesis
     verification: "CAFE 5 (gamma among-family rate variation; empirical-Bayes fast/slow families) is established; its use as WGD corroboration is a design inference NOT stated in the note. Verify against a source that explicitly links a gene-family expansion burst to a WGD before relying on this check."
     purpose: "Supports a converging-evidence check: an independent burst of gene-family expansions datable to the same node."
@@ -75,7 +75,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when a gene-family expansion / birth-death rate-shift is offered as independent WGD corroboration"
-    mode: condense
+    mode: verbatim
     evidence: hypothesis
     verification: "Birth-death per-family p-values and per-branch attribution (Viterbi / branch-cutting / LRT) are established; per-family p-values are UNCORRECTED for multiple testing (note s10). WGD-corroboration framing is inferred — verify before relying."
     purpose: "Grounds branch-attribution of an expansion burst and the multiple-testing caveat on family-level p-values."
@@ -84,7 +84,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when a gene-family expansion is offered as WGD corroboration and the assembly/annotation quality is uncertain"
-    mode: condense
+    mode: verbatim
     evidence: hypothesis
     verification: "Assembly/annotation-error inflation of gain/loss rates (~2.3x at eps=0.1, ~7.5x at eps=0.4; rates 'consistently overestimated') is established in the note; applying it specifically to WGD-burst evidence is inferred. Verify before relying."
     purpose: "Guards against treating a gene-count expansion burst from a fragmented assembly as real WGD signal without an error model."

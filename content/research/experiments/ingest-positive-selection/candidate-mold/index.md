@@ -12,14 +12,14 @@ references:
     ref: "[[alvarez-carretero-2023-paml-guide]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Procedure spine: the codeml workflow, the four model families (M0 / site / branch / branch-site A), the nested LRT pairs and their df, and the named false-positive drivers to screen for."
   - kind: research
     ref: "[[paml-manual]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Authoritative control-file specs (model/NSsites/fix_omega), the NSsites↔M-model table with #free-params, the M8a-vs-M8 and branch-site A-vs-A1 nulls, BEB scope, and the 50:50-mixture-vs-conservative-χ² null rule."
   - kind: research
@@ -27,7 +27,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim rests on a branch-site test, or when a foreground branch is designated"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Which branch-site test is valid: Test 2 (A vs A-null, ω2=1 fixed) is a direct test; Test 1 (A vs M1a) conflates relaxed constraint with selection and is invalid. NEB unusable, BEB required. Mixture (2.71) vs conservative χ²₁ (3.84) dual recommendation."
   - kind: research
@@ -35,7 +35,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the alignment may contain recombination (viral, high-divergence, or population data) and a single tree was assumed"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Cardinal sin #1: unmodeled recombination inflates site-model type-I error to as high as 90–100%; M7–M8 most robust, M0–M3/M1–M2 worst; remedy = detect/remove recombinant sequences."
   - kind: research
@@ -43,7 +43,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when recombination screening is needed as a prerequisite to a codon-selection claim"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The recombination-screening remedy: GARD detects breakpoints by AICc model selection (NOT a p-value), partitions into nonrecombinant fragments; per-fragment selection analysis 'restored good statistical properties.'"
   - kind: research
@@ -51,7 +51,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when alignment quality is unverified or the data are novel/low-coverage/hard-to-align"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Cardinal sin #2: sequencing/annotation/alignment error inflates inferred positively-selected-gene fraction (alignment alone 1.6×; all-bad vs all-good 7.2×). Detector = HoT <100% head/tail disagreement; dS-saturation symptom."
   - kind: research
@@ -59,7 +59,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim uses a single-hit codon model and signal concentrates on short branches or few sites"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Cardinal sin #3: unmodeled multi-nucleotide (multi-hit) substitutions inflate ω and drive false EDS (FPR up to 100%, worst on short branches). Remedy = BUSTED+MH/+S+MH + model averaging; diagnostic = +S vs +S+MH discordance, single-site dependence."
   - kind: research
@@ -67,7 +67,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when an accelerated-rate / elevated-ω claim sits in a GC-rich or high-recombination region"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Cardinal sin #4: GC-biased gene conversion can produce an acceleration signal that mimics selection; gBGC is an extended null to exclude. NOTE: abstract-only source — existence of the confounder only; discrimination criteria/mechanism/thresholds are a GAP."
   - kind: research
@@ -75,7 +75,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when more than one branch/lineage was tested, or the foreground was not fixed a priori"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Cardinal sin #5 (part): testing many branches without a priori foreground needs multiple-testing correction; control FWER (Rom's preferred, Bonferroni acceptable). Test unreliable under extreme divergence + serious model violation (FWER up to ~25%)."
   - kind: research
@@ -83,7 +83,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim is gene-wide episodic selection, or a site method was used to draw a gene-wide conclusion"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "HyPhy gene-wide test: BUSTED (≥1 site under selection on ≥1 foreground branch); null ω3=1; conservative χ²₂. Wrong-level sin: don't use a site method (MEME) for gene-wide inference. Background must be modeled or the foreground test is confounded."
   - kind: research
@@ -91,7 +91,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim is site-wise (which sites) episodic selection"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "HyPhy site-wise test: MEME detects episodic diversifying selection per site (mixture 0.33:0.30:0.37 of χ²₀/χ²₁/χ²₂). Controls site-wise not family-wise error; do not combine sites into an alignment-wide test. Anti-conservative at divergence >0.4."
   - kind: research
@@ -99,7 +99,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim is which branches show selection in an exploratory (no a-priori foreground) scan"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "HyPhy branch test: aBSREL (adaptive per-branch ω classes via AICc; mixture 50% χ²₀ + 20% χ²₁ + 30% χ²₂). Built-in Holm–Bonferroni FWER correction when >1 branch tested — its guard against multi-branch false positives."
   - kind: research
@@ -107,7 +107,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim is a McDonald–Kreitman α (polymorphism-vs-divergence), not a phylogenetic dN/dS test"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Population-genetics branch of the spine: standard MK underestimates α under linked selection / slightly deleterious mutations (can go negative even after frequency cutoffs). Remedy = asymptotic MK. Detector = negative α; spurious inferred expansion from DFE-methods."
   - kind: research
@@ -115,7 +115,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim is a genome/proteome scan over many genes (or many branches)"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The multiplicity layer: FWER (Bonferroni) vs FDR (Benjamini–Hochberg) choice, the p-value histogram as the key calibration diagnostic, and the p-hacking / HARKing / affirming-the-null failure modes that also apply to selection scans."
 ---
