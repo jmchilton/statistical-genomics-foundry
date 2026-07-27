@@ -2,7 +2,7 @@
 
 > Targeted questions for `/summarize-source`. Attention-directing, not leading. Maintained by us.
 > This is the PRIMARY that closes the `search-then-quantify-same-data` `[GAP]` in [[double-dipping]]
-> (the DIA-proteomics signature; a confirmed review-orphan, `[[double-dipping-survey]]`). Recovery
+> (the DIA-proteomics signature; a confirmed review-orphan, [[double-dipping-survey]]). Recovery
 > target: the entrapment methodology + the quantified FDR-underestimation numbers + the same-spectra-
 > reuse mechanism. Source is CC-BY — short verbatim load-bearing quotes are allowed.
 

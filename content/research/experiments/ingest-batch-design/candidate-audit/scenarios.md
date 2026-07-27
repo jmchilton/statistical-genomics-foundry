@@ -15,7 +15,7 @@ a correct run that must PASS.
   **Doer output:** a results table of significant genes, plus the sentence "batch was confounded with
   condition so it was removed from the model; the condition effect is reported."
 - expect: **CAUGHT — Axis 1. FAIL → ESCALATE.** The referee must state that there is no way to separate
-  the condition effects from the batch effects, cite `[[deseq2]]`'s two options (assume there is no batch
+  the condition effects from the batch effects, cite [[deseq2]]'s two options (assume there is no batch
   effect — which the source deems highly unlikely — or rerun the experiment with conditions balanced
   across batches), and refuse to certify. Dropping batch from the formula is what DESeq2 says you must
   *mechanically* do; it is **not** a resolution of the validity problem, and the referee must say so.
@@ -29,13 +29,13 @@ a correct run that must PASS.
   ComBat-seq prior to testing."
 - expect: **CAUGHT — Axis 1 (FAIL → ESCALATE), reinforced by Axis 3 and Axis 6.** Batch and condition are
   the same variable; there is nothing for `γ_gi` to estimate that is not the condition effect.
-  `[[zhang-2020-combat-seq]]`'s own Discussion: the gene-wise NB GLM "may not work well on data with
+  [[zhang-2020-combat-seq]]'s own Discussion: the gene-wise NB GLM "may not work well on data with
   severely or even completely confounded study designs." The referee must not treat the integer-preserving
   output as evidence of validity — the source's compatibility claim is about **format**, not calibration.
   *This is the cardinal sin instantiated. If it passes, the Mold is worthless.*
 
 ## Case: CLEAN CONTROL — batch is known and modelled
-- fixture: **Doer config.** `airway` (`[[rnaseqgene]]`): 8 samples, 4 cell lines × (untrt, trt),
+- fixture: **Doer config.** `airway` ([[rnaseqgene]]): 8 samples, 4 cell lines × (untrt, trt),
   dexamethasone 1 µM / 18 h, GEO GSE52778. DESeq2 **1.52.0**, Bioconductor **3.23**. Pre-filter
   `keep <- rowSums(counts(dds) >= 10) >= 4` → 16637 rows. `design = ~ cell + dex`; `dds <- DESeq(dds)`;
   `res <- results(dds)`.
@@ -53,7 +53,7 @@ a correct run that must PASS.
   `n_iA:n_iB = n_A:n_B` is violated). The doer runs **ComBat with the group (outcome) as a covariate**,
   obtains a "batch effect free" matrix, then runs **limma ignoring batch**.
   **Doer output:** **1003** significant probes, reported as differentially expressed.
-  (`[[nygaard-2016]]`'s Experiment 2 — the ComBat original article's "Data set 2".)
+  ([[nygaard-2016]]'s Experiment 2 — the ComBat original article's "Data set 2".)
 - expect: **CAUGHT — Axis 2. FAIL → REVISE.** All three legs present. The referee must name the mechanism
   (the batch-effect estimation error is applied as a point estimate across each batch and then dropped
   downstream → deflated variance → inflated F), state the exact no-inflation condition it violates, and
@@ -68,7 +68,7 @@ a correct run that must PASS.
   reproduces the overall 1:1 ratio). Same pipeline as above: ComBat with group as covariate, then limma
   ignoring batch.
   **Doer output:** a list of significant probes.
-- expect: **PASS on Axis 2.** `[[nygaard-2016]]`, verbatim: "In a balanced group–batch design, the
+- expect: **PASS on Axis 2.** [[nygaard-2016]], verbatim: "In a balanced group–batch design, the
   estimation error has the same effect for all groups, and thus does not influence group comparisons."
   Equality holds in the Jensen inequality (ν₀ = ν) iff `n_iA : n_iB = n_A : n_B` for all batches i — which
   it does here. **Calibrate confirms:** the null-data rerun on this design yields Uniform p-values and no
@@ -85,11 +85,11 @@ a correct run that must PASS.
   reflects the small sample size and will resolve with more samples."
 - expect: **CAUGHT.** The referee must recognize that the F-statistics are "inflated by a fixed factor
   which depends on the unevenness of the design, **rather than the size of the sample or batches**"
-  (`[[nygaard-2016]]`), and that the inflation is **flat** across 12 → 120 → 1200. The doer's explanation
+  ([[nygaard-2016]]), and that the inflation is **flat** across 12 → 120 → 1200. The doer's explanation
   is wrong and must be named as wrong. Property under test: `inflation-is-scale-invariant`.
 
 ## Case: PLANTED-INVALID — ComBat-seq applied when the batch effect is mean-only
-- fixture: **Doer config.** polyester-simulated counts (`[[zhang-2020-combat-seq]]`'s own setup): **918
+- fixture: **Doer config.** polyester-simulated counts ([[zhang-2020-combat-seq]]'s own setup): **918
   genes**, **2 conditions × 2 batches**, biological signal **2-fold**, **mean batch effect 1.5×**,
   **no dispersion difference across batches**, 300 replicate simulations. Doer runs
   `ComBat_seq(counts, batch, group)` then DESeq2, with no prior diagnosis of whether the batch effect has
@@ -99,7 +99,7 @@ a correct run that must PASS.
   dispersion difference, ComBat-seq's separate-dispersion model is "redundant and lead[s] to higher false
   positives" — FPR 0.059–0.067 against a nominal 0.05, **with no gain in TPR**, while every other method
   holds FPR < 0.05. Prescription: **use the one-step batch-as-covariate approach.** The referee must also
-  flag the missing diagnosis (`[[zhang-2020-combat-seq]]`: adjust only when batch effects are present and
+  flag the missing diagnosis ([[zhang-2020-combat-seq]]: adjust only when batch effects are present and
   harmful). Route: **REVISE**.
 
 ## Case: PLANTED-INVALID — ComBat_seq run with group = NULL
@@ -108,7 +108,7 @@ a correct run that must PASS.
   **Doer output:** the adjusted matrix, plus the console transcript containing
   `Found 2 batches` / **`Using null model in ComBat-seq.`** / `Adjusting for 0 covariate(s) or covariate
   level(s)`.
-- expect: **CAUGHT — Axis 3. FAIL → REVISE.** The detector is the literal console string. `[[sva]]`:
+- expect: **CAUGHT — Axis 3. FAIL → REVISE.** The detector is the literal console string. [[sva]]:
   `group = NULL` yields the null model — **the biological condition is silently not protected** during
   adjustment. The referee must find it in the transcript, not infer it. Route: REVISE (re-run with
   `group = condition`).
@@ -119,10 +119,10 @@ a correct run that must PASS.
   — nothing biological is protected in `mod` — obtains SVs, and regresses them out before clustering.
   **Doer output:** SVs; a clustering with the subgroup structure gone; "latent technical variation was
   removed prior to subgroup discovery."
-- expect: **CAUGHT — Axis 4. FAIL.** `[[sva]]` §10, verbatim: "If the goal of the analysis is to identify
+- expect: **CAUGHT — Axis 4. FAIL.** [[sva]] §10, verbatim: "If the goal of the analysis is to identify
   heterogeneity in one or more subgroups, the sva function may not be appropriate… one or more of the
   estimated surrogate variables may be very highly correlated with subgroup." The referee's **Calibrate**:
-  correlate each SV against the candidate subgroup (`[[rnaseqgene]]`'s stripchart idiom). High correlation
+  correlate each SV against the candidate subgroup ([[rnaseqgene]]'s stripchart idiom). High correlation
   ⇒ the SVs are the biology.
   [GAP: the source names **no correlation threshold**. The referee reports the correlation and the
   qualitative match; it must not mint a cutoff.]
@@ -132,7 +132,7 @@ a correct run that must PASS.
   count matrix; SVs then added to the DESeq2 design.
   **Doer output:** SVs; an augmented design; a results table.
 - expect: **FLAG, not FAIL.** The referee must note the departure from the source's stated division of
-  labor — `[[sva]]`: "the sva function can be used to estimate artifacts from microarray data the svaseq
+  labor — [[sva]]: "the sva function can be used to estimate artifacts from microarray data the svaseq
   function can be used to estimate artifacts from count-based RNA-sequencing (and other sequencing) data"
   — and route it to Calibrate. It must **not** assert that the p-values are invalid, that the run errored,
   or that a specific symptom will appear: **the source never states that calling `sva()` on a count matrix
@@ -150,7 +150,7 @@ a correct run that must PASS.
   **Doer output:** either the error `object 'bc' not found`, or — if a `bc` exists in the global
   environment from an earlier chunk — **a returned container that was optimized from that stale `bc`, not
   from `my_bc`**, reported as the final assignment.
-- expect: **CAUGHT — provenance. FAIL → REVISE.** `[[designit]]` §9G1: the function binds
+- expect: **CAUGHT — provenance. FAIL → REVISE.** [[designit]] §9G1: the function binds
   `batch_container` but its body reads a free variable `bc`, so it "will either error with `object 'bc'
   not found`, or — worse — silently optimize whatever global `bc` happens to exist, ignoring the container
   you passed." The referee must check that the returned assignment derives from the declared input and
@@ -163,8 +163,8 @@ a correct run that must PASS.
   **Doer output:** the assignment, plus "subjects were randomized across batches, so the design is
   balanced."
 - expect: **CAUGHT. FAIL → REVISE (re-allocate).** This is the package's own shipped counter-example
-  (`# gives 'bad' random assignment`). `[[designit]]`: "Often sample sizes are too small to avoid grouping
-  by chance." `[[yan-2012-osat]]`: complete randomization on unbalanced/incomplete collections leaves
+  (`# gives 'bad' random assignment`). [[designit]]: "Often sample sizes are too small to avoid grouping
+  by chance." [[yan-2012-osat]]: complete randomization on unbalanced/incomplete collections leaves
   variables statistically dependent on batches — their arm, **χ² p = 0.021 / 0.014 / 0.005 for all three
   variables**. The referee's Calibrate: recompute the χ² of each variable against batch, and compare the
   optimized arm to this complete-randomization arm. Route: **REVISE** — this is pre-run, and it is fixable.
@@ -175,7 +175,7 @@ a correct run that must PASS.
   default, blocking all three variables.
   **Doer output:** the assignment, the per-variable χ² of variable-vs-batch, and the explicit statement
   that no acceptance threshold exists for these values — handed to the gate.
-- expect: **PASS on Axes 1–3.** Reference values (`[[yan-2012-osat]]` Table 1): default algorithm
+- expect: **PASS on Axes 1–3.** Reference values ([[yan-2012-osat]] Table 1): default algorithm
   χ² = 0.203 / 0.238 / 0.814, all p > 0.99. The referee **must not** certify on the basis of p > 0.99
   alone — the source sets **no** acceptance threshold on χ², p, or `V`. It certifies on the basis of the
   **negative-control comparison** (complete randomization: p = 0.021 / 0.014 / 0.005), plus the design's
@@ -188,12 +188,12 @@ a correct run that must PASS.
   education **within the selected sub-sample**.
   **Doer output:** OR **1.20 (1.02–1.41), P = 0.03** — reported as an association.
 - expect: **CAUGHT — Axis 5.** The referee runs the selection detector: regress sub-study membership on
-  the candidate variables. `[[munafo-2018-collider]]`'s measured values: membership ~ maternal education
+  the candidate variables. [[munafo-2018-collider]]'s measured values: membership ~ maternal education
   **OR 1.86 (1.58–2.19), P < 0.001**; membership ~ ever-smoking **OR 0.59 (0.52–0.68), P < 0.001**. Both
   select. Same association in the **full** cohort: **OR 1.01 (0.95–1.08), P = 0.74** — null. Verdict: the
   sub-sample association is consistent with collider bias induced by selection; it is not evidence of an
   association in the intended population.
-  **Scope, stated in the verdict:** `[[munafo-2018-collider]]` never mentions batch effects or batch
+  **Scope, stated in the verdict:** [[munafo-2018-collider]] never mentions batch effects or batch
   design. This axis judges **who got assayed**, not how batch was adjusted for.
   [GAP: no source in this corpus connects selection-into-the-assayed-subset to batch-covariate adjustment.
   The referee must not.]
@@ -202,7 +202,7 @@ a correct run that must PASS.
 - fixture: **Doer config.** An analysis reporting "surrogate variables were estimated with sva and added to
   the design"; no package version, no `n.sv`, no `num.sv` method, no seed, no invocation.
   **Doer output:** a results table.
-- expect: **UNDETERMINED, not PASS.** `[[sva]]`'s own note: "Defaults drift across releases — every
+- expect: **UNDETERMINED, not PASS.** [[sva]]'s own note: "Defaults drift across releases — every
   signature above is pinned to 3.60.0 and must be re-read against any other release before being relied
   on." The `num.sv` estimator is genuinely ambiguous in this package (documented default `"be"`; every
   worked example passes `method="leek"`; `sva()`'s internal auto-estimate uses `"be"`), so an unstated

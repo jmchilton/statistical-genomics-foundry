@@ -78,8 +78,8 @@ HPRC numbers).
 The candidate Mold makes a **checkable, note-cited gate discipline with an executable oracle** where
 the SKILL.md states the same knowledge as scattered, untraceable prose:
 
-- **Per-claim traceability.** Every gate names its note (`[[tonkin-hill-2020-panaroo]]`,
-  `[[gautreau-2020-ppanggolin]]`, …) and its failure signature; the SKILL.md's "Per-Tool Failure
+- **Per-claim traceability.** Every gate names its note ([[tonkin-hill-2020-panaroo]],
+  [[gautreau-2020-ppanggolin]], …) and its failure signature; the SKILL.md's "Per-Tool Failure
   Modes," "Reconciliation," and "Anticipated Reviewer Pushback" tables assert rules as **unsourced
   imperatives**.
 - **Four gates more correct than the skill** (§2 items 4–7): B1 (real tenfold vs skill's 30–50%),

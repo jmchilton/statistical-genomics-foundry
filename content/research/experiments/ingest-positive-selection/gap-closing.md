@@ -12,9 +12,9 @@
 |---|---|---|---|
 | GAP-1 gBGC mechanism + discrimination diagnostic | **recommend → ingest** | `papers/ratnakumar-2010-gbgc` | Free-to-read PMC2935097 (Royal Society, all-rights-reserved → own-words) |
 | GAP-2 convergent substitution confound (SILENT) | **PARTIAL — statistic ingested, confound framing still-open** | `papers/fukushima-pollock-2023-csubst` (ω_C statistic only); *hold* = cautionary-tale preprint 10.1101/2021.10.26.465984 (the confound framing) | Primary paywalled (Nat Ecol Evol); OA via **MIT** repo docs (confirmed) + **CC-BY 4.0** app (Barua et al. 2026, MBE 43(1):msag015) |
-| GAP-3 post-hoc foreground inflation magnitude | **reuse-existing (principle) + still-open (magnitude)** | `[[gelman-loken-2014]]` for the principle | Principle in corpus; codon-specific magnitude not located OA |
-| GAP-4 recombination FP inflation factor | **reuse-existing** | `[[anisimova-2003-recombination]]` (absolute rates to 98%) | Already in corpus; GARD Fig. 3 optional low-value re-summarize |
-| GAP-5 dS / branch-length saturation cutoff | **convention-not-hunted** | — | Confirmed absent from `[[paml-manual]]` + `[[alvarez-carretero-2023-paml-guide]]`; convention |
+| GAP-3 post-hoc foreground inflation magnitude | **reuse-existing (principle) + still-open (magnitude)** | [[gelman-loken-2014]] for the principle | Principle in corpus; codon-specific magnitude not located OA |
+| GAP-4 recombination FP inflation factor | **reuse-existing** | [[anisimova-2003-recombination]] (absolute rates to 98%) | Already in corpus; GARD Fig. 3 optional low-value re-summarize |
+| GAP-5 dS / branch-length saturation cutoff | **convention-not-hunted** | — | Confirmed absent from [[paml-manual]] + [[alvarez-carretero-2023-paml-guide]]; convention |
 
 **Net paywalled-and-absent facts needing a hunt: two.** GAP-1 fully closed (Ratnakumar). GAP-2 **partially** closed — ω_C statistic ingested (CSUBST), but the convergence-as-branch-site-confound framing stayed a confident silence in the open surrogates and is still-open (needs the hold preprint / paywalled primary). Residual still-open: GAP-2 confound framing + GAP-3 post-hoc magnitude — for both, back the principle/statistic and mark the missing piece unavailable rather than fabricate it (the skill's "~5×" stays unsourced).
 
@@ -58,12 +58,12 @@ Guidance written + corrected: `research/papers/fukushima-pollock-2023-csubst/gui
 
 Re-triage confirms the gap: `zhang-2005-branch-site` explicitly assumes correct a-priori foreground, gives no number; `anisimova-yang-2007` quantifies **many-branch FWER** (worst ~25%), i.e. pre-specified branches with correction — NOT data-dredged foreground. The skill's "~5×" is unsourced (comparison.md §3.5).
 
-- **Reuse-existing for the PRINCIPLE:** `[[gelman-loken-2014]]` ("garden of forking paths") is in the corpus and directly fits — choosing the foreground after seeing which branch has high dN/dS is its procedure #3 (`T(y; φ(y))`, a single data-contingent test) that invalidates the p-value "even when there is no fishing expedition." The Mold can cite this for *why* post-hoc foreground inflates Type-I, honestly, without a fabricated multiplier.
+- **Reuse-existing for the PRINCIPLE:** [[gelman-loken-2014]] ("garden of forking paths") is in the corpus and directly fits — choosing the foreground after seeing which branch has high dN/dS is its procedure #3 (`T(y; φ(y))`, a single data-contingent test) that invalidates the p-value "even when there is no fishing expedition." The Mold can cite this for *why* post-hoc foreground inflates Type-I, honestly, without a fabricated multiplier.
 - **Still-open for the MAGNITUDE:** no OA source located that simulates a-posteriori foreground choice under a codon branch-site model and reports an inflation factor. (Yang & dos Reis 2011 "Statistical Properties of the Branch-Site Test," MBE 28(3):1217 studies FPR/power under a *pre-specified* foreground — adjacent, not post-hoc; not fetched to full confirm.) **Do not backfill "~5×"; back the confound with the principle and mark the quantified magnitude unavailable.**
 
 ## GAP-4 — recombination downstream FP inflation factor → REUSE-EXISTING
 
-`[[anisimova-2003-recombination]]` already carries the answer as **absolute type-I rates** (ρ=0.01: M0–M3 to 98% / M1–M2 74–80% / M7–M8 20%; ρ=0 baseline 0–2%), and records that the paper states **no fold-multiplier** — the "5–50×" gloss is narrower than and unsupported by the paper's own numbers. This is the honest recoverable form. `pond-2006-gard` Fig. 3 (per-method FEL rates) is image-bound, uncaptured; pulling it would be a low-value optional re-summarize, not required. **No external hunt.**
+[[anisimova-2003-recombination]] already carries the answer as **absolute type-I rates** (ρ=0.01: M0–M3 to 98% / M1–M2 74–80% / M7–M8 20%; ρ=0 baseline 0–2%), and records that the paper states **no fold-multiplier** — the "5–50×" gloss is narrower than and unsupported by the paper's own numbers. This is the honest recoverable form. `pond-2006-gard` Fig. 3 (per-method FEL rates) is image-bound, uncaptured; pulling it would be a low-value optional re-summarize, not required. **No external hunt.**
 
 ## GAP-5 — dS / branch-length saturation cutoff → CONVENTION-NOT-HUNTED
 

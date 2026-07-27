@@ -71,7 +71,7 @@ the accuracy measure, and on this exact dataset it can sit well below 1. The aud
 
 **Ground-truth referent (found, not generated):** Yang, Kumar & Nei 1995 report a *unique* MP-style
 reconstruction on these six sequences whose true marginal posterior is only ~**0.563** (and another
-~0.185) — the corpus's `[[yang-1995-ancestral]]` note. The precise site/number the `codeml` run
+~0.185) — the corpus's [[yang-1995-ancestral]] note. The precise site/number the `codeml` run
 surfaces is model-dependent `[verify: aaml.ctl uses model=0 Poisson; the paper's exact figure may
 differ]`, but the audit's obligation — catch a sub-certain reconstruction sold as certain — is
 invariant to the exact value.

@@ -58,14 +58,14 @@ The trigger decides scope; the **signature, threshold, and remedy live in the li
 
 | Class | In-scope when | Check (sourced) | On match |
 |---|---|---|---|
-| Circular / post-selection inference | selection and inference share data | `[[double-dipping]]` | severity ≥ REVISE; required_action = the leaf's remedy (count-splitting / selection-aware null) |
-| Confounding by aliasing | a batch factor co-varies with the contrast | `[[batch-aliased-with-condition]]` | if rank-deficient → **ESCALATE** (unfixable) |
-| Undeclared forking paths | choices made post-hoc; family undefined | `[[garden-of-forking-paths]]` | flag; demand a pre-specified family |
+| Circular / post-selection inference | selection and inference share data | [[double-dipping]] | severity ≥ REVISE; required_action = the leaf's remedy (count-splitting / selection-aware null) |
+| Confounding by aliasing | a batch factor co-varies with the contrast | [[batch-aliased-with-condition]] | if rank-deficient → **ESCALATE** (unfixable) |
+| Undeclared forking paths | choices made post-hoc; family undefined | [[garden-of-forking-paths]] | flag; demand a pre-specified family |
 | Dependence ignored | repeated measures / pseudoreplication | `[[check-assumptions]]` (protocol) | flag; route to a dependence-aware model |
 | Multiple-testing surface | many tests + dependence | `[[multiple-testing-strategy]]` (protocol) | flag if correction is naive or post-selection |
 
 ## 3. Method existence & appropriateness  *(the invented-method failure)*
-Check the named method against `[[method-applicability-errors]]`, which separates two prongs:
+Check the named method against [[method-applicability-errors]], which separates two prongs:
 - **Existence** — is it a *real, named* procedure? If not → `UNRECOGNIZED-METHOD`. Do **not**
   rationalize a derivation that makes an invented method look legitimate. *(This prong is a flagged
   white-space: StatQA does not cover method fabrication — the leaf sources it to project survey, not

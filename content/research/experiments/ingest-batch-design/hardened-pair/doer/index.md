@@ -129,9 +129,9 @@ method description a referee will judge** — and hand off. This Mold cannot cer
 
 ## Phase 0 — stand up the toolchain
 
-**Exact pins. Not floors.** Signatures drift *within* minor versions: `[[sva]]` — *"defaults drift across
+**Exact pins. Not floors.** Signatures drift *within* minor versions: [[sva]] — *"defaults drift across
 releases; every signature is pinned to 3.60.0 and must be re-read against any other release."*
-`[[designit]]`'s own NEWS removed `bc$n_available` (0.3.0) and made `$scoring_f` an error (0.5.0). A
+[[designit]]'s own NEWS removed `bc$n_available` (0.3.0) and made `$scoring_f` an error (0.5.0). A
 `>=` floor would not have protected you from either.
 
 | Tool | Pin | License | conda / biocontainer *(checked 2026-07-13)* |
@@ -164,7 +164,7 @@ anything. A wrong-version run is UNDETERMINED, never PASS.**
 > that assumes it will fail to resolve the primary tool. Remedy, pick one and **state it**:
 > 1. layer it onto a Bioconductor base image — `R -e 'install.packages("designit")'` (CRAN tarball resolves);
 > 2. r-universe — `install.packages("designit", repos = c("https://bedapub.r-universe.dev", "https://cloud.r-project.org"))`;
-> 3. **substitute OSAT** for allocation (bioconda- and biocontainer-resolvable; `[[designit]]`'s own OSAT
+> 3. **substitute OSAT** for allocation (bioconda- and biocontainer-resolvable; [[designit]]'s own OSAT
 >    vignette claims numerical identity of the score) — at the cost of OSAT's `nSim` footgun. **Declare
 >    the swap; never make it silently.**
 >
@@ -177,15 +177,15 @@ anything. A wrong-version run is UNDETERMINED, never PASS.**
 
 Record, before touching data:
 
-- **The primary variable** `y` and the exact contrast claimed (`[[msmb-chap8]]`: the scientific content
+- **The primary variable** `y` and the exact contrast claimed ([[msmb-chap8]]: the scientific content
   of the model lives in its design matrix).
 - **Every candidate technical variable**, named as a variable, not as a vibe: processing group,
   processing date/run, reagent lot, technician, chip/plate/well, sequencing lane, library-prep round
-  (`[[leek-2010]]`, `[[sva]]`).
+  ([[leek-2010]], [[sva]]).
 - **The level of replication** — name it explicitly rather than leaning on the technical/biological
-  dichotomy (`[[msmb-chap13]]`).
+  dichotomy ([[msmb-chap13]]).
 - **The experiment type**: controlled experiment / randomized controlled trial / study / observational
-  study / meta-analysis. Causal license decreases across that list (`[[msmb-chap13]]`).
+  study / meta-analysis. Causal license decreases across that list ([[msmb-chap13]]).
 - **Which moment we are in.** Pre-run (samples not yet allocated) and post-run (data in hand) are
   different Molds' worth of work; do not silently switch.
 
@@ -197,31 +197,31 @@ list above is what the sources *name*, not a validated intake contract.]
 ### 2a. Pre-run — samples not yet allocated
 
 - **Target the RCBD.** The groups of main interest *and* the important confounding variables should be
-  balanced and replicated across batches (`[[yan-2012-osat]]`, quoted verbatim in the note). If a true
-  RCBD is achievable, **no optimization step is needed** (`[[yan-2012-osat]]` §5.4).
-- **Balance makes each factor's effect identifiable** (`[[msmb-chap13]]`). "Block what you can, and
-  randomize what you cannot" (Box 1978, quoted in both `[[msmb-chap13]]` and `[[designit]]`).
-- **Do not settle for plain randomization.** `[[yan-2012-osat]]`: "there is substantial chance that
+  balanced and replicated across batches ([[yan-2012-osat]], quoted verbatim in the note). If a true
+  RCBD is achievable, **no optimization step is needed** ([[yan-2012-osat]] §5.4).
+- **Balance makes each factor's effect identifiable** ([[msmb-chap13]]). "Block what you can, and
+  randomize what you cannot" (Box 1978, quoted in both [[msmb-chap13]] and [[designit]]).
+- **Do not settle for plain randomization.** [[yan-2012-osat]]: "there is substantial chance that
   variables will be statistically dependent on batches if a complete randomization is carried out,
   especially for incomplete and/or unbalanced sample collections" — demonstrated with χ² p-values
-  **< 0.05** for all three variables in their complete-randomization arm. `[[designit]]` ships a seeded
+  **< 0.05** for all three variables in their complete-randomization arm. [[designit]] ships a seeded
   counter-example: `set.seed(17)` produces a bad random assignment of 31 grouped subjects into 3
   batches (source comment: `# gives 'bad' random assignment`).
 - **Randomize what remains** — including position within a block, to avoid side/position confounding
-  (`[[msmb-chap13]]`).
+  ([[msmb-chap13]]).
 
-[GAP: no source states a minimum batch size relative to the number of strata. `[[yan-2012-osat]]` is a
+[GAP: no source states a minimum batch size relative to the number of strata. [[yan-2012-osat]] is a
 confident silence on what happens when a batch cannot hold one sample of each stratum (its `⌊E_ij⌋` is
 simply 0 when `E_ij < 1`; the paper never discusses, warns about, or bounds this case).]
 
 [GAP: **run order / processing time within or across batches is not optimizable from these sources.**
-`[[yan-2012-osat]]`'s objective contains no term for run order, processing date, or position; `[[designit]]`
-has no time/run-order dimension at all. Only *plate row/column* position is covered (`[[designit]]`'s
+[[yan-2012-osat]]'s objective contains no term for run order, processing date, or position; [[designit]]
+has no time/run-order dimension at all. Only *plate row/column* position is covered ([[designit]]'s
 distance-based plate score, `penalize_lines`, and `exclude =` for edge wells).]
 
 ### 2b. Post-run — data in hand
 
-Run the detection recipe (`[[leek-2010]]`, `[[msmb-chap8]]`):
+Run the detection recipe ([[leek-2010]], [[msmb-chap8]]):
 
 1. Hierarchical clustering of samples, **labelled by both the biological group and the batch
    surrogate**. MDS as an alternative.
@@ -230,16 +230,16 @@ Run the detection recipe (`[[leek-2010]]`, `[[msmb-chap8]]`):
 
 Strong batch effects are indicated when samples cluster by processing group/time, when many features
 associate with processing group/time, or when the PCs correlate with the batch surrogate. **If the PCs
-correlate with no known surrogate, suspect an unmeasured batch source** (`[[leek-2010]]`).
+correlate with no known surrogate, suspect an unmeasured batch source** ([[leek-2010]]).
 
-Supporting signatures (`[[msmb-chap8]]`): a p-value histogram tilted up toward the right indicates batch
+Supporting signatures ([[msmb-chap8]]): a p-value histogram tilted up toward the right indicates batch
 effects; depletion of small p-values indicates an unmodelled *balanced* covariate inflating the
-denominator. `[[sva]]`'s own tell: ~70% of genes called DE at FDR < 5% is "artificially high, even for a
+denominator. [[sva]]'s own tell: ~70% of genes called DE at FDR < 5% is "artificially high, even for a
 strong phenotype like cancer."
 
-**Normalization does not remove batch effects** and can amplify them (`[[leek-2010]]`).
+**Normalization does not remove batch effects** and can amplify them ([[leek-2010]]).
 `counts(dds, normalized=TRUE)` is not batch-corrected: the design is not used when estimating size
-factors (`[[deseq2]]`).
+factors ([[deseq2]]).
 
 ### 2c. The aliasing check — mechanical, and it is a stop sign
 
@@ -248,24 +248,24 @@ linear combination of the condition columns, the design is **not full rank** and
 
 > `the model matrix is not full rank, so the model cannot be fit as specified.`
 
-(`[[deseq2]]`.) Under perfect confounding **there is no way to separate the condition effects from the
+([[deseq2]].) Under perfect confounding **there is no way to separate the condition effects from the
 batch effects**; DESeq2's only stated options are (i) assume there is no batch effect — which it deems
 highly unlikely given the batch-effects literature — or (ii) **rerun the experiment with conditions
-balanced across batches**. `[[leek-2010]]`: adjustment cannot rescue it. `[[msmb-chap13]]`: if already
+balanced across batches**. [[leek-2010]]: adjustment cannot rescue it. [[msmb-chap13]]: if already
 confounded in collected data, no analysis can rescue it.
 
 **On an aliased design this Mold HALTS.** It does not choose an adjustment method. It emits the finding
 and escalates through the gate (Phase 5). Adjusting-for-batch-and-proceeding is the exact move the
 referee loop exists to stop.
 
-[GAP: `[[deseq2]]` explicitly states it gives *no automated detector* that flags a non-full-rank design
+[GAP: [[deseq2]] explicitly states it gives *no automated detector* that flags a non-full-rank design
 ahead of running `DESeq` — the user hits it as an error. No source supplies a pre-flight rank check as a
 callable procedure.]
 
-[GAP: **no source gives a numeric threshold for "too confounded to proceed."** `[[leek-2010]]` states the
+[GAP: **no source gives a numeric threshold for "too confounded to proceed."** [[leek-2010]] states the
 principle qualitatively and reports a confounding range (generalized R², 12.2%–100%) with no cutoff.
-`[[nygaard-2016]]` gives no numeric cutoff. `[[zhang-2020-combat-seq]]` names "severely or even completely
-confounded" with no detector, threshold, or simulation. `[[leek-storey-2007-sva]]`'s robustness study
+[[nygaard-2016]] gives no numeric cutoff. [[zhang-2020-combat-seq]] names "severely or even completely
+confounded" with no detector, threshold, or simulation. [[leek-storey-2007-sva]]'s robustness study
 stops at an average primary-vs-hidden-factor correlation of **0.50** and never analyses perfect
 confounding. The boundary between REVISE and ESCALATE for *partial* confounding is unsourced.]
 
@@ -275,48 +275,48 @@ Pick from this menu. **If nothing on it fits, say so and escalate — do not inv
 
 | Situation | Established route | Source |
 |---|---|---|
-| Batch aliased with condition | **None.** Halt → ESCALATE | `[[deseq2]]`, `[[leek-2010]]`, `[[msmb-chap13]]` |
-| Pre-run, unbalanced/incomplete collection | Constrained allocation: OSAT block-randomize + optimize, or designit `optimize_design()` | `[[yan-2012-osat]]`, `[[designit]]` |
-| Batch known + recorded; goal is inference | **Put batch in the design**: `~ batch + condition`, variable of interest last | `[[deseq2]]`, `[[msmb-chap8]]`, `[[nygaard-2016]]` (its primary advice), `[[leek-2010]]` (its simplest approach) |
-| Batch known; an adjusted *matrix* is required by a downstream tool; data are **raw counts** | `ComBat_seq()` — NB regression, integer counts in and out | `[[zhang-2020-combat-seq]]`, `[[sva]]` |
-| Batch known; an adjusted matrix is required; data are **cleaned + normalized continuous** | `ComBat()` (one batch variable only) | `[[sva]]` |
-| Batch **unknown / unrecorded** | SVA — estimate surrogate variables and enter them as covariates | `[[leek-storey-2007-sva]]`, `[[leek-2010]]`, `[[sva]]` |
-| Batch unknown; data are **counts** | `svaseq()` (= sva + `log(dat + constant)`, `constant = 1`) | `[[sva]]`, `[[rnaseqgene]]` |
-| Batch unknown; RUV route | `RUVg()` with empirical control genes | `[[rnaseqgene]]` |
-| Droplet scRNA-seq, donors would each occupy their own run | **Pool donors into one run and demultiplex on natural genetic variation** (demuxlet) | `[[kang-2018-demuxlet]]` |
+| Batch aliased with condition | **None.** Halt → ESCALATE | [[deseq2]], [[leek-2010]], [[msmb-chap13]] |
+| Pre-run, unbalanced/incomplete collection | Constrained allocation: OSAT block-randomize + optimize, or designit `optimize_design()` | [[yan-2012-osat]], [[designit]] |
+| Batch known + recorded; goal is inference | **Put batch in the design**: `~ batch + condition`, variable of interest last | [[deseq2]], [[msmb-chap8]], [[nygaard-2016]] (its primary advice), [[leek-2010]] (its simplest approach) |
+| Batch known; an adjusted *matrix* is required by a downstream tool; data are **raw counts** | `ComBat_seq()` — NB regression, integer counts in and out | [[zhang-2020-combat-seq]], [[sva]] |
+| Batch known; an adjusted matrix is required; data are **cleaned + normalized continuous** | `ComBat()` (one batch variable only) | [[sva]] |
+| Batch **unknown / unrecorded** | SVA — estimate surrogate variables and enter them as covariates | [[leek-storey-2007-sva]], [[leek-2010]], [[sva]] |
+| Batch unknown; data are **counts** | `svaseq()` (= sva + `log(dat + constant)`, `constant = 1`) | [[sva]], [[rnaseqgene]] |
+| Batch unknown; RUV route | `RUVg()` with empirical control genes | [[rnaseqgene]] |
+| Droplet scRNA-seq, donors would each occupy their own run | **Pool donors into one run and demultiplex on natural genetic variation** (demuxlet) | [[kang-2018-demuxlet]] |
 
 Three constraints that bind every choice:
 
-1. **Adjust only when batch effects are present and harmful.** `[[zhang-2020-combat-seq]]`, verbatim:
+1. **Adjust only when batch effects are present and harmful.** [[zhang-2020-combat-seq]], verbatim:
    "batch effects should only be adjusted when they are present and result in unfavorable impact on
    downstream analysis. Such observations emphasize the importance for careful diagnosis of batch effect
    before applying any transformation to the data."
-2. **Estimated factors enter the MODEL, not the DATA.** `[[leek-storey-2007-sva]]` uses SVs only as
-   covariates with gene-specific coefficients; `[[sva]]` puts them in **both** the full and null model
+2. **Estimated factors enter the MODEL, not the DATA.** [[leek-storey-2007-sva]] uses SVs only as
+   covariates with gene-specific coefficients; [[sva]] puts them in **both** the full and null model
    matrices (`modSv = cbind(mod, svobj$sv)`, `mod0Sv = cbind(mod0, svobj$sv)`) and, in limma, in the
-   design but *not* the contrasts; `[[rnaseqgene]]` reassigns the design
+   design but *not* the contrasts; [[rnaseqgene]] reassigns the design
    (`design(ddssva) <- ~ SV1 + SV2 + dex`) and never produces a cleaned matrix.
 3. **Never build Nygaard's three-legged failure**: an unbalanced group–batch design **+** a batch
    adjustment that preserves group differences **+** a downstream analysis that ignores batch. All three
-   legs are required; remove any one and the problem disappears (`[[nygaard-2016]]`).
+   legs are required; remove any one and the problem disappears ([[nygaard-2016]]).
 
 Method-specific hazards to honour at selection time:
 
-- **ComBat-seq when the batch effect is mean-only.** `[[zhang-2020-combat-seq]]`'s own simulations: with
+- **ComBat-seq when the batch effect is mean-only.** [[zhang-2020-combat-seq]]'s own simulations: with
   no true dispersion difference across batches, ComBat-seq and ComBat-on-logCPM both show **FPR
   0.059–0.067** (all other methods hold FPR < 0.05) with no gain in power. Their prescription: use the
   simpler batch-as-covariate approach.
 - **Gaussian adjustment on counts** produces negative values and manufactures significance — their
   worked example: an artificial significant difference between the two batches' *control* samples,
   **P = 0.0033**.
-- **SVA is the wrong tool when the latent structure IS the biology.** `[[sva]]` §10, verbatim: "If the
+- **SVA is the wrong tool when the latent structure IS the biology.** [[sva]] §10, verbatim: "If the
   goal of the analysis is to identify heterogeneity in one or more subgroups, the sva function may not
   be appropriate… one or more of the estimated surrogate variables may be very highly correlated with
   subgroup."
 - **demuxlet has a hard input**: external DNA-derived genotypes (array, imputed, or sequence-derived)
-  for **every** pooled donor. `[[kang-2018-demuxlet]]` describes **no genotype-free mode**.
+  for **every** pooled donor. [[kang-2018-demuxlet]] describes **no genotype-free mode**.
 
-> **[re-check] — `[[kang-2018-demuxlet]]` is under a published Author Correction we could not read.**
+> **[re-check] — [[kang-2018-demuxlet]] is under a published Author Correction we could not read.**
 > Nat Biotechnol 38(11):1356 (DOI 10.1038/s41587-020-0715-9) is paywalled; it is **unverified** whether
 > it touches the 50-SNPs/cell operating point, the 97%/92% accuracies, or the ≤64-donor pool bound.
 > **No number from this source may be used load-bearing until the correction is read.** Any of them
@@ -324,7 +324,7 @@ Method-specific hazards to honour at selection time:
 > result (unrelated donors, 1000-Genomes genotypes swapped onto a real pileup); the real-data claim is
 > narrower — >99% of singlets at **8** pooled donors.
 
-[GAP: `[[kang-2018-demuxlet]]` gives **no decision rule** for choosing between genotype-based and
+[GAP: [[kang-2018-demuxlet]] gives **no decision rule** for choosing between genotype-based and
 hashtag/antibody-barcode demultiplexing, and runs no head-to-head comparison. If genotypes do not exist,
 this Mold has no sourced alternative.]
 
@@ -352,10 +352,10 @@ Defaults that must be stated, not assumed: `max_iter = 1e4`; `acceptance_func = 
 > **Do not call `optimize_multi_plate_design()` on a container not named `bc`.** In 0.5.0 the function
 > binds `batch_container` but its body reads a free variable `bc`, so it will either error with
 > `object 'bc' not found` or **silently optimize whatever global `bc` exists**, ignoring the container
-> you passed (`[[designit]]` §9G1, read off the shipped source).
+> you passed ([[designit]] §9G1, read off the shipped source).
 
 **Allocation — OSAT 1.60.0** (Bioconductor 3.23, commit `06a9e90`, 2026-04-28; Artistic-2.0) —
-signatures from `[[osat]]` (the pinned package), **not** from the 2012 paper:
+signatures from [[osat]] (the pinned package), **not** from the 2012 paper:
 ```r
 setup.sample(x, optimal, strata)                                # strata OPTIONAL — silently defaults to optimal[1]
 setup.container(plate, n, batch = "plates", exclude = NULL)     # "plates" | "chips"
@@ -383,13 +383,13 @@ Objective: `V = Σ_il (n_il − E*_il)²` — literally `optValue[i] <- sum((oCo
 > blocks on **`SampleType` only**, contrary to the vignette's own narrative. **Pass `strata` explicitly.**
 >
 > **`setup.container(exclude=)` appears to be dropped** — the inner `gContainer()` call hard-codes
-> `exclude = NULL` (`[[osat]]`, `[summarizer-inferred]`, flagged for live verification). Use the
+> `exclude = NULL` ([[osat]], `[summarizer-inferred]`, flagged for live verification). Use the
 > `exclude<-` replacement method and **verify** by printing the container (`There are N wells excluded.`).
 > Do not assume reserved QC wells were honoured.
 
-[GAP: `[[osat]]` states **no tie-breaking rule**. `nSim` is a **budget, not a stopping rule** — there is
+[GAP: [[osat]] states **no tie-breaking rule**. `nSim` is a **budget, not a stopping rule** — there is
 no convergence criterion (the package's own admission is `%`-commented out of the vignette source and
-never reaches a reader). `[[designit]]` stores `seed`/`rng_kind` in `bc$trace` but **no source shows a
+never reaches a reader). [[designit]] stores `seed`/`rng_kind` in `bc$trace` but **no source shows a
 restore recipe** — seeding + recording is the ceiling.]
 
 **Adjustment / estimation — sva 3.60.0, Bioconductor 3.23** (`RELEASE_3_23`, commit `87a4798`):
@@ -406,13 +406,13 @@ ComBat_seq(counts, batch, group = NULL, covar_mod = NULL, full_mod = TRUE,
 - **State which `num.sv` estimator you used.** The documented default is `"be"` (Buja–Eyuboglu
   permutation, `B = 20`), but **every worked example in both the vignette and the reference manual passes
   `method="leek"`** — and `sva()`'s internal auto-estimate (`n.sv = NULL`) uses `numSVmethod = "be"`. The
-  two documented paths to `n.sv` do not use the same estimator (`[[sva]]`).
+  two documented paths to `n.sv` do not use the same estimator ([[sva]]).
 - **`ComBat` takes only one batch variable.** Its input is "assumed to be cleaned and normalized before
   batch effect removal." `ComBat_seq` takes a **raw count matrix** and returns integer counts.
 - **`ComBat_seq(group = NULL)` silently fits the null model** — console detector:
   `Using null model in ComBat-seq.` The biological condition is *not* protected unless you pass it.
 
-**Estimate → design handoff — the only recovered worked code** (`[[rnaseqgene]]`, rnaseqGene 1.36.0 /
+**Estimate → design handoff — the only recovered worked code** ([[rnaseqgene]], rnaseqGene 1.36.0 /
 Bioc 3.23; DESeq2 1.52.0, sva 3.60.0, RUVSeq 1.46.0):
 ```r
 dat  <- counts(dds, normalized = TRUE); dat <- dat[rowMeans(dat) > 1, ]
@@ -426,19 +426,19 @@ design(ddssva) <- ~ SV1 + SV2 + dex
 Diagnostic in the same source: `stripchart(svseq$sv[, i] ~ dds$cell, ...)` — do the estimated factors
 track a real source of variation?
 
-[GAP: `[[rnaseqgene]]` states **no numeric criterion** for "the SVs are picking up something real," and
-**no rule for how many SVs to keep** (`n.sv = 2` and `k = 2` are simply chosen). `[[sva]]` gives no cap
-relative to sample size and no degrees-of-freedom warning. `[[leek-storey-2007-sva]]` leaves α and B
-entirely to the user and reports no value for either in its own analyses. `[[deseq2]]` is completely
+[GAP: [[rnaseqgene]] states **no numeric criterion** for "the SVs are picking up something real," and
+**no rule for how many SVs to keep** (`n.sv = 2` and `k = 2` are simply chosen). [[sva]] gives no cap
+relative to sample size and no degrees-of-freedom warning. [[leek-storey-2007-sva]] leaves α and B
+entirely to the user and reports no value for either in its own analyses. [[deseq2]] is completely
 silent on the number of SVs. **The number of surrogate variables is unsourced.**]
 
-[GAP: **no source gives a rule for choosing `"be"` vs `"leek"`.** `[[sva]]`'s man page points to a
-"details section" that does not exist; `[[leek-2011-asymptotic-csvd]]` states no criterion for preferring
+[GAP: **no source gives a rule for choosing `"be"` vs `"leek"`.** [[sva]]'s man page points to a
+"details section" that does not exist; [[leek-2011-asymptotic-csvd]] states no criterion for preferring
 one estimator over the other. **The package contradicts itself** — `num.sv()` documents `"be"` as the
 default, every worked example passes `"leek"`, and `sva()`'s internal auto-estimate uses `"be"`. Any rule
 stated here would be invention. **Always pass `method =` explicitly and report which you used.**
 Recovered mechanics (so the choice is at least *informed*, not blind):
-- **`"leek"`** = `[[leek-2011-asymptotic-csvd]]`'s asymptotic estimator, `r̂ = Σ_k 1{λ_k(W_m) ≥ c_m}`,
+- **`"leek"`** = [[leek-2011-asymptotic-csvd]]'s asymptotic estimator, `r̂ = Σ_k 1{λ_k(W_m) ≥ c_m}`,
   `c_m = a·m^(−η)`. **It is NOT a permutation test — it performs zero permutations, produces no
   p-values, and is deterministic** (so it needs no seed).
 - **`"be"`** = Buja–Eyuboglu row-permutation, `B = 20`, **stochastic ⇒ seed it or it is not reproducible.**]
@@ -448,14 +448,14 @@ Recovered mechanics (so the choice is at least *informed*, not blind):
 1. **designit `optimize_design()`** — the initial assignment and every pairwise swap draw from R's RNG.
    `set.seed()` **before** the first call. Report `bc$trace$seed`, `bc$trace$rng_kind`, `bc$trace$call`.
 2. **OSAT `create.optimized.setup()` / `optimal.shuffle()` / `optimal.block()`** — block randomization
-   *and* the swap loop are random. `[[osat]]` does it explicitly: `set.seed(123)  # to create reproducible result`.
+   *and* the swap loop are random. [[osat]] does it explicitly: `set.seed(123)  # to create reproducible result`.
    Report the seed **and `nSim`**.
 3. **`num.sv(method = "be")`** — permutation-based (`B = 20`), takes `seed = NULL`; **an unseeded `be`
    run is not reproducible.** `sva()`/`svaseq()` have **no `seed` formal at all**, and when `n.sv = NULL`
    they auto-estimate via `"be"` — so either seed the calling environment **or** pass `n.sv` explicitly
-   (as `[[rnaseqgene]]` does: `n.sv = 2`) and take the stochastic estimator out of the path entirely.
+   (as [[rnaseqgene]] does: `n.sv = 2`) and take the stochastic estimator out of the path entirely.
 
-[GAP: `[[sva]]` contradicts itself on whether `ComBat`'s `mod` should contain the variable of interest —
+[GAP: [[sva]] contradicts itself on whether `ComBat`'s `mod` should contain the variable of interest —
 prose says yes, the code passes `~1`, the man-page examples do both. **Unresolved by the source.**]
 
 ## Provenance block — emit this with every run
@@ -464,7 +464,7 @@ The tools ship run-level provenance; **nothing in the corpus supplies a lockfile
 that remains **convention**: label it, do not cite it.
 
 **Environment**
-- `sessionInfo()` in full (`[[rnaseqgene]]` prints exactly this — the ceiling of what is recoverable).
+- `sessionInfo()` in full ([[rnaseqgene]] prints exactly this — the ceiling of what is recoverable).
 - The Phase-0 `packageVersion(...) == pin` assertions and their results.
 - **The install route actually taken** (BiocManager 3.23 / bioconda / r-universe / CRAN) — the routes
   deliver *different versions*, so the route is part of the claim.
@@ -489,14 +489,14 @@ designit `bc$trace$seed` + `rng_kind`; OSAT `gSetup@metadata$optimalFunction` an
 **Artifact traceability** — the declared input container/sample set, and proof the returned assignment
 derives from it (see the `optimize_multi_plate_design` free-variable bug).
 
-**Testing runs on raw counts.** `[[deseq2]]`, `[[msmb-chap8]]`: the model corrects for library size
+**Testing runs on raw counts.** [[deseq2]], [[msmb-chap8]]: the model corrects for library size
 internally; transformed or pre-normalized values must not be supplied. `vst`/`rlog` are for
 visualization/clustering, not testing — and they **do not remove** batch variation (the design is not used
 to remove variation), which is why batches survive into a post-VST PCA.
 
 ### A corrected matrix is a *plot*, not a test input — and here is the one source that SAYS so
 
-`[[limma]]` 3.68.4, `removeBatchEffect` **Note**, verbatim (GPL-2.0-or-later; quoted with license notice):
+[[limma]] 3.68.4, `removeBatchEffect` **Note**, verbatim (GPL-2.0-or-later; quoted with license notice):
 
 > "This function is intended for plotting and data exploration purposes. This function is not intended
 > to be used to prepare data for linear modeling by lmFit. For linear modeling, it is better to include
@@ -512,10 +512,10 @@ inference/SE argument, **not** a claim of biased coefficients or fold-changes. P
 > to an intercept column — which the docs say implies the experiment is **one group**, i.e. calling
 > `removeBatchEffect(x, batch=b)` with no `design`/`group` **protects nothing** from the correction.
 >
-> [GAP: **the same prohibition for surrogate variables is STILL UNSOURCED.** `[[rnaseqgene]]`,
-> `[[deseq2]]` and `[[sva]]` only *enact* the covariates-in-design route by example; none *asserts* that
-> an SV-residualized matrix must not be tested — and `[[sva]]`'s own §7 runs `f.pvalue()` on a
-> ComBat-corrected matrix **without comment**. `[[nygaard-2016]]` asserts it for ComBat-style adjustment
+> [GAP: **the same prohibition for surrogate variables is STILL UNSOURCED.** [[rnaseqgene]],
+> [[deseq2]] and [[sva]] only *enact* the covariates-in-design route by example; none *asserts* that
+> an SV-residualized matrix must not be tested — and [[sva]]'s own §7 runs `f.pvalue()` on a
+> ComBat-corrected matrix **without comment**. [[nygaard-2016]] asserts it for ComBat-style adjustment
 > on **microarrays** only. A referee may cite limma for `removeBatchEffect`, and Nygaard for ComBat —
 > and must NOT generalize either to SVs.]
 
@@ -532,13 +532,13 @@ inference/SE argument, **not** a claim of biased coefficients or fold-changes. P
 
 Explicitly **not** a certification:
 
-- OSAT's own χ² test of variable-vs-batch dependence. `[[yan-2012-osat]]` demonstrates p > 0.99 but
+- OSAT's own χ² test of variable-vs-batch dependence. [[yan-2012-osat]] demonstrates p > 0.99 but
   **sets no acceptance threshold** on χ², p, or `V`. It is a diagnostic the doer reports; it is not a pass.
 - designit's `check_score_variance` abort (`"Low variance scores detected! Check scores # <i>"`). It
-  detects an *undiscriminating score*, not unachievable balance, and `[[designit]]` offers **no
+  detects an *undiscriminating score*, not unachievable balance, and [[designit]] offers **no
   post-hoc diagnostic that the optimizer failed to balance**, no threshold, and no residual-imbalance
   test.
-- `[[yan-2012-osat]]`, verbatim: "although the impact of batch effect on genomics study might be
+- [[yan-2012-osat]], verbatim: "although the impact of batch effect on genomics study might be
   minimized through proper design and sample allocation, it may not be completely eliminated."
 
 Terminal states are the referee's, not this Mold's: **CERTIFY**, **REVISE**, **ESCALATE**.
