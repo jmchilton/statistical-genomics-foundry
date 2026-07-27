@@ -28,8 +28,8 @@ release it documents — which under a shared enum would have had to be legal on
 
 `pmid`, `pmcid`, `arxiv`, `oa_url` are all optional and all **strings**. An unquoted
 `pmid: 33015620` is an integer to YAML, and an identifier is an opaque label — never
-arithmetic. These four were carried by real notes for months without being declared, which is
-what `.strict()` surfaced: undeclared meant unchecked, and two of them held the wrong type.
+arithmetic. All four are declared, so the string type is checked rather than assumed, and
+`.strict()` rejects any fifth identifier that has not been added here first.
 
 ## The cross-field rule this kind enforces
 

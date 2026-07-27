@@ -1,23 +1,15 @@
-// The frontmatter contract — authored ONCE and consumed by two callers:
+// The frontmatter contract — ONE zod encoding, consumed by two callers:
 //   1. the Astro site (`content.config.ts`) — validates real content at build time;
 //   2. the standalone validator (`tests/`) — negative fixtures + corpus conformance.
-// The parent Foundry kept two encodings (an ajv `meta_schema.yml` and a hand-written site zod
-// schema) and they drifted (issue #89). We adapt: one zod encoding, no mirror.
+// One encoding is the point: two would drift, and each caller would enforce a different thing.
 //
-// This module is now only the ASSEMBLER. Each note kind is defined — and documented, and
-// exemplified — in its own directory under src/types/; see src/types/index.ts for the
-// enumeration and src/types/context.ts for the shared envelope every kind spreads.
+// This module is the ASSEMBLER, and only the assembler. Each note kind is defined — and
+// documented, and exemplified — in its own directory under src/types/; see src/types/index.ts
+// for the enumeration and src/types/context.ts for the shared envelope every kind spreads.
 // (Shared contract: galaxyproject/foundry-pattern#13, PART 3 of the standing-up checklist.)
 import { z } from 'zod';
 
-import {
-  buildKindContext,
-  DEFINITIONS,
-  KINDS,
-  KINDS_BY_NAME,
-  type KindContext,
-  type KindDefinition,
-} from '../types/index';
+import { buildKindContext, DEFINITIONS, type KindDefinition } from '../types/index';
 
 // Strip the trailing `/index` so entry ids stay clean (`msmb/chap1`, `leek-2010`) rather than
 // `.../index` — keeps URLs and wiki-link basenames unique per note.
@@ -26,13 +18,6 @@ export const stripIndex = ({ entry }: { entry: string }) =>
 
 const ctx = buildKindContext();
 
-/**
- * Assemble one kind into the schema its collection validates with.
- *
- * `build` returns the bare object so the manifest generator can walk its `.shape`; the two
- * optional slots are applied here. Order matters: `refine` sees the note's own fields,
- * `transform` may add fields (a book chapter merging book.yml) and raise issues of its own.
- */
 /**
  * A kind's assembled schema: parses this kind's frontmatter, yields its assembled output.
  *
@@ -47,17 +32,18 @@ type Assembled<T extends z.ZodRawShape, O> = z.ZodType<
   z.input<z.ZodObject<T, 'strict'>>
 >;
 
-function assemble<T extends z.ZodRawShape, O>(
-  definition: KindDefinition<T, O>,
-): Assembled<T, O> {
+/**
+ * Assemble one kind into the schema its collection validates with.
+ *
+ * `build` returns the bare object so the manifest generator can walk its `.shape`; the two
+ * optional slots are applied here. Order matters: `refine` sees the note's own fields,
+ * `transform` may add fields (a book chapter merging book.yml) and raise issues of its own.
+ */
+function assemble<T extends z.ZodRawShape, O>(definition: KindDefinition<T, O>): Assembled<T, O> {
   const object = definition.build(ctx);
   const { refine, transform } = definition;
-  const refined = refine
-    ? object.superRefine((d, issues) => refine(d, issues, ctx as KindContext))
-    : object;
-  const final = transform
-    ? refined.transform((d, issues) => transform(d, issues, ctx as KindContext))
-    : refined;
+  const refined = refine ? object.superRefine((d, issues) => refine(d, issues, ctx)) : object;
+  const final = transform ? refined.transform((d, issues) => transform(d, issues, ctx)) : refined;
   return final as Assembled<T, O>;
 }
 
@@ -105,7 +91,3 @@ export const COLLECTIONS = {
   patterns: { base: '../content/patterns', kind: 'pattern', schema: NOTE_KINDS.pattern },
   experiments: { base: '../content/research/experiments', kind: 'mold', schema: NOTE_KINDS.mold },
 } as const satisfies Record<string, { base: string; kind: NoteKind; schema: unknown }>;
-
-export { KINDS, KINDS_BY_NAME, buildKindContext };
-export type { KindDefinition };
-export type { z };

@@ -28,7 +28,7 @@ function loadBookMeta(source: string): Record<string, unknown> {
 export const kind = defineKind({
   kind: 'book',
   title: 'Book Chapter',
-  origin: 'instance',
+  layer: 'instance',
   summary:
     'An own-words summary of one chapter of an external textbook, merged with the book-level licence record it belongs to.',
 

@@ -6,7 +6,7 @@
 // documentation executable — an example that stopped validating is a kind whose docs lie.
 //
 // Shared contract: galaxyproject/foundry-pattern#13 (PART 3 + PART 4 of the standing-up
-// checklist). The parent Foundry runs the equivalent test over its own nine kinds.
+// checklist).
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,7 +16,7 @@ import { describe, it, expect } from 'vitest';
 import type { z } from 'zod';
 
 import { NOTE_KINDS, type NoteKind } from '../src/lib/frontmatter-schema';
-import { KINDS } from '../src/types/index';
+import { buildKindContext, KINDS } from '../src/types/index';
 
 const TYPES_DIR = path.resolve('src/types');
 
@@ -65,6 +65,21 @@ describe('types/ kind directories', () => {
       it('declares a summary the catalog can render', () => {
         expect(definition.summary.length).toBeGreaterThan(20);
         expect(definition.title.length).toBeGreaterThan(0);
+      });
+
+      it('declares which layer it belongs to', () => {
+        expect(['substrate', 'instance']).toContain(definition.layer);
+      });
+
+      it('carries the base envelope', () => {
+        // Every kind spreads `base`, so every kind has every envelope field. A kind that
+        // spreads only a field GROUP (sourceNoteFields) and skips `base` would pass today
+        // and silently miss the next field added to the envelope.
+        const ctx = buildKindContext();
+        const shape = Object.keys(definition.build(ctx).shape);
+        for (const field of Object.keys(ctx.base)) {
+          expect(shape).toContain(field);
+        }
       });
 
       it('example.md declares this kind and validates against it', () => {

@@ -24,10 +24,11 @@ bears frontmatter — `eval.md`, `scenarios.md`, `usage.md`, and `refinement.md`
   `evidence` from `reference_contract.yml`. Three rules the schema enforces: `load: on-demand`
   requires a `trigger`, `evidence: hypothesis` requires a `verification`, and the whole entry
   is `.strict()`.
-- **`recheck`** on a reference — a standing flag that the cited source has an unresolved
-  question hanging over it (an unretrieved Author Correction, a paywalled erratum) and that
-  nothing from it may be used load-bearing until that is settled. This field has no analog in
-  the parent, and it is the honest record of a source we could not fully verify.
+  - **`recheck`** — a key *inside* a `references[]` entry, not a Mold-level field. A standing
+    flag that the cited source has an unresolved question hanging over it (an unretrieved
+    Author Correction, a paywalled erratum) and that nothing from it may be used load-bearing
+    until that is settled. This key has no analog in the parent, and it is the honest record of
+    a source we could not fully verify.
 
 ## Experiment artifacts
 

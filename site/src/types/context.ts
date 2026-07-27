@@ -30,9 +30,9 @@ import { isValidTag } from '../lib/meta-tags';
  *
  * Generic over its shape `T` and its assembled output `O`, and that is not decoration: a
  * definition annotated `: KindDefinition` widens both, and the erasure travels all the way to
- * the Astro pages as `entry.data` of type `unknown`. Kinds go through `defineKind` so both are
- * INFERRED. (Learned the expensive way — the widened version produced 100 `astro check`
- * errors across every page that touched a collection.)
+ * the Astro pages as `entry.data` of type `unknown` — one widened annotation here costs
+ * ~100 `astro check` errors on pages that never mention this file. Kinds go through
+ * `defineKind` so both stay INFERRED.
  */
 export interface KindDefinition<
   T extends z.ZodRawShape = z.ZodRawShape,
@@ -43,8 +43,12 @@ export interface KindDefinition<
   /** Display name for the kind catalog. */
   title: string;
   /** `substrate` = a kind the Foundry pattern's other instances also declare;
-   *  `instance` = one this domain added. The cross-instance catalog groups by this. */
-  origin: 'substrate' | 'instance';
+   *  `instance` = one this domain added. The cross-instance catalog groups by this.
+   *
+   *  Named `layer`, not `origin`: a kind is free to declare a frontmatter field called
+   *  `origin`, and one manifest carrying both meanings under one word is a trap for anything
+   *  reading across instances. */
+  layer: 'substrate' | 'instance';
   /** One line: what a note of this kind IS. Rendered in the catalog. */
   summary: string;
   /** The strict object this kind validates. Its `.shape` is what the manifest generator
@@ -166,7 +170,6 @@ const sourceNoteFields = {
   // alone (e.g. an "Author's Choice" CC-BY notice on an otherwise subscription journal).
   // Evidence for the `license` id above, not a substitute for it.
   license_statement: z.string().optional(),
-  tags: tagsArray,
 };
 
 /**
@@ -183,7 +186,8 @@ export interface KindContext {
   licenseId: typeof licenseId;
   /** One entry of a Mold's typed reference manifest. */
   reference: typeof reference;
-  /** The provenance/licence block every SOURCE note carries (paper, tutorial). */
+  /** The provenance/licence block every SOURCE note carries (paper, tutorial). Spread it
+   *  ALONGSIDE `base`, not instead of it — it holds no envelope fields of its own. */
   sourceNoteFields: typeof sourceNoteFields;
   /** License coherence, shared by every kind that redistributes someone else's text. */
   licenseCoherence: typeof licenseCoherence;

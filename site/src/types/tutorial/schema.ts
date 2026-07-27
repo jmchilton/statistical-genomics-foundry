@@ -6,7 +6,7 @@ import type { KindContext } from '../context';
 export const kind = defineKind({
   kind: 'tutorial',
   title: 'Tutorial',
-  origin: 'instance',
+  layer: 'instance',
   summary:
     'A faithful summary of one package vignette or tutorial, pinned to the release it documents.',
 
@@ -21,6 +21,7 @@ export const kind = defineKind({
         bioconductor_release: z.string().optional(),
         // Quoted, like `access_date`: bare `2024-03-21` is a Date to YAML, not a string.
         published: z.string().optional(),
+        ...ctx.base,
       })
       .strict(),
 

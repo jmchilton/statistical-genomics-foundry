@@ -23,8 +23,8 @@ stating it once is the point of the shared `sourceNoteFields` in `types/context.
 - **`published`** — a **string**, quoted. Bare `2024-03-21` is a `Date` to YAML, not a string;
   a fixture asserts that a `Date` here is rejected.
 
-All three were carried by real notes before they were declared. `.strict()` is what surfaced
-them, and `published` was one of the two that held the wrong type as a result.
+All three are declared, so their types are checked rather than assumed, and `.strict()` rejects
+any further tutorial-specific key that has not been added here first.
 
 ## The cross-field rule this kind enforces
 
