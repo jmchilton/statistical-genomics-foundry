@@ -8,8 +8,11 @@ up incrementally via issue #89 (the validation step-ladder): the `site/` Astro a
 frontmatter contract (a directory per note kind under `site/src/types/`, assembled by
 `site/src/lib/frontmatter-schema.ts` and consumed by `site/src/content.config.ts`), a
 validator (`npm test` / `npm run validate` in `site/`), and the root vocab registries
-(`meta_tags.yml`, `reference_contract.yml`). The license → redistribution-policy table is no
-longer a root file — it is **installed** from `@galaxy-foundry/license-policy`. There is still **no
+(`meta_tags.yml`, `reference_contract.yml`). Parts of those registries are now **installed**
+rather than kept as root files: the license → redistribution-policy table comes from
+`@galaxy-foundry/license-policy`, and the reference contract's domain-neutral half —
+`used_at`, `load`, `modes`, `evidence` — from `@galaxy-foundry/reference-contract`. What
+stays in `reference_contract.yml` is `kinds`, the one part that varies by domain. There is still **no
 `packages/`, `casts/`, or fixture tooling** — deliberately deferred
 (see `README.md` "Status & next steps" and "Deferred to repo standup" below). Everything else
 — `docs/`, `content/research/`, `positioning.md` — is authoring, not engineering.

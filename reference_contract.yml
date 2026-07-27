@@ -1,46 +1,28 @@
-# Typed-reference vocabulary for a Mold's `references[]` manifest.
+# The reference kinds this Foundry authors — the `kind:` of an entry in a Mold's
+# `references[]` manifest.
 #
-# Adapted from the parent Galaxy Workflow Foundry's reference_contract.yml
-# (inherit / adapt / demote / add — the diff is the evidence):
-#   inherit: used_at, load, evidence vocabularies unchanged.
-#   adapt:   `kinds` trimmed to what this instance actually authors — corpus-first,
-#            so this list is exactly the three kinds real Molds reference today.
-#            `modes` trimmed the same way, and for a sharper reason: see below.
-#   drop:    parent's `cli-tool` (no tool-install refs authored here); `schema`
-#            (our outputs are prose-shaped critiques/protocols, not structured
-#            artifacts — glossary "Schema (Mold IO)", ARCHITECTURE §3); `prompt`
-#            and `example` (inherited, never authored against); and `eval` — the
-#            abstract oracle is real (glossary "Evaluation plan") but it lives in
-#            an `eval.md` sibling, and no Mold has needed it as a manifest entry.
+# Only `kinds` lives here. The other four vocabularies a reference entry names —
+# `used_at`, `load`, `modes`, `evidence` — describe the compilation machinery rather
+# than any domain, so they are the same in every Foundry and ship as data in
+# @galaxy-foundry/reference-contract. site/src/lib/reference-contract.ts composes the
+# two halves, and is where the one inherited term this instance declines is recorded.
 #
-# Re-adding any of these is a deliberate one-line edit made when a Mold first
-# needs it — registering vocabulary ahead of content is what the drift check in
+# `kinds` stays here because it is the half that genuinely varies: the parent Galaxy
+# Workflow Foundry authors `cli-tool` and `schema` refs and we author neither, so
+# inheriting its list would leave us declaring vocabulary no Mold uses.
+#
+# Trimmed from the parent's seven, corpus-first — this is exactly the kinds real Molds
+# reference today:
+#   drop: `cli-tool` (no tool-install refs authored here); `schema` (our outputs are
+#         prose-shaped critiques/protocols, not structured artifacts — glossary
+#         "Schema (Mold IO)", ARCHITECTURE §3); `prompt` and `example` (inherited,
+#         never authored against); and `eval` — the abstract oracle is real (glossary
+#         "Evaluation plan") but it lives in an `eval.md` sibling, and no Mold has
+#         needed it as a manifest entry.
+#
+# Re-adding any of these is a deliberate one-line edit made when a Mold first needs
+# it — registering vocabulary ahead of content is what the drift check in
 # site/tests/registry-drift.test.ts exists to catch.
-#
-# The `modes` here are the casting transforms.
-#
-# `condense` is deliberately ABSENT. It is not description, it is capacity: it
-# commits this Foundry to an LLM phase in its caster, and with it the unfilled-slot
-# bookkeeping, the prompt/model provenance a reproducible cast needs, and the loss
-# of byte-stable output that makes a `--check` gate possible at all. We have no
-# caster yet, so that capacity has earned nothing.
-#
-# The corpus agreed before this was written: every `condense` ref here was
-# `load: on-demand` — progressive disclosure, not condensation, was already doing
-# the size work — and the parent Foundry, which DID build the LLM phase, has since
-# gone to zero condense refs of its own ("the prior condense was always a verbatim
-# passthrough, so the cast is fully deterministic").
-#
-# Re-add it the day a Mold genuinely needs an LLM pass, and build the phase then.
-#
-# Note that `mode` does NOT answer "may this text be redistributed" — that is a
-# question about the SOURCE, decided at ingestion and recorded in a note's
-# `derived:` posture. A note that is our own-words summary is our prose, and casting
-# it verbatim redistributes our words, not the paper's. license-policy.yml governs
-# third-party pass-through content only, and says so in its own `global_rules`
-# (`foundry_content_out_of_scope`).
-
-version: 1
 
 kinds:
   pattern:
@@ -55,41 +37,3 @@ kinds:
     label: CLI Command
     description: Command reference. Usually cast to a sidecar and loaded only when invoked.
     ref_shape: wiki-link
-
-used_at:
-  cast-time:
-    label: Cast Time
-    description: Used while building the cast artifact.
-  runtime:
-    label: Runtime
-    description: Consulted by the generated skill while doing work.
-  both:
-    label: Both
-    description: Used during casting and available to the generated skill at runtime.
-
-load:
-  upfront:
-    label: Upfront
-    description: Loaded with the generated skill's initial context or main instructions.
-  on-demand:
-    label: On Demand
-    description: Loaded only when the reference trigger applies. Requires a `trigger`.
-
-modes:
-  verbatim:
-    label: Verbatim
-    description: Copied without LLM rewrite. License must permit verbatim carry.
-  sidecar:
-    label: Sidecar
-    description: Transformed into a structured runtime artifact beside the generated skill.
-
-evidence:
-  hypothesis:
-    label: Hypothesis
-    description: Added because it seems useful; not yet proven by a real cast run. Requires a `verification`.
-  corpus-observed:
-    label: Corpus Observed
-    description: Grounded in survey or research over real sources, upstream, or runtime behavior.
-  cast-validated:
-    label: Cast Validated
-    description: A generated skill used this reference successfully on real data.

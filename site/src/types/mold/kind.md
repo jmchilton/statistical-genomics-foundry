@@ -20,8 +20,9 @@ bears frontmatter — `eval.md`, `scenarios.md`, `usage.md`, and `refinement.md`
 
 ## Optional fields
 
-- **`references`** — the typed manifest. Each entry draws `kind` / `used_at` / `load` / `mode` /
-  `evidence` from `reference_contract.yml`. Three rules the schema enforces: `load: on-demand`
+- **`references`** — the typed manifest. Each entry draws `kind` from `reference_contract.yml`,
+  and `used_at` / `load` / `mode` / `evidence` from the installed
+  `@galaxy-foundry/reference-contract`. Three rules the schema enforces: `load: on-demand`
   requires a `trigger`, `evidence: hypothesis` requires a `verification`, and the whole entry
   is `.strict()`.
   - **`recheck`** — a key *inside* a `references[]` entry, not a Mold-level field. A standing

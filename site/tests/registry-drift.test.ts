@@ -4,7 +4,7 @@ import yaml from 'js-yaml';
 import { describe, it, expect } from 'vitest';
 import { COLLECTIONS, NOTE_KINDS, type NoteKind } from '../src/lib/frontmatter-schema';
 import { facets, facetOf } from '../src/lib/meta-tags';
-import { referenceKinds } from '../src/lib/reference-contract';
+import { NARROWED_GROUPS, referenceKinds, referenceModes } from '../src/lib/reference-contract';
 
 // The registries and the corpus must agree BOTH ways.
 //
@@ -14,10 +14,14 @@ import { referenceKinds } from '../src/lib/reference-contract';
 // by hand, which is exactly the manual pass this check exists to retire
 // (galaxyproject/foundry-pattern#12).
 //
-// Scope is deliberate: only the per-instance vocabularies. The inherited registries
-// (the installed @galaxy-foundry/license-policy table, and reference_contract.yml's
-// used_at/load/modes/evidence) arrive complete and carry rows this corpus does not use yet — unused
-// entries there are inheritance, not drift, and asserting on them would cry wolf.
+// Scope is deliberate: only the vocabularies this instance authors. A registry we inherit
+// whole — the installed @galaxy-foundry/license-policy table, and the reference contract's
+// used_at/load/evidence — arrives complete and carries rows this corpus does not use yet.
+// Unused entries there are inheritance, not drift, and asserting on them would cry wolf.
+//
+// NARROWING moves a group across that line. `modes` is inherited but declined down to what
+// our caster will support, and a term we chose to keep is a term we authored — so it owes
+// the same account of itself that `kinds` does.
 
 function walkIndexFiles(baseAbs: string): string[] {
   if (!fs.existsSync(baseAbs)) return [];
@@ -58,15 +62,19 @@ const tagsInUse = new Set(
 // are a reference_contract.yml vocabulary. Both are called "kind"; only these name a note.
 const noteKindsInUse = new Set(notes.map(n => n.type).filter((t): t is string => typeof t === 'string'));
 
-const referenceKindsInUse = new Set(
-  notes.flatMap(n =>
-    Array.isArray(n.references)
-      ? n.references
-          .map(r => (r && typeof r === 'object' ? (r as { kind?: unknown }).kind : undefined))
-          .filter((k): k is string => typeof k === 'string')
-      : [],
-  ),
-);
+const refField = (field: 'kind' | 'mode') =>
+  new Set(
+    notes.flatMap(n =>
+      Array.isArray(n.references)
+        ? n.references
+            .map(r => (r && typeof r === 'object' ? (r as Record<string, unknown>)[field] : undefined))
+            .filter((k): k is string => typeof k === 'string')
+        : [],
+    ),
+  );
+
+const referenceKindsInUse = refField('kind');
+const referenceModesInUse = refField('mode');
 
 const registeredTags = () =>
   Object.values(
@@ -85,6 +93,7 @@ describe('registry drift (authored vocabulary vs corpus)', () => {
     expect(tagsInUse.size).toBeGreaterThan(0);
     expect(noteKindsInUse.size).toBeGreaterThan(0);
     expect(referenceKindsInUse.size).toBeGreaterThan(0);
+    expect(referenceModesInUse.size).toBeGreaterThan(0);
   });
 
   it('has no registered tag carried by zero notes', () => {
@@ -107,6 +116,21 @@ describe('registry drift (authored vocabulary vs corpus)', () => {
   it('has no reference kind used by zero notes', () => {
     const dead = referenceKinds().filter(k => !referenceKindsInUse.has(k));
     expect(dead, `\nreference kinds registered but unused: ${dead.join(', ')}`).toEqual([]);
+  });
+
+  // The narrowed half of `modes`. Keeping a mode we decline to build is the same mistake as
+  // registering a kind no Mold references — it advertises a caster capability that does not
+  // exist, which is what dropping `condense` was about in the first place.
+  it('has no supported reference mode used by zero notes', () => {
+    const dead = referenceModes().filter(m => !referenceModesInUse.has(m));
+    expect(dead, `\nreference modes registered but unused: ${dead.join(', ')}`).toEqual([]);
+  });
+
+  // Guards the two checks above against the drift they exist to catch. Narrowing a third
+  // group later is a one-line edit in reference-contract.ts; without this, that group would
+  // silently go unchecked and the omission would look exactly like a decision.
+  it('drift-checks every group this instance narrows', () => {
+    expect([...NARROWED_GROUPS].sort()).toEqual(['kinds', 'modes']);
   });
 
   // The same both-ways rule applied to the note kinds. A kind defined in NOTE_KINDS but

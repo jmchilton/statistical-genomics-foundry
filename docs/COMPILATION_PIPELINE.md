@@ -4,7 +4,7 @@
 
 ## What casting is (inherited)
 
-Casting takes a Mold (typed reference manifest + procedural body) and its declared references, and produces a target-specific, **isolated** cast artifact — no links back, no runtime dependency on the source. The generated skill body is a **deterministic** render of the Mold body + artifacts + resolved references. The parent's pipeline additionally allows `mode: condense` references to be LLM-produced; **this Foundry does not implement that phase** — see `reference_contract.yml` for why, and expect every carry here to be deterministic. If a cast looks under-instructed, improve the Mold body or referenced notes and re-cast — never hand-edit generated `SKILL.md`.
+Casting takes a Mold (typed reference manifest + procedural body) and its declared references, and produces a target-specific, **isolated** cast artifact — no links back, no runtime dependency on the source. The generated skill body is a **deterministic** render of the Mold body + artifacts + resolved references. The parent's pipeline additionally allows `mode: condense` references to be LLM-produced; **this Foundry does not implement that phase** — `condense` is narrowed out of the inherited `modes` vocabulary in `site/src/lib/reference-contract.ts`, which records why; expect every carry here to be deterministic. If a cast looks under-instructed, improve the Mold body or referenced notes and re-cast — never hand-edit generated `SKILL.md`.
 
 Casting is **per-kind dispatch**, not one resolve-and-inline pass:
 

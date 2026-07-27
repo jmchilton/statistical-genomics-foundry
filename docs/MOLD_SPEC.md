@@ -54,7 +54,7 @@ references:
     purpose: "Ground the double-dipping audit in the established remedy (countsplit)."
 ```
 
-Required fields unchanged: `kind`, `ref`, `used_at`, `load` (`on-demand` requires `trigger`), `mode` (`verbatim | sidecar` — `condense` is not implemented here; see `reference_contract.yml`), `evidence` (`hypothesis | corpus-observed | cast-validated`; `hypothesis` requires `verification`). `purpose` strongly recommended.
+Required fields unchanged: `kind`, `ref`, `used_at`, `load` (`on-demand` requires `trigger`), `mode` (`verbatim | sidecar` — `condense` is not implemented here; see `site/src/lib/reference-contract.ts`), `evidence` (`hypothesis | corpus-observed | cast-validated`; `hypothesis` requires `verification`). `purpose` strongly recommended.
 
 **Kind adaptations:**
 - `pattern` — statistical-method patterns *and* invalidity patterns (double-dipping, confounding, naive multiple-testing). High use.
