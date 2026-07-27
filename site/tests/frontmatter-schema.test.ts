@@ -3,7 +3,7 @@ import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import yaml from 'js-yaml';
 import { paperSchema, tutorialSchema, bookSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
-import { buildTagIndex, facetOf, type TagRegistry } from '../src/lib/meta-tags';
+import { facetOf } from '../src/lib/meta-tags';
 
 // Negative-fixtures table: each deliberately-broken frontmatter asserts the SPECIFIC
 // error it must raise, against the same schema the site builds with (issue #89 rung 3).
@@ -130,9 +130,14 @@ const readRegistry = () =>
   };
 
 // EVERY facet is closed, forever: every tag the corpus can carry must have a registry
-// gloss to document and browse by. The loader does not honor `open:`, so a re-added
-// `open: true` would be a SILENT no-op — this asserts the registry never grows one,
-// turning that silent footgun into a failing test.
+// gloss to document and browse by.
+//
+// The gloss half of that is now enforced at load — @galaxy-foundry/tag-registry refuses a
+// registry containing an undocumented tag, so a corpus-wide assertion here would be a
+// second copy of a rule that already cannot be violated. What the package does NOT check
+// is `open:`: it ignores unrecognized facet keys, exactly as both loaders always did. So a
+// re-added `open: true` is still a SILENT no-op, and this is still the only thing standing
+// between that footgun and a green build.
 describe('closed-registry invariant', () => {
   it('declares no open facets in meta_tags.yml', () => {
     const open = Object.entries(readRegistry().facets)
@@ -140,41 +145,13 @@ describe('closed-registry invariant', () => {
       .map(([key]) => key);
     expect(open).toEqual([]);
   });
-
-  it('gives every registered tag a non-empty gloss', () => {
-    const undocumented = Object.values(readRegistry().facets).flatMap(f =>
-      Object.entries(f.values ?? {})
-        .filter(([, gloss]) => !gloss || !String(gloss).trim())
-        .map(([tag]) => tag),
-    );
-    expect(undocumented).toEqual([]);
-  });
 });
 
-// Membership is DECLARED, not parsed off the `/` prefix. Against the real registry a
-// bare tag is indistinguishable from an unregistered one (both invalid), so the shared
-// format's key property is proven here on a synthetic registry instead.
-describe('declared membership (shared registry format)', () => {
-  const synthetic: TagRegistry = {
-    version: 1,
-    facets: {
-      meta: { label: 'Meta', description: 'Foundry-meta notes.', values: { meta: 'A meta note.' } },
-      domain: { label: 'Domain', description: 'Subject area.', values: { 'domain/x': 'An X.' } },
-    },
-  };
-
-  it('resolves a bare key exactly like a slashed one', () => {
-    const index = buildTagIndex(synthetic);
-    expect(index.get('meta')).toEqual({ facet: 'meta', gloss: 'A meta note.' });
-    expect(index.get('domain/x')).toEqual({ facet: 'domain', gloss: 'An X.' });
-  });
-
-  // A tag whose text starts with a facet name but which no facet declares must NOT
-  // validate — otherwise membership would be prefix-parsing wearing a new name.
-  it('does not admit an undeclared tag that merely looks namespaced', () => {
-    expect(buildTagIndex(synthetic).has('domain/unlisted')).toBe(false);
-  });
-
+// Membership is DECLARED, not parsed off the `/` prefix. The format's half of that —
+// bare keys resolve, prefix-lookalikes do not — is proven against synthetic registries in
+// @galaxy-foundry/tag-registry, because neither instance's vocabulary can witness it.
+// What is ours to prove is that OUR registry actually resolves through it.
+describe('declared membership (our vocabulary)', () => {
   it('attributes each real tag to the facet that declared it', () => {
     expect(facetOf('domain/batch-effects')).toBe('domain');
     expect(facetOf('family/b')).toBe('family');
