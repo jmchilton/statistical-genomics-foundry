@@ -26,8 +26,9 @@ collection merges into every chapter — the per-chapter `index.md` frontmatter 
 `license` is a normalized id — an SPDX identifier or a `LicenseRef-<slug>` escape
 hatch — validated by the Astro content schema (`site/src/content.config.ts`). Its
 **redistribution policy** (verbatim-ok vs own-words-only, copyleft, obligations) is
-resolved mechanically from the shared `../license-policy.yml` table
-(source of truth: galaxyproject/foundry-pattern#4), not restated per note. Human
+resolved mechanically from the shared license-policy table, which is **installed, not
+vendored** — `@galaxy-foundry/license-policy` ships the copy both Foundry instances used to
+hand-mirror (the decision behind it: galaxyproject/foundry-pattern#4). Not restated per note. Human
 nuance (preprint-vs-published, dual code/paper licensing, access provenance) lives in
 `attribution`. `license_file` points to a verbatim upstream LICENSE copy in this
 directory; it is required only for verbatim-carry licenses, though own-words notes may

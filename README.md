@@ -41,7 +41,8 @@ content/                    ← the curated knowledge base
                               00-synthesis (a dump — see issue to organize)
 site/                       ← Astro renderer over content/ + docs/ → GitHub Pages
 scripts/                    ← sync-book.sh <id>: deterministic corpus fetch + checksum pin
-LICENSES/, license-policy.yml  ← third-party license copies + redistribution policy
+LICENSES/                   ← third-party license copies (policy table is installed:
+                              @galaxy-foundry/license-policy)
 ```
 
 ## Status & next steps

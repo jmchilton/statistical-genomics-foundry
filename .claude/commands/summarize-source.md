@@ -26,7 +26,9 @@ terms, and framing — do not generalize, round, or "improve" them.
 ## Step 1.5 — license-aware quoting (decide BEFORE writing §7)
 Determine the source's license/copyright posture (look for an explicit license / Creative Commons /
 copyright statement on the page or in the package metadata; record it). The authority for what each
-license permits is `license-policy.yml` (`policy`: `verbatim-ok` vs `own-words-only`) — do not decide
+license permits is the shared license-policy table, installed at
+`site/node_modules/@galaxy-foundry/license-policy/data/license-policy.yml`
+(`policy`: `verbatim-ok` vs `own-words-only`) — do not decide
 from the license name alone. Then quote accordingly:
 - **`verbatim-ok` in the table** — public domain (CC0); Creative Commons BY / BY-SA; or a permissive
   free/open-source license (MIT, Apache, BSD, Artistic) covering the documentation: short verbatim

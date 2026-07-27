@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getLicenses, licenseIdFromFile } from '../../lib/licenses';
-import { resolveLicenseRow } from '../../lib/license-policy';
+import { bundledPolicy, resolveLicenseRow } from '@galaxy-foundry/license-policy';
 
 export async function getStaticPaths() {
   return getLicenses().map(license => ({
@@ -33,7 +33,7 @@ const users = entries
 
 // Distinct SPDX ids carried under this file, and their policy rows.
 const spdxIds = [...new Set(users.map(u => u.spdx).filter(Boolean) as string[])];
-const rows = spdxIds.map(id => ({ id, row: resolveLicenseRow(id) }));
+const rows = spdxIds.map(id => ({ id, row: resolveLicenseRow(bundledPolicy(), id) }));
 
 // Turn bare URLs into links while leaving the rest of the text verbatim.
 type Segment = { text: string; href?: string };
