@@ -42,13 +42,15 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Knowledge Base (KB)** — the inspectable, human-readable source of truth at the center of the instance — the standalone, navigable site where Molds, patterns, corpus notes, and protocols live and from which casting reads. Authored to be *read and learned by a human*, not merely stored for retrieval. The KB is the source; a **skill artifact** is the package. This instance colloquially calls it *the Foundry* (see **Foundry**).
 
-**License-aware summary** — a **Source note** whose license resolves to `verbatim-ok` in `license-policy.yml`, so short *load-bearing* verbatim quotes are permitted (marked as such). `derived: license-aware-summary`. E.g. `harmon-pcm` (CC-BY). Contrast **Own-words summary**; the choice between them is **Summary posture**.
+**License-aware summary** — a **Source note** whose license resolves to `verbatim-ok` in the **License-policy table**, so short *load-bearing* verbatim quotes are permitted (marked as such). `derived: license-aware-summary`. E.g. `harmon-pcm` (CC-BY). Contrast **Own-words summary**; the choice between them is **Summary posture**.
+
+**License-policy table** — the license → redistribution-policy table that decides, per SPDX id, what may be redistributed and in what form (`policy`, `allowed_modes`, `license_file`, `copyleft`, `obligations`). **Installed, not vendored**: it ships in `@galaxy-foundry/license-policy`, the shared package both Foundry instances consume instead of hand-mirroring a root `license-policy.yml` (the decision behind it: galaxyproject/foundry-pattern#4). It answers *what a license permits*, never *whether a note is coherent with its license* — that rule is instance-local (ours keys off `derived:`, and lives in `site/src/types/context.ts`). Determines **Summary posture**.
 
 **Method validity** — the property our referee judges: are assumptions met, is there no double-dipping/circularity, is the named method real and appropriate, is its error rate actually controlled? The layer *beneath* the p-value — what hypothesis-validators (e.g. POPPER) take as trusted input.
 
 **Mold** — an abstract, structured template: a typed reference manifest (frontmatter) + a procedural body skeleton. Directory note (`content/molds/<slug>/index.md` + siblings). Cast into one or more skill artifacts. See `MOLD_SPEC.md`.
 
-**Own-words summary** — a **Source note** whose license resolves to `own-words-only` in `license-policy.yml`, rendered entirely in new expression — no transcription — with only short **functional strings** (error text, parameter names, numeric thresholds, equation forms) kept verbatim as facts. `derived: own-words-summary`. E.g. `msmb` (CC-BY-NC-SA). Contrast **License-aware summary**.
+**Own-words summary** — a **Source note** whose license resolves to `own-words-only` in the **License-policy table**, rendered entirely in new expression — no transcription — with only short **functional strings** (error text, parameter names, numeric thresholds, equation forms) kept verbatim as facts. `derived: own-words-summary`. E.g. `msmb` (CC-BY-NC-SA). Contrast **License-aware summary**.
 
 **Pattern page** — reference content describing a statistical-method pattern (established-good) or an invalidity pattern (cautionary-bad). Wiki-linked from Molds; condensed into casts. Cites corpus sources by URL/DOI.
 
@@ -80,7 +82,7 @@ recoverability probe; **Refereeability** grades the **Gate** obligation. Prose c
 
 **Source note** — a per-source reading note under `content/research/<papers|tutorials|books>/<id>/`: a regenerable **faithful summary** (`index.md`) plus, *by exception*, an owned **guidance** file (`guidance.md`). A regenerable cast (what the source says), kept separate from our framing. Graded by recoverability, not coverage. Its **Summary posture** is license-driven. For books, book-invariant metadata lives once in a co-located `book.yml`. See `AGENTS.md` "Source notes earn their keep by recoverability."
 
-**Summary posture** — whether a **Source note** is an **Own-words summary** or a **License-aware summary**. **Determined by the source's license** (`license-policy.yml` `policy`: `own-words-only` vs `verbatim-ok`), *not* by source type — a book is not inherently own-words (`msmb` is; `harmon-pcm`, CC-BY, is license-aware). Recorded in the note's `derived:` field. The two summary commands split by *workflow* (bulk book vs single source), not by posture.
+**Summary posture** — whether a **Source note** is an **Own-words summary** or a **License-aware summary**. **Determined by the source's license** (the **License-policy table**'s `policy`: `own-words-only` vs `verbatim-ok`), *not* by source type — a book is not inherently own-words (`msmb` is; `harmon-pcm`, CC-BY, is license-aware). Recorded in the note's `derived:` field. The two summary commands split by *workflow* (bulk book vs single source), not by posture.
 
 **Target** *(a.k.a. cast target)* — an output format casting can produce (Claude skill, generic, web). One Mold may cast to several.
 

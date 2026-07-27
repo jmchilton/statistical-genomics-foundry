@@ -122,7 +122,7 @@ Three rules carry the weight:
 
 Note-kind is the `type:` discriminator and is never copied into `tags:` — tags are cross-cutting facets only.
 
-`site/tests/registry-drift.test.ts` checks that the registry and the corpus agree *both* ways: the schema rejects a note carrying an unregistered tag, and the drift test rejects a registered tag carried by zero notes, or a facet with no members in use. Its scope is the vocabulary we authored — the inherited registries (`license-policy.yml`, and `reference_contract.yml`'s `used_at`/`load`/`modes`/`evidence`) are copied complete, so unused rows there are inheritance, not drift.
+`site/tests/registry-drift.test.ts` checks that the registry and the corpus agree *both* ways: the schema rejects a note carrying an unregistered tag, and the drift test rejects a registered tag carried by zero notes, or a facet with no members in use. Its scope is the vocabulary we authored — the inherited registries (the installed `@galaxy-foundry/license-policy` table, and `reference_contract.yml`'s `used_at`/`load`/`modes`/`evidence`) arrive complete, so unused rows there are inheritance, not drift.
 
 The registry **format** is shared across Foundry instances — specified in [galaxyproject/foundry-pattern](https://github.com/galaxyproject/foundry-pattern), `content/pattern/standing-up-a-foundry.instructions.txt` — so a format change is a cross-repo change. The facet **vocabulary** above is ours alone: the Galaxy Workflow Foundry's facets (`source`, `target`, `tool`, `cli`, `topic`, `meta`) are its own, and only `topic` collides by name — theirs groups pattern maps, ours sits beneath a `domain`.
 

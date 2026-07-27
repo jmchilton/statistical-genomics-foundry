@@ -16,8 +16,8 @@ release it documents — which under a shared enum would have had to be legal on
   of the source itself: the URL is the provenance, the summary is ours.
 - **`access_date`** — when we read it. A string, always quoted: bare `2026-01-01` is a `Date`
   to YAML, and there is a negative fixture holding that line.
-- **`license`** — an SPDX id resolving against `license-policy.yml`. This is what decides the
-  summary posture, not the source type.
+- **`license`** — an SPDX id resolving against the shared license-policy table, installed from
+  `@galaxy-foundry/license-policy`. This is what decides the summary posture, not the source type.
 - **`attribution`** — the credit line the licence obliges.
 - **`derived`** — what modification was made (the CC-BY "changes" indication), and the field the
   coherence rule keys off. `own-words-summary` redistributes no protected expression;

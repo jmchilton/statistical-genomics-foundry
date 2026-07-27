@@ -8,7 +8,8 @@ up incrementally via issue #89 (the validation step-ladder): the `site/` Astro a
 frontmatter contract (a directory per note kind under `site/src/types/`, assembled by
 `site/src/lib/frontmatter-schema.ts` and consumed by `site/src/content.config.ts`), a
 validator (`npm test` / `npm run validate` in `site/`), and the root vocab registries
-(`meta_tags.yml`, `reference_contract.yml`, `license-policy.yml`). There is still **no
+(`meta_tags.yml`, `reference_contract.yml`). The license → redistribution-policy table is no
+longer a root file — it is **installed** from `@galaxy-foundry/license-policy`. There is still **no
 `packages/`, `casts/`, or fixture tooling** — deliberately deferred
 (see `README.md` "Status & next steps" and "Deferred to repo standup" below). Everything else
 — `docs/`, `content/research/`, `positioning.md` — is authoring, not engineering.
@@ -70,7 +71,8 @@ summary is a regenerable cast; the guidance is what we own and maintain — the 
 applied to reading the literature.
 
 **Summary posture is license-driven, not source-type-driven.** A source note is rendered
-**own-words** when its license resolves to `own-words-only` in `license-policy.yml`, and
+**own-words** when its license resolves to `own-words-only` in the shared license-policy table
+(`@galaxy-foundry/license-policy`), and
 **license-aware** — short *load-bearing* verbatim quotes allowed, marked — when it resolves to
 `verbatim-ok` (public-domain, Creative-Commons, free/open-source). A book is *not* inherently
 own-words: `msmb` (CC-BY-NC-SA → own-words-only) is own-words; `harmon-pcm` (CC-BY → verbatim-ok) is

@@ -15,7 +15,7 @@
 
 import { z } from 'zod';
 
-import { isValidLicenseId, resolveLicenseRow } from '../lib/license-policy';
+import { bundledPolicy, isValidLicenseId, resolveLicenseRow } from '@galaxy-foundry/license-policy';
 import {
   referenceKinds,
   referenceUsedAt,
@@ -94,9 +94,12 @@ const tagsArray = z.array(tag).min(1, {
 });
 
 // The license → redistribution-policy table (galaxyproject/foundry-pattern#4) is the source
-// of truth for what each id means.
-const licenseId = z.string().refine(isValidLicenseId, {
-  message: 'must be an SPDX id from license-policy.yml or a LicenseRef-<slug>',
+// of truth for what each id means. It is INSTALLED, not vendored — @galaxy-foundry/license-policy
+// ships the table both Foundry instances used to hand-mirror. What the package deliberately does
+// NOT ship is `licenseCoherence` below: whether a note is coherent with its license is still an
+// instance-local rule (ours keys off the recorded `derived` posture).
+const licenseId = z.string().refine((id) => isValidLicenseId(bundledPolicy(), id), {
+  message: 'must be an SPDX id in @galaxy-foundry/license-policy or a LicenseRef-<slug>',
 });
 
 // Typed reference manifest (reference_contract.yml). The vocabularies are the authority; the
@@ -137,9 +140,9 @@ const licenseCoherence = <T extends { license: string; license_file?: string; de
   note: T,
   ctx: z.RefinementCtx,
 ) => {
-  const row = resolveLicenseRow(note.license);
+  const row = resolveLicenseRow(bundledPolicy(), note.license);
   if (row.defect)
-    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['license'], message: `license "${note.license}" resolves to the default row (unresolved/defect) — add a real row to license-policy.yml or fix the id` });
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['license'], message: `license "${note.license}" resolves to the default row (unresolved/defect) — fix the id, or add a row upstream in @galaxy-foundry/license-policy and bump it` });
   const carries = declaresVerbatimCarry(note.derived);
   if (carries && row.policy === 'own-words-only')
     ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['derived'], message: `derived "${note.derived}" declares verbatim carry but license ${note.license} is own-words-only (paraphrase, or fix the license)` });
@@ -149,7 +152,7 @@ const licenseCoherence = <T extends { license: string; license_file?: string; de
 
 // Source notes for papers + tutorials: faithful summaries with short load-bearing quotes (where
 // the license permits), not own-words-only like books. `license` is a normalized id whose
-// redistribution policy is resolved from license-policy.yml. `license_file` is optional:
+// redistribution policy is resolved from the shared policy table. `license_file` is optional:
 // own-words-only notes redistribute no text and carry none; notes that reproduce verbatim
 // quotes under a verbatim-ok license (e.g. CC-BY) point to the upstream LICENSE copy in
 // LICENSES/, honoring the notice obligation. `derived` records what modification was made (the
@@ -182,7 +185,7 @@ const sourceNoteFields = {
 export interface KindContext {
   /** One registered tag. */
   tag: typeof tag;
-  /** An SPDX id from license-policy.yml, or a LicenseRef-<slug> escape hatch. */
+  /** An SPDX id from the shared policy table, or a LicenseRef-<slug> escape hatch. */
   licenseId: typeof licenseId;
   /** One entry of a Mold's typed reference manifest. */
   reference: typeof reference;

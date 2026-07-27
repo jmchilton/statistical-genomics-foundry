@@ -2,8 +2,8 @@
 // Source/license box, shared by books (license_file → in-app license page) and
 // source notes (papers/tutorials: optional DOI/version/access-date pins).
 // The redistribution policy (verbatim-ok vs own-words-only, copyleft, obligations)
-// is derived mechanically from the license id via the shared license-policy.yml
-// table — not restated per note. See site/src/lib/license-policy.ts.
+// is derived mechanically from the license id via the shared policy table shipped in
+// @galaxy-foundry/license-policy — not restated per note.
 interface Props {
   source: string;
   sourceChapter?: number;
@@ -17,14 +17,14 @@ interface Props {
   accessDate?: string;
 }
 import { licenseIdFromFile } from '../lib/licenses';
-import { resolveLicenseRow } from '../lib/license-policy';
+import { bundledPolicy, resolveLicenseRow } from '@galaxy-foundry/license-policy';
 const { source, sourceChapter, sourceUrl, license, licenseFile, attribution, derived, doi, version, accessDate } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const licenseHref = licenseFile ? `${base}/licenses/${licenseIdFromFile(licenseFile)}/` : null;
 const doiHref = doi ? `https://doi.org/${doi}` : null;
 
 // Policy row for this license id (unknown/missing → own-words-only + defect).
-const row = resolveLicenseRow(license);
+const row = resolveLicenseRow(bundledPolicy(), license);
 const policyLabel = row.policy === 'own-words-only' ? 'own-words only' : 'verbatim OK';
 ---
 <aside class="not-prose mb-6 rounded-lg border border-(--color-border-subtle) bg-(--color-surface-raised) p-4 text-sm">

@@ -15,8 +15,8 @@ import { referenceKinds } from '../src/lib/reference-contract';
 // (galaxyproject/foundry-pattern#12).
 //
 // Scope is deliberate: only the per-instance vocabularies. The inherited registries
-// (license-policy.yml, and reference_contract.yml's used_at/load/modes/evidence) are
-// copied complete and deliberately carry rows this corpus does not use yet — unused
+// (the installed @galaxy-foundry/license-policy table, and reference_contract.yml's
+// used_at/load/modes/evidence) arrive complete and carry rows this corpus does not use yet — unused
 // entries there are inheritance, not drift, and asserting on them would cry wolf.
 
 function walkIndexFiles(baseAbs: string): string[] {

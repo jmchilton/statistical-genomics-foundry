@@ -4,7 +4,7 @@ import path from 'node:path';
 import yaml from 'js-yaml';
 import { z } from 'zod';
 
-import { isValidLicenseId } from '../../lib/license-policy';
+import { bundledPolicy, isValidLicenseId } from '@galaxy-foundry/license-policy';
 import { defineKind } from '../context';
 import type { KindContext } from '../context';
 
@@ -53,7 +53,7 @@ export const kind = defineKind({
   // record is merged in here, so downstream pages read one complete note.
   transform: (data, ctx, kctx) => {
     const book = loadBookMeta(data.source);
-    if (!isValidLicenseId(book.license as string)) {
+    if (!isValidLicenseId(bundledPolicy(), book.license as string)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: `book.yml license "${String(book.license)}" is not a valid id (source: ${data.source})`,
