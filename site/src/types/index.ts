@@ -23,17 +23,18 @@ import type { KindDefinition } from './context';
  */
 export const DEFINITIONS = { book, paper, tutorial, mold, pattern } as const;
 
-/** A kind definition with its shape erased — for code that ITERATES the kinds (the manifest
- *  generator, the drift test) rather than validating with one. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * A kind definition with its shape erased — for code that ITERATES the kinds (the manifest
+ * generator, the drift test) rather than validating with one.
+ *
+ * `any` rather than `unknown`/`ZodRawShape`: `ZodObject` is effectively invariant in its shape
+ * parameter, so a narrower bound here rejects every concrete definition. Nothing reads a field
+ * off this type, so the looseness buys iteration and costs nothing.
+ */
 export type AnyKindDefinition = KindDefinition<any, any>;
 
 /** Iteration order for the manifest and the drift test. */
 export const KINDS = Object.values(DEFINITIONS) as readonly AnyKindDefinition[];
-
-export const KINDS_BY_NAME: ReadonlyMap<string, AnyKindDefinition> = new Map(
-  KINDS.map((k) => [k.kind, k]),
-);
 
 export { buildKindContext, defineKind } from './context';
 export type { KindContext, KindDefinition } from './context';

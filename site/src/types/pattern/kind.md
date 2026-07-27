@@ -25,9 +25,8 @@ it is what the domain requires.
 
 - **`name`** — the slug every `[[wiki-link]]` and reference resolves to.
 - **`status`** — the parent's lifecycle enum (`draft` / `reviewed` / `revised` / `stale` /
-  `archived`), required. It was free text carrying the single value `stub`, which is outside
-  the vocabulary every other Foundry note is held to; a closed enum stays browsable and
-  reportable.
+  `archived`), required. Holding patterns to the same closed vocabulary as every other Foundry
+  note is what keeps lifecycle browsable and reportable; free-text status is neither.
 - **`tags`** (min 1) — patterns take the `domain/*` and `topic/*` subject facets.
 
 `pole` is optional because the corpus is stub-first: a pattern can be named before it is

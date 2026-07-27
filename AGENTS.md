@@ -9,7 +9,7 @@ frontmatter contract (a directory per note kind under `site/src/types/`, assembl
 `site/src/lib/frontmatter-schema.ts` and consumed by `site/src/content.config.ts`), a
 validator (`npm test` / `npm run validate` in `site/`), and the root vocab registries
 (`meta_tags.yml`, `reference_contract.yml`, `license-policy.yml`). There is still **no
-`packages/`, `casts/`, ajv `meta_schema.yml`, or fixture tooling** — deliberately deferred
+`packages/`, `casts/`, or fixture tooling** — deliberately deferred
 (see `README.md` "Status & next steps" and "Deferred to repo standup" below). Everything else
 — `docs/`, `content/research/`, `positioning.md` — is authoring, not engineering.
 
@@ -124,11 +124,10 @@ not have. Port them (as an explicit diff) only when the actual repo stands up:
 - **[Standing up via issue #89 — an adapt, not the parent's port]** The frontmatter-is-contract
   layer now exists as **one zod encoding** — a directory per kind under `site/src/types/`,
   assembled by `site/src/lib/frontmatter-schema.ts` — consumed by both the site build and a
-  standalone validator (`npm run validate` in `site/`), and deliberately *not* a mirrored ajv
-  `meta_schema.yml` + separate site schema (the parent's two-encoding drift, avoided).
-  `meta_tags.yml` + `reference_contract.yml` registries landed with it. Still deferred:
-  the parent's ajv Draft-07 `meta_schema.yml` form; `validate before commit` as a Makefile target
-  + pre-commit hooks (the `site/` npm scripts are the standing exception — see "The rendered site").
+  standalone validator (`npm run validate` in `site/`). One encoding, so there is no
+  JSON-Schema mirror to drift against. `meta_tags.yml` + `reference_contract.yml` registries
+  landed with it. Still deferred: `validate before commit` as a Makefile target + pre-commit
+  hooks (the `site/` npm scripts are the standing exception — see "The rendered site").
 - Mold IO schemas in packages; "don't edit generated files" (Dashboard/Index/casts).
 - Vendored planemo artifacts, generated `workflow-fixtures/`, the pnpm package layout.
 

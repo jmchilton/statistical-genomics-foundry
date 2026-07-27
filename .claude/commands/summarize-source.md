@@ -76,8 +76,12 @@ framework. Do NOT add project framing to `index.md` — that lives in a separate
 note author maintains, not here.
 
 ## Step 3 — frontmatter
-The note needs a YAML frontmatter block or it fails validation. `site/src/lib/frontmatter-schema.ts`
-is the authority on the full field set; two rules are easy to get wrong:
+The note needs a YAML frontmatter block or it fails validation. `site/src/types/<kind>/schema.ts`
+is the authority on that kind's full field set — `types/paper/schema.ts` for a paper,
+`types/tutorial/schema.ts` for a tutorial, with the shared source-note fields in
+`types/context.ts`. Each directory also holds `kind.md` (why each required field is required) and
+`example.md` (a minimal valid note); read those before inventing a field. Two rules are easy to
+get wrong:
 
 - **`type:` must match the collection in `$1`** — `type: paper` under `papers/`, `type: tutorial`
   under `tutorials/`. It is the note-kind discriminator that selects the schema, and each kind is a

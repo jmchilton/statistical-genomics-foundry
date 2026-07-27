@@ -6,7 +6,7 @@ import type { KindContext } from '../context';
 export const kind = defineKind({
   kind: 'mold',
   title: 'Mold',
-  origin: 'substrate',
+  layer: 'substrate',
   summary:
     'One abstract action, described as a typed reference manifest that casting compiles into a skill artifact.',
 

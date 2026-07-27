@@ -25,7 +25,8 @@ export interface ManifestField {
 export interface ManifestKind {
   kind: string;
   title: string;
-  origin: 'substrate' | 'instance';
+  /** Which layer the kind belongs to. Deliberately not `origin` — see `KindDefinition`. */
+  layer: 'substrate' | 'instance';
   summary: string;
   /** The body of the kind's kind.md, verbatim. Supplied by the caller, which knows the paths. */
   doc?: string;
@@ -82,7 +83,12 @@ export function describeType(schema: z.ZodTypeAny): string {
   }
 }
 
-/** Walk a kind's object shape into the manifest's field list, sorted required-first. */
+/**
+ * Walk a kind's object shape into the manifest's field list, sorted required-first.
+ *
+ * `required` answers "must an author write this key", so a field carrying `.default()` counts
+ * as optional — zod reports it optional and the note validates without it.
+ */
 export function describeFields(shape: z.ZodRawShape): ManifestField[] {
   return Object.entries(shape)
     .map(([name, field]) => ({
@@ -101,7 +107,7 @@ export function buildKindManifest(instance: string, docs: Record<string, string>
     kinds: KINDS.map((definition) => ({
       kind: definition.kind,
       title: definition.title,
-      origin: definition.origin,
+      layer: definition.layer,
       summary: definition.summary,
       doc: docs[definition.kind],
       fields: describeFields(definition.build(ctx).shape),

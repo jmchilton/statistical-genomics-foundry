@@ -57,8 +57,8 @@ Inherits the parent's shape; adjusted for Mold-primary IA and the lighter schema
 ├── README.md
 ├── AGENTS.md / CLAUDE.md            # authoring rules (to port + adapt)
 ├── meta_tags.yml                   # tag registry — facets: family/role/domain/topic (§8)
-│                                   # (frontmatter contract lives in site/src/lib/frontmatter-schema.ts,
-│                                   #  one zod module, not the parent's ajv meta_schema.yml)
+│                                   # (frontmatter contract lives in site/src/types/, a directory
+│                                   #  per kind, one zod encoding — see §9)
 ├── docs/
 │   ├── POSITIONING.md              # ✅ written
 │   ├── ARCHITECTURE.md             # ✅ this doc
@@ -93,7 +93,7 @@ In rough priority order:
 4. ✅ **CORPUS.md** — adapted; URL-not-mirror preserved, corpus swapped to a bipolar methods + cautionary-examples corpus.
 5. ✅ **COMPILATION_PIPELINE.md** — adapted; casting + provenance mostly portable, schema kind demoted, empirical-checks-run-at-runtime nuance added.
 6. ✅ **glossary.md** — adapted; conversion terms dropped, Family A/B + referee + gate + construct/critique/calibrate + bipolar-corpus added.
-7. ✅ **The frontmatter contract** — done, but *not* as the parent's `meta_schema.yml`. We author it once as a zod module (`site/src/lib/frontmatter-schema.ts`) consumed by both the site build and the standalone validator, so there is no ajv mirror to drift against. `meta_tags.yml` landed alongside it — see §8.
+7. ✅ **The frontmatter contract** — done, as **one zod encoding**: a directory per kind under `site/src/types/`, assembled by `site/src/lib/frontmatter-schema.ts` and consumed by both the site build and the standalone validator. There is no JSON-Schema mirror to drift against. `meta_tags.yml` landed alongside it — see §8, and §9 for the layout.
 8. **HARNESS_PIPELINES.md / SCHEMA_PACKAGES.md** — port last; both lighten under our Mold-primary, schema-light stance.
 
 **Doc scaffold is complete in prose, and the contract layer is live.** What remains is item 8, the two lightest design docs.
@@ -138,7 +138,7 @@ Every note declares its kind exactly once, in frontmatter, as `type:`. That fiel
 | `mold` | `types/mold/` | an abstract action template — the Mold-primary core, incl. referee Molds |
 | `pattern` | `types/pattern/` | a cautionary-bad or established-good corpus leaf |
 
-Each directory holds `schema.ts` (the contract), `kind.md` (what the kind is *for*, and why each required field is required), and `example.md` (a minimal valid note, which `site/tests/kind-directories.test.ts` parses against that kind's own schema — so the documentation stays executable). `types/context.ts` holds the base envelope and the field primitives shared by more than one kind; `types/index.ts` is the one enumeration, and a drift test asserts it matches the directory listing both ways. `site/src/lib/frontmatter-schema.ts` is now only the assembler composing them into `NOTE_KINDS` and `COLLECTIONS`.
+Each directory holds `schema.ts` (the contract), `kind.md` (what the kind is *for*, and why each required field is required), and `example.md` (a minimal valid note, which `site/tests/kind-directories.test.ts` parses against that kind's own schema — so the documentation stays executable). `types/context.ts` holds the base envelope and the field primitives shared by more than one kind; `types/index.ts` is the one enumeration, and a drift test asserts it matches the directory listing both ways. `site/src/lib/frontmatter-schema.ts` is the assembler, and only the assembler: it composes those definitions into `NOTE_KINDS` and `COLLECTIONS` and defines no fields of its own.
 
 The layout is a shared contract — [galaxyproject/foundry-pattern#13](https://github.com/galaxyproject/foundry-pattern/issues/13), PART 3 of the standing-up checklist — implemented independently here and in the parent. `site/src/types/kinds.generated.json` is the machine-readable form of the table above, with each kind's required-metadata list **derived from its zod shape** rather than written by hand; `npm run kinds` regenerates it and CI checks it is current. The pattern site renders ours beside the parent's as a cross-instance kind catalog.
 

@@ -6,7 +6,7 @@ import type { KindContext } from '../context';
 export const kind = defineKind({
   kind: 'paper',
   title: 'Paper',
-  origin: 'instance',
+  layer: 'instance',
   summary:
     'A faithful summary of one published paper, carrying the provenance and licence posture the summary was made under.',
 
@@ -23,6 +23,7 @@ export const kind = defineKind({
         arxiv: z.string().url().optional(),
         // Free mirror of a paywalled record (PMC, institutional repository).
         oa_url: z.string().url().optional(),
+        ...ctx.base,
       })
       .strict(),
 

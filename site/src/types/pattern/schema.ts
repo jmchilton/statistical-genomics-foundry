@@ -6,7 +6,7 @@ import type { KindContext } from '../context';
 export const kind = defineKind({
   kind: 'pattern',
   title: 'Pattern',
-  origin: 'substrate',
+  layer: 'substrate',
   summary:
     'One named methodological pattern — established-good or cautionary-bad — that a referee Mold reasons against.',
 
