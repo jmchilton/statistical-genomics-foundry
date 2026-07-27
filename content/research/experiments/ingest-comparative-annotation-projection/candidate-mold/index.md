@@ -10,7 +10,7 @@ references:
     ref: "[[turakhia-2020-gene-loss]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: >
       The validity-axis anchor: the enumerated technical causes of spurious loss
@@ -23,7 +23,7 @@ references:
     ref: "[[kirilenko-2023-toga]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: >
       The intactness/loss classification substrate: five transcript states
@@ -35,7 +35,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim rests on a Liftoff / minimap2 pairwise annotation-transfer run"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: >
       The mis-use guard: Liftoff is a same/closely-related-species annotation-transfer
@@ -46,7 +46,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when an exon-projection or splice-site-shift artifact is at issue"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: >
       Establishes exon projection as an HMM codon/frame- and splice-site-aware step whose
@@ -57,7 +57,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim comes from a multi-method / consensus annotation set (CAT)"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: >
       Multi-method integration substrate (TransMap + AUGUSTUS variants + homGeneMapping
@@ -68,7 +68,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when reference-choice bias or the upstream whole-genome-alignment substrate is at issue"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: >
       The reference-free WGA substrate (HAL); grounds the reference-choice-bias check and

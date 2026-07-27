@@ -488,6 +488,6 @@ Two fixtures cite sources **not in either Mold's `references:` manifest**. Witho
     used_at: runtime
     load: on-demand
     trigger: "when processing steps (wash/stain sets, hybridization days, plate runs) may be grouped by a biological factor"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Real observed consequence of confounding a processing step with biology, with an internal control: the SAME 16 RNA samples at 5 centers. Randomized center → 6,360 sex-DE genes at q<0.05; centers that confounded wash/stain with sex → 18,910 / 17,475. π₀ collapses to 0.42/0.43 at strain-confounded centers. The sharpest internal fingerprint: a short within-batch contrast beside a long across-batch contrast for the same factor. Joint normalization made it WORSE. HARD SILENCE: says nothing about run order, within-run position, or temporal drift — cite only for randomized batch MEMBERSHIP."

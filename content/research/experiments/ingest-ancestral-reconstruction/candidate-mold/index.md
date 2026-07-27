@@ -14,7 +14,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "the analysis reports reconstructed ancestral states and their reliability/posterior is in question, or treats a single best reconstruction as certain"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground: the per-site/per-node posterior IS the accuracy measure; a unique best reconstruction can still be low-posterior (0.563, 0.185); long-branch/deep nodes least reliable; NO 0.95 reliability cutoff is prescribed."
   - kind: research
@@ -22,7 +22,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "a single ML/MAP ancestor is carried into a functional, structural, or experimental claim"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground: ASR output is an ensemble, MAP is one point estimate; characterize alternate plausible reconstructions to test robustness; qualitative function robust, quantitative values often not."
   - kind: pattern
@@ -30,7 +30,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "deep-node / long-branch reconstruction run under a site-homogeneous substitution model"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Invalidity pattern: site-homogeneous models underestimate convergent substitutions at low-Keff sites → long-branch attraction; simulation failure at p>=0.8; diagnostic = Keff-binned dlogL; remedy = CAT-PMSF."
   - kind: research
@@ -38,7 +38,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "the reconstruction involves indels/gaps, or claims indel/hybrid ancestral variants"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground: indels are a first-class inferred process (POG/BE), separate from character states; indel histories can be ambiguous; edge support = proportion of extant seqs; NO numeric indel- or substitution-posterior cutoff is given."
   - kind: cli-command
@@ -46,7 +46,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "the analysis used codeml/baseml (PAML) to reconstruct ancestral states"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Ground: RateAncestor=1 -> rst (empirical-Bayes ASR); verbose=1 gives full marginal posterior; marginal (eq.4, per-node) vs joint (eq.2, all-nodes); named misuse = reusing reconstructed ancestral sequences as observed data; NO saturation cutoff stated."
   - kind: research
@@ -54,7 +54,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "a reconstructed trait/character state is claimed to affect diversification (BiSSE/SSE), or SSE significance is asserted without a tree-specific null"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Cautionary: BiSSE Type-I error grossly inflated on real trees (>77%, 61.5%; pure-birth control exactly 5%); required check = simulate neutral traits on THIS tree and recalibrate; a negative BAMM/MEDUSA result does not clear the dataset (25-55% error persists)."
   - kind: research

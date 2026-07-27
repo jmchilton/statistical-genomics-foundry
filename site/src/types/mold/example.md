@@ -10,7 +10,7 @@ references:
     ref: leek-2010
     used_at: cast-time
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: Grounds the definition of batch confounding and why it cannot be regressed away.
   - kind: pattern

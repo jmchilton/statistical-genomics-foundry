@@ -36,7 +36,7 @@ const validReference = (overrides: Record<string, unknown> = {}) => ({
   ref: 'leek-2010',
   used_at: 'cast-time',
   load: 'upfront',
-  mode: 'condense',
+  mode: 'verbatim',
   evidence: 'corpus-observed',
   ...overrides,
 });
@@ -200,6 +200,15 @@ describe('reference manifest (via mold schema)', () => {
   it('rejects an out-of-vocabulary load value', () => {
     const issues = issuesOf(moldSchema, validMold({ references: [validReference({ load: 'eager' })] }));
     expect(issues.some((i) => i.path.join('.').startsWith('references.0.load'))).toBe(true);
+  });
+
+  // `condense` is capacity we have not built: it needs an LLM phase in a caster we do not
+  // have, plus the prompt/model provenance and non-byte-stable output that phase brings.
+  // Re-adding it is a deliberate act — a Mold needing an LLM pass, and the phase built to
+  // serve it — not something that should slip back in with a single frontmatter line.
+  it('rejects `condense`, which this Foundry does not implement', () => {
+    const issues = issuesOf(moldSchema, validMold({ references: [validReference({ mode: 'condense' })] }));
+    expect(issues.some((i) => i.path.join('.').startsWith('references.0.mode'))).toBe(true);
   });
 
   it('requires a trigger for an on-demand reference', () => {

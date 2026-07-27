@@ -41,7 +41,7 @@ This principle is why the project exists. Everything else serves it.
 
 ## Progressive Disclosure Over Context Flooding
 
-Agents — and humans — should see the right knowledge at the right time. Don't flatten every method, diagnostic, checklist, and cautionary example into one prompt or one skill body just because it exists. Protocols disclose the journey; Molds disclose the action; typed references disclose the dependency surface; load policy distinguishes up-front from on-demand; casting decides copied vs condensed vs inlined.
+Agents — and humans — should see the right knowledge at the right time. Don't flatten every method, diagnostic, checklist, and cautionary example into one prompt or one skill body just because it exists. Protocols disclose the journey; Molds disclose the action; typed references disclose the dependency surface; load policy distinguishes up-front from on-demand; casting decides copied vs sidecar vs inlined.
 
 The goal is navigable depth: a human browses from protocol to Mold to reference; an agent moves from action to supporting evidence without dragging the whole library into every step. This is also **Pillar 3** — knowledge foregrounded for a human reader, not merely stored for an agent to retrieve.
 

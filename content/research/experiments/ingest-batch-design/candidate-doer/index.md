@@ -12,21 +12,21 @@ references:
     ref: "[[msmb-chap13]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Design vocabulary for the frame + design-review phases: experiment taxonomy, noise-vs-bias, blocking/pairing/balance/randomization ('block what you can, randomize what you cannot'), effective sample size, and the rule that data already confounded at collection cannot be rescued by any analysis."
   - kind: research
     ref: "[[msmb-chap8]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The design matrix carries the model's scientific content; a known nuisance factor enters as a blocking term (at a degrees-of-freedom cost); PCA/heatmap/p-value-histogram diagnostics for an unmodelled batch factor."
   - kind: research
     ref: "[[leek-2010]]"
     used_at: runtime
     load: upfront
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The detection recipe (cluster/MDS/PC-vs-batch-surrogate), the claim that normalization does not remove batch effects, the adjustment menu (covariate / ComBat / SVA), and the boundary condition: adjustment works only when batch is not highly confounded with biology."
   - kind: research
@@ -34,7 +34,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when samples are already collected but not yet assigned to batches/plates/chips"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The RCBD target, the constrained-allocation objective V = Σ_ij (n_ij − E_ij)², the OSAT R API and its 5000-attempt default, the χ² variable-vs-batch diagnostic, and the explicit caveat that design alone cannot eliminate batch effects."
   - kind: research
@@ -50,7 +50,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the batch/technical variable is unmeasured or unrecorded"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "What a surrogate variable is and how it is constructed (residualize on the primary variable → SVD → permutation test on eigengenes → build SVs on the ORIGINAL matrix); and the rule that SVs enter subsequent regressions as covariates with gene-specific coefficients — never subtracted from the data."
   - kind: research
@@ -81,7 +81,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when an adjusted COUNT matrix (not a covariate) is required for a downstream tool"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The NB/quantile-mapping count-adjustment method, its integer-preserving output, and — load-bearing — its own 'adjust only when batch effects are present and harmful' prescription plus the FPR 0.059–0.067 over-correction regime."
   - kind: research
@@ -96,7 +96,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the platform is droplet scRNA-seq and donors would otherwise each occupy their own run"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Pooling + genotype-based demultiplexing as an established design-time route, with its hard input (external genotypes for every pooled donor), its operating point (50 SNPs/cell, ≥1000 UMIs/cell, unrelated donors), and its practical pool-size optimum (~20)."
     recheck: "[re-check] The source carries a published Author Correction (Nat Biotechnol 38(11):1356, DOI 10.1038/s41587-020-0715-9) that could NOT be retrieved (paywalled). It is unverified whether the correction touches the 50-SNPs/cell operating point or any other number cited here. No threshold from this note may be used load-bearing until the correction is read."
@@ -105,7 +105,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when only a selected subset of a cohort is being assayed (e.g. samples chosen on DNA availability / data completeness)"
-    mode: condense
+    mode: verbatim
     evidence: hypothesis
     verification: "The source is explicitly about SELECTION INTO A SAMPLE and never mentions batch effects, batch design, or technical covariates. Its note states that transferring the argument to batch-covariate adjustment is an external inference, not the source's claim. This reference may be cited ONLY for the sample-selection step (who gets assayed), never for batch adjustment. Verify before promoting to corpus-observed."
     purpose: "Guards the one selection step this Mold really does own: choosing which samples are profiled at all."

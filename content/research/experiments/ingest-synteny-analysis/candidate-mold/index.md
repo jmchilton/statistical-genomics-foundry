@@ -43,7 +43,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim leans on a synteny-vs-collinearity definitional citation"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "The cited 'Fitch 1976 J Mol Evol 7:271' does NOT resolve (=Zuckerkandl); no clean in-corpus primary for the synteny/collinearity distinction. Grounds the terminology/citation-precision anti-invention gate."
   - kind: research
@@ -59,7 +59,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the underlying WGA used minimap2 and the claim is a 'synteny/alignment absent' conclusion"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "asm5/asm10/asm20 preset divergence ceilings (asm5 won't extend past 5% divergence); NO ~70% identity floor. Grounds 'false absence from aligner sensitivity below threshold' in the fragmentation/loss gate."
   - kind: research
@@ -67,7 +67,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the underlying WGA used nucmer/MUMmer (incl. SyRI's aligner)"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "nucmer --maxmatch recovers repeat/non-unique anchors (default seeds unique-in-reference miss them); NO >=70% identity floor in the paper. Grounds aligner-sensitivity and repeat-mode checks."
   - kind: research
@@ -75,7 +75,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the claim rests on chained/netted alignments or a directional 'synteny' subset"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Masking BEFORE alignment (RepeatMasker transposons + Tandem Repeat Finder period <=12); net asymmetry (human-net != mouse-net, target-net != query-net). Grounds the masking and reference-directional-bias gates; NO 5000-bp chain cutoff (UCSC convention)."
   - kind: research
@@ -83,7 +83,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "when the sequence-level synteny substrate is a reference-free WGA (Cactus/HAL)"
-    mode: condense
+    mode: verbatim
     evidence: corpus-observed
     purpose: "Soft-masking is a stated precondition (unmasked repeats blow up and degrade quality; self-align coverage>50 mitigation); reference-free substrate. Grounds the masking-precondition gate; tolerates poor assemblies but states NO fragmentation-to-false-loss threshold."
 ---
