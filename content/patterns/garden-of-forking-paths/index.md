@@ -34,11 +34,11 @@ whole reason the term exists; do not reduce it to "they ran too many tests."
 
 | Leaf | Mechanism | Detector |
 |---|---|---|
-| **`[[garden-of-forking-paths]]`** (this) | analysis *specification* chosen post-hoc; test family undeclared. Latent multiplicity even at N=1 test. | **provenance**: were the comparisons / subgroups / covariates / exclusions / outcome pre-specified before seeing data? |
-| **`[[double-dipping]]`** | a specific structural circularity: the same data *selects* a feature then *tests* it; non-independence under the null | **structural**: is there a selection step feeding a test on the same data? |
+| **[[garden-of-forking-paths]]** (this) | analysis *specification* chosen post-hoc; test family undeclared. Latent multiplicity even at N=1 test. | **provenance**: were the comparisons / subgroups / covariates / exclusions / outcome pre-specified before seeing data? |
+| **[[double-dipping]]** | a specific structural circularity: the same data *selects* a feature then *tests* it; non-independence under the null | **structural**: is there a selection step feeding a test on the same data? |
 | p-hacking / fishing | **manifest** multiplicity: many analyses run, the best reported | many tests + selective reporting |
 
-- **`[[double-dipping]]` ⊂ forking-paths conceptually** (a data-contingent selection *is* one fork),
+- **[[double-dipping]] ⊂ forking-paths conceptually** (a data-contingent selection *is* one fork),
   but it is sharper and *structurally* detectable, so it earns its own leaf. This leaf is the
   **residual**: post-hoc choices that are not a single clean select-then-test — subgroup fishing,
   covariate/model selection, outcome switching, flexible exclusions.
@@ -61,11 +61,11 @@ Sourcing pre-verified in `content/research/05-skill-backing-references.md` §10 
   a problem, even when there is no 'fishing expedition' or 'p-hacking' and the research hypothesis was
   posited ahead of time"). The definition + the **latent-multiplicity** mechanism (procedure #3,
   *T(y; φ(y))*); offers *no* quantitative inflation figure (deferred to future work). → `✓ ingested`
-  `[[gelman-loken-2014]]`
+  [[gelman-loken-2014]]
 - **Simmons, Nelson & Simonsohn 2011, _Psychological Science_ 22(11):1359–1366**
   (DOI 10.1177/0956797611417632) — coins "**researcher degrees of freedom**"; **quantifies** the
   inflation Gelman-Loken leaves open (single flexibilities ≈9.5–12.6% at *p*<.05; all four combined
-  **60.7%**); the six-requirement disclosure remedy. → `✓ ingested` `[[simmons-2011]]`
+  **60.7%**); the six-requirement disclosure remedy. → `✓ ingested` [[simmons-2011]]
 
 ## Remedy (what the referee demands)
 - **Pre-specification / pre-registration**: declare the analysis family (comparisons, subgroups,
@@ -75,13 +75,13 @@ Sourcing pre-verified in `content/research/05-skill-backing-references.md` §10 
 - **Disclosure requirements** — Simmons et al.'s **six author requirements** (Table 2: pre-set +
   reported stopping rule; ≥20/cell; list all variables; report all conditions incl. failed; report
   results with excluded obs *included*; report results *without* the covariate). *(The compact
-  "21-word solution" sentence is **later** work, not in Simmons 2011 — see `[[simmons-2011]]` §11.)*
+  "21-word solution" sentence is **later** work, not in Simmons 2011 — see [[simmons-2011]] §11.)*
   For subgroups: interaction tests + credibility criteria (Sun et al. 2010, `content/research/05` §10 →
   subgroup-analysis skill).
 
 ## Adjacent (cross-link — do not absorb)
-- `[[double-dipping]]`, `[[batch-aliased-with-condition]]`, `[[method-applicability-errors]]` —
-  sibling `[[audit-method-validity]]` leaves.
+- [[double-dipping]], [[batch-aliased-with-condition]], [[method-applicability-errors]] —
+  sibling [[audit-method-validity]] leaves.
 - `[[multiple-testing-strategy]]` (protocol) — handles **manifest** multiplicity + correction;
   forking-paths is the **latent** case a correction on the reported tests does not cover.
 

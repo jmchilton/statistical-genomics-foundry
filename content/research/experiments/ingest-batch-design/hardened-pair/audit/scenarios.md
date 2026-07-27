@@ -25,7 +25,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   *(size: 6 rows, **no data at all** / unrestricted / ground truth: **rank 2 < 3 — arithmetic** /
   role: planted-invalid · runnable)*
 - expect: **CAUGHT — Axis 1. FAIL → ESCALATE.** There is no way to separate condition effects from batch
-  effects. The referee cites `[[deseq2]]`'s two options (assume no batch effect — which the source deems
+  effects. The referee cites [[deseq2]]'s two options (assume no batch effect — which the source deems
   highly unlikely — or rerun with conditions balanced across batches), and refuses to certify. Dropping
   batch is what DESeq2 says you must *mechanically* do; it is **not** a resolution, and the referee must
   say so. It must **not** suggest ComBat / ComBat_seq / sva / svaseq. Verdict must not be REVISE.
@@ -40,13 +40,13 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   *(size: 6 samples / unrestricted / ground truth: **rank 2 — the confound is arithmetic, so there is
   nothing for γ_gi to estimate that is not the condition effect** / role: planted-invalid · runnable)*
 - expect: **CAUGHT — Axis 1 (FAIL → ESCALATE), reinforced by Axis 3 and Axis 6.**
-  `[[zhang-2020-combat-seq]]`'s own Discussion: the gene-wise NB GLM "may not work well on data with
+  [[zhang-2020-combat-seq]]'s own Discussion: the gene-wise NB GLM "may not work well on data with
   severely or even completely confounded study designs." The integer-preserving output is a claim about
   **format**, not calibration, and the referee must not read it as evidence of validity.
   *This is the cardinal sin instantiated. If it passes, the Mold is worthless.*
 
 ## Case: CLEAN CONTROL — batch known and modelled; a published endpoint reproduced
-- fixture: **Doer config.** `airway` (`[[rnaseqgene]]`): 8 samples, 4 cell lines × (untrt, trt),
+- fixture: **Doer config.** `airway` ([[rnaseqgene]]): 8 samples, 4 cell lines × (untrt, trt),
   dexamethasone 1 µM / 18 h, GEO **GSE52778**. DESeq2 **1.52.0**, Bioconductor **3.23**. Pre-filter
   `keep <- rowSums(counts(dds) >= 10) >= 4` → **16637** rows. `design = ~ cell + dex`.
   **Doer output:** at adjusted p < 0.1 — up **2362 (14%)**, down **2019 (12%)**, outliers **0**, low counts
@@ -57,11 +57,11 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   rank 5 — each cell line carries both conditions). Axis 2: does not fire — the adjustment is a model term,
   not a data edit. Axis 3: nothing was transformed, so the diagnose-first obligation does not arise.
   Axis 6: not applicable. **Calibrate (mandatory for CERTIFY):** the p-value histogram — uniform background
-  plus a left peak (`[[msmb-chap8]]`); and the referee can independently re-derive 2362/2019.
+  plus a left peak ([[msmb-chap8]]); and the referee can independently re-derive 2362/2019.
   A referee that flags this run has failed `three-legs-required`.
 
 ## Case: PLANTED-INVALID — known-ZERO truth: correct-then-test on a 5:1 split
-- fixture: **Doer config.** `[[nygaard-2016]]`'s null-data simulation, **fully constructible, no external
+- fixture: **Doer config.** [[nygaard-2016]]'s null-data simulation, **fully constructible, no external
   data**: **20 000 genes** drawn **N(0,1)**, a batch effect on **10%** of them, **two batches**, group split
   **5:1**, design retained; **ComBat with group as covariate**; then an **F-test ignoring batch**.
   **Doer output:** a list of "significant" genes and a claim that batch effects were removed.
@@ -72,7 +72,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   → deflated variance → inflated F), states the exact no-inflation condition it violates
   (`n_iA : n_iB = n_A : n_B` for all batches i), and routes to the endorsed remedy: **account for batch in
   the statistical analysis**. **Calibrate is trivially decisive here: every discovery is a known false
-  positive.** `[[leek-storey-2007-sva]]`: null p-values are Uniform iff the null was correctly calculated.
+  positive.** [[leek-storey-2007-sva]]: null p-values are Uniform iff the null was correctly calculated.
   Route: **REVISE**, not ESCALATE — this design is analyzable, just not this way.
 
 ## Case: CLEAN CONTROL — the same simulation, balanced
@@ -80,7 +80,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   of 6, **3:3** in each). Same pipeline: ComBat with group as covariate, then a test ignoring batch.
   *(size/licence as above / ground truth: **ZERO true DE; Jensen's equality holds (ν₀ = ν) ⇒ Uniform
   p-values, no F inflation** / role: **clean control** · runnable)*
-- expect: **PASS on Axis 2.** `[[nygaard-2016]]`, verbatim: "In a balanced group–batch design, the
+- expect: **PASS on Axis 2.** [[nygaard-2016]], verbatim: "In a balanced group–batch design, the
   estimation error has the same effect for all groups, and thus does not influence group comparisons."
   Axis 6 still returns **FLAG → Calibrate** (a corrected matrix was tested on); **the null-data replay is
   what clears it**, and it clears it *empirically*, on data whose truth is zero. A referee that FAILs this
@@ -93,13 +93,13 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   note: "the inflation reflects the small sample size and will resolve with more samples."
   *(size: the n=1200 arm is ~24M doubles — run it / unrestricted / ground truth: **the inflation factor is
   flat across n** / role: planted-invalid · runnable)*
-- expect: **CAUGHT.** `[[nygaard-2016]]`, verbatim: F-statistics are "inflated by a fixed factor which
+- expect: **CAUGHT.** [[nygaard-2016]], verbatim: F-statistics are "inflated by a fixed factor which
   depends on the unevenness of the design, **rather than the size of the sample or batches**." The doer's
   explanation is **wrong on a matter of fact**, and the referee must name it as wrong, not merely hedge.
   Property: `inflation-is-scale-invariant`.
 
 ## Case: PLANTED-INVALID — real-data correct-then-test  `[reported-analysis, stageable]`
-- fixture: **Doer config.** `[[nygaard-2016]]` Experiment 1 (Towfic et al., Copaxone vs. generic Glatimer):
+- fixture: **Doer config.** [[nygaard-2016]] Experiment 1 (Towfic et al., Copaxone vs. generic Glatimer):
   GEO **GSE40566**; Copaxone 34 / Glatimer 11 / 14 other treatments 60; batch = Illumina **WG-6_V2** chip,
   **6 samples/chip, 17 chips**; "several batches having only one of the main treatments of interest."
   Doer runs **ComBat with group as covariate**, then limma **ignoring batch**.
@@ -109,7 +109,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
 - expect: **CAUGHT — Axis 2. FAIL → REVISE.** Comparison arm the referee cites: limma **blocking for batch**
   on the same data → **11** genes. Two orders of magnitude. Route: **REVISE** — account for batch in the
   analysis.
-  [CARRY FORWARD: `[[nygaard-2016]]` records a preprocessing caveat — the original authors used a different
+  [CARRY FORWARD: [[nygaard-2016]] records a preprocessing caveat — the original authors used a different
   preprocessing (**GSE61901**, two technical replicates per sample) which "strongly influences results
   regardless of batch adjustment." The 2011-vs-11 contrast is Nygaard's reanalysis, not a clean two-arm
   experiment. The referee must not present it as one.]
@@ -118,7 +118,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   accession** for the ComBat paper's "Data set 2" — it is `[reported-analysis]` only, **not stageable**.]
 
 ## Case: PLANTED-INVALID — ComBat-seq applied when the batch effect is mean-only
-- fixture: **Doer config.** polyester (`[[zhang-2020-combat-seq]]`'s own setup): **918 genes**,
+- fixture: **Doer config.** polyester ([[zhang-2020-combat-seq]]'s own setup): **918 genes**,
   **2 conditions × 2 batches**, biological signal **2-fold**, **mean batch effect 1.5×**, **no dispersion
   difference**, **300 replicate simulations**. `ComBat_seq(counts, batch, group)` → DESeq2, with **no prior
   diagnosis** of whether the batch effect has a dispersion component.
@@ -152,7 +152,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   level(s)`.
   *(size: any / unrestricted / ground truth: **a literal console string** / role: planted-invalid · runnable)*
 - expect: **CAUGHT — Axis 3. FAIL → REVISE.** The detector is the **literal string**, not an inference:
-  `group = NULL` ⇒ the null model ⇒ **the biological condition is silently not protected** (`[[sva]]`).
+  `group = NULL` ⇒ the null model ⇒ **the biological condition is silently not protected** ([[sva]]).
   The referee must find it **in the transcript**. Route: REVISE (rerun with `group = condition`).
 
 ## Case: PLANTED-INVALID — the surrogate variables ate the biology (known referent)
@@ -161,11 +161,11 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   **nothing biological protected in `mod`** — regresses the SVs out of the matrix, and tests `dex` on the
   residuals. **Doer output:** SVs; a DE list; "latent technical variation was removed prior to testing."
   *(size: 8 samples / unrestricted / ground truth: **the correct run's endpoint — 2362 up / 2019 down at
-  padj<0.1 (`[[rnaseqgene]]`)** / role: planted-invalid · runnable)*
-- expect: **CAUGHT — Axis 4 (FAIL), reinforced by Axis 6.** `[[sva]]` §10, verbatim: "If the goal of the
+  padj<0.1 ([[rnaseqgene]])** / role: planted-invalid · runnable)*
+- expect: **CAUGHT — Axis 4 (FAIL), reinforced by Axis 6.** [[sva]] §10, verbatim: "If the goal of the
   analysis is to identify heterogeneity in one or more subgroups, the sva function may not be appropriate…
   one or more of the estimated surrogate variables may be **very highly correlated with subgroup**."
-  **Calibrate:** correlate each SV against `dex` and against the withheld `cell` (`[[rnaseqgene]]`'s
+  **Calibrate:** correlate each SV against `dex` and against the withheld `cell` ([[rnaseqgene]]'s
   stripchart idiom) — and compare the DE calls against the **known reference endpoint**. Placement check:
   every worked example in the corpus puts estimated factors in the **design**, never subtracts them.
   [GAP: the source names **no correlation threshold**. Report the correlation; do not mint a cutoff.]
@@ -176,7 +176,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   SVs then added to the DESeq2 design. **Doer output:** SVs; an augmented design; a results table.
   *(size: any / unrestricted / ground truth: **the source's stated division of labour — and its silence** /
   role: **over-read control**)*
-- expect: **FLAG, not FAIL.** The referee notes the departure from `[[sva]]`'s stated division of labour
+- expect: **FLAG, not FAIL.** The referee notes the departure from [[sva]]'s stated division of labour
   (counts → `svaseq`) and routes to Calibrate. It must **not** assert that the p-values are invalid, that
   the run errored, or that any specific symptom appears: **the source never states that calling `sva()` on
   counts is an error, and names no failure mode for it.** A referee that hard-FAILs here has failed
@@ -184,7 +184,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   planted-invalid-only scenario set cannot detect.*
 
 ## Case: PLANTED-INVALID — real-data KNOWN FALSE POSITIVES a fold-change cutoff cannot catch
-- fixture: **Doer config.** Multibatch TMT proteomics (`[[brenes-2019-multibatch-tmt]]`): **21 TMT 10-plex
+- fixture: **Doer config.** Multibatch TMT proteomics ([[brenes-2019-multibatch-tmt]]): **21 TMT 10-plex
   batches**, iPSC lines from **male and female donors**, MaxQuant v1.6.3.3, reporter-ion MS3.
   The doer integrates the batches, applies **a fold-change cutoff** to call differential proteins, and
   reports "changes above the fold-change threshold are biologically real; the within-batch CV is 1.72, so
@@ -214,7 +214,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   - Batch effect **exceeded the biology** in this dataset (batch PT6390's within-batch CV was ~10× lower
     than the cross-batch technical-replicate CV, across healthy-vs-rare-genetic-disease lines).
   Route: **REVISE** (reference sample in every batch at 126C/127N; interference-aware channel layout).
-  [GAP: `[[brenes-2019-multibatch-tmt]]` **never runs a hypothesis test** — zero occurrences of `t-test`,
+  [GAP: [[brenes-2019-multibatch-tmt]] **never runs a hypothesis test** — zero occurrences of `t-test`,
   `p-value`, `limma`, `ComBat`, `linear model`, `regression`. It supports the false-positive finding and
   the design rules; it is **silent** on whether reference-normalized values may be tested without further
   batch modelling. The referee must not fill that silence in either direction.]
@@ -245,7 +245,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   flags it has failed.
 
 ## Case: PLANTED-INVALID — confounded processing, and the same RNA proves it  `[reported-analysis]`
-- fixture: **Doer config.** `[[yang-2008-randomization]]`: **the identical 16 mouse-kidney RNA samples**
+- fixture: **Doer config.** [[yang-2008-randomization]]: **the identical 16 mouse-kidney RNA samples**
   (4 strains × 2 sexes × 2 replicates) processed at **5 centers** on Affymetrix Mouse **430v2** (80 arrays).
   The doer analyses **center 2**'s data, where **male arrays were stored at 4 °C while the female samples
   were washed and stained** — wash/stain batch is confounded with **sex**. RMA per center; per-gene GLM with
@@ -259,7 +259,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   between-center difference in list length is necessarily technical**; the randomized center's comparison
   arm is **6 360** sex-DE genes at q<0.05 / role: planted-invalid · reported-analysis)*
 - expect: **CAUGHT. FAIL → ESCALATE** (the confounding is in the collected data; no analysis repairs it —
-  `[[msmb-chap13]]`, `[[leek-2010]]`). The referee's evidence, all recoverable from the report:
+  [[msmb-chap13]], [[leek-2010]]). The referee's evidence, all recoverable from the report:
   - **The comparison arm.** Center 1 **randomized** samples before processing → **6 360** sex-DE genes at
     q<0.05. Centers 2 and 3, which confounded wash/stain with sex → **18 910** and **17 475**. Same RNA.
   - **π₀ collapse.** At the strain-confounded centers (4 and 5, hybridization day ↔ strain) π₀ = **0.42** and
@@ -270,7 +270,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
     B-vs-A6 = **1206** (center 1: 119).
   - **"Normalization removed it" is false.** Joint RMA across all 80 arrays "reduced the overall intensity
     differences but created an even **greater** difference in MAD distributions" for the confounded centers.
-    `[[leek-2010]]`: normalization does not remove batch effects.
+    [[leek-2010]]: normalization does not remove batch effects.
   - **Correction cannot rescue it**, verbatim: "when a batch effect is confounded with an experimental
     factor, correcting for the batch will also effectively remove the biological signal."
   [GAP: the paper **does not quantify the artifact fraction** — "[i]t does not guarantee that the lists are
@@ -291,7 +291,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   **a container optimized from that stale `bc`**, reported as the final assignment.
   *(size: seconds / unrestricted: **MIT** / ground truth: **deterministic — the bug is in the shipped 0.5.0
   source** / role: planted-invalid · runnable)*
-- expect: **CAUGHT — provenance. FAIL → REVISE.** `[[designit]]` §9G1: the function binds `batch_container`
+- expect: **CAUGHT — provenance. FAIL → REVISE.** [[designit]] §9G1: the function binds `batch_container`
   but its body reads a free variable `bc`. The referee must verify the returned assignment derives from the
   **declared** input and must not certify an allocation on the strength of its balance alone. The shipped
   vignettes all name their container `bc`, which masks the bug — the referee must not be masked by it.
@@ -302,8 +302,8 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   randomized across batches, so the design is balanced."
   *(size: 31 rows / unrestricted: MIT / ground truth: **seeded, exactly reproducible — the package's own
   shipped counter-example (`# gives 'bad' random assignment`)** / role: planted-invalid · runnable)*
-- expect: **CAUGHT. FAIL → REVISE (re-allocate).** `[[designit]]`: "Often sample sizes are too small to
-  avoid grouping by chance." `[[yan-2012-osat]]`: complete randomization on unbalanced/incomplete
+- expect: **CAUGHT. FAIL → REVISE (re-allocate).** [[designit]]: "Often sample sizes are too small to
+  avoid grouping by chance." [[yan-2012-osat]]: complete randomization on unbalanced/incomplete
   collections leaves variables statistically dependent on batches — their arm, **χ² p = 0.021 / 0.014 /
   0.005**. Calibrate: recompute the χ² of each variable against batch and compare to the
   complete-randomization arm. Route: **REVISE** — pre-run, and fixable.
@@ -313,14 +313,14 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
 ## Case: CLEAN CONTROL — a constrained allocation, reported as evidence  `[reported-analysis]`
 - fixture: **Doer config.** 576 samples; `SampleType` (case/control), `Race`, `AgeGrp`, none balanced; OSAT
   `create.optimized.setup(fun = "optimal.shuffle", sample, container, nSim = 5000)` — **nSim passed
-  explicitly, because OSAT 1.60.0's coded default is 100, not 5000** (`[[osat]]`) —
+  explicitly, because OSAT 1.60.0's coded default is 100, not 5000** ([[osat]]) —
   blocking all three variables. **Doer output:** the assignment, the per-variable χ² of variable-vs-batch,
   and an explicit statement that **no acceptance threshold exists** for these values — handed to the gate.
   *(size: 576 rows / licence: OSAT is Artistic-2.0, but **the exemplary dataset's marginals live in the
   paper's Additional file 1, which the note records as NOT READ** ⇒ **the input is not reconstructible; this
   is a reported-analysis fixture, not a runnable one** / ground truth: the source's published values /
   role: **clean control** · reported-analysis)*
-- expect: **PASS on Axes 1–3.** Reference values (`[[yan-2012-osat]]` Table 1): default algorithm
+- expect: **PASS on Axes 1–3.** Reference values ([[yan-2012-osat]] Table 1): default algorithm
   χ² = **0.203 / 0.238 / 0.814**, all **p > 0.99**; blocking only the primary variable drives its χ² down
   (**0.035** vs 0.203) but raises the confounders' (**Race 3.685** vs 0.238; **Age_grp 5.081** vs 0.814).
   The referee **must not** certify on the strength of p > 0.99 — the source sets **no** acceptance threshold
@@ -340,11 +340,11 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   can / ground truth: **the same association in the FULL cohort is null — OR 1.01 (0.95–1.08), P = 0.74** /
   role: planted-invalid · reported-analysis)*
 - expect: **CAUGHT — Axis 5.** The referee runs the selection detector: regress sub-study membership on the
-  candidate variables. `[[munafo-2018-collider]]`'s measured values: membership ~ maternal education
+  candidate variables. [[munafo-2018-collider]]'s measured values: membership ~ maternal education
   **OR 1.86 (1.58–2.19), P < 0.001**; membership ~ ever-smoking **OR 0.59 (0.52–0.68), P < 0.001**. Both
   select. The sub-sample association is consistent with **collider bias induced by selection**; it is not
   evidence of an association in the intended population.
-  **Scope, stated in the verdict:** `[[munafo-2018-collider]]` **never mentions batch effects, batch design,
+  **Scope, stated in the verdict:** [[munafo-2018-collider]] **never mentions batch effects, batch design,
   or technical covariates**. This axis judges **who got assayed**, not how batch was adjusted for.
   [GAP: no source in this corpus connects selection-into-the-assayed-subset to batch-covariate adjustment.
   The referee must not.]
@@ -354,7 +354,7 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
   version, no `n.sv`, no `num.sv` method, no seed, no invocation. **Doer output:** a results table.
   *(size: n/a / unrestricted / ground truth: **what is absent from the report — deterministic on the text** /
   role: planted-invalid · reported-analysis)*
-- expect: **UNDETERMINED, not PASS.** `[[sva]]`: "Defaults drift across releases — every signature above is
+- expect: **UNDETERMINED, not PASS.** [[sva]]: "Defaults drift across releases — every signature above is
   pinned to 3.60.0 and must be re-read against any other release before being relied on." The `num.sv`
   estimator is genuinely ambiguous in this package (documented default `"be"`; **every** worked example
   passes `method="leek"`; `sva()`'s internal auto-estimate uses `"be"`), so an unstated estimator is not
@@ -365,21 +365,21 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
 
 ## Not testable from this corpus (stated, not faked)
 
-- **Where partial confounding stops being REVISE and becomes ESCALATE.** `[[leek-2010]]` gives no R² cutoff;
-  `[[nygaard-2016]]` gives no numeric cutoff between "moderately unbalanced (need not be a concern)" and
-  "heavily unbalanced (huge influence)"; `[[zhang-2020-combat-seq]]` names "severely or even completely
-  confounded" with **no detector and no simulation** of that regime; `[[leek-storey-2007-sva]]` stops at an
+- **Where partial confounding stops being REVISE and becomes ESCALATE.** [[leek-2010]] gives no R² cutoff;
+  [[nygaard-2016]] gives no numeric cutoff between "moderately unbalanced (need not be a concern)" and
+  "heavily unbalanced (huge influence)"; [[zhang-2020-combat-seq]] names "severely or even completely
+  confounded" with **no detector and no simulation** of that regime; [[leek-storey-2007-sva]] stops at an
   average primary-vs-hidden-factor correlation of **0.50** and **never analyses perfect confounding**.
   **No fixture exists. The Axis-1/Axis-2 boundary is a judgment call, and the Mold says so.**
-- **"Is this allocation good enough?"** `[[yan-2012-osat]]` demonstrates χ² p > 0.99 but sets **no**
-  acceptance threshold; `[[designit]]` supplies **no** post-hoc diagnostic that the optimizer failed to
+- **"Is this allocation good enough?"** [[yan-2012-osat]] demonstrates χ² p > 0.99 but sets **no**
+  acceptance threshold; [[designit]] supplies **no** post-hoc diagnostic that the optimizer failed to
   balance. The referee reports the negative-control comparison; it must not mint a cutoff.
 - **How many surrogate variables is too many.** No source gives a cap, a rule, or a degrees-of-freedom
   warning. `sva.check()` is described only as checking "for degenerate cases" — the source never says what a
   degenerate case is.
-- **Whether Nygaard's inflation transfers to NB count models.** `[[nygaard-2016]]` is entirely microarray and
+- **Whether Nygaard's inflation transfers to NB count models.** [[nygaard-2016]] is entirely microarray and
   the words "RNA-seq", "sequencing", "count(s)" never appear. The referee may flag the *design pattern* on
-  count data; it must not assert the *result* transfers. `[[zhang-2020-combat-seq]]` does not cite Nygaard
+  count data; it must not assert the *result* transfers. [[zhang-2020-combat-seq]] does not cite Nygaard
   and supplies no substitute. **This is a real, uncovered branch.**
 ```
 
@@ -441,12 +441,12 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
 
 **Branches that remain judgment-only. I am not faking tests for these:**
 
-1. **The REVISE/ESCALATE boundary for *partial* confounding.** No source in the corpus supplies a cutoff. `[[leek-storey-2007-sva]]` stops at correlation 0.50 and never analyses perfect confounding; `[[zhang-2020-combat-seq]]` names "severely or even completely confounded" and runs **no simulation of it**. This is the single largest hole and it is a *sourcing* hole, not a scenario hole.
-2. **"Is this allocation good enough?"** — no acceptance threshold anywhere (`[[yan-2012-osat]]`, `[[designit]]`). Only the negative-control *comparison* is testable.
+1. **The REVISE/ESCALATE boundary for *partial* confounding.** No source in the corpus supplies a cutoff. [[leek-storey-2007-sva]] stops at correlation 0.50 and never analyses perfect confounding; [[zhang-2020-combat-seq]] names "severely or even completely confounded" and runs **no simulation of it**. This is the single largest hole and it is a *sourcing* hole, not a scenario hole.
+2. **"Is this allocation good enough?"** — no acceptance threshold anywhere ([[yan-2012-osat]], [[designit]]). Only the negative-control *comparison* is testable.
 3. **How many SVs to keep** — unsourced; `n.sv = 2` is simply chosen in every worked example.
 4. **Droplet scRNA-seq / demuxlet** — no stageable fixture, and every number sits under an unread paywalled Author Correction the Mold's own `index.md` forbids using load-bearing. **Removed from the graded set.**
 5. **Whether Nygaard's inflation transfers to NB count models** — a confident silence. The referee may flag the *pattern* on counts, never assert the *result*. **No fixture can close this; only a new source can.**
-6. **Run order / temporal drift** — a hard silence in `[[yang-2008-randomization]]` and absent from `[[yan-2012-osat]]` / `[[designit]]`.
+6. **Run order / temporal drift** — a hard silence in [[yang-2008-randomization]] and absent from [[yan-2012-osat]] / [[designit]].
 
 ---
 

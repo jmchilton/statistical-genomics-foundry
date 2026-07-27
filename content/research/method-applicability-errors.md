@@ -41,7 +41,7 @@ whole applicability space genomics needs.
 The invented-method-with-a-fluent-derivation case — the project's sharpest target
 (`GUIDING_PRINCIPLES.md`). **Confirmed out of scope for StatQA:** its solver picks only from a fixed
 27-method classification list ("selection among known real methods only"; hallucination appears only
-as fabricated *reasoning within a correct answer*, never method invention — `[[statqa-2024]]` §10).
+as fabricated *reasoning within a correct answer*, never method invention — [[statqa-2024]] §10).
 So the benchmark that grounds prong 1 explicitly does **not** touch prong 2. Across the prior-art
 survey this case is repeatedly flagged as **unguarded**:
 - `content/research/projects/02-statistical-genomics-non-r.md` — "'Invented method with a cool name' is unguarded …

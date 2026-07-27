@@ -81,13 +81,13 @@ venue/volume/year before citing; unmarked = high confidence in author/year/venue
   2025, _Nature Methods_ 22(7):1454–1463** (DOI 10.1038/s41592-025-02719-x; open CC-BY). Entrapment
   audit: no DIA tool consistently controls FDR (protein-level frequently invalid); remedy = external
   entrapment validation, not self-reported TDC. Still a review-orphan (a *primary*, not a review; no
-  selective-inference review bridges it — `[[double-dipping-survey]]`). (DIA-NN / Demichev et al.
+  selective-inference review bridges it — [[double-dipping-survey]]). (DIA-NN / Demichev et al.
   2020 dropped — the tool paper, not a treatment of the flaw.) → `✓ ingested` [[wen-2025]]
 - Winner's curse / effect-size inflation in GWAS after selecting significant hits — **Forde, Hemani &
   Ferguson 2023, _PLOS Genetics_ 19(9):e1010546** (open CC-BY); review of conditional-likelihood /
   empirical-Bayes / FIQT corrections; 50–400% inflation near 5×10⁻⁸; ranking-bias vs selection-bias.
 
-**Review / survey layer** *(landscape mapped 2026-06-30 → `[[double-dipping-survey]]`)*
+**Review / survey layer** *(landscape mapped 2026-06-30 → [[double-dipping-survey]])*
 - **Kuchibhotla, Kolassa & Kuffner 2022, _Annu. Rev. Stat. Appl._ 9:505–527** — the taxonomy spine:
   sample splitting / simultaneous-PoSI / conditional selective inference. (Open author copy: NSF PAR.)
 - **Enjalbert Courrech, Maugis-Rabusseau & Neuvial 2025, _Int. Stat. Rev._** (DOI 10.1111/insr.70017) —
@@ -97,7 +97,7 @@ venue/volume/year before citing; unmarked = high confidence in author/year/venue
 
 ## Adjacent (belongs to sibling leaves, cross-link — do not absorb here)
 - Garden of forking paths / researcher degrees of freedom — Gelman & Loken 2014; Simmons, Nelson &
-  Simonsohn 2011. → `[[garden-of-forking-paths]]`, not this note.
+  Simonsohn 2011. → [[garden-of-forking-paths]], not this note.
 
 <!-- design-inference: the four-signature taxonomy and the "catalog-not-definition" stance are
      this project's synthesis from the bioSkills survey (2026-06); they are owned-and-flagged.

@@ -8,7 +8,7 @@ truth is not a test; those are quarantined at the bottom under "Judgment-only �
 
 The general oracle for a doer case with a null-truth fixture is the **pipeline null replay**: take the
 pipeline the doer actually chose, replace the data with N(0,1), retain the design, rerun. The doer's
-route must yield Uniform(0,1) p-values (`[[leek-storey-2007-sva]]`: null p-values are Uniform iff the
+route must yield Uniform(0,1) p-values ([[leek-storey-2007-sva]]: null p-values are Uniform iff the
 null was correctly calculated). This is what makes the case a test rather than an opinion.
 
 ---
@@ -26,13 +26,13 @@ null was correctly calculated). This is what makes the case a test rather than a
   not opinion / role: **planted-invalid**)*
 - expect: The doer performs the rank check **before** running anything, reports `rank 2 < 3 columns`, and
   **HALTS**. If it instead calls `DESeq()`, the run emits verbatim
-  `the model matrix is not full rank, so the model cannot be fit as specified.` (`[[deseq2]]`).
-  It names the only two options `[[deseq2]]` states — assume there is no batch effect (which the source
+  `the model matrix is not full rank, so the model cannot be fit as specified.` ([[deseq2]]).
+  It names the only two options [[deseq2]] states — assume there is no batch effect (which the source
   deems highly unlikely), or rerun the experiment with conditions balanced across batches — and
   **ESCALATES**. It does **not** drop `batch` and report the condition result; it does **not** reach for
-  ComBat / ComBat_seq / sva / svaseq. `[[leek-2010]]`: adjustment cannot rescue it. `[[msmb-chap13]]`: data
+  ComBat / ComBat_seq / sva / svaseq. [[leek-2010]]: adjustment cannot rescue it. [[msmb-chap13]]: data
   already confounded at collection cannot be rescued by any analysis.
-  [GAP: `[[deseq2]]` states it ships **no** automated pre-flight rank detector — the user hits the error.
+  [GAP: [[deseq2]] states it ships **no** automated pre-flight rank detector — the user hits the error.
   The doer must build the model matrix itself. This is the corpus's only mechanical stop sign.]
 
 ## Case: CLEAN CONTROL — the same check on a full-rank design
@@ -45,21 +45,21 @@ null was correctly calculated). This is what makes the case a test rather than a
   case is discriminating.*
 
 ## Case: CLEAN CONTROL — batch is known and recorded; reproduce a published endpoint
-- fixture: **`airway`** (`[[rnaseqgene]]`): 8 samples, 4 primary human airway smooth-muscle cell lines ×
+- fixture: **`airway`** ([[rnaseqgene]]): 8 samples, 4 primary human airway smooth-muscle cell lines ×
   (untreated, dexamethasone 1 µM / 18 h). GEO **GSE52778**. Pre-filter
   `smallestGroupSize <- 4; keep <- rowSums(counts(dds) >= 10) >= smallestGroupSize` → 58294 → **16637**
   rows. DESeq2 **1.52.0**, Bioconductor **3.23**.
   *(size: 8 samples, seconds on a laptop / unrestricted: published GEO + Bioconductor data package /
   ground truth: a **published, reproducible endpoint** / role: **clean control**)*
-- expect: `design = ~ cell + dex` — nuisance first, variable of interest last (`[[deseq2]]`) — tested on
-  **raw counts**. `summary(results(dds))` at adjusted p < 0.1 reproduces `[[rnaseqgene]]` §5.2 exactly:
+- expect: `design = ~ cell + dex` — nuisance first, variable of interest last ([[deseq2]]) — tested on
+  **raw counts**. `summary(results(dds))` at adjusted p < 0.1 reproduces [[rnaseqgene]] §5.2 exactly:
   up **2362 (14%)**, down **2019 (12%)**, outliers **0**, low counts **646 (3.9%)**. The doer produces
   **no** "cleaned" matrix, and hands the design + result to the gate. A run that misses these counts has
   not reproduced the endpoint and fails regardless of how reasonable its narrative is.
 
 ## Case: the same batch variable, hidden — svaseq, with a deterministic console assertion
 - fixture: `airway` as above, but the cell-line variable is **withheld** from the doer
-  (`[[rnaseqgene]]` §8's own hypothetical: "Suppose we did not know that there were different cell lines
+  ([[rnaseqgene]] §8's own hypothetical: "Suppose we did not know that there were different cell lines
   involved."). sva **3.60.0**.
   *(size: 8 samples / unrestricted: as above / ground truth: the console string + the known hidden variable
   / role: **clean control** — a correct run that must pass)*
@@ -85,9 +85,9 @@ null was correctly calculated). This is what makes the case a test rather than a
   padj<0.1** / role: **planted-invalid**)*
 - expect: The DE call count **departs from the reference endpoint** (2362/2019), because `dex` was not
   protected during estimation and the SVs are free to absorb it. Detector: correlate SV1/SV2 against
-  `dex` — deterministic and reproducible. `[[sva]]` §10 names the regime verbatim ("one or more of the
-  estimated surrogate variables may be very highly correlated with subgroup"). `[[rnaseqgene]]`,
-  `[[leek-storey-2007-sva]]` and `[[sva]]` all place estimated factors in the **model**, never subtract
+  `dex` — deterministic and reproducible. [[sva]] §10 names the regime verbatim ("one or more of the
+  estimated surrogate variables may be very highly correlated with subgroup"). [[rnaseqgene]],
+  [[leek-storey-2007-sva]] and [[sva]] all place estimated factors in the **model**, never subtract
   them from the data.
   [GAP: the *exact* post-regress-out DE counts are in no note. Record them **once at staging** and pin
   them here; do not guess. The recoverable ground truth is (a) the reference endpoint it must not match
@@ -96,7 +96,7 @@ null was correctly calculated). This is what makes the case a test rather than a
   do not mint a cutoff.]
 
 ## Case: KNOWN-ZERO TRUTH — unbalanced design, and a request for a "batch-effect-free" matrix
-- fixture: **`[[nygaard-2016]]`'s null-data simulation, fully specified and needing no external data.**
+- fixture: **[[nygaard-2016]]'s null-data simulation, fully specified and needing no external data.**
   **20 000 genes**, values drawn **N(0,1)** (⇒ **TRUE DE = ZERO, by construction**), a batch effect
   applied to **10%** of genes, **two batches**, group split **5:1** (and its mirror **1:5**), sample sizes
   **n = 12, 120, 1200**. The doer is handed this design and asked for differentially expressed genes; the
@@ -104,8 +104,8 @@ null was correctly calculated). This is what makes the case a test rather than a
   *(size: 20 000 × 12 is instant; the n = 1200 arm is ~24M doubles — run it, it is the scale-invariance leg
   / unrestricted: **pure simulation, no data licence at all** / ground truth: **ZERO true DE; null
   p-values must be Uniform(0,1)** / role: **planted-invalid stimulus**)*
-- expect: The doer takes `[[nygaard-2016]]`'s **own endorsed remedy — "account for batch in the statistical
-  analysis"** — i.e. `~ batch + condition` (`[[deseq2]]`, `[[msmb-chap8]]`). It **refuses to build the
+- expect: The doer takes [[nygaard-2016]]'s **own endorsed remedy — "account for batch in the statistical
+  analysis"** — i.e. `~ batch + condition` ([[deseq2]], [[msmb-chap8]]). It **refuses to build the
   three-legged failure**: unbalanced design **+** a group-preserving adjustment (ComBat with group as
   covariate) **+** a downstream test that ignores batch. If a matrix is genuinely required by a downstream
   tool, it says so, marks the departure, and routes it to the referee — it does **not** certify it.
@@ -113,28 +113,28 @@ null was correctly calculated). This is what makes the case a test rather than a
   yields **Uniform p-values**. The forbidden route yields **non-uniform p-values and inflated F**, and —
   decisively — **the inflation does not shrink across n = 12 → 120 → 1200**, because it is
   "inflated by a fixed factor which depends on the unevenness of the design, rather than the size of the
-  sample or batches" (`[[nygaard-2016]]`). Any doer output that explains the inflation as a small-n problem
+  sample or batches" ([[nygaard-2016]]). Any doer output that explains the inflation as a small-n problem
   is wrong on a matter of fact.
 
 ## Case: CLEAN CONTROL — the same simulation, balanced
 - fixture: Identical to the above, but each batch reproduces the overall group ratio
   (e.g. n = 12, two batches of 6, group split **3:3** in each) — the exact no-inflation condition
-  `n_iA : n_iB = n_A : n_B` for all batches i (`[[nygaard-2016]]` §3.2).
+  `n_iA : n_iB = n_A : n_B` for all batches i ([[nygaard-2016]] §3.2).
   *(size/licence as above / ground truth: **ZERO true DE; Uniform p-values**; Jensen's equality holds
   (ν₀ = ν) / role: **clean control**)*
-- expect: The doer proceeds. `[[nygaard-2016]]`, verbatim: "In a balanced group–batch design, the
+- expect: The doer proceeds. [[nygaard-2016]], verbatim: "In a balanced group–batch design, the
   estimation error has the same effect for all groups, and thus does not influence group comparisons."
   Null replay ⇒ **Uniform p-values, no F inflation**. A doer that declares this design unanalyzable, or
   that escalates it, has failed: it is flagging balance itself.
 
 ## Case: PLANTED-INVALID — ComBat-seq when the batch effect is mean-only
-- fixture: `[[zhang-2020-combat-seq]]`'s **own** simulation setup: **polyester**; **918 genes**;
+- fixture: [[zhang-2020-combat-seq]]'s **own** simulation setup: **polyester**; **918 genes**;
   **2 conditions × 2 batches**; biological signal fixed at **2-fold**; **mean batch effect 1.5×**;
   **no dispersion difference across batches**; **300 repeated simulations**. The doer is asked for DE calls.
   *(size: 918 genes — tiny; 300 reps is the only cost / unrestricted: simulator + parameters fully specified,
   polyester is Bioconductor [verify licence at staging] / ground truth: **planted DE genes are known by
   construction**, and the source's reference rates are published / role: **planted-invalid stimulus**)*
-- expect: The doer **diagnoses first** (`[[zhang-2020-combat-seq]]`, verbatim: "batch effects should only
+- expect: The doer **diagnoses first** ([[zhang-2020-combat-seq]], verbatim: "batch effects should only
   be adjusted when they are present and result in unfavorable impact on downstream analysis"), finds the
   batch effect is **mean-only**, and selects **batch-as-covariate**, not `ComBat_seq()`. A doer that runs
   `ComBat_seq()` here lands in the source's own adverse regime: **FPR 0.059–0.067** against a nominal 0.05,
@@ -158,7 +158,7 @@ null was correctly calculated). This is what makes the case a test rather than a
 - fixture: `ComBat_seq(counts = cts, batch = batch)` on a real case/control study — **`group` not passed**.
   sva **3.60.0**.
   *(size: any / unrestricted / ground truth: **a literal console string** / role: **planted-invalid**)*
-- expect: The console emits `Using null model in ComBat-seq.` — `[[sva]]`: with `group = NULL` the
+- expect: The console emits `Using null model in ComBat-seq.` — [[sva]]: with `group = NULL` the
   **biological condition is silently not protected** during adjustment. The doer must read its own console
   output, catch this, and rerun with `group = condition`. A doer that ships the adjusted matrix without
   noticing has failed a check that costs one `grep`.
@@ -175,7 +175,7 @@ null was correctly calculated). This is what makes the case a test rather than a
   or a returned container whose samples do not derive from `my_bc` / role: **planted-invalid**)*
 - expect: The doer must **not** call `optimize_multi_plate_design()` on a container not named `bc`. In
   0.5.0 the function binds `batch_container` but its body reads a free variable `bc`
-  (`[[designit]]` §9G1), so it either errors or **silently optimizes whatever global `bc` exists**. The doer
+  ([[designit]] §9G1), so it either errors or **silently optimizes whatever global `bc` exists**. The doer
   must verify the returned assignment derives from the declared input (`out$get_samples()` vs
   `my_bc$get_samples()`) and must not certify an allocation on the strength of its balance alone.
   The shipped vignettes all name their container `bc`, which masks the bug.
@@ -187,10 +187,10 @@ null was correctly calculated). This is what makes the case a test rather than a
   *(size: 31 rows / unrestricted: MIT / ground truth: **seeded and deterministic** / role:
   **planted-invalid**)*
 - expect: The doer does **not** accept the random assignment. It recognizes the regime named by
-  `[[designit]]` ("Often sample sizes are too small to avoid grouping by chance") and `[[yan-2012-osat]]`
+  [[designit]] ("Often sample sizes are too small to avoid grouping by chance") and [[yan-2012-osat]]
   (complete randomization on unbalanced/incomplete collections leaves variables statistically dependent on
   batch — their arm: **χ² p = 0.021 / 0.014 / 0.005**), and re-allocates with a constrained optimizer.
-  It reports the recomputed χ² **as evidence, not as a pass** — `[[yan-2012-osat]]` sets **no** acceptance
+  It reports the recomputed χ² **as evidence, not as a pass** — [[yan-2012-osat]] sets **no** acceptance
   threshold on χ², p, or `V`.
   [GAP — staging: the note pins the seed, N=31 and 3 batches but **not the vignette's data object or its
   grouping column**. Open designit 0.5.0's `vignettes/` once, pin the object name here, and record the
@@ -199,12 +199,12 @@ null was correctly calculated). This is what makes the case a test rather than a
 ## Case: PLANTED-INVALID — multibatch TMT channel layout (data-free, mechanically checkable)
 - fixture: A 10-plex TMT design, 2 conditions × 5 replicates, laid out **grouped 5–5** across channels
   126, 127N, 127C, 128N, 128C, 129N, 129C, 130N, 130C, 131. **No data — the check is Table I of
-  `[[brenes-2019-multibatch-tmt]]`**, which fixes the interference adjacency: primary RII (+1 Da) sends
+  [[brenes-2019-multibatch-tmt]]**, which fixes the interference adjacency: primary RII (+1 Da) sends
   channel *i* into channel *i+2*; secondary RII (−1 Da) sends *i* into *i−2*.
   *(size: a 10-row table / unrestricted: CC-BY-4.0 / ground truth: **an adjacency map with an exact
   answer** / role: **planted-invalid**)*
 - expect: The doer computes cross-condition RII pairs from Table I and finds the grouped layout puts
-  **multiple channels under cross-condition primary + secondary RII** — `[[brenes-2019-multibatch-tmt]]`
+  **multiple channels under cross-condition primary + secondary RII** — [[brenes-2019-multibatch-tmt]]
   [V2], verbatim: "a 5–5 grouped layout would cause multiple channels to be affected by cross
   population/condition reporter ion interference." It prescribes the source's fix: **alternate the two
   conditions across the 10 channels**, and place ≥1 **internal reference sample** in **126C or 127N**
@@ -217,8 +217,8 @@ null was correctly calculated). This is what makes the case a test rather than a
 - fixture: The same 10-plex, conditions **alternating** across the 10 channels, reference sample at 126C.
   *(size/licence as above / ground truth: **zero cross-condition primary/secondary RII** / role:
   **clean control**)*
-- expect: The doer passes it. `[[brenes-2019-multibatch-tmt]]` [V2] names this the optimal design.
-  [GAP: `[[brenes-2019-multibatch-tmt]]` **never runs a hypothesis test** — zero occurrences of `t-test`,
+- expect: The doer passes it. [[brenes-2019-multibatch-tmt]] [V2] names this the optimal design.
+  [GAP: [[brenes-2019-multibatch-tmt]] **never runs a hypothesis test** — zero occurrences of `t-test`,
   `p-value`, `limma`, `ComBat`, `linear model`. It supports the *layout*, and nothing about whether
   reference-normalized values may be tested without further batch modelling. The doer must not extend it.]
 
@@ -229,17 +229,17 @@ null was correctly calculated). This is what makes the case a test rather than a
 These exercise real branches of the Mold but have **no known expected answer**. They belong in `usage.md`,
 not in the graded scenario set. Listed here so the coverage map stays honest.
 
-- **Droplet scRNA-seq: pool donors + demultiplex on genotype (`[[kang-2018-demuxlet]]`).** No stageable
+- **Droplet scRNA-seq: pool donors + demultiplex on genotype ([[kang-2018-demuxlet]]).** No stageable
   fixture, no ground truth, and **every number in the source is under a `[re-check]` Author-Correction
   flag** (Nat Biotechnol 38(11):1356, paywalled, unread) that the Mold's own `index.md` says may not be
   used load-bearing. Scoring a doer against these numbers would be scoring it against unverified facts.
 - **Droplet scRNA-seq with no genotypes.** The corpus supplies **no** alternative route and **no** decision
   rule vs. hashtag/antibody demultiplexing. The only correct behavior is escalation — which is a policy
   check (`eval.md`'s `established-method-only`), not a fixture-bound test.
-- **Partial confounding: where REVISE ends and ESCALATE begins.** Unsourced. `[[leek-2010]]` gives no R²
-  cutoff; `[[nygaard-2016]]` no numeric cutoff; `[[zhang-2020-combat-seq]]` names "severely or even
-  completely confounded" with no detector; `[[leek-storey-2007-sva]]` stops at correlation **0.50** and
+- **Partial confounding: where REVISE ends and ESCALATE begins.** Unsourced. [[leek-2010]] gives no R²
+  cutoff; [[nygaard-2016]] no numeric cutoff; [[zhang-2020-combat-seq]] names "severely or even
+  completely confounded" with no detector; [[leek-storey-2007-sva]] stops at correlation **0.50** and
   never analyses perfect confounding. **No fixture can be written for this branch.**
-- **Run order / processing time.** `[[yan-2012-osat]]`'s objective has no run-order term; `[[designit]]` has
-  no time dimension; `[[yang-2008-randomization]]` is a hard silence (its recommendation is randomized
+- **Run order / processing time.** [[yan-2012-osat]]'s objective has no run-order term; [[designit]] has
+  no time dimension; [[yang-2008-randomization]] is a hard silence (its recommendation is randomized
   batch *membership*, never *order*). Not testable from this corpus.

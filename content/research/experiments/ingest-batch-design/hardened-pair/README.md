@@ -25,7 +25,7 @@ Two hardening passes, one per assessment axis
 | **Corrected: OSAT `nSim` default is 100, not 5000** | The blind doer inherited "5000-attempt default" from the **2012 paper** (which states no defaults at all). The shipped package's coded default is **100** — **50×–1000× below its own docs' recommendation** — and `create.optimized.setup()` has **no `nSim` formal**, so omitting it silently inherits 100. A plausible-but-wrong operational number, caught only by reading the package. |
 | **Determinism section** | Three stochastic steps (designit shuffle; OSAT block+swap; `num.sv(method="be")`), each seeded and each reported. `"leek"` is **deterministic** and needs no seed — grade the two differently. |
 | **Provenance block** | `sessionInfo()`, the install route *actually taken*, every contested default written out, seeds, and the **console-string detectors** (`Using null model in ComBat-seq.`, the not-full-rank error, designit's first-iteration-only NA warning). |
-| **`[[limma]]` added, with a SCOPE FENCE** | GAP-1 closed: limma's `removeBatchEffect` **Note** is the one first-party *assertion* that a corrected matrix must not feed `lmFit`. **But it does not generalize** — ComBat/RUV/sva = **0 hits** across both limma PDFs. The SV prohibition remains a GAP. |
+| **[[limma]] added, with a SCOPE FENCE** | GAP-1 closed: limma's `removeBatchEffect` **Note** is the one first-party *assertion* that a corrected matrix must not feed `lmFit`. **But it does not generalize** — ComBat/RUV/sva = **0 hits** across both limma PDFs. The SV prohibition remains a GAP. |
 
 ### Assessability — scenarios now bind **real fixtures to known ground truth**
 
@@ -55,11 +55,11 @@ in-context collider *identification*, and both demuxlet cases (whose every numbe
 ## Still-open (carried forward, never fake-closed)
 
 - **"Don't test on an SV-residualized matrix"** — still unsourced. limma's Note is fenced to
-  `removeBatchEffect`/`lmFit`; `[[nygaard-2016]]` is fenced to ComBat-style adjustment on *microarrays*.
+  `removeBatchEffect`/`lmFit`; [[nygaard-2016]] is fenced to ComBat-style adjustment on *microarrays*.
 - **`be` vs `leek` choice rule** — no source; the package contradicts itself. (And sva's hard-coded
   `p ≤ 0.10` cutoff is documented in *neither* the man page nor Leek 2011 — it is real but **uncited**
   until the sva R source is itself ingested. See `../gap-closing.md`.)
-- **`[[kang-2018-demuxlet]]`'s Author Correction** — paywalled, unread. Every threshold from that note
+- **[[kang-2018-demuxlet]]'s Author Correction** — paywalled, unread. Every threshold from that note
   stays under `[re-check]`.
 - **21 of the probe's 29 GAPs are "convention, not citable"** — no confounding cutoff, no allocation
   acceptance threshold, no rule for how many SVs. **The unanimous silence of five independent primaries is

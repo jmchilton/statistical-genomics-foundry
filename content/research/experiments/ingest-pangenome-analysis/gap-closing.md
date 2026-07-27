@@ -21,7 +21,7 @@ Re-checked the four Phase-2 bacterial notes for the open/closed rule. **None car
 | GAP (Gate) | Status | Detail |
 |---|---|---|
 | **B1 — numeric inflation / tool-gap cutoff** | **convention — not hunted** | `tonkin-hill-2020-panaroo` gives qualitative signatures (grows-with-N; large inter-tool gap; ~59% fragmentation, ~10% inconsistent-calls) and case numbers (~tenfold) but **no general cutoff**. A convention has no primary to recover; the label is the answer. Keep as a judgment call in the Mold. |
-| **B4 — open/closed decision rule** | **closed-by-surrogate (partial)** | New note `[[snipen-2015-micropan]]` (CC BY 2.0) states the rule unambiguously. Sub-facts: rule + boundary **closed**; closed-form equation + min-genome count **still-open**. |
+| **B4 — open/closed decision rule** | **closed-by-surrogate (partial)** | New note [[snipen-2015-micropan]] (CC BY 2.0) states the rule unambiguously. Sub-facts: rule + boundary **closed**; closed-form equation + min-genome count **still-open**. |
 
 ## B4 — what newly recovers (via `snipen-2015-micropan`, ingested Phase 5)
 
@@ -61,5 +61,5 @@ for the alternative convention; it was **not ingested** (the micropan recommend 
 - **Not hunted:** Gate-B1 cutoff (convention).
 
 Per contract, the Phase-3 candidate Mold is left as-is; its Gate-B4 `[GAP]` is now *partially*
-closable by a human author citing `[[snipen-2015-micropan]]` for the rule + boundary (with the
+closable by a human author citing [[snipen-2015-micropan]] for the rule + boundary (with the
 convention flagged), while correctly leaving the min-genome sub-gap open.

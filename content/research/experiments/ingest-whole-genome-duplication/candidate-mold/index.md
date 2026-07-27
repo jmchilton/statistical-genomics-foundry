@@ -109,7 +109,7 @@ individual flags combine into a single PASS/FLAG verdict — is not supplied by 
 design synthesis. Treat the mapping below as a working default, not a sourced rule.]`
 
 ## Check 1 — Ks saturation boundary on the peak (cardinal; always)
-Grounded in `[[vanneste-2013-ks-saturation]]`.
+Grounded in [[vanneste-2013-ks-saturation]].
 - A tail peak at high Ks may be a **saturation peak**: an artifact where old duplicates are
   compressed onto smaller estimated Ks and pile up, mimicking a WGD **even in pure small-scale-
   duplication (no-WGD) simulations**. It is an artifact of Ks estimation, not a duplication burst.
@@ -126,7 +126,7 @@ Grounded in `[[vanneste-2013-ks-saturation]]`.
   date, syntenic depth, or an external calibration). Also flag the mirror error: a genuine ancient
   WGD can **fade** — its peak flattens and blends into the L-shaped SSD background — so absence of a
   peak past ~2.5 is **not** evidence of no WGD.
-- Cross-check the analysis's saturation cutoff against `[[chen-2024-wgd]]`: wgd `--kscutoff` default
+- Cross-check the analysis's saturation cutoff against [[chen-2024-wgd]]: wgd `--kscutoff` default
   is `5` but the paper recommends "typically 2 or 3" for dating; a dating claim that kept anchors far
   above 2–3 inherits saturation risk.
 - `[GAP: no turnkey rule separates a saturation peak from a real WGD peak in an empirical dataset —`
@@ -135,21 +135,21 @@ Grounded in `[[vanneste-2013-ks-saturation]]`.
   `illustrated for a few taxa only, not tabulated. Do not apply one fixed Ks cutoff across species.]`
 
 ## Check 2 — Is the peak WGD signal, or tandem/small-scale contamination?
-Grounded in `[[qiao-2019-dupgen]]`, `[[wang-2012-mcscanx]]`, `[[tang-2008-jcvi]]`, `[[lovell-2022-genespace]]`.
+Grounded in [[qiao-2019-dupgen]], [[wang-2012-mcscanx]], [[tang-2008-jcvi]], [[lovell-2022-genespace]].
 - WGD-derived signal is **synteny-anchored (collinear) pairs**, not the raw paranome. A Ks
   distribution built from *all* duplicate pairs mixes in tandem, proximal, transposed and dispersed
   duplicates, which can create or inflate a peak that is **not** a WGD.
-- Duplication modes (`[[qiao-2019-dupgen]]`, DupGen_finder): the five classes are exactly
+- Duplication modes ([[qiao-2019-dupgen]], DupGen_finder): the five classes are exactly
   **WGD, tandem, proximal, transposed, dispersed**. WGD = intra-genome MCScanX collinear pairs;
   **tandem = directly adjacent** (0 intervening genes); **proximal = ≤ `-d` genes apart, default 10**.
   There is **no "segmental" class** in DupGen and **no separate "tandem=5 / proximal 5–25" windows** —
   a claim using either is wrong (see Check 5).
-- Collinear-block criteria (`[[wang-2012-mcscanx]]`): tandem = gene-rank difference 1; proximal =
+- Collinear-block criteria ([[wang-2012-mcscanx]]): tandem = gene-rank difference 1; proximal =
   rank difference < 20; a reported block scores > 250 (≥ 5 collinear pairs), gap < 25 intervening
   genes, block E-value 1e-5; consecutive shared-gene matches within 5 genes are collapsed. Class
   priority WGD/segmental > tandem > proximal > dispersed.
-- Tandem-array handling: `[[tang-2008-jcvi]]` collapses tandems < 50 kb (residual long-distance
-  tandems inflate multiplicity); `[[lovell-2022-genespace]]` collapses tandem arrays to
+- Tandem-array handling: [[tang-2008-jcvi]] collapses tandems < 50 kb (residual long-distance
+  tandems inflate multiplicity); [[lovell-2022-genespace]] collapses tandem arrays to
   **array-representative** genes before ranking (blkSize = 5 *unique hits* — not orthogroups —
   synBuff = 100, nGaps = 5).
 - **FLAG** a WGD claim from a raw-paranome Ks peak with no synteny-anchor (anchor-Ks) confirmation
@@ -161,7 +161,7 @@ Grounded in `[[qiao-2019-dupgen]]`, `[[wang-2012-mcscanx]]`, `[[tang-2008-jcvi]]
   `score>250, GENESPACE blkSize=5 hits — these gate a block, not a genome-wide WGD verdict.]`
 
 ## Check 3 — Cross-lineage placement requires rate correction
-Grounded in `[[sensalari-2022-ksrates]]`.
+Grounded in [[sensalari-2022-ksrates]].
 - Synonymous substitution **rates differ among lineages**, so equal-age events sit at different Ks
   depending on the lineage measured. A focal species' paralog Ks distribution is **not directly
   comparable** to ortholog Ks distributions involving other, differently-evolving species; naive
@@ -180,7 +180,7 @@ Grounded in `[[sensalari-2022-ksrates]]`.
   `this source for a Ks<1.5-type bound on rate correction.]`
 
 ## Check 4 — A specific ploidy level needs syntenic depth
-Grounded in `[[tang-2008-jcvi]]`.
+Grounded in [[tang-2008-jcvi]].
 - **Syntenic depth (multiplicity)** of aligned loci indexes duplication history, read against an
   **assumed per-lineage event history**: expected multiplicity *Carica* = 3, *Vitis* = 3 (γ only),
   *Populus* = 6 (γ × p), *Arabidopsis* = 12 (γ, β, α); empirically 88 *Carica* loci at depth 3,
@@ -192,32 +192,32 @@ Grounded in `[[tang-2008-jcvi]]`.
   misassigns ploidy.
 
 ## Check 5 — Pipeline / parameter / tool-identity sanity (method reality)
-Grounded in `[[chen-2024-wgd]]`, `[[qiao-2019-dupgen]]`, `[[wang-2012-mcscanx]]`, `[[tang-2008-jcvi]]`.
+Grounded in [[chen-2024-wgd]], [[qiao-2019-dupgen]], [[wang-2012-mcscanx]], [[tang-2008-jcvi]].
 The referee also judges whether the **named method is real and correctly described** (method
 validity per the glossary). FLAG stated-but-false tool/parameter facts:
 - **wgd v2 detects collinearity with i-ADHoRe (v3.0.01), NOT MCScanX** — a claim that wgd v2 uses
-  MCScanX is wrong (`[[chen-2024-wgd]]`). wgd Ks estimator is CODEML (PAML v4.9j); redundancy removal
+  MCScanX is wrong ([[chen-2024-wgd]]). wgd Ks estimator is CODEML (PAML v4.9j); redundancy removal
   is **node-weighted by default** (`--node_average` switches to node-averaging); mixture components
   default range `(1, 4)` selected by AIC/BIC (GMM).
 - DupGen classes are WGD/tandem/proximal/transposed/dispersed; **"segmental" is not a class**, and
   **tandem = adjacency, proximal = single `-d` window (default 10)** — "tandem=5, proximal 5–25" is
-  wrong (`[[qiao-2019-dupgen]]`).
-- The 2008 MCscan (`[[tang-2008-jcvi]]`) controls stringency by BLASTP E ≤ 1e-5, best-5 hits, DP
+  wrong ([[qiao-2019-dupgen]]).
+- The 2008 MCscan ([[tang-2008-jcvi]]) controls stringency by BLASTP E ≤ 1e-5, best-5 hits, DP
   scoring, and score cutoffs — **no `cscore` and no `quota`** appear in that paper (those are the
   later JCVI port). A claim attributing a `--cscore` to Tang-2008 is wrong.
 
 ## Check 6 — Independent corroboration (birth-death), with the assembly-error caveat
-Grounded (as hypothesis-evidence) in `[[de-bie-2006-cafe]]`, `[[mendes-2020-cafe5]]`, `[[han-2013-cafe3]]`.
+Grounded (as hypothesis-evidence) in [[de-bie-2006-cafe]], [[mendes-2020-cafe5]], [[han-2013-cafe3]].
 - A WGD claim is **strengthened** if an independent phylogenomic signal — a burst of gene-family
   **expansions datable to the same node** — corroborates it. CAFE fits a birth-death process to
   family sizes and attributes rate shifts to branches (Viterbi per-branch p-value, branch-cutting,
-  LRT; `[[de-bie-2006-cafe]]`), with among-family rate variation via gamma categories + empirical
-  Bayes for fast/slow families (`[[mendes-2020-cafe5]]`).
+  LRT; [[de-bie-2006-cafe]]), with among-family rate variation via gamma categories + empirical
+  Bayes for fast/slow families ([[mendes-2020-cafe5]]).
 - **Caveat that limits how much weight this evidence carries:**
   - Assembly/annotation error **inflates** gain/loss rates — "consistently overestimated," ~2.3×
-    at ε=0.1 and ~7.5× at ε=0.4 (`[[han-2013-cafe3]]`). A gene-count expansion burst from a
+    at ε=0.1 and ~7.5× at ε=0.4 ([[han-2013-cafe3]]). A gene-count expansion burst from a
     **fragmented assembly without an error model** is not trustworthy WGD evidence.
-  - CAFE per-family p-values are **uncorrected for multiple testing** (`[[de-bie-2006-cafe]]` §10),
+  - CAFE per-family p-values are **uncorrected for multiple testing** ([[de-bie-2006-cafe]] §10),
     so a handful of "significant" expanded families is weak corroboration on its own.
 - Use this as a **corroboration/robustness** check, not a primary axis.
 - `[GAP: NO sourced note states that a CAFE expansion burst confirms a WGD or quantifies the`
@@ -225,7 +225,7 @@ Grounded (as hypothesis-evidence) in `[[de-bie-2006-cafe]]`, `[[mendes-2020-cafe
   `detection. The link is a design inference (hence hypothesis-evidence on these three refs).]`
 
 ## Check 7 — Small-sample / rugged-histogram artifact
-Grounded in `[[vanneste-2013-ks-saturation]]`.
+Grounded in [[vanneste-2013-ks-saturation]].
 - Small duplicate-pair distributions give a **rugged density curve with spurious local maxima** that
   can masquerade as peaks. FLAG a WGD peak drawn from few pairs / a visibly rugged histogram as a
   possible small-sample artifact.
