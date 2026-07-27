@@ -292,5 +292,9 @@
         }
       ]
     }
-  ]
+  ],
+  "source": {
+    "repo": "jmchilton/statistical-genomics-foundry",
+    "path": "site/src/types/kinds.generated.json"
+  }
 }
