@@ -10,13 +10,14 @@
 import { z } from 'zod';
 
 import { buildKindContext, DEFINITIONS, type KindDefinition } from '../types/index';
+import { REGISTRIES } from './registries';
 
 // Strip the trailing `/index` so entry ids stay clean (`msmb/chap1`, `leek-2010`) rather than
 // `.../index` — keeps URLs and wiki-link basenames unique per note.
 export const stripIndex = ({ entry }: { entry: string }) =>
   entry.replace(/\.md$/, '').replace(/\/index$/, '');
 
-const ctx = buildKindContext();
+const ctx = buildKindContext(REGISTRIES);
 
 /**
  * A kind's assembled schema: parses this kind's frontmatter, yields its own output.

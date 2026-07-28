@@ -56,7 +56,8 @@ export const NARROWED_GROUPS = ['kinds', 'modes'] as const satisfies readonly Co
 
 let cached: ReferenceContract | undefined;
 
-function contract(): ReferenceContract {
+/** The composed contract itself — what `buildKindContext` is handed. */
+export function referenceContract(): ReferenceContract {
   if (!cached) {
     cached = buildReferenceContract({
       kinds: loadInstanceKinds(CONTRACT_FILE),
@@ -70,13 +71,12 @@ function contract(): ReferenceContract {
 // because the cast below has to be justified by something: `z.enum` needs a non-empty
 // tuple, and no amount of upstream validation proves that to the type checker here.
 const keys = (group: ContractGroup): [string, ...string[]] => {
-  const k = contractKeys(contract(), group);
+  const k = contractKeys(referenceContract(), group);
   if (k.length === 0) throw new Error(`reference contract: \`${group}\` is empty`);
   return k as [string, ...string[]];
 };
 
+// Only the two the drift test reads. The other three (`used_at`, `load`, `evidence`) existed
+// solely for the kind context, which now takes the contract itself.
 export const referenceKinds = () => keys('kinds');
-export const referenceUsedAt = () => keys('used_at');
-export const referenceLoad = () => keys('load');
 export const referenceModes = () => keys('modes');
-export const referenceEvidence = () => keys('evidence');
