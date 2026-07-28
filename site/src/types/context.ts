@@ -43,6 +43,17 @@ export interface BuildKindContextOptions {
 }
 
 /**
+ * Any shape a kind may have: an object carrying the `type` discriminator.
+ *
+ * `type` is the SOLE discriminator — the kind picks the schema, and nothing infers a kind from
+ * a directory, a filename or a tag. Stating that in the bound is what makes it a property of
+ * the contract rather than a convention every kind happens to follow, and it is what lets a
+ * consumer route on `type` knowing every kind has one. The parent Foundry uses the same bound,
+ * where it additionally lets the kinds compose into a `z.discriminatedUnion`.
+ */
+export type KindShape = { type: z.ZodTypeAny } & z.ZodRawShape;
+
+/**
  * What a `types/<kind>/schema.ts` exports.
  *
  * Generic over its shape `T`, and that is not decoration: a definition annotated
@@ -57,7 +68,7 @@ export interface BuildKindContextOptions {
  * frontmatter by a generator instead. That keeps every kind a plain object — no file I/O
  * inside a schema, and a kind manifest that reports what a note actually carries.
  */
-export interface KindDefinition<T extends z.ZodRawShape = z.ZodRawShape> {
+export interface KindDefinition<T extends KindShape = KindShape> {
   /** The `type:` discriminator value. MUST equal the directory name. */
   kind: string;
   /** Display name for the kind catalog. */
@@ -85,7 +96,7 @@ export interface KindDefinition<T extends z.ZodRawShape = z.ZodRawShape> {
 
 /** Identity helper a kind directory wraps its definition in, purely to INFER rather than
  *  widen the shape type. See the note on `KindDefinition`. */
-export function defineKind<T extends z.ZodRawShape>(
+export function defineKind<T extends KindShape>(
   definition: KindDefinition<T>,
 ): KindDefinition<T> {
   return definition;
