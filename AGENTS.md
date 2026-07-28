@@ -54,6 +54,11 @@ tooling that has stood up — everything under "Deferred to repo standup" has no
 
 - **Wiki-link fields use `[[Target]]`.** Carry over the parent's convention when docs
   reference Molds, Patterns, schemas, or other notes.
+- **Never wrap a wiki-link in backticks.** A backtick means *this is the syntax*, not *this is
+  a link* — `` `[[Target]]` `` is how the glossary names the token and how a note cites a Mold
+  nobody has written yet. Renderers leave code spans alone, so a backticked citation is a
+  citation that never links. Write `[[Target]]` bare in prose. The corpus carried 671 of these
+  before #114 swept them.
 - **Keep the diff-from-parent honest.** This is N=2 in the Foundry-pattern lineage. Each doc
   records what it inherits, adapts, demotes, or adds vs. the Galaxy Workflow Foundry. When you
   change a doc, preserve that framing — it is the evidence that earns the abstraction.
