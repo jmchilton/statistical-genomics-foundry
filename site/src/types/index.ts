@@ -31,7 +31,7 @@ export const DEFINITIONS = { book, paper, tutorial, mold, pattern } as const;
  * parameter, so a narrower bound here rejects every concrete definition. Nothing reads a field
  * off this type, so the looseness buys iteration and costs nothing.
  */
-export type AnyKindDefinition = KindDefinition<any, any>;
+export type AnyKindDefinition = KindDefinition<any>;
 
 /** Iteration order for the manifest and the drift test. */
 export const KINDS = Object.values(DEFINITIONS) as readonly AnyKindDefinition[];

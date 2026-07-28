@@ -1,7 +1,8 @@
 # Book-level metadata for the msmb source-note set — single source of truth.
-# Per-chapter chap<n>/index.md frontmatter carries only what varies: title, source,
-# source_chapter, source_url. The Astro `books` collection merges the book-level fields
-# below into each chapter entry (see site/src/content.config.ts). /regenerate-book-summaries
+# Per-chapter chap<n>/index.md frontmatter carries what varies (title, source,
+# source_chapter, source_url) plus a COPY of the licence fields below, written by
+# `npm run books` and verified by `npm run check:books`. Edit them here, never there.
+# /regenerate-book-summaries
 # reads `chapters` + `summary_prompt`; scripts/sync-book.sh reads the co-located manifest.tsv.
 title: "Modern Statistics for Modern Biology"
 short_title: MSMB

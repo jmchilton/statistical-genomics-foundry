@@ -28,16 +28,19 @@ import { isValidTag } from '../lib/meta-tags';
 /**
  * What a `types/<kind>/schema.ts` exports.
  *
- * Generic over its shape `T` and its assembled output `O`, and that is not decoration: a
- * definition annotated `: KindDefinition` widens both, and the erasure travels all the way to
- * the Astro pages as `entry.data` of type `unknown` — one widened annotation here costs
- * ~100 `astro check` errors on pages that never mention this file. Kinds go through
- * `defineKind` so both stay INFERRED.
+ * Generic over its shape `T`, and that is not decoration: a definition annotated
+ * `: KindDefinition` widens it, and the erasure travels all the way to the Astro pages as
+ * `entry.data` of type `unknown` — one widened annotation here costs ~100 `astro check`
+ * errors on pages that never mention this file. Kinds go through `defineKind` so it stays
+ * INFERRED.
+ *
+ * A kind is `build` plus an optional `refine`, and nothing else. There is deliberately no
+ * hook for assembling an entry out of anything but its own frontmatter: a note that needed
+ * a sibling file's fields (a book chapter and its book.yml) gets them materialized into its
+ * frontmatter by a generator instead. That keeps every kind a plain object — no file I/O
+ * inside a schema, and a kind manifest that reports what a note actually carries.
  */
-export interface KindDefinition<
-  T extends z.ZodRawShape = z.ZodRawShape,
-  O = z.infer<z.ZodObject<T, 'strict'>>,
-> {
+export interface KindDefinition<T extends z.ZodRawShape = z.ZodRawShape> {
   /** The `type:` discriminator value. MUST equal the directory name. */
   kind: string;
   /** Display name for the kind catalog. */
@@ -53,7 +56,7 @@ export interface KindDefinition<
   summary: string;
   /** The strict object this kind validates. Its `.shape` is what the manifest generator
    *  walks to derive the required-metadata table, so `build` returns the OBJECT — any
-   *  refinement or transform goes in the two slots below. */
+   *  refinement goes in the slot below. */
   build: (ctx: KindContext) => z.ZodObject<T, 'strict'>;
   /** Cross-field rules over this kind's own fields. */
   refine?: (
@@ -61,20 +64,13 @@ export interface KindDefinition<
     ctx: z.RefinementCtx,
     kctx: KindContext,
   ) => void;
-  /** For a kind whose entry is ASSEMBLED from more than its own frontmatter (a book chapter
-   *  merging book.yml). Applied after `build`, and it may raise issues of its own. */
-  transform?: (
-    data: z.infer<z.ZodObject<T, 'strict'>>,
-    ctx: z.RefinementCtx,
-    kctx: KindContext,
-  ) => O;
 }
 
 /** Identity helper a kind directory wraps its definition in, purely to INFER rather than
- *  widen the shape and output types. See the note on `KindDefinition`. */
-export function defineKind<T extends z.ZodRawShape, O = z.infer<z.ZodObject<T, 'strict'>>>(
-  definition: KindDefinition<T, O>,
-): KindDefinition<T, O> {
+ *  widen the shape type. See the note on `KindDefinition`. */
+export function defineKind<T extends z.ZodRawShape>(
+  definition: KindDefinition<T>,
+): KindDefinition<T> {
   return definition;
 }
 

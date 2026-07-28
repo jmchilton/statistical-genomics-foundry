@@ -21,13 +21,13 @@ const entries = (await Promise.all(
 )).flat();
 const users = entries
   .filter(({ e }) => {
-    const lf = (e.data as any).license_file;
+    const lf = e.data.license_file;
     return typeof lf === 'string' && licenseIdFromFile(lf) === license.id;
   })
   .map(({ e, collection }) => ({
     href: `${base}/${collection}/${e.id}/`,
     id: e.id,
-    spdx: (e.data as any).license as string | undefined,
+    spdx: e.data.license,
   }))
   .sort((a, b) => a.id.localeCompare(b.id));
 
