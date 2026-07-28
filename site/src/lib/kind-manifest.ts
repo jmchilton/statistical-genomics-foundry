@@ -17,6 +17,7 @@ import {
 } from '@galaxy-foundry/kind-manifest';
 
 import { buildKindContext, KINDS } from '../types/index';
+import { REGISTRIES } from './registries';
 
 export {
   describeFields,
@@ -47,7 +48,7 @@ export function buildKindManifest(
   instance: string,
   docs: Record<string, string> = {},
 ): KindManifest {
-  const ctx = buildKindContext();
+  const ctx = buildKindContext(REGISTRIES);
   return deriveKindManifest({
     instance,
     source: MANIFEST_SOURCE,

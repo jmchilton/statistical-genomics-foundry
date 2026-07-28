@@ -16,6 +16,7 @@ import { describe, it, expect } from 'vitest';
 import type { z } from 'zod';
 
 import { NOTE_KINDS, type NoteKind } from '../src/lib/frontmatter-schema';
+import { REGISTRIES } from '../src/lib/registries';
 import { buildKindContext, KINDS } from '../src/types/index';
 
 const TYPES_DIR = path.resolve('src/types');
@@ -75,7 +76,7 @@ describe('types/ kind directories', () => {
         // Every kind spreads `base`, so every kind has every envelope field. A kind that
         // spreads only a field GROUP (sourceNoteFields) and skips `base` would pass today
         // and silently miss the next field added to the envelope.
-        const ctx = buildKindContext();
+        const ctx = buildKindContext(REGISTRIES);
         const shape = Object.keys(definition.build(ctx).shape);
         for (const field of Object.keys(ctx.base)) {
           expect(shape).toContain(field);
