@@ -9,7 +9,12 @@
 // (Shared contract: galaxyproject/foundry-pattern#13, PART 3 of the standing-up checklist.)
 import { z } from 'zod';
 
-import { buildKindContext, DEFINITIONS, type KindDefinition } from '../types/index';
+import {
+  buildKindContext,
+  DEFINITIONS,
+  type KindDefinition,
+  type KindShape,
+} from '../types/index';
 import { REGISTRIES } from './registries';
 
 // Strip the trailing `/index` so entry ids stay clean (`msmb/chap1`, `leek-2010`) rather than
@@ -26,7 +31,7 @@ const ctx = buildKindContext(REGISTRIES);
  * `refine` slot yields a UNION of "refined" and "not" — and a union is what turns a field
  * access on the pages into an error, since it has to hold on every arm.
  */
-type Assembled<T extends z.ZodRawShape> = z.ZodType<
+type Assembled<T extends KindShape> = z.ZodType<
   z.infer<z.ZodObject<T, 'strict'>>,
   z.ZodTypeDef,
   z.input<z.ZodObject<T, 'strict'>>
@@ -39,7 +44,7 @@ type Assembled<T extends z.ZodRawShape> = z.ZodType<
  * is applied here. A note validates from its own frontmatter and nothing else — see the note
  * on `KindDefinition` for why there is no assembly hook.
  */
-function assemble<T extends z.ZodRawShape>(definition: KindDefinition<T>): Assembled<T> {
+function assemble<T extends KindShape>(definition: KindDefinition<T>): Assembled<T> {
   const object = definition.build(ctx);
   const { refine } = definition;
   const refined = refine ? object.superRefine((d, issues) => refine(d, issues, ctx)) : object;

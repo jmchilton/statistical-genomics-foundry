@@ -83,6 +83,17 @@ describe('types/ kind directories', () => {
         }
       });
 
+      // `type` is the SOLE discriminator: the kind picks the schema, and nothing infers a
+      // kind from a directory or a tag. The `KindShape` bound on `KindDefinition` makes that
+      // a compile-time requirement; this asserts it holds at runtime too, and that the
+      // literal actually names THIS kind rather than merely being present.
+      it('declares a `type` literal naming itself', () => {
+        const shape = buildKindContext(REGISTRIES);
+        const built = definition.build(shape).shape;
+        expect(Object.keys(built)).toContain('type');
+        expect(built.type.parse(definition.kind)).toBe(definition.kind);
+      });
+
       it('example.md declares this kind and validates against it', () => {
         const fm = frontmatter(path.join(dir, 'example.md'));
         expect(fm.type).toBe(definition.kind);
