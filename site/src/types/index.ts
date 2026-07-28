@@ -12,7 +12,9 @@ import { kind as paper } from './paper/schema';
 import { kind as pattern } from './pattern/schema';
 import { kind as tutorial } from './tutorial/schema';
 
-import type { KindDefinition } from './context';
+import type { AnyKindDefinition as LibAnyKindDefinition } from '@galaxy-foundry/kind-schema';
+
+import type { KindContext } from './context';
 
 /**
  * The kind definitions, keyed by name and with their inferred shapes intact.
@@ -25,13 +27,10 @@ export const DEFINITIONS = { book, paper, tutorial, mold, pattern } as const;
 
 /**
  * A kind definition with its shape erased — for code that ITERATES the kinds (the manifest
- * generator, the drift test) rather than validating with one.
- *
- * `any` rather than `unknown`/`ZodRawShape`: `ZodObject` is effectively invariant in its shape
- * parameter, so a narrower bound here rejects every concrete definition. Nothing reads a field
- * off this type, so the looseness buys iteration and costs nothing.
+ * generator, the drift test) rather than validating with one. Bound to this instance's context;
+ * the erasure itself lives in @galaxy-foundry/kind-schema, along with why it has to be `any`.
  */
-export type AnyKindDefinition = KindDefinition<any>;
+export type AnyKindDefinition = LibAnyKindDefinition<KindContext>;
 
 /** Iteration order for the manifest and the drift test. */
 export const KINDS = Object.values(DEFINITIONS) as readonly AnyKindDefinition[];
