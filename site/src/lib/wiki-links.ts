@@ -1,6 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { resolveWikiLink as resolve, slugify } from '@galaxy-foundry/wiki-links';
+
+// The MAP is ours — the routed collections plus the design-doc registry. The grammar and the
+// lookup rule are not: they ship in @galaxy-foundry/wiki-links, shared with the parent
+// Foundry, so this resolver and its remark twin cannot drift apart.
+
 export interface WikiLinkTarget {
   /** Site-relative path under base, e.g. `patterns/double-dipping`. */
   path: string;
@@ -19,15 +25,6 @@ const NOTE_COLLECTIONS: { dir: string; route: string }[] = [
   { dir: 'patterns', route: 'patterns' },
 ];
 
-function slugify(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\s+-\s+/g, '-')
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9\-]/g, '')
-    .replace(/-+/g, '-');
-}
-
 // Note ids (dir holding an index.md), relative to `base`, with `/index` implied.
 function noteIds(base: string): string[] {
   const out: string[] = [];
@@ -42,10 +39,6 @@ function noteIds(base: string): string[] {
   };
   walk('');
   return out;
-}
-
-function stripBrackets(wikiLink: string): string {
-  return wikiLink.replace(/^\[\[/, '').replace(/\]\]$/, '');
 }
 
 /**
@@ -72,11 +65,10 @@ export function resolveWikiLink(
   linkMap: Map<string, WikiLinkTarget>,
   base: string,
 ): { href: string | null; label: string } {
-  const label = stripBrackets(wikiLink);
+  const label = wikiLink.replace(/^\[\[/, '').replace(/\]\]$/, '');
   const hashIdx = label.indexOf('#');
-  const pageLabel = hashIdx >= 0 ? label.slice(0, hashIdx) : label;
   const anchor = hashIdx >= 0 ? label.slice(hashIdx) : '';
-  const target = linkMap.get(slugify(pageLabel));
+  const target = resolve(wikiLink, linkMap);
   if (target) return { href: `${base}/${target.path}/${anchor}`, label };
   return { href: null, label };
 }

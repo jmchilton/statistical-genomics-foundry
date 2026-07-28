@@ -18,7 +18,7 @@ These are the load-bearing abstractions we take from the Foundry pattern. They g
 - **Pattern / reference content** — reference pages wiki-linked from Molds, carried into casts.
 - **Progressive disclosure** — Pipelines disclose the journey, Molds disclose the action, typed references disclose the dependency surface. Both an authoring principle and a runtime contract.
 - **The human-navigable site** — an Astro renderer over typed content collections, with wiki-link panels, backlinks, tag browses, and raw-text endpoints. This *is* Pillar 3.
-- **Validator-as-cross-resolver** — one shared slug+resolver module, used by both validator and site; cross-file wiki-link resolution with referential integrity (not just format-linting). This is the verified edge over bioSkills' format-validated paths.
+- **Validator-as-cross-resolver** — one shared slug+resolver, now `@galaxy-foundry/wiki-links` and so shared with the parent Foundry too, used by both validator and site; cross-file wiki-link resolution with referential integrity (not just format-linting). This is the verified edge over bioSkills' format-validated paths.
 - **Generated indexes with drift gates** (`--check`), **status lifecycle** (`draft|reviewed|revised|stale|archived`), **append-only operations log**, **controlled tag registry** (`meta_tags.yml` — see §8), **strict frontmatter schema** (the parent mirrors an ajv `meta_schema.yml`; we keep one zod module, `.strict()`, no mirror).
 - **Casting is the integration boundary** — Molds are durable source; cast skills are generated target artifacts; portability across runtimes is a casting concern.
 
