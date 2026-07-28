@@ -19,15 +19,14 @@ export const stripIndex = ({ entry }: { entry: string }) =>
 const ctx = buildKindContext();
 
 /**
- * A kind's assembled schema: parses this kind's frontmatter, yields its assembled output.
+ * A kind's assembled schema: parses this kind's frontmatter, yields its own output.
  *
- * Stated as ONE type rather than left to inference, because inference over the two optional
- * slots yields a UNION of "with transform" and "without" — and a union is what makes
- * `entry.data.license` an error on the book pages, since only one arm of it has that field.
- * `O` defaults to the object's own output, so the kinds with no transform are unaffected.
+ * Stated as ONE type rather than left to inference, because inference over the optional
+ * `refine` slot yields a UNION of "refined" and "not" — and a union is what turns a field
+ * access on the pages into an error, since it has to hold on every arm.
  */
-type Assembled<T extends z.ZodRawShape, O> = z.ZodType<
-  O,
+type Assembled<T extends z.ZodRawShape> = z.ZodType<
+  z.infer<z.ZodObject<T, 'strict'>>,
   z.ZodTypeDef,
   z.input<z.ZodObject<T, 'strict'>>
 >;
@@ -35,16 +34,15 @@ type Assembled<T extends z.ZodRawShape, O> = z.ZodType<
 /**
  * Assemble one kind into the schema its collection validates with.
  *
- * `build` returns the bare object so the manifest generator can walk its `.shape`; the two
- * optional slots are applied here. Order matters: `refine` sees the note's own fields,
- * `transform` may add fields (a book chapter merging book.yml) and raise issues of its own.
+ * `build` returns the bare object so the manifest generator can walk its `.shape`; `refine`
+ * is applied here. A note validates from its own frontmatter and nothing else — see the note
+ * on `KindDefinition` for why there is no assembly hook.
  */
-function assemble<T extends z.ZodRawShape, O>(definition: KindDefinition<T, O>): Assembled<T, O> {
+function assemble<T extends z.ZodRawShape>(definition: KindDefinition<T>): Assembled<T> {
   const object = definition.build(ctx);
-  const { refine, transform } = definition;
+  const { refine } = definition;
   const refined = refine ? object.superRefine((d, issues) => refine(d, issues, ctx)) : object;
-  const final = transform ? refined.transform((d, issues) => transform(d, issues, ctx)) : refined;
-  return final as Assembled<T, O>;
+  return refined as Assembled<T>;
 }
 
 // Assembled ONE BY ONE rather than by mapping over KINDS. A `.map` produces a homogeneous

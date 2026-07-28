@@ -1,42 +1,29 @@
-import fs from 'node:fs';
-import path from 'node:path';
-
-import yaml from 'js-yaml';
 import { z } from 'zod';
 
-import { bundledPolicy, isValidLicenseId } from '@galaxy-foundry/license-policy';
 import { defineKind } from '../context';
 import type { KindContext } from '../context';
-
-// Book-level metadata (license/license_file/attribution/derived) lives ONCE per book in
-// content/research/books/<id>/book.yml — not repeated in every chapter's frontmatter — and is
-// merged into each chapter entry so downstream pages read a full record.
-const BOOKS_DIR = path.resolve('../content/research/books');
-const bookMetaCache = new Map<string, Record<string, unknown>>();
-
-function loadBookMeta(source: string): Record<string, unknown> {
-  let meta = bookMetaCache.get(source);
-  if (!meta) {
-    meta = yaml.load(
-      fs.readFileSync(path.join(BOOKS_DIR, source, 'book.yml'), 'utf-8'),
-    ) as Record<string, unknown>;
-    bookMetaCache.set(source, meta);
-  }
-  return meta;
-}
 
 export const kind = defineKind({
   kind: 'book',
   title: 'Book Chapter',
   layer: 'instance',
   summary:
-    'An own-words summary of one chapter of an external textbook, merged with the book-level licence record it belongs to.',
+    'An own-words summary of one chapter of an external textbook, carrying the book-level licence record it was made under.',
 
   // Chapter frontmatter declares its kind (`type: book`) and otherwise carries only what
   // varies per chapter — the kind is per-note, not per-book, so it is not a book.yml field
   // even though it is constant within a book: every note in the corpus names its own kind.
-  // `.strict()` keeps the merge one-way: a chapter restating `license`/`attribution`/`derived`
-  // is rejected rather than silently shadowing the book.
+  //
+  // The four licence fields are constant WITHIN a book and authored once in
+  // content/research/books/<id>/book.yml, but they are MATERIALIZED into every chapter by
+  // `npm run books` rather than merged in at validation time. book.yml stays the source of
+  // truth; the frontmatter is a derived copy `npm run check:books` keeps honest — the same
+  // trade kinds.generated.json already makes.
+  //
+  // Materializing rather than merging is what lets this be a plain object like every other
+  // kind: the note validates from its own frontmatter, so the schema does no file I/O, the
+  // kind manifest reports what a book chapter actually carries, and nothing downstream has
+  // to special-case a note whose record is only complete after a merge.
   build: (ctx: KindContext) =>
     z
       .object({
@@ -45,34 +32,15 @@ export const kind = defineKind({
         source: z.string(),
         source_chapter: z.number().int().optional(),
         source_url: z.string().url(),
+        license: ctx.licenseId,
+        license_file: z.string().optional(),
+        attribution: z.string(),
+        derived: z.string(),
         ...ctx.base,
       })
       .strict(),
 
-  // The only kind whose entry is ASSEMBLED rather than validated in place: the book-level
-  // record is merged in here, so downstream pages read one complete note.
-  transform: (data, ctx, kctx) => {
-    const book = loadBookMeta(data.source);
-    if (!isValidLicenseId(bundledPolicy(), book.license as string)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: `book.yml license "${String(book.license)}" is not a valid id (source: ${data.source})`,
-      });
-      return z.NEVER;
-    }
-    // `attribution` may be a template ({n}/{title} filled from the chapter).
-    const attribution = String(book.attribution)
-      .replace(/\{n\}/g, String(data.source_chapter ?? ''))
-      .replace(/\{title\}/g, data.title);
-    const merged = {
-      ...data,
-      license: book.license as string,
-      license_file: book.license_file as string | undefined,
-      attribution,
-      derived: String(book.derived),
-    };
-    // The same licence coherence the source notes get — keyed on book.yml's posture.
-    kctx.licenseCoherence(merged, ctx);
-    return merged;
-  },
+  // The same licence coherence the other source kinds get — now a plain refine over the
+  // note's own fields, because the fields are the note's own.
+  refine: (d, ctx, kctx) => kctx.licenseCoherence(d, ctx),
 });

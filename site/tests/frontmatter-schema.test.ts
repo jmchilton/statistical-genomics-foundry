@@ -31,6 +31,22 @@ const validSourceNote = (overrides: Record<string, unknown> = {}) => ({
   ...overrides,
 });
 
+// A book chapter as `npm run books` leaves it: the four book-level licence fields are
+// MATERIALIZED into the chapter's own frontmatter, not merged in at validation time, so a
+// chapter validates standalone like every other note.
+const validBookChapter = (overrides: Record<string, unknown> = {}) => ({
+  type: 'book',
+  title: 'Generative Models for Discrete Data',
+  source: 'msmb',
+  source_chapter: 1,
+  source_url: 'https://example.org/msmb/01',
+  license: 'MIT',
+  attribution: 'Holmes S, Huber W. Chapter 1: Generative Models for Discrete Data.',
+  derived: 'own-words-summary',
+  tags: ['domain/statistical-inference'],
+  ...overrides,
+});
+
 const validReference = (overrides: Record<string, unknown> = {}) => ({
   kind: 'research',
   ref: 'leek-2010',
@@ -236,6 +252,39 @@ describe('pattern schema', () => {
   });
 });
 
+// The licence record a chapter shares with its book is MATERIALIZED into the chapter by
+// `npm run books` rather than merged in while validating, so the schema's job is to insist
+// the fields are there. Keeping book.yml and the copies in step is `npm run check:books`.
+//
+// These replace an assertion that a chapter carrying `license` is REJECTED — true while the
+// merge was one-way, and exactly the contract this change inverts.
+describe('book chapter licence record', () => {
+  it('accepts a chapter carrying the materialized book-level fields', () => {
+    expect(issuesOf(bookSchema, validBookChapter())).toEqual([]);
+  });
+
+  for (const field of ['license', 'attribution', 'derived']) {
+    it(`rejects a chapter missing \`${field}\``, () => {
+      const note = validBookChapter();
+      delete (note as Record<string, unknown>)[field];
+      expect(atPath(issuesOf(bookSchema, note), field).length).toBeGreaterThan(0);
+    });
+  }
+
+  // license_file is genuinely optional — an own-words book redistributes no protected text
+  // and vendors no upstream LICENSE, so book.yml omits it and the chapters carry none.
+  it('accepts a chapter with no license_file', () => {
+    expect(issuesOf(bookSchema, validBookChapter())).toEqual([]);
+  });
+
+  // The same coherence rule the other source kinds get, now reachable because the fields
+  // are the note's own. NC/own-words licences may not carry verbatim.
+  it('rejects verbatim carry under an own-words-only licence', () => {
+    const note = validBookChapter({ license: 'CC-BY-NC-SA-2.0', derived: 'license-aware-summary' });
+    expect(issuesOf(bookSchema, note).length).toBeGreaterThan(0);
+  });
+});
+
 // Every kind is `.strict()`: an undeclared frontmatter key is rejected, not silently
 // accepted, so the corpus can't grow a private vocabulary of unvalidated fields. A typo'd
 // key is the same defect wearing a worse disguise, so assert it per kind.
@@ -261,11 +310,8 @@ describe('strict frontmatter (undeclared keys are rejected)', () => {
     expect(unknownKey(issuesOf(patternSchema, note))).toBe(true);
   });
 
-  // Book chapters are the strictest case: license/attribution/derived are book.yml's job,
-  // so a chapter repeating them is drift between the two, not extra detail.
-  it('rejects a book chapter restating book-level license metadata', () => {
-    const note = { type: 'book', title: 'C1', source: 'msmb', source_url: 'https://example.org/1', tags: ['domain/statistical-inference'], license: 'MIT' };
-    expect(unknownKey(issuesOf(bookSchema, note))).toBe(true);
+  it('rejects an undeclared key on a book chapter', () => {
+    expect(unknownKey(issuesOf(bookSchema, validBookChapter({ isbn: '978-1' })))).toBe(true);
   });
 
   // `published: 2024-03-21` unquoted is a Date to YAML, not a string — the same footgun

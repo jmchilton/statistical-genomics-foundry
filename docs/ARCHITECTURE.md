@@ -132,7 +132,7 @@ Every note declares its kind exactly once, in frontmatter, as `type:`. That fiel
 
 | kind | directory | what it is |
 |---|---|---|
-| `book` | `types/book/` | a chapter summary of an external textbook; book-level license/attribution merges in from `book.yml` |
+| `book` | `types/book/` | a chapter summary of an external textbook; book-level license/attribution copied in from `book.yml` by `npm run books` |
 | `paper` | `types/paper/` | a faithful summary of a paper, with provenance and a resolved license posture |
 | `tutorial` | `types/tutorial/` | the same, for a vignette or package tutorial |
 | `mold` | `types/mold/` | an abstract action template — the Mold-primary core, incl. referee Molds |

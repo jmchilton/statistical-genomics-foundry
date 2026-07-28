@@ -1,7 +1,8 @@
 # Book-level metadata for the harmon-pcm source-note set — single source of truth.
-# Per-chapter chap<n>/index.md frontmatter carries only what varies: title, source,
-# source_chapter, source_url. The Astro `books` collection merges the book-level fields
-# below into each chapter entry (see site/src/content.config.ts). `attribution` is a template:
+# Per-chapter chap<n>/index.md frontmatter carries what varies (title, source,
+# source_chapter, source_url) plus a COPY of the licence fields below, written by
+# `npm run books` and verified by `npm run check:books`. Edit them here, never there.
+# `attribution` is a template:
 # {n}/{title} are filled from each chapter's frontmatter (this book cites the chapter in-line).
 title: "Phylogenetic Comparative Methods: Learning from Trees"
 source: harmon-pcm
