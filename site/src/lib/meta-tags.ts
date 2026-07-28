@@ -16,23 +16,30 @@ export { buildTagIndex } from '@galaxy-foundry/tag-registry';
 
 let cached: TagRegistry | undefined;
 
-function registry(): TagRegistry {
+/** The parsed registry itself — what `buildKindContext` is handed, so the schema validates
+ *  tags against a registry it was GIVEN rather than one it went and read. */
+export function tagRegistry(): TagRegistry {
   if (!cached) cached = loadTagRegistry(TAGS_FILE);
   return cached;
 }
 
+// The accessors below are for the PAGES (the tag index, the browse routes), which read the
+// one real registry. The schema no longer goes through them — it is handed the registry
+// object above instead.
+
 /** A tag is valid when it is an exact key under some facet's `values`. Nothing else
  *  validates: every facet is closed, so every usable tag has a gloss to browse by. */
-export const isValidTag = (tag: string): boolean => registry().isValidTag(tag);
+export const isValidTag = (tag: string): boolean => tagRegistry().isValidTag(tag);
 
 /** Registry facets in declared order — the tag index groups by these. */
-export const facets = () => registry().facets();
+export const facets = () => tagRegistry().facets();
 
 /** The facet that declared this tag; undefined if unregistered. Callers group by this
  *  rather than by prefix, which is what makes an "other" bucket impossible. */
-export const facetOf = (tag: string): string | undefined => registry().facetOf(tag);
+export const facetOf = (tag: string): string | undefined => tagRegistry().facetOf(tag);
 
-export const facetLabel = (key: string | undefined): string => registry().facetLabel(key);
+export const facetLabel = (key: string | undefined): string => tagRegistry().facetLabel(key);
 
 /** A tag's registry gloss. Every valid tag has one; undefined means unregistered. */
-export const tagDescription = (tag: string): string | undefined => registry().tagDescription(tag);
+export const tagDescription = (tag: string): string | undefined =>
+  tagRegistry().tagDescription(tag);

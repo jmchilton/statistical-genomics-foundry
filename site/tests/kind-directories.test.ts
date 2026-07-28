@@ -16,6 +16,7 @@ import { describe, it, expect } from 'vitest';
 import type { z } from 'zod';
 
 import { NOTE_KINDS, type NoteKind } from '../src/lib/frontmatter-schema';
+import { REGISTRIES } from '../src/lib/registries';
 import { buildKindContext, KINDS } from '../src/types/index';
 
 const TYPES_DIR = path.resolve('src/types');
@@ -75,11 +76,22 @@ describe('types/ kind directories', () => {
         // Every kind spreads `base`, so every kind has every envelope field. A kind that
         // spreads only a field GROUP (sourceNoteFields) and skips `base` would pass today
         // and silently miss the next field added to the envelope.
-        const ctx = buildKindContext();
+        const ctx = buildKindContext(REGISTRIES);
         const shape = Object.keys(definition.build(ctx).shape);
         for (const field of Object.keys(ctx.base)) {
           expect(shape).toContain(field);
         }
+      });
+
+      // `type` is the SOLE discriminator: the kind picks the schema, and nothing infers a
+      // kind from a directory or a tag. The `KindShape` bound on `KindDefinition` makes that
+      // a compile-time requirement; this asserts it holds at runtime too, and that the
+      // literal actually names THIS kind rather than merely being present.
+      it('declares a `type` literal naming itself', () => {
+        const shape = buildKindContext(REGISTRIES);
+        const built = definition.build(shape).shape;
+        expect(Object.keys(built)).toContain('type');
+        expect(built.type.parse(definition.kind)).toBe(definition.kind);
       });
 
       it('example.md declares this kind and validates against it', () => {

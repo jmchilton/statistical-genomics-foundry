@@ -37,4 +37,4 @@ export type AnyKindDefinition = KindDefinition<any>;
 export const KINDS = Object.values(DEFINITIONS) as readonly AnyKindDefinition[];
 
 export { buildKindContext, defineKind } from './context';
-export type { KindContext, KindDefinition } from './context';
+export type { BuildKindContextOptions, KindContext, KindDefinition, KindShape } from './context';
