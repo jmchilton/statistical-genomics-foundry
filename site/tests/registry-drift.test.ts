@@ -2,7 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
 import { describe, it, expect } from 'vitest';
-import { COLLECTIONS, NOTE_KINDS, type NoteKind } from '../src/lib/frontmatter-schema';
+import { noteFiles } from '../src/lib/content-files';
+import {
+  COLLECTIONS,
+  COLLECTION_NAMES,
+  NOTE_KINDS,
+  contentPath,
+  type NoteKind,
+} from '../src/lib/frontmatter-schema';
 import { facets, facetOf } from '../src/lib/meta-tags';
 import { NARROWED_GROUPS, referenceKinds, referenceModes } from '../src/lib/reference-contract';
 
@@ -23,17 +30,6 @@ import { NARROWED_GROUPS, referenceKinds, referenceModes } from '../src/lib/refe
 // our caster will support, and a term we chose to keep is a term we authored — so it owes
 // the same account of itself that `kinds` does.
 
-function walkIndexFiles(baseAbs: string): string[] {
-  if (!fs.existsSync(baseAbs)) return [];
-  const out: string[] = [];
-  for (const entry of fs.readdirSync(baseAbs, { withFileTypes: true })) {
-    const full = path.join(baseAbs, entry.name);
-    if (entry.isDirectory()) out.push(...walkIndexFiles(full));
-    else if (entry.isFile() && entry.name === 'index.md') out.push(full);
-  }
-  return out;
-}
-
 interface NoteFrontmatter {
   type?: unknown;
   tags?: unknown;
@@ -42,9 +38,10 @@ interface NoteFrontmatter {
 
 function allFrontmatter(): NoteFrontmatter[] {
   const out: NoteFrontmatter[] = [];
-  for (const { base } of Object.values(COLLECTIONS))
-    for (const file of walkIndexFiles(path.resolve(base))) {
-      const match = fs.readFileSync(file, 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
+  for (const name of COLLECTION_NAMES)
+    for (const rel of noteFiles(name)) {
+      const text = fs.readFileSync(contentPath(rel), 'utf8');
+      const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
       if (!match) continue;
       const data = yaml.load(match[1]);
       if (data && typeof data === 'object' && !Array.isArray(data)) out.push(data as NoteFrontmatter);
