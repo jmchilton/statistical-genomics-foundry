@@ -21,6 +21,11 @@
 import { z } from 'zod';
 
 import {
+  kindDefiner,
+  type KindDefinition as LibKindDefinition,
+  type KindShape,
+} from '@galaxy-foundry/kind-schema';
+import {
   isValidLicenseId,
   resolveLicenseRow,
   type LicensePolicy,
@@ -42,65 +47,34 @@ export interface BuildKindContextOptions {
   licensePolicy: LicensePolicy;
 }
 
-/**
- * Any shape a kind may have: an object carrying the `type` discriminator.
- *
- * `type` is the SOLE discriminator — the kind picks the schema, and nothing infers a kind from
- * a directory, a filename or a tag. Stating that in the bound is what makes it a property of
- * the contract rather than a convention every kind happens to follow, and it is what lets a
- * consumer route on `type` knowing every kind has one. The parent Foundry uses the same bound,
- * where it additionally lets the kinds compose into a `z.discriminatedUnion`.
- */
-export type KindShape = { type: z.ZodTypeAny } & z.ZodRawShape;
+// ---- the kind contract, bound to this instance's context ----
+//
+// `KindShape`, `KindDefinition` and `defineKind` are not ours. This Foundry and its parent had
+// written them identically, down to the reasons in the comments, so they now ship in
+// @galaxy-foundry/kind-schema generic over the context a kind draws from. What is OURS is
+// `KindContext` below — a one-field envelope where the parent's is seven. Binding the parameter
+// once, here, is what keeps the five kind directories writing `defineKind({...})` with no type
+// parameter in sight.
+
+export type { KindShape };
 
 /**
  * What a `types/<kind>/schema.ts` exports.
  *
  * Generic over its shape `T`, and that is not decoration: a definition annotated
- * `: KindDefinition` widens it, and the erasure travels all the way to the Astro pages as
- * `entry.data` of type `unknown` — one widened annotation here costs ~100 `astro check`
- * errors on pages that never mention this file. Kinds go through `defineKind` so it stays
- * INFERRED.
+ * `: KindDefinition` widens it, and the erasure travels to the Astro pages as `entry.data` of
+ * the default shape. Kinds go through `defineKind` so it stays INFERRED.
  *
- * A kind is `build` plus an optional `refine`, and nothing else. There is deliberately no
- * hook for assembling an entry out of anything but its own frontmatter: a note that needed
- * a sibling file's fields (a book chapter and its book.yml) gets them materialized into its
- * frontmatter by a generator instead. That keeps every kind a plain object — no file I/O
- * inside a schema, and a kind manifest that reports what a note actually carries.
+ * How much `astro check` would say about it, measured rather than assumed: widening
+ * `defineKind`'s return to the default shape costs 1 error, and widening it to an `any` shape
+ * costs NONE — an `any` satisfies every field access rather than failing one. The pages are a
+ * weak guard here, not the proof this comment used to claim they were.
  */
-export interface KindDefinition<T extends KindShape = KindShape> {
-  /** The `type:` discriminator value. MUST equal the directory name. */
-  kind: string;
-  /** Display name for the kind catalog. */
-  title: string;
-  /** `substrate` = a kind the Foundry pattern's other instances also declare;
-   *  `instance` = one this domain added. The cross-instance catalog groups by this.
-   *
-   *  Named `layer`, not `origin`: a kind is free to declare a frontmatter field called
-   *  `origin`, and one manifest carrying both meanings under one word is a trap for anything
-   *  reading across instances. */
-  layer: 'substrate' | 'instance';
-  /** One line: what a note of this kind IS. Rendered in the catalog. */
-  summary: string;
-  /** The strict object this kind validates. Its `.shape` is what the manifest generator
-   *  walks to derive the required-metadata table, so `build` returns the OBJECT — any
-   *  refinement goes in the slot below. */
-  build: (ctx: KindContext) => z.ZodObject<T, 'strict'>;
-  /** Cross-field rules over this kind's own fields. */
-  refine?: (
-    data: z.infer<z.ZodObject<T, 'strict'>>,
-    ctx: z.RefinementCtx,
-    kctx: KindContext,
-  ) => void;
-}
+export type KindDefinition<T extends KindShape = KindShape> = LibKindDefinition<KindContext, T>;
 
 /** Identity helper a kind directory wraps its definition in, purely to INFER rather than
  *  widen the shape type. See the note on `KindDefinition`. */
-export function defineKind<T extends KindShape>(
-  definition: KindDefinition<T>,
-): KindDefinition<T> {
-  return definition;
-}
+export const defineKind = kindDefiner<KindContext>();
 
 // A `derived` value declares verbatim carry when it is license-aware / keeps quotes and is not
 // explicitly own-words. own-words paraphrases redistribute no protected expression, so they

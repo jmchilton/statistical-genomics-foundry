@@ -7,14 +7,9 @@
 // documented, and exemplified — in its own directory under src/types/; see src/types/index.ts
 // for the enumeration and src/types/context.ts for the shared envelope every kind spreads.
 // (Shared contract: galaxyproject/foundry-pattern#13, PART 3 of the standing-up checklist.)
-import { z } from 'zod';
+import { assemble } from '@galaxy-foundry/kind-schema';
 
-import {
-  buildKindContext,
-  DEFINITIONS,
-  type KindDefinition,
-  type KindShape,
-} from '../types/index';
+import { buildKindContext, DEFINITIONS } from '../types/index';
 import { REGISTRIES } from './registries';
 
 // Strip the trailing `/index` so entry ids stay clean (`msmb/chap1`, `leek-2010`) rather than
@@ -24,41 +19,17 @@ export const stripIndex = ({ entry }: { entry: string }) =>
 
 const ctx = buildKindContext(REGISTRIES);
 
-/**
- * A kind's assembled schema: parses this kind's frontmatter, yields its own output.
- *
- * Stated as ONE type rather than left to inference, because inference over the optional
- * `refine` slot yields a UNION of "refined" and "not" — and a union is what turns a field
- * access on the pages into an error, since it has to hold on every arm.
- */
-type Assembled<T extends KindShape> = z.ZodType<
-  z.infer<z.ZodObject<T, 'strict'>>,
-  z.ZodTypeDef,
-  z.input<z.ZodObject<T, 'strict'>>
->;
-
-/**
- * Assemble one kind into the schema its collection validates with.
- *
- * `build` returns the bare object so the manifest generator can walk its `.shape`; `refine`
- * is applied here. A note validates from its own frontmatter and nothing else — see the note
- * on `KindDefinition` for why there is no assembly hook.
- */
-function assemble<T extends KindShape>(definition: KindDefinition<T>): Assembled<T> {
-  const object = definition.build(ctx);
-  const { refine } = definition;
-  const refined = refine ? object.superRefine((d, issues) => refine(d, issues, ctx)) : object;
-  return refined as Assembled<T>;
-}
-
 // Assembled ONE BY ONE rather than by mapping over KINDS. A `.map` produces a homogeneous
 // array and every kind's shape collapses to the widest common type, which is how the Astro
 // pages end up with `entry.data: unknown`. Named properties keep each kind precise.
-export const bookSchema = assemble(DEFINITIONS.book);
-export const paperSchema = assemble(DEFINITIONS.paper);
-export const tutorialSchema = assemble(DEFINITIONS.tutorial);
-export const moldSchema = assemble(DEFINITIONS.mold);
-export const patternSchema = assemble(DEFINITIONS.pattern);
+//
+// `assemble` — applying a kind's `refine` to its own schema, stating the result as one type so
+// the optional slot does not infer a union — is shared machinery in @galaxy-foundry/kind-schema.
+export const bookSchema = assemble(DEFINITIONS.book, ctx);
+export const paperSchema = assemble(DEFINITIONS.paper, ctx);
+export const tutorialSchema = assemble(DEFINITIONS.tutorial, ctx);
+export const moldSchema = assemble(DEFINITIONS.mold, ctx);
+export const patternSchema = assemble(DEFINITIONS.pattern, ctx);
 
 /**
  * The note KINDS this Foundry defines — the complete set of `type` values the corpus may
