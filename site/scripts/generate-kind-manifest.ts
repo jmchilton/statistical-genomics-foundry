@@ -17,32 +17,32 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 
+import { loadKindDocs } from '@galaxy-foundry/kind-schema/docs';
+
 import { buildKindManifest } from '../src/lib/kind-manifest';
 import { KINDS } from '../src/types/index';
 
-const TYPES_DIR = path.resolve('src/types');
+// Relative, not resolved: it is the directory `loadKindDocs` names in its error, and this
+// script only ever runs from site/ — the npm scripts pass a cwd-relative path to vite-node, so
+// there is no invocation where an absolute base would read better.
+const TYPES_DIR = 'src/types';
 const OUTPUT = path.join(TYPES_DIR, 'kinds.generated.json');
 const INSTANCE = 'statistical-genomics-foundry';
 
 /**
- * kind name -> kind.md body.
+ * Read each kind's `kind.md`, or say which one is missing and stop.
  *
- * Driven by the barrel rather than a directory listing: `KINDS` is the one enumeration, so a
- * kind with no `kind.md` fails naming itself, and an unrelated directory under types/ is not
- * mistaken for a kind.
+ * The READING is not ours — it ships in @galaxy-foundry/kind-schema, because the other instance
+ * wrote the same loader beside the same manifest call. What stays here is the decision to exit:
+ * the package throws, deliberately, so a library never takes a command's exit for it.
  */
 function loadDocs(): Record<string, string> {
-  const docs: Record<string, string> = {};
-  for (const definition of KINDS) {
-    const file = path.join(TYPES_DIR, definition.kind, 'kind.md');
-    try {
-      docs[definition.kind] = fs.readFileSync(file, 'utf-8').trim();
-    } catch {
-      console.error(`${definition.kind}: cannot read ${path.relative(process.cwd(), file)}`);
-      process.exit(1);
-    }
+  try {
+    return loadKindDocs(KINDS, TYPES_DIR);
+  } catch (e) {
+    console.error((e as Error).message);
+    process.exit(1);
   }
-  return docs;
 }
 
 const flags = process.argv.slice(2);
