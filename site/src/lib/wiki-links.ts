@@ -1,7 +1,7 @@
-import fs from 'node:fs';
-import path from 'node:path';
-
 import { resolveWikiLink as resolve, slugify } from '@galaxy-foundry/wiki-links';
+
+import { noteIds } from './content-files';
+import { COLLECTION_NAMES } from './frontmatter-schema';
 
 // The MAP is ours — the routed collections plus the design-doc registry. The grammar and the
 // lookup rule are not: they ship in @galaxy-foundry/wiki-links, shared with the parent
@@ -12,45 +12,24 @@ export interface WikiLinkTarget {
   path: string;
 }
 
-// Content root, relative to the site cwd (matches design-docs.ts convention).
-const CONTENT_DIR = path.resolve('../content');
-
-// Note-per-directory collections: each `<dir>/<id>/index.md` renders at `<route>/<id>`.
-// `[[<id>]]` links resolve to that route; books use `<book>-<chap>` (id `/` → `-`).
-const NOTE_COLLECTIONS: { dir: string; route: string }[] = [
-  { dir: 'research/books', route: 'books' },
-  { dir: 'research/papers', route: 'papers' },
-  { dir: 'research/tutorials', route: 'tutorials' },
-  { dir: 'molds', route: 'molds' },
-  { dir: 'patterns', route: 'patterns' },
-];
-
-// Note ids (dir holding an index.md), relative to `base`, with `/index` implied.
-function noteIds(base: string): string[] {
-  const out: string[] = [];
-  const walk = (rel: string) => {
-    const abs = path.join(base, rel);
-    if (!fs.existsSync(abs)) return;
-    for (const e of fs.readdirSync(abs, { withFileTypes: true })) {
-      const childRel = rel ? `${rel}/${e.name}` : e.name;
-      if (e.isDirectory()) walk(childRel);
-      else if (e.name === 'index.md' && rel) out.push(rel);
-    }
-  };
-  walk('');
-  return out;
-}
-
 /**
  * Build the wiki-link map across every routed collection plus the design-doc registry.
  * Reads the filesystem (not astro:content) so it also runs inside the remark plugin at
  * markdown-compile time. Pass DESIGN_DOCS for the `design/<slug>` targets.
+ *
+ * Driven by COLLECTIONS rather than by a list of its own. It kept one until now — five rows
+ * where the table had six, so every note under `research/experiments` rendered at a real route
+ * and resolved from no `[[link]]` at all. That is what a second copy of a table costs: not a
+ * contradiction anyone would spot, just a row nobody remembered to add twice.
+ *
+ * The collection KEY is the route (`experiments` → `/experiments/<id>`), which is why there is
+ * no route column to keep in step. collection-routes.test.ts pins that against src/pages.
  */
 export function buildWikiLinkMap(designDocs: { slug: string }[] = []): Map<string, WikiLinkTarget> {
   const map = new Map<string, WikiLinkTarget>();
-  for (const { dir, route } of NOTE_COLLECTIONS) {
-    for (const id of noteIds(path.join(CONTENT_DIR, dir))) {
-      map.set(slugify(id.replace(/\//g, '-')), { path: `${route}/${id}` });
+  for (const name of COLLECTION_NAMES) {
+    for (const id of noteIds(name)) {
+      map.set(slugify(id.replace(/\//g, '-')), { path: `${name}/${id}` });
     }
   }
   for (const doc of designDocs) {

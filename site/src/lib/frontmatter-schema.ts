@@ -8,6 +8,7 @@
 // for the enumeration and src/types/context.ts for the shared envelope every kind spreads.
 // (Shared contract: galaxyproject/foundry-pattern#13, PART 3 of the standing-up checklist.)
 import { assemble } from '@galaxy-foundry/kind-schema';
+import type { CollectionRoute } from '@galaxy-foundry/kind-schema/collections';
 
 import { buildKindContext, DEFINITIONS } from '../types/index';
 import { REGISTRIES } from './registries';
@@ -48,9 +49,40 @@ export const NOTE_KINDS = {
 export type NoteKind = keyof typeof NOTE_KINDS;
 
 /**
- * Single source for the collection ⇒ (glob base, kind) mapping, so `content.config.ts` and the
- * corpus-conformance validator route files the same way. Bases are relative to the Astro
- * project root (site/), matching the loaders' cwd.
+ * Where the content tree sits, relative to the site cwd every consumer runs from — the Astro
+ * loaders, the tests, and the remark plugin at markdown-compile time.
+ *
+ * Stated once, and separately from the bases below, because the bases are the part that is
+ * TRUE ANYWHERE: `research/books` is where books live in this corpus no matter who is asking.
+ * Only the hop from a caller to the content root varies, and it varies exactly once.
+ *
+ * Joined as a plain string rather than through `node:path` on purpose. This module is imported
+ * by `content.config.ts`, and nothing else here reaches for a filesystem — keeping it that way
+ * is cheap and means the contract never drags node builtins somewhere they cannot resolve.
+ */
+export const CONTENT_DIR = '../content';
+
+/** A content-relative path, resolved from the site cwd. The one hop, applied everywhere. */
+export const contentPath = (contentRelPath: string) => `${CONTENT_DIR}/${contentRelPath}`;
+
+/**
+ * Single source for the collection ⇒ (base, pattern, kind) mapping, so every consumer routes
+ * files the same way: the Astro loaders, the corpus validator, the registry-drift walk, and the
+ * wiki-link map.
+ *
+ * `base` is CONTENT-RELATIVE, not site-relative. The shared matcher takes `base` as a plain
+ * prefix and leaves the frame to the caller, requiring only that it be one frame for every row —
+ * so the frame is chosen here to be the one that survives leaving site/. Join it with
+ * `collectionDir` to get back to a path a loader or a walk can use.
+ *
+ * `pattern` is the note-selecting glob, stated per row rather than assumed. It is `**​/index.md`
+ * everywhere today, and it was written out four separate times before it lived here — once as
+ * the loaders' glob, twice as a hand-rolled `entry.name === 'index.md'` walk, and once more in
+ * the wiki-link builder.
+ *
+ * The KEY is also the browse route: `experiments` renders at `/experiments/<id>`. Derived rather
+ * than stored, and pinned by a test, because a `route` column that always equalled the key is a
+ * second name for one thing.
  *
  * Collection and kind are DELIBERATELY not one-to-one: `experiments` holds candidate Molds
  * produced by the blind-assembly runs, which are structurally Molds and declare `type: mold`.
@@ -59,10 +91,35 @@ export type NoteKind = keyof typeof NOTE_KINDS;
  * explicit is what lets a kind catalog enumerate 5 kinds while the site routes 6 collections.
  */
 export const COLLECTIONS = {
-  books: { base: '../content/research/books', kind: 'book', schema: NOTE_KINDS.book },
-  papers: { base: '../content/research/papers', kind: 'paper', schema: NOTE_KINDS.paper },
-  tutorials: { base: '../content/research/tutorials', kind: 'tutorial', schema: NOTE_KINDS.tutorial },
-  molds: { base: '../content/molds', kind: 'mold', schema: NOTE_KINDS.mold },
-  patterns: { base: '../content/patterns', kind: 'pattern', schema: NOTE_KINDS.pattern },
-  experiments: { base: '../content/research/experiments', kind: 'mold', schema: NOTE_KINDS.mold },
-} as const satisfies Record<string, { base: string; kind: NoteKind; schema: unknown }>;
+  books: { base: 'research/books', pattern: ['**/index.md'], kind: 'book', schema: NOTE_KINDS.book },
+  papers: {
+    base: 'research/papers',
+    pattern: ['**/index.md'],
+    kind: 'paper',
+    schema: NOTE_KINDS.paper,
+  },
+  tutorials: {
+    base: 'research/tutorials',
+    pattern: ['**/index.md'],
+    kind: 'tutorial',
+    schema: NOTE_KINDS.tutorial,
+  },
+  molds: { base: 'molds', pattern: ['**/index.md'], kind: 'mold', schema: NOTE_KINDS.mold },
+  patterns: {
+    base: 'patterns',
+    pattern: ['**/index.md'],
+    kind: 'pattern',
+    schema: NOTE_KINDS.pattern,
+  },
+  experiments: {
+    base: 'research/experiments',
+    pattern: ['**/index.md'],
+    kind: 'mold',
+    schema: NOTE_KINDS.mold,
+  },
+} as const satisfies Record<string, CollectionRoute & { kind: NoteKind; schema: unknown }>;
+
+export type CollectionName = keyof typeof COLLECTIONS;
+
+/** Collection names, for a consumer that needs to iterate every collection. */
+export const COLLECTION_NAMES = Object.keys(COLLECTIONS) as readonly CollectionName[];

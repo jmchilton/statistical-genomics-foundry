@@ -1,8 +1,8 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import yaml from 'js-yaml';
 import { describe, it, expect } from 'vitest';
-import { COLLECTIONS } from '../src/lib/frontmatter-schema';
+import { noteFiles } from '../src/lib/content-files';
+import { COLLECTIONS, COLLECTION_NAMES, contentPath } from '../src/lib/frontmatter-schema';
 
 // Standalone validator: every real content file, validated against the same shared
 // schema the site builds with. This is the second consumer that makes "one schema, two
@@ -11,17 +11,6 @@ import { COLLECTIONS } from '../src/lib/frontmatter-schema';
 //
 // yaml.load parses an unquoted `access_date: 2026-07-13` to a Date (as Astro's loader
 // does), so the #87-class footgun surfaces here exactly as it would at build.
-
-function walkIndexFiles(baseAbs: string): string[] {
-  if (!fs.existsSync(baseAbs)) return [];
-  const out: string[] = [];
-  for (const entry of fs.readdirSync(baseAbs, { withFileTypes: true })) {
-    const full = path.join(baseAbs, entry.name);
-    if (entry.isDirectory()) out.push(...walkIndexFiles(full));
-    else if (entry.isFile() && entry.name === 'index.md') out.push(full);
-  }
-  return out;
-}
 
 function readFrontmatter(file: string): { data?: unknown; error?: string } {
   const text = fs.readFileSync(file, 'utf8');
@@ -37,14 +26,14 @@ function readFrontmatter(file: string): { data?: unknown; error?: string } {
 }
 
 describe('corpus conformance (every content file against the shared schema)', () => {
-  for (const [name, { base, schema }] of Object.entries(COLLECTIONS)) {
-    it(`${name}: all index.md validate`, () => {
-      const baseAbs = path.resolve(base);
-      const files = walkIndexFiles(baseAbs);
+  for (const name of COLLECTION_NAMES) {
+    const { schema } = COLLECTIONS[name];
+    it(`${name}: all notes validate`, () => {
       const problems: string[] = [];
-      for (const file of files) {
-        const rel = path.relative(path.resolve('..'), file);
-        const { data, error } = readFrontmatter(file);
+      // Content-relative already — the frame the table is written in, and the frame a problem
+      // is worth reporting in. No resolve-then-relativize round trip to get back to it.
+      for (const rel of noteFiles(name)) {
+        const { data, error } = readFrontmatter(contentPath(rel));
         if (error) {
           problems.push(`${rel}: ${error}`);
           continue;
