@@ -1,4 +1,16 @@
-# Positioning — Statistical Rails for LLM-Driven Statistical Genomics
+---
+type: meta
+title: "Positioning"
+record_kind: foundation
+order: 1
+tags:
+  - meta
+status: reviewed
+created: 2026-06-26
+revised: 2026-07-06
+revision: 2
+summary: "Statistical rails for LLM-driven statistical genomics \u2014 what the Foundry is, what it refuses to be, and why."
+---
 
 > The narrative. For the evidence behind every claim here — per-system verification with refutations — see `../positioning.md` and `../content/research/`. This doc is the story; that doc is the receipts.
 

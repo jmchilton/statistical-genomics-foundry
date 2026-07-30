@@ -57,9 +57,9 @@ Operability** — you cannot exercise a fixture against a tool you can't run.
 
 - **Traceability** is the standing-metric form of the `/ingest-bioskill` recoverability probe —
   it distills a `comparison.md` into a grade. See `content/research/experiments/ingest-probes-cross-synthesis.md`.
-- **Refereeability** grades the **Gate / REFEREE_LOOP** obligation (`docs/REFEREE_LOOP.md`) —
+- **Refereeability** grades the **Gate / REFEREE_LOOP** obligation (`content/meta/referee-loop.md`) —
   does the doer hand off to a non-self-certifying referee, and is that referee any good.
-- **Assessability** grades the `scenarios.md` / `eval.md` contract (`docs/MOLD_SPEC.md`) from the
+- **Assessability** grades the `scenarios.md` / `eval.md` contract (`content/meta/mold-spec.md`) from the
   outside — is there a fixture-bound test that drives the skill.
 - **Operability** is bioSkills' home turf (the doer-spine layer the probes score out of a
   Family-B referee's scope by design — cross-synthesis §2). A rubric lets us credit it explicitly.

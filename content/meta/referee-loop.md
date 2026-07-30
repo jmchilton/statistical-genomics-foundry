@@ -1,6 +1,18 @@
-# The Referee Loop
+---
+type: meta
+title: "The Referee Loop"
+record_kind: foundation
+order: 3
+tags:
+  - meta
+status: reviewed
+created: 2026-06-26
+revised: 2026-06-26
+revision: 1
+summary: "How doing and refereeing compose \u2014 critique and calibration gating a result before it is trusted."
+---
 
-> **Net-new doc** (no parent equivalent — this is the project's defining architecture). The parent Foundry has an `author → validate → fix` loop gated by a deterministic CLI; this generalizes it into `analyze → referee → revise` gated by an empirical, Mold-borne referee. This is where the principle **Doing Never Self-Certifies** (`GUIDING_PRINCIPLES.md`) becomes structure.
+> **Net-new doc** (no parent equivalent — this is the project's defining architecture). The parent Foundry has an `author → validate → fix` loop gated by a deterministic CLI; this generalizes it into `analyze → referee → revise` gated by an empirical, Mold-borne referee. This is where the principle **Doing Never Self-Certifies** (`content/meta/guiding-principles.md`) becomes structure.
 >
 > Status: design sketch. Open decisions are flagged inline and collected at the end. Nothing here is implemented.
 
@@ -36,18 +48,18 @@ The fix is not "make the model reason harder about validity" — reasoning is wh
 
 This is the one invariant the whole project is built to enforce. It is the precise structural answer to the motivating failure: the agent that invented a method, blessed it, and reported results had *no gate* — doing and certifying were the same step.
 
-Encoding (open — §6): most likely a protocol-level convention plus a `[gate]`-style phase (borrowing the parent's open phase-kind set), possibly validator-checked ("every `analyze` protocol resolves to a terminal referee phase"). It is encoded at the **protocol/pipeline altitude, not as a property on a Mold** — deliberately reusing the parent's validation-loop abstraction rather than inventing a Mold-type axis (see `ARCHITECTURE.md` §5).
+Encoding (open — §6): most likely a protocol-level convention plus a `[gate]`-style phase (borrowing the parent's open phase-kind set), possibly validator-checked ("every `analyze` protocol resolves to a terminal referee phase"). It is encoded at the **protocol/pipeline altitude, not as a property on a Mold** — deliberately reusing the parent's validation-loop abstraction rather than inventing a Mold-type axis (see `content/meta/architecture.md` §5).
 
 ## 4. What makes our referee distinct (the two-novelty summary)
 
-The referee loop has close prior art; our two differentiators are precise (see `POSITIONING.md`):
+The referee loop has close prior art; our two differentiators are precise (see `content/meta/positioning.md`):
 
 - **The referee node is a Mold, not infrastructure.** *vs. the parent Foundry.* Galaxy's gate is `gxwf` — a deterministic CLI that parses. No CLI ships for "is this statistical method valid," so our referee is *authored knowledge cast into a skill* — and partly *constructs* its own check (the calibrate role). The gate becomes a deliverable.
 - **The referee judges method validity, not a hypothesis.** *vs. POPPER.* POPPER referees a hypothesis-against-data and controls error over the *falsification decision*, while assuming each experiment yields a *valid p-value* (its Assumption 1). Our referee judges the layer POPPER trusts as input: is the method producing that p-value itself valid — assumptions met, no double-dipping, named method real and appropriate, error rate actually controlled? We sit beneath the p-value.
 
 ## 5. The referee's two sub-roles
 
-The REFEREE box is not monolithic. From `MOLDS.md`, Family B splits in two, and the loop uses them differently:
+The REFEREE box is not monolithic. From `content/meta/molds.md`, Family B splits in two, and the loop uses them differently:
 
 - **Critique** — *reason about* validity against known invalidity patterns (`audit-method-validity`, `review-experimental-design`, `multiple-testing-strategy`). Fast, catches the named failures (double-dipping, confounding, naive correction). Risk: it is itself model reasoning, so it is necessary but not sufficient.
 - **Calibrate** — *construct and run* an empirical check (`derive-null-and-calibration`, `design-simulation-study`, `power-and-sample-size`). Slower, but it is the *external* verdict — permutation under the null, simulation against known truth, calibration of the test statistic. This is the part that is not self-certification.

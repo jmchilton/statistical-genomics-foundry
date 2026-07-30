@@ -22,8 +22,8 @@ resolve. If it doesn't resolve to a Mold dir (an `index.md` present), stop and c
 
 **Follow `/assess-external-skill` Phases 0–4 as written**, with these deltas:
 
-- **Phase 0** — same rubric grounding; **also read `docs/MOLD_SPEC.md`** (the Mold contract) and
-  `docs/REFEREE_LOOP.md`.
+- **Phase 0** — same rubric grounding; **also read `content/meta/mold-spec.md`** (the Mold contract) and
+  `content/meta/referee-loop.md`.
 - **Phase 1 recon** — the subject is **local files**, not a fetched URL. The recon subagent reads
   the Mold's `index.md` / `eval.md` / `scenarios.md` (plus its typed `references:` and the notes
   they wiki-link) and returns the same shared decomposition (tools, claims, cardinal sin, fixtures).

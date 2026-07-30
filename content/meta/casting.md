@@ -1,6 +1,18 @@
-# Compilation Pipeline / Casting (adapted from the Galaxy Workflow Foundry)
+---
+type: meta
+title: "Compilation Pipeline"
+record_kind: foundation
+order: 7
+tags:
+  - meta
+status: reviewed
+created: 2026-06-26
+revised: 2026-07-27
+revision: 4
+summary: "How typed Mold references become target-specific cast artifacts with provenance."
+---
 
-> Adapted from the parent's `docs/COMPILATION_PIPELINE.md`. This doc is **mostly portable** — the casting mechanism (deterministic assembly + per-kind dispatch + LLM condensation only where needed) and the **provenance schema** are domain-neutral, and the provenance contract *is* Pillar 1 (source→cast→provenance). The adaptations are narrow: the `schema` kind is dropped from `reference_contract.yml` entirely (our outputs are prose-shaped, so no Mold has needed one — re-add it when the first does), the tool ecosystem changes, and one nuance matters — **the referee's empirical checks run at the generated skill's runtime, not at cast time.** Status: adaptation; same "lock the contract, not the implementation" stance as the parent.
+> Adapted from the parent's `content/meta/casting.md`. This doc is **mostly portable** — the casting mechanism (deterministic assembly + per-kind dispatch + LLM condensation only where needed) and the **provenance schema** are domain-neutral, and the provenance contract *is* Pillar 1 (source→cast→provenance). The adaptations are narrow: the `schema` kind is dropped from `reference_contract.yml` entirely (our outputs are prose-shaped, so no Mold has needed one — re-add it when the first does), the tool ecosystem changes, and one nuance matters — **the referee's empirical checks run at the generated skill's runtime, not at cast time.** Status: adaptation; same "lock the contract, not the implementation" stance as the parent.
 
 ## What casting is (inherited)
 
@@ -15,7 +27,7 @@ Casting is **per-kind dispatch**, not one resolve-and-inline pass:
 | `cli-command` | deterministic JSON sidecar | `references/cli/<slug>.json` | our tool ecosystem (R/Bioconductor, PLINK, …); author lazily |
 | `schema` | verbatim copy of the serialized export | `references/schemas/<slug>.schema.json` | **demoted** — rare (prose-shaped outputs); reserved for genuinely structured artifacts |
 | `prompt` | raw sidecar copied verbatim | `references/prompts/<slug>.md` | unchanged |
-| `example` | verbatim copy | `references/examples/` | planted-invalid / known-truth fixtures (see `MOLD_SPEC.md`) |
+| `example` | verbatim copy | `references/examples/` | planted-invalid / known-truth fixtures (see `content/meta/mold-spec.md`) |
 | `eval` | **never packaged** | — | Foundry-only |
 | `mold` (smell) | discouraged | — | factor shared content into other kinds |
 

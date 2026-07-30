@@ -1,6 +1,18 @@
-# Mold Spec (adapted from the Galaxy Workflow Foundry)
+---
+type: meta
+title: "Mold Spec"
+record_kind: foundation
+order: 6
+tags:
+  - meta
+status: reviewed
+created: 2026-06-26
+revised: 2026-07-27
+revision: 4
+summary: "The Mold authoring contract \u2014 frontmatter, references, and the eval/usage/refinement shape."
+---
 
-> Adapted from the parent's `docs/MOLD_SPEC.md`. The **source layout** and the **eval/scenario/usage/refinement** discipline carry over almost verbatim — they're domain-neutral and load-bearing. Two things change: the required **`axis`** field (a conversion concept) is **dropped/deferred** in favor of soft family/role tags, and the eval guardrails reframe from *hallucination* to **referee correctness** (which is our analog). Status: adaptation; open decisions flagged inline.
+> Adapted from the parent's `content/meta/mold-spec.md`. The **source layout** and the **eval/scenario/usage/refinement** discipline carry over almost verbatim — they're domain-neutral and load-bearing. Two things change: the required **`axis`** field (a conversion concept) is **dropped/deferred** in favor of soft family/role tags, and the eval guardrails reframe from *hallucination* to **referee correctness** (which is our analog). Status: adaptation; open decisions flagged inline.
 
 ## Source Layout
 
@@ -36,7 +48,7 @@ Top-level Mold `.md` files carry no frontmatter except `index.md` (and the `refi
 - `references:` entries for operational dependencies
 - **Family + role tags** (soft, not a schema enum yet — see below). Provisionally: a `family/a` or `family/b` tag, and a role hint via naming (`audit-*`, `review-*`, `derive-*`, plain verbs).
 
-**Dropped from the parent: the `axis` enum** (`source-specific | target-specific | tool-specific | generic`). That axis describes a *conversion* (source→target), which is not our shape. Per `ARCHITECTURE.md` §5 and `GUIDING_PRINCIPLES.md` (corpus-first), we do **not** mint a replacement role-enum before ~6–10 Molds exist. Until then, family/role lives in **tags**, not required typed fields. Promote to a schema field only when the distinction has proven itself in content. *(Open: exact tag vocabulary for family/role.)*
+**Dropped from the parent: the `axis` enum** (`source-specific | target-specific | tool-specific | generic`). That axis describes a *conversion* (source→target), which is not our shape. Per `content/meta/architecture.md` §5 and `content/meta/guiding-principles.md` (corpus-first), we do **not** mint a replacement role-enum before ~6–10 Molds exist. Until then, family/role lives in **tags**, not required typed fields. Promote to a schema field only when the distinction has proven itself in content. *(Open: exact tag vocabulary for family/role.)*
 
 ## Typed Reference Manifest — mostly inherited, kinds adapted
 
@@ -58,9 +70,9 @@ Required fields unchanged: `kind`, `ref`, `used_at`, `load` (`on-demand` require
 
 **Kind adaptations:**
 - `pattern` — statistical-method patterns *and* invalidity patterns (double-dipping, confounding, naive multiple-testing). High use.
-- `research` — methods-literature and **cautionary negative-example** notes (see `CORPUS.md`). The corpus-grounding kind; high use.
+- `research` — methods-literature and **cautionary negative-example** notes (see `content/meta/corpus.md`). The corpus-grounding kind; high use.
 - `cli-command` — our tool ecosystem (R/Bioconductor, PLINK/regenie, statsmodels, simulators), not gxwf/planemo. Author lazily, when a real action Mold needs an exact command.
-- `schema` — **demoted** (per `ARCHITECTURE.md` §3). Our outputs are prose-shaped critiques/protocols; schemas are rare, reserved for genuinely structured artifacts (e.g. a power-calc result). Still supported, just uncommon.
+- `schema` — **demoted** (per `content/meta/architecture.md` §3). Our outputs are prose-shaped critiques/protocols; schemas are rare, reserved for genuinely structured artifacts (e.g. a power-calc result). Still supported, just uncommon.
 - `prompt`, `example` — unchanged.
 
 **The `evidence` field matters more for us than for the parent.** Our failure mode is plausible invented authority; a reference tagged `corpus-observed` or `cast-validated` is earned, `hypothesis` is a flag. Reviewers should weight `hypothesis`-evidence references heavily — they are where our own invention risk lives.
@@ -104,10 +116,10 @@ Carries over the parent's checks, minus conversion-specific ones, plus our disci
 - **New (our discipline): every Family-B Mold's `eval.md` should carry at least one catch-the-planted-flaw property** (warning-only). A referee with no "must catch X" property isn't refereeing.
 - Mold dir contains only allowlisted files; `refinements/*.md` carry their frontmatter.
 - CLI-command checks apply only once we author CLI notes.
-- Pipeline/protocol membership: **relaxed** (per `ARCHITECTURE.md` §3, Molds may stand alone) — no "unused Mold" warning by default.
+- Pipeline/protocol membership: **relaxed** (per `content/meta/architecture.md` §3, Molds may stand alone) — no "unused Mold" warning by default.
 
 ## Later Work
 - Family/role tag vocabulary (then maybe a schema field).
 - Whether calibrate-Mold deterministic properties run an actual harness (R/Python) or describe a protocol.
-- Referee-independence: does a Family-B eval run the referee as a *separate* cast from the analyzer? (See `REFEREE_LOOP.md` §8.)
+- Referee-independence: does a Family-B eval run the referee as a *separate* cast from the analyzer? (See `content/meta/referee-loop.md` §8.)
 - Full cast execution/eval harness.

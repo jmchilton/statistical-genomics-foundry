@@ -9,7 +9,7 @@ dist/
 .DS_Store
 *.log
 
-# Generated corpus workspace (see docs/CORPUS.md) — not yet present, gitignored when it lands
+# Generated corpus workspace (see content/meta/corpus.md) — not yet present, gitignored when it lands
 workflow-fixtures/
 
 # Imported raw corpus (fetched by scripts/sync-book.sh). We don't redistribute the

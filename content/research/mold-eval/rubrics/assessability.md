@@ -5,7 +5,7 @@ unrestricted dataset, broad coverage of the skill's surface, a real `scenarios.m
 ground truth. This is the axis the ingestions most visibly lacked — "they don't have clean/clear
 scenarios that drive the skill" is precisely a low Assessability grade.
 
-The outside view of the `scenarios.md` / `eval.md` contract (`docs/MOLD_SPEC.md`): that contract
+The outside view of the `scenarios.md` / `eval.md` contract (`content/meta/mold-spec.md`): that contract
 says *what a good test is*; this rubric says *how close a given skill gets*.
 
 ## Scored dimensions

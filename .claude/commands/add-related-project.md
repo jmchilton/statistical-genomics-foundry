@@ -23,7 +23,7 @@ whether to update it instead of creating a duplicate.
 
 Read, in this order, before writing anything:
 
-- `docs/POSITIONING.md`, `docs/GUIDING_PRINCIPLES.md`, `docs/REFEREE_LOOP.md` —
+- `content/meta/positioning.md`, `content/meta/guiding-principles.md`, `content/meta/referee-loop.md` —
   what the Foundry *is* and the values the rubric scores against.
 - One existing exemplar, `content/research/projects/bioskills.md` — the canonical shape and
   voice. **Imitate it.**

@@ -6,7 +6,7 @@
 ## Method
 A clean-context agent was given ONLY the faithful summaries of [[nygaard-2016]], [[leek-2010]],
 [[deseq2-vignette]] (footers withheld — they contain our gap analysis), the skill's six-item scope
-(from `docs/MOLDS.md` skill 3), and one rule: **mark `[GAP: …]` wherever the notes don't supply what's
+(from `content/meta/molds.md` skill 3), and one rule: **mark `[GAP: …]` wherever the notes don't supply what's
 needed, never fill from memory.** No web, no other files, no parametric backfill.
 
 ## Verdict

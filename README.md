@@ -15,7 +15,7 @@ An LLM agent doing statistical genomics is productive but **not statistically ho
 
 We inherit the Mold → Cast → provenance architecture, the human-navigable knowledge site, and the validator from the Galaxy Workflow Foundry; we adapt the domain and *add* a referee for statistical method validity.
 
-## Three pillars (how we're distinct — see `docs/POSITIONING.md`)
+## Three pillars (how we're distinct — see `content/meta/positioning.md`)
 
 1. **Source → cast → provenance** *(layer beneath the artifact)* — vs **bioSkills** (skills *are* their source; ours are cast, with provenance).
 2. **Refereeing the method's validity** *(layer beneath the p-value)* — vs **POPPER** (referees a hypothesis, assuming the method valid; we check the method).
@@ -55,4 +55,4 @@ LICENSES/                   ← third-party license copies (policy table is inst
 - ⏭️ Decide project name; prototype flagship Mold (recommendation: `audit-method-validity`).
 
 ## Provenance note
-This is N=2 in the Foundry-pattern lineage (Galaxy = instance #1, this = instance #2). The pattern earns its abstraction at the *diff* between the two — which is exactly what `docs/ARCHITECTURE.md` records.
+This is N=2 in the Foundry-pattern lineage (Galaxy = instance #1, this = instance #2). The pattern earns its abstraction at the *diff* between the two — which is exactly what `content/meta/architecture.md` records.

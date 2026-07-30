@@ -323,7 +323,7 @@ describe('strict frontmatter (undeclared keys are rejected)', () => {
 });
 
 // The note-envelope fields adopted so far (summary, status). The rest —
-// created/revised/revision/ai_generated — stays unported; see docs/ARCHITECTURE.md §9.
+// created/revised/revision/ai_generated — stays unported; see content/meta/architecture.md §9.
 describe('note envelope (adopted subset)', () => {
   it('requires a summary on a mold', () => {
     const { summary, ...noSummary } = validMold();

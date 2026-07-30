@@ -12,7 +12,7 @@ tags:
 # Batch aliased with condition (confounding / non-identifiability / correct-then-test)
 
 > **Stub.** Corpus-first: this page starts minimal and grows only when a real case demands it
-> (`GUIDING_PRINCIPLES.md`). Below is the one-line phenomenon, the two regimes that share the
+> (`content/meta/guiding-principles.md`). Below is the one-line phenomenon, the two regimes that share the
 > mechanism, and the primary-source outline to summarize next. Each concrete signature is added
 > only when its primary is read into a `content/research/papers/<id>/` note. Frontmatter contract for
 > patterns is deferred to repo standup (AGENTS.md).

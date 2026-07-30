@@ -29,18 +29,18 @@ on a term, the glossary wins.** Load it in full before reasoning about anything 
 ## Then orient
 
 - `README.md` — what this workspace is, the thesis, the three pillars, current status.
-- `docs/POSITIONING.md` — the positioning narrative (the story); `positioning.md` (root) is
+- `content/meta/positioning.md` — the positioning narrative (the story); `positioning.md` (root) is
   the working evidence doc with per-system axis maps and verified distinctions.
-- `docs/ARCHITECTURE.md` — the architecture as an explicit **diff from the parent Foundry**
+- `content/meta/architecture.md` — the architecture as an explicit **diff from the parent Foundry**
   (inherit / adapt / demote / add). The structural authority.
-- `docs/GUIDING_PRINCIPLES.md` — adapted principles, including the net-new
+- `content/meta/guiding-principles.md` — adapted principles, including the net-new
   "Doing Never Self-Certifies."
-- `docs/REFEREE_LOOP.md` — net-new: the analyze → referee → revise spine and the gate obligation.
-- `docs/MOLD_SPEC.md` — adapted Mold authoring contract (conversion axes dropped;
+- `content/meta/referee-loop.md` — net-new: the analyze → referee → revise spine and the gate obligation.
+- `content/meta/mold-spec.md` — adapted Mold authoring contract (conversion axes dropped;
   referee-correctness evals added). Load when authoring or editing a Mold.
-- `docs/CORPUS.md` — the bipolar corpus (established-good + cautionary-bad).
-- `docs/COMPILATION_PIPELINE.md` — adapted casting + provenance (Pillar 1).
-- `docs/MOLDS.md` — initial Mold set, a **TODO outline** — nothing authored yet.
+- `content/meta/corpus.md` — the bipolar corpus (established-good + cautionary-bad).
+- `content/meta/casting.md` — adapted casting + provenance (Pillar 1).
+- `content/meta/molds.md` — initial Mold set, a **TODO outline** — nothing authored yet.
 
 ## The rendered site
 
