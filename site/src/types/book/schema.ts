@@ -24,6 +24,29 @@ export const kind = defineKind({
   // kind: the note validates from its own frontmatter, so the schema does no file I/O, the
   // kind manifest reports what a book chapter actually carries, and nothing downstream has
   // to special-case a note whose record is only complete after a merge.
+
+  shape: 'directory',
+
+  // `book.yml`, `manifest.tsv`, `SHA256SUMS` and `summary-prompt.md` are NOT here, and that is the
+  // point: they sit at the BOOK level, one directory above the chapter that is the note. They are
+  // companions of nothing — they belong to a container with no note, the same shape as the
+  // experiment level. `additionalCompanions: 'allow'` would be the wrong way to say that: it would
+  // claim a chapter's set is open when the truth is that those files are somewhere else.
+  //
+  // `guidance.md` is genuinely optional, and this is the declaration finding out: 1 of 27 chapters
+  // has one (`harmon-pcm/chap8`, written because that chapter closes two named gaps from the
+  // ancestral-reconstruction probe). `paper` and `tutorial` make it `required` at 76/76 and 8/8
+  // because their generator writes it; a chapter gets one only when someone needs targeted
+  // extraction, which is what `optional` means and what nothing checked until now.
+  companions: [
+    {
+      file: 'guidance.md',
+      requirement: 'optional',
+      purpose: "Attention-directing questions for the summarizer, answered by the chapter's own text.",
+      disposition: 'foundry-only',
+    },
+  ],
+
   build: (ctx: KindContext) =>
     z
       .object({
