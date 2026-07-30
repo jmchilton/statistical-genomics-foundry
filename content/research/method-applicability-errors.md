@@ -39,7 +39,7 @@ whole applicability space genomics needs.
 
 ### Prong 2 — EXISTENCE (no such method) — documented white-space, NO benchmark
 The invented-method-with-a-fluent-derivation case — the project's sharpest target
-(`GUIDING_PRINCIPLES.md`). **Confirmed out of scope for StatQA:** its solver picks only from a fixed
+(`content/meta/guiding-principles.md`). **Confirmed out of scope for StatQA:** its solver picks only from a fixed
 27-method classification list ("selection among known real methods only"; hallucination appears only
 as fabricated *reasoning within a correct answer*, never method invention — [[statqa-2024]] §10).
 So the benchmark that grounds prong 1 explicitly does **not** touch prong 2. Across the prior-art
@@ -72,7 +72,7 @@ manufacture a citation. The asymmetry is the point (see footer).
 - [[double-dipping]], [[batch-aliased-with-condition]] — sibling invalidity leaves. Applicability
   errors are the "wrong / nonexistent method" class, distinct from "right method used
   circularly / on a confounded design."
-- `[[map-question-to-established-method]]` (construct Mold, `MOLDS.md` TODO) — the Family-A
+- `[[map-question-to-established-method]]` (construct Mold, `content/meta/molds.md` TODO) — the Family-A
   guardrail that *prevents* this by recommending a validated method. This node is the Family-B
   *detector*. Construct/critique mirror pair on the same failure.
 

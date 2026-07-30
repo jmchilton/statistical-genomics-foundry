@@ -1,6 +1,18 @@
-# Guiding Principles (adapted from the Galaxy Workflow Foundry)
+---
+type: meta
+title: "Guiding Principles"
+record_kind: foundation
+order: 2
+tags:
+  - meta
+status: reviewed
+created: 2026-06-26
+revised: 2026-07-27
+revision: 2
+summary: "The design pressure behind source authority, progressive disclosure, validation, and corpus grounding."
+---
 
-> Adapted from the parent's `docs/GUIDING_PRINCIPLES.md`. Most principles carry over with the domain swapped; two change materially (**Deterministic Tools** → empirical referee) and one is **net-new** (**Doing Never Self-Certifies**) because our failure mode demands it. Where a principle is essentially the parent's, that's deliberate — the principles are the shared soul of the Foundry pattern.
+> Adapted from the parent's `content/meta/guiding-principles.md`. Most principles carry over with the domain swapped; two change materially (**Deterministic Tools** → empirical referee) and one is **net-new** (**Doing Never Self-Certifies**) because our failure mode demands it. Where a principle is essentially the parent's, that's deliberate — the principles are the shared soul of the Foundry pattern.
 
 LLM-driven statistical-genomics analysis fails in a specific, dangerous way: it produces statistically *plausible-but-invalid* work — at worst, an *invented method* with a fluent derivation and a memorable name and no validity — and certifies it with authoritative rationale. Monolithic "do the analysis" agents decay because they answer this with more reasoning, when the whole problem is that reasoning is what failed. These principles are the design pressure behind the alternative.
 
@@ -35,7 +47,7 @@ Two consequences specific to us:
 
 ## Doing Never Self-Certifies **(net-new)**
 
-The structural bet, elevated to a principle. An analysis (Family A) must **hand off** to a referee (Family B) before it can be certified. Doing and refereeing are separated so the agent cannot do-and-bless in one breath. This generalizes the parent's `author → validate → fix` loop, with one difference that matters: the parent's validator is a deterministic CLI (infrastructure); **our referee node is itself a Mold**, and it judges *method validity* — the layer that even rigorous hypothesis-validators (POPPER) take as trusted input. See `REFEREE_LOOP.md`.
+The structural bet, elevated to a principle. An analysis (Family A) must **hand off** to a referee (Family B) before it can be certified. Doing and refereeing are separated so the agent cannot do-and-bless in one breath. This generalizes the parent's `author → validate → fix` loop, with one difference that matters: the parent's validator is a deterministic CLI (infrastructure); **our referee node is itself a Mold**, and it judges *method validity* — the layer that even rigorous hypothesis-validators (POPPER) take as trusted input. See `content/meta/referee-loop.md`.
 
 This principle is why the project exists. Everything else serves it.
 
@@ -71,6 +83,6 @@ The resulting division of labor:
 - Harnesses own orchestration.
 
 ## See Also
-- `POSITIONING.md` — how this shape is distinct from (and complementary to) the prior art, with verified evidence.
-- `REFEREE_LOOP.md` — the do→referee→revise spine that "Doing Never Self-Certifies" turns into architecture.
-- `ARCHITECTURE.md` — the structural diff from the parent.
+- `content/meta/positioning.md` — how this shape is distinct from (and complementary to) the prior art, with verified evidence.
+- `content/meta/referee-loop.md` — the do→referee→revise spine that "Doing Never Self-Certifies" turns into architecture.
+- `content/meta/architecture.md` — the structural diff from the parent.

@@ -4,7 +4,7 @@
 
 ---
 
-**Analyze → referee → revise loop** — the project's structural spine. An analysis (Family A) hands off to a referee (Family B), whose verdict gates certification; on a fail the analysis is revised (bounded) or escalated. Generalizes the parent's `author → validate → fix` loop; the novelty is that the referee node is a *Mold* and judges *method validity*. See `REFEREE_LOOP.md`.
+**Analyze → referee → revise loop** — the project's structural spine. An analysis (Family A) hands off to a referee (Family B), whose verdict gates certification; on a fail the analysis is revised (bounded) or escalated. Generalizes the parent's `author → validate → fix` loop; the novelty is that the referee node is a *Mold* and judges *method validity*. See `content/meta/referee-loop.md`.
 
 **Assessment axis** — one of the four `-ability` dimensions a **Rubric** grades a Family-A doer
 skill on: **Operability** (can the tooling be run), **Assessability** (can the skill be tested),
@@ -12,19 +12,19 @@ skill on: **Operability** (can the tooling be run), **Assessability** (can the s
 a real Family-B referee). A skill scores as a *vector* of the four letters, never a composite. See
 `content/research/mold-eval/rubrics/`.
 
-**Bipolar corpus** — our grounding corpus has two poles: **established-good** (methods + their validity conditions) and **cautionary-bad** (named invalidity patterns + signatures + remedies), plus supporting reporting-standard, calibration-methodology, and benchmark kinds. Unlike the parent's all-positive IWC corpus, a referee needs both poles. See `CORPUS.md`.
+**Bipolar corpus** — our grounding corpus has two poles: **established-good** (methods + their validity conditions) and **cautionary-bad** (named invalidity patterns + signatures + remedies), plus supporting reporting-standard, calibration-methodology, and benchmark kinds. Unlike the parent's all-positive IWC corpus, a referee needs both poles. See `content/meta/corpus.md`.
 
 **Calibrate** *(Family B role)* — *construct and run* an empirical check: permutation/null, simulation-under-known-truth, negative controls, power. The external verdict that is *not* self-certification. The role that turns the gate into a deliverable. Contrast **Critique**.
 
 **Cast** *(verb)* — produce a self-contained skill artifact from a Mold via casting. *(noun)* — one casting result for a (Mold, target) pair.
 
-**Casting** — the deterministic-assembly process that turns a Mold into a cast artifact, via per-kind dispatch over its references. The parent Foundry's pipeline allows an LLM condensation phase; this one does not implement it, so every carry here is deterministic. See `COMPILATION_PIPELINE.md`.
+**Casting** — the deterministic-assembly process that turns a Mold into a cast artifact, via per-kind dispatch over its references. The parent Foundry's pipeline allows an LLM condensation phase; this one does not implement it, so every carry here is deterministic. See `content/meta/casting.md`.
 
 **Cautionary-bad** — the corpus pole of named invalidity patterns (double-dipping, batch confounding, naive multiple-testing, forking paths) with their signatures and remedies. Grounds the referee. No parent analog.
 
 **Construct** *(Family A role)* — *do* the analysis: frame, design-review, select an established method, run reproducibly. Contrast Critique/Calibrate.
 
-**Corpus-first** — abstractions must trace to observed practice, not be invented top-down. Load-bearing for us specifically: our failure mode *is* plausible invented prose, so a reference note starts as a stub and grows only when a real case demands it. *We must not become the thing we referee.* See `GUIDING_PRINCIPLES.md`.
+**Corpus-first** — abstractions must trace to observed practice, not be invented top-down. Load-bearing for us specifically: our failure mode *is* plausible invented prose, so a reference note starts as a stub and grows only when a real case demands it. *We must not become the thing we referee.* See `content/meta/guiding-principles.md`.
 
 **Critique** *(Family B role)* — *reason about* validity against known invalidity patterns (double-dipping, confounding, assumption violations). Necessary but not sufficient — it is itself model reasoning, so the strong gate also requires a **Calibrate** pass.
 
@@ -48,7 +48,7 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Method validity** — the property our referee judges: are assumptions met, is there no double-dipping/circularity, is the named method real and appropriate, is its error rate actually controlled? The layer *beneath* the p-value — what hypothesis-validators (e.g. POPPER) take as trusted input.
 
-**Mold** — an abstract, structured template: a typed reference manifest (frontmatter) + a procedural body skeleton. Directory note (`content/molds/<slug>/index.md` + siblings). Cast into one or more skill artifacts. See `MOLD_SPEC.md`.
+**Mold** — an abstract, structured template: a typed reference manifest (frontmatter) + a procedural body skeleton. Directory note (`content/molds/<slug>/index.md` + siblings). Cast into one or more skill artifacts. See `content/meta/mold-spec.md`.
 
 **Own-words summary** — a **Source note** whose license resolves to `own-words-only` in the **License-policy table**, rendered entirely in new expression — no transcription — with only short **functional strings** (error text, parameter names, numeric thresholds, equation forms) kept verbatim as facts. `derived: own-words-summary`. E.g. `msmb` (CC-BY-NC-SA). Contrast **License-aware summary**.
 
@@ -60,7 +60,7 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Progressive disclosure** — show the right knowledge at the right time: protocols disclose the journey, Molds the action, references the dependency surface. Both an authoring principle and a runtime contract. The basis of **Pillar 3** (knowledge foregrounded for a human reader).
 
-**Provenance** — every derived artifact records what produced it (source hash, model, prompt version, resolved-ref hashes, timestamp). The basis of **Pillar 1**; never lightened. See `COMPILATION_PIPELINE.md`.
+**Provenance** — every derived artifact records what produced it (source hash, model, prompt version, resolved-ref hashes, timestamp). The basis of **Pillar 1**; never lightened. See `content/meta/casting.md`.
 
 **Referee** — a Family-B Mold (or protocol stage) that judges an analysis's method validity using empirical checks rather than the agent's own reasoning. Non-self-certifying. The novelty vs the parent: the referee is a *Mold*, not a deterministic CLI.
 

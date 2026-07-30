@@ -11,7 +11,7 @@ tags:
 # Double-dipping (circular / post-selection inference)
 
 > **Stub.** Corpus-first: this page starts minimal and grows only when a real case demands it
-> (`GUIDING_PRINCIPLES.md`). Below is the one-line phenomenon + the observed cross-method spread +
+> (`content/meta/guiding-principles.md`). Below is the one-line phenomenon + the observed cross-method spread +
 > the primary-source outline to summarize next. Do not pad with invented signature prose; each
 > concrete signature is added only when its primary source is read into a `content/research/papers/<id>/`
 > note. Frontmatter contract for patterns is deferred to repo standup (AGENTS.md).

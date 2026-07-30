@@ -62,6 +62,21 @@ describe('corpus conformance (every content file against the shared schema)', ()
 describe('corpus layout (every note directory against its kind declaration)', () => {
   for (const name of COLLECTION_NAMES) {
     const definition = DEFINITIONS[COLLECTIONS[name].kind];
+
+    // Only a DIRECTORY-shaped kind has a layout to check. A flat note's `dirname` is the
+    // collection's own directory, shared with every sibling note, so checking it against a
+    // companion declaration would report each of those siblings as an undeclared file. The
+    // shared checker refuses a file-shaped kind outright rather than answer a question that
+    // has no meaning, and this is the branch that respects the refusal instead of skipping
+    // the kind quietly: what a file-shaped kind CAN be held to is that it claims no
+    // companions, and that is asserted.
+    if (definition.shape === 'file') {
+      it(`${name}: is file-shaped, so declares no companions`, () => {
+        expect(definition.companions).toEqual([]);
+      });
+      continue;
+    }
+
     it(`${name}: every note directory matches its kind`, () => {
       const problems: string[] = [];
       for (const rel of noteFiles(name)) {

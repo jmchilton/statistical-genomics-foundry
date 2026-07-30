@@ -1,10 +1,22 @@
-# Corpus (adapted from the Galaxy Workflow Foundry's CORPUS_INGESTION)
+---
+type: meta
+title: "Corpus"
+record_kind: foundation
+order: 8
+tags:
+  - meta
+status: reviewed
+created: 2026-06-26
+revised: 2026-06-26
+revision: 1
+summary: "How external sources are ingested as own-words summaries without becoming a content mirror."
+---
 
-> Adapted from the parent's `docs/CORPUS_INGESTION.md`. The **URL-not-mirror principle is preserved verbatim** — we cite, we don't mirror. The corpus *content* changes completely (the parent's is IWC workflows; ours is methods literature + cautionary examples), and it gains a structural feature the parent never needed: it is **bipolar** — established-good *and* cautionary-bad — because a referee needs both "here is the valid method" and "here is the invalidity signature." Status: adaptation; no ingestion tooling planned.
+> Adapted from the parent's `content/meta/corpus.md`. The **URL-not-mirror principle is preserved verbatim** — we cite, we don't mirror. The corpus *content* changes completely (the parent's is IWC workflows; ours is methods literature + cautionary examples), and it gains a structural feature the parent never needed: it is **bipolar** — established-good *and* cautionary-bad — because a referee needs both "here is the valid method" and "here is the invalidity signature." Status: adaptation; no ingestion tooling planned.
 
 ## No ingestion pipeline, no mirror
 
-Like the parent, this project has **no corpus ingestion pipeline, no mirror, and no fixtures runtime dependency**. It integrates its corpus through **citations** (by URL/DOI), survey/research notes, optional inline excerpts, and Molds that fetch live evidence at runtime. We point upstream, quote only what we must, and pin a citation to a DOI / commit / version when stability matters — author choice per citation, no enforced policy. (`GUIDING_PRINCIPLES.md` → "Source Authority Beats Local Copies.")
+Like the parent, this project has **no corpus ingestion pipeline, no mirror, and no fixtures runtime dependency**. It integrates its corpus through **citations** (by URL/DOI), survey/research notes, optional inline excerpts, and Molds that fetch live evidence at runtime. We point upstream, quote only what we must, and pin a citation to a DOI / commit / version when stability matters — author choice per citation, no enforced policy. (`content/meta/guiding-principles.md` → "Source Authority Beats Local Copies.")
 
 The parent's `workflow-fixtures/` + IWC clone + skeleton tiers are **Galaxy-specific and dropped**. We have no equivalent generated-corpus workspace yet; if survey work later wants one (e.g. a local cache of Bioconductor vignettes or simulation fixtures), it lives outside `content/`, gitignored, invisible to the validator and site — same containment rule as the parent's `workflow-fixtures/`.
 
@@ -23,7 +35,7 @@ The parent's corpus (IWC) is **all positive exemplars** — "here are good workf
 Mirrors the parent's mechanisms, retargeted:
 
 1. **Pattern and research notes cite by URL/DOI in the body.** A pattern's `## Exemplars` (established-good) or `## Failure cases` (cautionary-bad) section lists sources as free-form Markdown links with one-line commentary. Pin to DOI / commit / version when stability matters.
-2. **Inline excerpts when they earn it.** A note author may paste a short excerpt (a method's assumption list, a checklist item, a code snippet showing the invalid move) directly into a body to illustrate. Committed verbatim; no build-time regeneration; rot is rot. **Corpus-first discipline applies hard here** (`GUIDING_PRINCIPLES.md`): write the excerpt only when a real case demands it — invented "representative" prose is exactly our failure mode.
+2. **Inline excerpts when they earn it.** A note author may paste a short excerpt (a method's assumption list, a checklist item, a code snippet showing the invalid move) directly into a body to illustrate. Committed verbatim; no build-time regeneration; rot is rot. **Corpus-first discipline applies hard here** (`content/meta/guiding-principles.md`): write the excerpt only when a real case demands it — invented "representative" prose is exactly our failure mode.
 3. **No category-aggregation layer.** Corpus grounding lives in note bodies and citations, not an index.
 4. **Referee Molds may fetch live evidence at runtime.** A cast skill can carry instructions to fetch a standard/checklist or look up a method via `WebFetch` rather than embedding a mirror. The Mold's source describes the *procedure*, not a frozen corpus snapshot.
 
@@ -33,7 +45,7 @@ Mirrors the parent's mechanisms, retargeted:
 - No auto-detection of upstream drift — a cited method page or standard can change; mitigate by pinning to DOI/version where stability matters, and by review.
 
 ## Validation
-No corpus-specific validator layer. Body citations are not link-checked (URLs are URLs; automated link-checking at scale costs more than the moderate cost of brokenness). The one discipline we *do* enforce in review: a `hypothesis`-evidence reference (per `MOLD_SPEC.md`) must be flagged, because un-grounded prose is our project's specific risk.
+No corpus-specific validator layer. Body citations are not link-checked (URLs are URLs; automated link-checking at scale costs more than the moderate cost of brokenness). The one discipline we *do* enforce in review: a `hypothesis`-evidence reference (per `content/meta/mold-spec.md`) must be flagged, because un-grounded prose is our project's specific risk.
 
 ## Minimum exercise
 1. Author 2–3 patterns end-to-end: at least one established-good (an established method + when it applies) and at least one cautionary-bad (a named invalidity + its signature + remedy), each citing sources by URL/DOI with one inline excerpt where useful.

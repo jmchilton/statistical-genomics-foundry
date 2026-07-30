@@ -66,7 +66,7 @@ license/attribution/derived live once in `book.yml`, merged by the Astro `books`
    ```
 
    `type: book` is required and constant — it is the note-kind discriminator the schema
-   selects on (`docs/ARCHITECTURE.md` §9), and it lives per-note, not in `book.yml`.
+   selects on (`content/meta/architecture.md` §9), and it lives per-note, not in `book.yml`.
 
    **`tags:` must survive the regeneration.** Every note requires ≥1 registered facet tag
    (`min(1)`), and this command rewrites the whole file — so read the existing

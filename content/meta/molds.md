@@ -1,8 +1,20 @@
-# Initial Mold set — TODO outline (NOT yet authored)
+---
+type: meta
+title: "Molds"
+record_kind: foundation
+order: 5
+tags:
+  - meta
+status: reviewed
+created: 2026-06-26
+revised: 2026-06-26
+revision: 1
+summary: "The initial Mold set \u2014 an in-progress outline of the operations the Foundry will encode."
+---
 
 > **This is a planning list, not a Mold inventory.** No Molds exist yet. Do **not** treat any line here as authored. Each entry is a candidate: a name, what it does, the failure it guards, its rough role, and the research grounding it would draw on. Authoring happens later, corpus-first, one at a time.
 >
-> Naming convention (cheap/reversible, per `ARCHITECTURE.md` §5 — do NOT formalize as a schema enum yet): `review-*` / `audit-*` (critique), `derive-*` / `design-*` (calibrate), plain verbs (do).
+> Naming convention (cheap/reversible, per `content/meta/architecture.md` §5 — do NOT formalize as a schema enum yet): `review-*` / `audit-*` (critique), `derive-*` / `design-*` (calibrate), plain verbs (do).
 
 ## Family A — do the analysis
 *Lean: orchestrate established doers + bias hard toward established methods. Don't reinvent Biomni/nf-core/Bioconductor.*
@@ -28,7 +40,7 @@
 - [ ] **`power-and-sample-size`** *(calibrate; mostly a calculation — CLI-backed)* — power / required N for the planned test under stated effect sizes. Grounding: pwr/simr/G*Power.
 
 ## The referee gate / loop (NOT a Mold — structural)
-- [ ] **`analyze → referee → revise` loop** — the spine (see `ARCHITECTURE.md` §4). A Family-A protocol must hand off to a Family-B referee before certifying ("the gate obligation"). Encoded at the protocol/pipeline altitude, not as a Mold property. The referee node is a Family-B Mold; the novelty vs POPPER is that it referees *method validity*, not a hypothesis.
+- [ ] **`analyze → referee → revise` loop** — the spine (see `content/meta/architecture.md` §4). A Family-A protocol must hand off to a Family-B referee before certifying ("the gate obligation"). Encoded at the protocol/pipeline altitude, not as a Mold property. The referee node is a Family-B Mold; the novelty vs POPPER is that it referees *method validity*, not a hypothesis.
 - [ ] **`method-validation protocol`** *(protocol/pipeline)* — the one place pipelines re-earn their keep: `map-to-established` → (if novel) → `derive-null` → `design-simulation-study` → `power` → `sensitivity`. Author only if the standalone Molds prove they chain.
 
 ## Sequencing recommendation (when authoring starts)

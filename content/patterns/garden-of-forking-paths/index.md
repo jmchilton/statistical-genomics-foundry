@@ -12,7 +12,7 @@ tags:
 # Garden of forking paths (researcher degrees of freedom / undeclared analysis family)
 
 > **Stub.** Corpus-first: starts minimal, grows only when a real case demands it
-> (`GUIDING_PRINCIPLES.md`). The boundary table below is the load-bearing content — this leaf exists
+> (`content/meta/guiding-principles.md`). The boundary table below is the load-bearing content — this leaf exists
 > mainly to be *distinguished* from its siblings. Each signature is added only when its primary is
 > read into a `content/research/papers/<id>/` note. Frontmatter contract for patterns deferred to repo standup.
 

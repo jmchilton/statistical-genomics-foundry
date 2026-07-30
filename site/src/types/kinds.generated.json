@@ -3,6 +3,70 @@
   "version": 1,
   "kinds": [
     {
+      "kind": "meta",
+      "title": "Design Record",
+      "layer": "substrate",
+      "summary": "A record of why the Foundry itself is built the way it is — the rationale behind the machinery, not the domain.",
+      "shape": "file",
+      "companions": [],
+      "locations": [
+        "meta"
+      ],
+      "doc": "# Design Record\n\nA **Design Record** says why the Foundry is built the way it is. It is the only kind here whose\nsubject is the Foundry itself rather than statistical genomics — positioning, guiding principles,\nthe referee loop, architecture, the Mold contract, casting, corpus grounding.\n\nThese records used to live in a top-level `docs/` directory, outside every collection, surfaced\nby a hand-written array in `site/src/lib/design-docs.ts` that restated each one's title, summary\nand category in TypeScript. Being a kind is what makes that array unnecessary: the collection\nanswers which records exist, and a schema checks what each one says about itself.\n\nThis kind is **substrate**. Both Foundry instances declare it, with the same required fields,\nbecause every instance accumulates a design record and every one faces the same question of\nwhere it lives. `content/meta/` is the shared answer — the directory the glossary already moved\nto.\n\n## Why each required field is required\n\n- **`title`** — required here, though most kinds in this instance let a note go untitled. A\n  design record is addressed by name, in prose and on a card.\n- **`record_kind`** — which shelf the record sits on. Every record here is `foundation` today;\n  `infrastructure` exists because the parent instance uses it, and a substrate kind whose enum\n  differs between instances is two kinds wearing one name.\n- **`order`** — reading order within a shelf, which is what the old array's **position**\n  carried. Positioning is pedagogical (positioning before principles, principles before the\n  referee loop), so neither `created` nor an alphabetical sort reproduces it.\n- **`status` / `created` / `revised` / `revision`** — the lifecycle envelope, and the first\n  dates in this corpus. This instance deliberately left dates off elsewhere rather than backfill\n  values it did not have; these are here because they *could* be populated truthfully, derived\n  from each file's own git history.\n- **`summary`** — 20–160 characters, the parent's bounds. It is the card text on the design\n  index, so it was already being written by hand; it just was not being checked.\n- **`tags`** — as on every note. Design records carry `meta`, the one tag in this registry with\n  no slash, carried over from the parent instance rather than coined here.\n\n## Shape\n\nA **flat file**, and the first in this instance — every other kind is a directory holding an\n`index.md`. A design record has nothing to put beside it, so a directory per record would be a\ncontainer with one file in it forever.\n\n## The glossary is not one of these\n\n`content/meta/glossary.md` shares the directory and is deliberately **not** a note of this kind.\nIt is hand-curated, alphabetical, and rendered by its own page; the collection excludes it by\nname. Sharing a directory is a filing decision, not a typing one.",
+      "fields": [
+        {
+          "name": "created",
+          "required": true,
+          "type": "date"
+        },
+        {
+          "name": "order",
+          "required": true,
+          "type": "number"
+        },
+        {
+          "name": "record_kind",
+          "required": true,
+          "type": "foundation | infrastructure"
+        },
+        {
+          "name": "revised",
+          "required": true,
+          "type": "date"
+        },
+        {
+          "name": "revision",
+          "required": true,
+          "type": "number"
+        },
+        {
+          "name": "status",
+          "required": true,
+          "type": "draft | reviewed | revised | stale | archived"
+        },
+        {
+          "name": "summary",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "tags",
+          "required": true,
+          "type": "string[]"
+        },
+        {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "required": true,
+          "type": "\"meta\""
+        }
+      ]
+    },
+    {
       "kind": "book",
       "title": "Book Chapter",
       "layer": "instance",

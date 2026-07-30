@@ -26,6 +26,7 @@ const ctx = buildKindContext(REGISTRIES);
 //
 // `assemble` — applying a kind's `refine` to its own schema, stating the result as one type so
 // the optional slot does not infer a union — is shared machinery in @galaxy-foundry/kind-schema.
+export const metaSchema = assemble(DEFINITIONS.meta, ctx);
 export const bookSchema = assemble(DEFINITIONS.book, ctx);
 export const paperSchema = assemble(DEFINITIONS.paper, ctx);
 export const tutorialSchema = assemble(DEFINITIONS.tutorial, ctx);
@@ -39,6 +40,7 @@ export const patternSchema = assemble(DEFINITIONS.pattern, ctx);
  * infers a kind from a directory or a tag.
  */
 export const NOTE_KINDS = {
+  meta: metaSchema,
   book: bookSchema,
   paper: paperSchema,
   tutorial: tutorialSchema,
@@ -91,6 +93,13 @@ export const contentPath = (contentRelPath: string) => `${CONTENT_DIR}/${content
  * explicit is what lets a kind catalog enumerate 5 kinds while the site routes 6 collections.
  */
 export const COLLECTIONS = {
+  // The design record. `glossary.md` shares the directory and is deliberately NOT a note: it
+  // is hand-curated, alphabetical, and rendered by its own page. Excluded HERE, in the routing
+  // table, rather than by each consumer — the validator has to honour it too, and an exclusion
+  // written in the site's loader alone would start failing the glossary in the corpus walk.
+  //
+  // Also the first row whose pattern is not `**/index.md`: a design record is a flat file.
+  meta: { base: 'meta', pattern: ['*.md', '!glossary.md'], kind: 'meta', schema: NOTE_KINDS.meta },
   books: { base: 'research/books', pattern: ['**/index.md'], kind: 'book', schema: NOTE_KINDS.book },
   papers: {
     base: 'research/papers',

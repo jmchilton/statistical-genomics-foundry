@@ -1,7 +1,7 @@
 # Refereeability — is the doing gated by a real Family-B referee?
 
 We grade Family-A doer skills; this axis scores the **quality of the Family-B referee that gates
-them**. It is the **Gate obligation** (`docs/GUIDING_PRINCIPLES.md` "Doing Never Self-Certifies")
+them**. It is the **Gate obligation** (`content/meta/guiding-principles.md` "Doing Never Self-Certifies")
 and the **REFEREE_LOOP** made gradeable: a doer that terminates in self-certification fails this
 axis by definition, however good its doing.
 

@@ -15,6 +15,7 @@ const load = (row: { base: string; pattern: readonly string[] }) =>
   glob({ pattern: [...row.pattern], base: contentPath(row.base), generateId: stripIndex });
 
 export const collections = {
+  meta: defineCollection({ loader: load(COLLECTIONS.meta), schema: COLLECTIONS.meta.schema }),
   books: defineCollection({ loader: load(COLLECTIONS.books), schema: COLLECTIONS.books.schema }),
   papers: defineCollection({ loader: load(COLLECTIONS.papers), schema: COLLECTIONS.papers.schema }),
   tutorials: defineCollection({

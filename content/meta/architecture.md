@@ -1,8 +1,20 @@
-# Architecture (adapted from the Galaxy Workflow Foundry)
+---
+type: meta
+title: "Architecture"
+record_kind: foundation
+order: 4
+tags:
+  - meta
+status: reviewed
+created: 2026-06-26
+revised: 2026-07-27
+revision: 16
+summary: "Physical layout, content types, validation pipeline, generated artifacts, and site rendering."
+---
 
-> **Status: adaptation in progress.** This doc derives from the Galaxy Workflow Foundry's `docs/ARCHITECTURE.md` and adapts it to our domain (statistical genomics) and our identity (a method-validity referee). It is organized as an explicit **diff** from the parent: what we inherit unchanged, what we adapt, what we demote, what we add. It is not yet a from-scratch authority — it records decisions and open questions so the real architecture can be settled deliberately.
+> **Status: adaptation in progress.** This doc derives from the Galaxy Workflow Foundry's `content/meta/architecture.md` and adapts it to our domain (statistical genomics) and our identity (a method-validity referee). It is organized as an explicit **diff** from the parent: what we inherit unchanged, what we adapt, what we demote, what we add. It is not yet a from-scratch authority — it records decisions and open questions so the real architecture can be settled deliberately.
 >
-> Working name: **Statistical Genomics Foundry** (provisional — see `MOLDS.md` open decisions; the referee-centric identity may want a more distinctive name).
+> Working name: **Statistical Genomics Foundry** (provisional — see `content/meta/molds.md` open decisions; the referee-centric identity may want a more distinctive name).
 
 ## 0. The bet, in one paragraph
 
@@ -24,7 +36,7 @@ These are the load-bearing abstractions we take from the Foundry pattern. They g
 
 ## 2. Domain adaptations (same shape, different content)
 
-- **Corpus.** Galaxy = the IWC workflow corpus, cited by URL. **Ours = established statistical-methods literature + cautionary negative examples**, cited by URL/DOI. Concretely: Bioconductor vignettes / OSCA, GWAS QC protocols (Marees, Anderson), methodology papers, simulation/calibration standards (SBC, posterior predictive checks), and named-invalidity literature (double-dipping/`countsplit`, batch-effect literature, garden-of-forking-paths). Corpus-first still holds — abstractions must trace to real exemplars — but the corpus is methods-and-cautions, not workflows. (Adapt `CORPUS_INGESTION.md` → a "methods-and-negative-examples corpus" doc; same URL-not-mirror principle.)
+- **Corpus.** Galaxy = the IWC workflow corpus, cited by URL. **Ours = established statistical-methods literature + cautionary negative examples**, cited by URL/DOI. Concretely: Bioconductor vignettes / OSCA, GWAS QC protocols (Marees, Anderson), methodology papers, simulation/calibration standards (SBC, posterior predictive checks), and named-invalidity literature (double-dipping/`countsplit`, batch-effect literature, garden-of-forking-paths). Corpus-first still holds — abstractions must trace to real exemplars — but the corpus is methods-and-cautions, not workflows. (Adapt `content/meta/corpus.md` → a "methods-and-negative-examples corpus" doc; same URL-not-mirror principle.)
 - **The deterministic gate.** Galaxy = `gxwf` static schema validation (the parser catches hallucinated tool IDs, malformed gxformat2). **Ours = an empirical referee** — null/permutation calibration, simulation-under-known-truth, negative controls, assumption checks, error-rate control. The principle "deterministic tools do deterministic work; don't let the model grade itself" is *unchanged*; its *form* moves from schematic to empirical. Crucially, where Galaxy's gate is pure infrastructure (a CLI), **ours is partly a Mold-produced deliverable** — "construct the negative control / simulation the field trusts here" is a skill (Family B), not just a tool we call.
 - **CLI tools.** Galaxy = `gxwf` (design-time) + `planemo` (runtime). **Ours = the statistical-genomics tool ecosystem** — R/Bioconductor (DESeq2, limma, DHARMa, countsplit, simr), PLINK/regenie/GCTA, Hail, statsmodels, simulators (splatter, polyester), calibration tools (LDSC). CLI-manual-page concept carries, but defer authoring until a real action Mold needs an exact command.
 - **Mold axes.** Galaxy axes (`source-specific | target-specific | tool-specific | generic`) are about a *conversion*. We are not primarily converting source→target, so those axes mostly don't apply. Our provisional role distinction is **construct / critique / calibrate** (≈ Family A do, Family B critique, Family B empirical-gate) — but see §4: do **not** formalize this as a schema enum yet.

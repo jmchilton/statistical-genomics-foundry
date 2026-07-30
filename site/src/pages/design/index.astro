@@ -1,8 +1,14 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { DESIGN_DOC_GROUPS, designDocsByCategory } from '../../lib/design-docs';
+import { RECORD_GROUP, designRecordHref, getDesignRecords } from '../../lib/design-records';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// The foundation shelf comes from the collection; the other two still come from the hand-list
+// in design-docs.ts, because the notes they point at are not typed yet. Two sources rendered
+// identically — the seam is in where the rows come from, not in what a reader sees.
+const records = await getDesignRecords();
 ---
 <Base
   title="Design Docs"
@@ -16,6 +22,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       Molds, casting, and corpus grounding — plus the prior-art surveys and verification reports
       that shape what gets built.
     </p>
+  </section>
+
+  <section class="design-doc-section" aria-labelledby={`design-${RECORD_GROUP.category}`}>
+    <div class="design-section-heading">
+      <div>
+        <h2 id={`design-${RECORD_GROUP.category}`}>{RECORD_GROUP.title}</h2>
+        <p>{RECORD_GROUP.summary}</p>
+      </div>
+      <span class="font-mono">{records.length} records</span>
+    </div>
+    <div class="design-doc-grid">
+      {records.map((record, index) => (
+        <a href={designRecordHref(record, base)} class="design-doc-card">
+          <span class="design-doc-num font-mono">{String(index + 1).padStart(2, '0')}</span>
+          <span class="design-doc-title">{record.data.title}</span>
+          <span class="design-doc-summary">{record.data.summary}</span>
+          <span class="design-doc-source font-mono">{RECORD_GROUP.action}</span>
+        </a>
+      ))}
+    </div>
   </section>
 
   {DESIGN_DOC_GROUPS.map(group => {
