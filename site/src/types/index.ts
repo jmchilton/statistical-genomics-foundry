@@ -7,6 +7,7 @@
 // instead, which asserts this list and the directory listing agree in BOTH directions.
 
 import { kind as book } from './book/schema';
+import { kind as meta } from './meta/schema';
 import { kind as mold } from './mold/schema';
 import { kind as paper } from './paper/schema';
 import { kind as pattern } from './pattern/schema';
@@ -23,7 +24,7 @@ import type { KindContext } from './context';
  * would widen every value back to the default shape, and the erasure reaches the Astro pages
  * as `entry.data: unknown`. Left inferred, `DEFINITIONS.book` is precisely the book kind.
  */
-export const DEFINITIONS = { book, paper, tutorial, mold, pattern } as const;
+export const DEFINITIONS = { meta, book, paper, tutorial, mold, pattern } as const;
 
 /**
  * A kind definition with its shape erased — for code that ITERATES the kinds (the manifest
