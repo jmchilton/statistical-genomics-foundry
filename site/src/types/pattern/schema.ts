@@ -10,6 +10,13 @@ export const kind = defineKind({
   summary:
     'One named methodological pattern — established-good or cautionary-bad — that a referee Mold reasons against.',
 
+
+  // A DIRECTORY here, where the parent instance's `pattern` is a flat file — a substrate
+  // difference in the same kind, which is exactly the sort of thing the cross-instance catalog
+  // exists to surface and could not state before kinds declared a shape.
+  shape: 'directory',
+  companions: [],
+
   build: (ctx: KindContext) =>
     z
       .object({

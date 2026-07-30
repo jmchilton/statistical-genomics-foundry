@@ -19,6 +19,8 @@ export const wellFormed = defineKind({
   title: 'Well Formed',
   layer: 'instance',
   summary: 'Carries the discriminator, so it satisfies the bound.',
+  shape: 'directory',
+  companions: [],
   build: (ctx: KindContext) =>
     z.object({ type: z.literal('well-formed'), ...ctx.base }).strict(),
 });
@@ -28,6 +30,8 @@ export const missingDiscriminator = defineKind({
   title: 'Missing Discriminator',
   layer: 'instance',
   summary: 'Has no `type:` field, so the contract must reject it.',
+  shape: 'directory',
+  companions: [],
   // @ts-expect-error — the shape has no `type:`, so it cannot satisfy `KindShape`. The error
   // lands on `build`, which is the property whose return type carries the shape. If this line
   // ever stops erroring, the bound has been loosened back to `z.ZodRawShape` and the

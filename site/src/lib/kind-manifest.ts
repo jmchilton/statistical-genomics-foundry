@@ -19,6 +19,7 @@ import {
 } from '@galaxy-foundry/kind-manifest';
 import { manifestKinds } from '@galaxy-foundry/kind-schema';
 
+import { COLLECTIONS } from './frontmatter-schema';
 import { buildKindContext, KINDS } from '../types/index';
 import { REGISTRIES } from './registries';
 
@@ -54,6 +55,9 @@ export function buildKindManifest(
   return deriveKindManifest({
     instance,
     source: MANIFEST_SOURCE,
-    kinds: manifestKinds(KINDS, buildKindContext(REGISTRIES), docs),
+    // `COLLECTIONS` rather than a hand-written location list per kind: the bridge derives each
+    // kind's `locations` from the routing table, which is also what makes `experiments` and
+    // `molds` both show up under `mold` without anyone remembering to say so.
+    kinds: manifestKinds(KINDS, buildKindContext(REGISTRIES), { docs, collections: COLLECTIONS }),
   });
 }

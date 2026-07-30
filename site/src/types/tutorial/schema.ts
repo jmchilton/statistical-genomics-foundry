@@ -10,6 +10,19 @@ export const kind = defineKind({
   summary:
     'A faithful summary of one package vignette or tutorial, pinned to the release it documents.',
 
+
+  shape: 'directory',
+
+  // Same companion as `paper`, and for the same reason: 8 of 8, written by the generator.
+  companions: [
+    {
+      file: 'guidance.md',
+      requirement: 'required',
+      purpose: "Attention-directing questions for the summarizer, answered by the source's own text.",
+      disposition: 'foundry-only',
+    },
+  ],
+
   build: (ctx: KindContext) =>
     z
       .object({
