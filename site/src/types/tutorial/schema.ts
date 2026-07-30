@@ -29,7 +29,7 @@ export const kind = defineKind({
         type: z.literal('tutorial'),
         ...ctx.sourceNoteFields,
         // Docs site distinct from `source_url` (which points at the package record).
-        docs_url: z.string().url().optional(),
+        docs_url: z.url().optional(),
         // The Bioconductor release `version` belongs to — the pair pins the vignette.
         bioconductor_release: z.string().optional(),
         // Quoted, like `access_date`: bare `2024-03-21` is a Date to YAML, not a string.

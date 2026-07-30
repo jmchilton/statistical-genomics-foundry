@@ -19,18 +19,19 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: site/package-lock.json
-      - run: npm ci
-      - run: npm run typecheck
+      # corepack reads `packageManager` from site/package.json, so the pnpm version
+      # is pinned by the manifest rather than by this file.
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run typecheck
       # The committed kind manifest must match what the schemas currently say. It is derived,
       # so it cannot drift from the schema — only from the schema's last regeneration.
-      - run: npm run check:kinds
+      - run: pnpm run check:kinds
       # Each book's licence record is authored once in book.yml and copied into its chapters'
       # frontmatter. This is what stops a copy becoming a second source of truth.
-      - run: npm run check:books
+      - run: pnpm run check:books
       # Standalone frontmatter validator: negative fixtures + corpus conformance, sharing
       # one schema with the build (issue #89 rung 3). Fails fast, before the fuller build.
-      - run: npm test
+      - run: pnpm test
       # `build` is what deploy.yml runs on main; running it here fails the PR, not deploy.
-      - run: npm run build
+      - run: pnpm run build

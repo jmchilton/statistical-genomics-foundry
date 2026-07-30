@@ -54,7 +54,7 @@ export const kind = defineKind({
         title: z.string(),
         source: z.string(),
         source_chapter: z.number().int().optional(),
-        source_url: z.string().url(),
+        source_url: z.url(),
         license: ctx.licenseId,
         license_file: z.string().optional(),
         attribution: z.string(),
