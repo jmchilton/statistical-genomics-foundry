@@ -103,7 +103,7 @@ describe('types/ kind directories', () => {
           throw new Error(
             `${definition.kind}/example.md does not validate:\n` +
               result.error.issues
-                .map((i: z.ZodIssue) => `  ${i.path.join('.') || '(root)'}: ${i.message}`)
+                .map((i: z.core.$ZodIssue) => `  ${i.path.join('.') || '(root)'}: ${i.message}`)
                 .join('\n'),
           );
         }

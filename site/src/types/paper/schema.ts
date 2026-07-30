@@ -40,9 +40,9 @@ export const kind = defineKind({
         // arithmetic. The same footgun `access_date` keeps a negative fixture for.
         pmid: z.string().optional(),
         pmcid: z.string().optional(),
-        arxiv: z.string().url().optional(),
+        arxiv: z.url().optional(),
         // Free mirror of a paywalled record (PMC, institutional repository).
-        oa_url: z.string().url().optional(),
+        oa_url: z.url().optional(),
         ...ctx.base,
       })
       .strict(),

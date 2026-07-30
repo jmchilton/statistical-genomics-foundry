@@ -148,9 +148,9 @@ function buildPrimitives(options: BuildKindContextOptions) {
     .strict()
     .superRefine((ref, ctx) => {
       if (ref.load === 'on-demand' && !ref.trigger)
-        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['trigger'], message: `on-demand ref "${ref.ref}" requires a trigger` });
+        ctx.addIssue({ code: 'custom', path: ['trigger'], message: `on-demand ref "${ref.ref}" requires a trigger` });
       if (ref.evidence === 'hypothesis' && !ref.verification)
-        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['verification'], message: `hypothesis-evidence ref "${ref.ref}" requires a verification` });
+        ctx.addIssue({ code: 'custom', path: ['verification'], message: `hypothesis-evidence ref "${ref.ref}" requires a verification` });
     });
 
   // License coherence: the id must resolve to a real row (not the defect/default row); a note may
@@ -163,12 +163,12 @@ function buildPrimitives(options: BuildKindContextOptions) {
   ) => {
     const row = resolveLicenseRow(licensePolicy, note.license);
     if (row.defect)
-      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['license'], message: `license "${note.license}" resolves to the default row (unresolved/defect) — fix the id, or add a row upstream in @galaxy-foundry/license-policy and bump it` });
+      ctx.addIssue({ code: 'custom', path: ['license'], message: `license "${note.license}" resolves to the default row (unresolved/defect) — fix the id, or add a row upstream in @galaxy-foundry/license-policy and bump it` });
     const carries = declaresVerbatimCarry(note.derived);
     if (carries && row.policy === 'own-words-only')
-      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['derived'], message: `derived "${note.derived}" declares verbatim carry but license ${note.license} is own-words-only (paraphrase, or fix the license)` });
+      ctx.addIssue({ code: 'custom', path: ['derived'], message: `derived "${note.derived}" declares verbatim carry but license ${note.license} is own-words-only (paraphrase, or fix the license)` });
     if (carries && row.license_file && !note.license_file)
-      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['license_file'], message: `verbatim carry under ${note.license} requires a license_file (vendored in LICENSES/)` });
+      ctx.addIssue({ code: 'custom', path: ['license_file'], message: `verbatim carry under ${note.license} requires a license_file (vendored in LICENSES/)` });
   };
 
   // Source notes for papers + tutorials: faithful summaries with short load-bearing quotes (where
@@ -182,7 +182,7 @@ function buildPrimitives(options: BuildKindContextOptions) {
   const sourceNoteFields = {
     title: z.string(),
     source_id: z.string(),
-    source_url: z.string().url(),
+    source_url: z.url(),
     doi: z.string().optional(),
     version: z.string().optional(),
     access_date: z.string(),
