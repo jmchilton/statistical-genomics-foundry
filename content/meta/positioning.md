@@ -12,7 +12,7 @@ revision: 2
 summary: "Statistical rails for LLM-driven statistical genomics \u2014 what the Foundry is, what it refuses to be, and why."
 ---
 
-> The narrative. For the evidence behind every claim here — per-system verification with refutations — see `../positioning.md` and `../content/research/`. This doc is the story; that doc is the receipts.
+> The narrative. For the evidence behind every claim here — per-system verification with refutations — see `../../positioning.md` and `../research/`. This doc is the story; that doc is the receipts.
 
 ## The problem
 

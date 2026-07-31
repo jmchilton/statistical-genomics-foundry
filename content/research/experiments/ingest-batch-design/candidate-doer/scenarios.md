@@ -2,7 +2,7 @@
 
 Concrete cases. Each binds a stimulus a reader can actually construct and run, and the doer output the
 `eval.md` oracle is applied to. Planted-invalid *doer runs* — the stimuli the audit Mold consumes — live
-in `../audit-batch-design-validity/scenarios.md`; the cases here test the doer itself.
+in `../candidate-audit/scenarios.md`; the cases here test the doer itself.
 
 ## Case: pre-run allocation of an unbalanced collection
 - fixture: A sample sheet of **576 rows**, one sample per row, columns `SampleType` (case/control, the

@@ -15,7 +15,7 @@ rather than kept as root files: the license → redistribution-policy table come
 stays in `reference_contract.yml` is `kinds`, the one part that varies by domain. There is still **no
 `packages/`, `casts/`, or fixture tooling** — deliberately deferred
 (see `README.md` "Status & next steps" and "Deferred to repo standup" below). Everything else
-— `docs/`, `content/research/`, `positioning.md` — is authoring, not engineering.
+— `content/meta/`, `content/research/`, `positioning.md` — is authoring, not engineering.
 
 ## Read first
 

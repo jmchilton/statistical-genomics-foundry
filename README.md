@@ -28,9 +28,10 @@ We own the bottom and top of the stack; the middle (the skill artifact, the empi
 ```
 README.md                   ← this file
 positioning.md              ← working evidence doc: per-system axis maps + verified distinctions
-docs/                       ← design records (POSITIONING, ARCHITECTURE, GUIDING_PRINCIPLES,
-                              REFEREE_LOOP, MOLD_SPEC, CORPUS, COMPILATION_PIPELINE, MOLDS, glossary)
 content/                    ← the curated knowledge base
+  meta/<slug>.md            ← design records, notes of kind `meta` (positioning, architecture,
+                              guiding-principles, referee-loop, mold-spec, corpus, casting,
+                              molds) + glossary.md, which shares the directory and is not a note
   molds/<slug>/             ← abstract action templates (Mold-primary core)
   patterns/<slug>/          ← statistical-method + invalidity-pattern reference pages
   research/                 ← source-reading notes (index.md = faithful summary, guidance.md = owned)
@@ -39,7 +40,7 @@ content/                    ← the curated knowledge base
                               (manifest.tsv + SHA256SUMS + summary-prompt.md; raw/ gitignored)
     projects/               ← prior-art related-project notes + the 4 SOTA lens surveys +
                               00-synthesis (a dump — see issue to organize)
-site/                       ← Astro renderer over content/ + docs/ → GitHub Pages
+site/                       ← Astro renderer over content/ → GitHub Pages
 scripts/                    ← sync-book.sh <id>: deterministic corpus fetch + checksum pin
 LICENSES/                   ← third-party license copies (policy table is installed:
                               @galaxy-foundry/license-policy)
