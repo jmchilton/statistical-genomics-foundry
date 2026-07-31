@@ -19,17 +19,35 @@ import { matchesCollection } from '@galaxy-foundry/kind-schema/collections';
 
 import { COLLECTIONS, contentPath, type CollectionName } from './frontmatter-schema';
 
-/** Every file under a content-relative directory, as content-relative paths. */
+/**
+ * Every file under a content-relative directory, as content-relative paths.
+ *
+ * `''` is the content root, which is why `rel` is built conditionally rather than by
+ * interpolation — the obvious `${dir}/${name}` would hand the root's children a leading slash.
+ */
 function walk(dir: string): string[] {
   const abs = contentPath(dir);
   if (!fs.existsSync(abs)) return [];
   const out: string[] = [];
   for (const entry of fs.readdirSync(abs, { withFileTypes: true })) {
-    const rel = `${dir}/${entry.name}`;
+    const rel = dir ? `${dir}/${entry.name}` : entry.name;
     if (entry.isDirectory()) out.push(...walk(rel));
     else if (entry.isFile()) out.push(rel);
   }
   return out;
+}
+
+/**
+ * Every markdown file under `content/`, as content-relative paths, sorted.
+ *
+ * Broader than `noteFiles`: notes, the companions their kinds declare, and the loose prose that
+ * is neither. A caller that needs to know which of those a file IS asks the table; this answers
+ * only "what markdown is there", which is the question a corpus-wide sweep starts from.
+ */
+export function markdownFiles(): string[] {
+  return walk('')
+    .filter((rel) => rel.endsWith('.md'))
+    .sort();
 }
 
 /**

@@ -70,7 +70,7 @@ The strong form of the gate requires **at least one calibrate pass**, not critiq
 
 `REVISE` must terminate. Borrowing two ideas:
 - **Bounded, decreasing, escalating** (from the parent's topology-repair convergence): each revise cycle must reduce a countable set of open validity findings; under a hard cap, the loop escalates to a human rather than spinning. A referee that keeps finding new fatal flaws is itself a signal ("this analysis is not salvageable; escalate").
-- **Sequential evidence with error control** (from POPPER's mechanism): where the referee accumulates empirical evidence across calibrate passes, aggregate it with a sequential test (e-values / Type-I control) so repeated checking doesn't itself inflate error. *Open decision (§ARCHITECTURE.md §5): build on POPPER's framework vs. roll our own.*
+- **Sequential evidence with error control** (from POPPER's mechanism): where the referee accumulates empirical evidence across calibrate passes, aggregate it with a sequential test (e-values / Type-I control) so repeated checking doesn't itself inflate error. *Open decision (`content/meta/architecture.md` §5): build on POPPER's framework vs. roll our own.*
 
 Termination states: **CERTIFY** (referee passed, provenance records which checks ran), **REVISE** (bounded retry with a specific finding), **ESCALATE** (cap hit, or an unfixable finding like batch aliased with condition → hand to a human with the finding).
 
