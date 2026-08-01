@@ -30,10 +30,3 @@ bears frontmatter — `eval.md`, `scenarios.md`, `usage.md`, and `refinement.md`
     Author Correction, a paywalled erratum) and that nothing from it may be used load-bearing
     until that is settled. This key has no analog in the parent, and it is the honest record of
     a source we could not fully verify.
-
-## Experiment artifacts
-
-The blind-assembly candidate/doer/audit artifacts under `content/research/experiments/` are
-structurally Molds and declare `type: mold`. They live in their own collection because they sit
-beside their comparison narratives, not because they are a different kind — which is exactly why
-collection and kind are not one-to-one here.

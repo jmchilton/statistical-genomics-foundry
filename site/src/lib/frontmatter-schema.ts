@@ -82,15 +82,8 @@ export const contentPath = (contentRelPath: string) => `${CONTENT_DIR}/${content
  * the loaders' glob, twice as a hand-rolled `entry.name === 'index.md'` walk, and once more in
  * the wiki-link builder.
  *
- * The KEY is also the browse route: `experiments` renders at `/experiments/<id>`. Derived rather
- * than stored, and pinned by a test, because a `route` column that always equalled the key is a
- * second name for one thing.
- *
- * Collection and kind are DELIBERATELY not one-to-one: `experiments` holds candidate Molds
- * produced by the blind-assembly runs, which are structurally Molds and declare `type: mold`.
- * The collection is a LOCATION (it gets its own browse route and its notes sit beside their
- * comparison/gap-closing narratives); the kind is what the note IS. Keeping the mapping
- * explicit is what lets a kind catalog enumerate 5 kinds while the site routes 6 collections.
+ * The KEY is also the browse route. Derived rather than stored, and pinned by a test, because a
+ * `route` column that always equalled the key is a second name for one thing.
  */
 export const COLLECTIONS = {
   // The design record. `glossary.md` shares the directory and is deliberately NOT a note: it
@@ -119,12 +112,6 @@ export const COLLECTIONS = {
     pattern: ['**/index.md'],
     kind: 'pattern',
     schema: NOTE_KINDS.pattern,
-  },
-  experiments: {
-    base: 'research/experiments',
-    pattern: ['**/index.md'],
-    kind: 'mold',
-    schema: NOTE_KINDS.mold,
   },
 } as const satisfies Record<string, CollectionRoute & { kind: NoteKind; schema: unknown }>;
 

@@ -9,7 +9,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export type TaggedCollection =
   | 'molds'
-  | 'experiments'
   | 'papers'
   | 'tutorials'
   | 'books'
@@ -17,7 +16,6 @@ export type TaggedCollection =
 
 export const COLLECTION_LABEL: Record<TaggedCollection, string> = {
   molds: 'Molds',
-  experiments: 'Experiments',
   papers: 'Papers',
   tutorials: 'Tutorials',
   books: 'Books',
@@ -45,7 +43,6 @@ export async function getTaggedEntries(): Promise<TaggedEntry[]> {
   const rows: TaggedEntry[] = [];
   // Molds carry `name` + `summary`; source notes carry `title` and no summary.
   for (const e of await getCollection('molds')) rows.push(row('molds', e.id, e.data.name, e.data.summary, e.data.tags));
-  for (const e of await getCollection('experiments')) rows.push(row('experiments', e.id, e.data.name, e.data.summary, e.data.tags));
   for (const e of await getCollection('papers')) rows.push(row('papers', e.id, e.data.title, undefined, e.data.tags));
   for (const e of await getCollection('tutorials')) rows.push(row('tutorials', e.id, e.data.title, undefined, e.data.tags));
   for (const e of await getCollection('books')) rows.push(row('books', e.id, e.data.title, undefined, e.data.tags));

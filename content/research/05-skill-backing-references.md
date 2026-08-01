@@ -38,7 +38,7 @@ most skills and should be adopted as standing corpus:
   load-bearing quotes + exact numbers permitted), not the own-words MSMB path — the first CC-BY-book
   case forcing the books-vs-summarize-source reconciliation `AGENTS.md` flags. Ch.8 (fitting discrete
   models: ER-vs-ARD via LRT/AIC + ASR-adequacy cautions) carries a targeted `guidance.md` and closes
-  gaps 2b/2c of the ancestral-reconstruction ingest probe. Ch.13 is the BiSSE false-positive / need-a-
+  gaps 2b/2c found while recovering the ancestral-reconstruction Mold. Ch.13 is the BiSSE false-positive / need-a-
   hidden-state-null primary spine.
 
 > "The textbook we're sort of linking" = **OSCA** (the only book linked pre-this-note). MSMB is the

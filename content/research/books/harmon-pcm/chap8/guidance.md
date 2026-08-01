@@ -6,9 +6,8 @@
 
 ## Why we need this chapter
 
-Closes two gaps left open by the ancestral-reconstruction ingest probe
-(`content/research/experiments/ingest-ancestral-reconstruction/gap-closing.md`, gaps 2b + 2c). This chapter
-is the accessible substitute for the paywalled Cunningham 1999 model-comparison point. Pull the
+Closes two gaps found while recovering the ancestral-reconstruction Mold. This chapter is the
+accessible substitute for the paywalled Cunningham 1999 model-comparison point. Pull the
 model-selection procedure and the ASR-adequacy cautions precisely — those are the recovery targets.
 
 ## Targeted questions

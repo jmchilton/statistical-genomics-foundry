@@ -12,9 +12,9 @@ project exists to stop.
 
 | Dimension | Earns credit when | Evidence source |
 |---|---|---|
-| Referee exists | a Family-B audit is paired to the doer at all | `candidate-audit/` / skill |
-| Gate handoff | the doer *terminates* in a `[gate]` handoff, never a self-blessing | `candidate-doer/index.md` |
-| Guards the cardinal sin | the audit's axis is the *right* validity threat for this method | `candidate-audit/eval.md` |
+| Referee exists | a Family-B audit Mold is paired to the doer at all | paired Mold / skill |
+| Gate handoff | the doer *terminates* in a `[gate]` handoff, never a self-blessing | doer Mold `index.md` |
+| Guards the cardinal sin | the audit's axis is the *right* validity threat for this method | audit Mold `eval.md` |
 | Beyond Critique → Calibrate | the referee runs an **empirical** check (null/simulation/control), not just reasoning | audit body |
 | Guardrails note-traced | referee-correctness evals ("a double-dipped analysis must be flagged") trace to sources | `eval.md` + notes |
 | Non-circular | the referee is not the doer grading itself with the same model breath | pair structure |

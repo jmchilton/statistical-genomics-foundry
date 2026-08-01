@@ -12,7 +12,7 @@ revision: 1
 summary: "The initial Mold set \u2014 an in-progress outline of the operations the Foundry will encode."
 ---
 
-> **This is a planning list, not a Mold inventory.** No Molds exist yet. Do **not** treat any line here as authored. Each entry is a candidate: a name, what it does, the failure it guards, its rough role, and the research grounding it would draw on. Authoring happens later, corpus-first, one at a time.
+> **This is the original planning list, not the Mold inventory.** Canonical Molds now live under `content/molds/`; some implement ideas below and others are domain-specific auditors recovered from source-backed work. Treat each unchecked entry here as a candidate operation, not an authored artifact.
 >
 > Naming convention (cheap/reversible, per `content/meta/architecture.md` §5 — do NOT formalize as a schema enum yet): `review-*` / `audit-*` (critique), `derive-*` / `design-*` (calibrate), plain verbs (do).
 
@@ -43,13 +43,13 @@ summary: "The initial Mold set \u2014 an in-progress outline of the operations t
 - [ ] **`analyze → referee → revise` loop** — the spine (see `content/meta/architecture.md` §4). A Family-A protocol must hand off to a Family-B referee before certifying ("the gate obligation"). Encoded at the protocol/pipeline altitude, not as a Mold property. The referee node is a Family-B Mold; the novelty vs POPPER is that it referees *method validity*, not a hypothesis.
 - [ ] **`method-validation protocol`** *(protocol/pipeline)* — the one place pipelines re-earn their keep: `map-to-established` → (if novel) → `derive-null` → `design-simulation-study` → `power` → `sensitivity`. Author only if the standalone Molds prove they chain.
 
-## Sequencing recommendation (when authoring starts)
+## Original sequencing recommendation
 1. **`audit-method-validity`** first — closest to the boss's actual scar; forces us to confront what "method validity" means concretely.
 2. **`derive-null-and-calibration`** second — proves the "gate as deliverable" thesis; pairs with #1 to demonstrate the full do→referee handoff on one real fixture.
 3. Then **`review-experimental-design`** + **`map-question-to-established-method`** — the Family-A guardrails that feed the referee.
 
 ## Open questions
-- Which Mold is the flagship prototype? (Recommendation: `audit-method-validity`.) Depends on whether the boss's invented-method failure was a **design**-time or **interpretation**-time flaw.
+- `audit-method-validity` is the flagship prototype. Its next test is casting and execution against the planted-invalid scenarios.
 - Is Family A in-scope as real "doing," or mostly orchestration-over-existing-doers + `map-to-established`? (Positioning leans orchestration; confirm.)
 - Do the calibrate-Molds *call* tooling (R/Python) or *emit a protocol* a harness runs? (Affects whether they're CLI-backed Molds.)
 - Does the construct/critique/calibrate triad survive contact with ~6–10 real Molds, or collapse/expand? (Tag softly; don't formalize.)

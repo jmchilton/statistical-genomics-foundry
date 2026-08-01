@@ -30,7 +30,7 @@ import { CONTENT_DIR, contentPath } from '../src/lib/frontmatter-schema';
 //     `architecture.md` §6 is explicitly a PROVISIONAL plan, and half of what it draws is meant
 //     not to exist yet. Checking it would be checking the plan against the thing it plans.
 //   - a token carrying `<`, `*` or `{` is a template, not a path — `content/molds/<slug>/`,
-//     `ingest-*/candidate-doer/`, `rubrics/{operability,assessability}.md`.
+//     `rubrics/{operability,assessability}.md`.
 //   - a token has to NAME something: a trailing slash or a file extension. `content/research/05`
 //     is prose shorthand for a numbered note, not a path anyone could open.
 //

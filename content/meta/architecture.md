@@ -130,7 +130,7 @@ Three rules carry the weight:
 
 - **Membership is declared, not parsed.** A tag is valid because its facet lists it under `values`, never because its text starts with a facet name — `domain/unlisted` is invalid despite looking namespaced. The slash is a naming convention, so a bare key would be an ordinary member; our vocabulary happens to be entirely slashed, but the format does not require it. Browse pages group by the *declaring* facet, which is what makes an "other" bucket impossible rather than merely empty.
 - **Every facet is closed.** Each tag is listed with a gloss, and there is no open/free-form/prefix-wildcard escape hatch — not in this registry and not in the loader. Every tag the corpus can carry stays documented and browsable, permanently.
-- **`tags` is `min(1)`.** Every note carries at least one facet tag. Molds and experiments take `family/*` + `role/*`; source notes and patterns take `domain/*` + `topic/*` subject facets.
+- **`tags` is `min(1)`.** Every note carries at least one facet tag. Molds take `family/*` + `role/*`; source notes and patterns take `domain/*` + `topic/*` subject facets.
 
 Note-kind is the `type:` discriminator and is never copied into `tags:` — tags are cross-cutting facets only.
 
@@ -158,7 +158,7 @@ The layout is a shared contract — [galaxyproject/foundry-pattern#13](https://g
 
 **Every kind is `.strict()`** — an undeclared frontmatter key is an error, not extra detail. This is the parent Foundry's posture (17 `.strict()` calls to our previous one), and adopting it was not free: turning it on surfaced 11 keys across 7 notes that no schema had ever declared. All were real, useful fields — `/summarize-source` even asks for an "open-access URL if any" — so they were declared rather than deleted. Two had also quietly acquired the [#87](https://github.com/jmchilton/statistical-genomics-foundry/issues/87) footgun *because* they were undeclared and so unvalidated: unquoted `pmid: 33015620` parses as an integer and `published: 2024-03-21` as a `Date`. Both are quoted strings now. Strictness is what stops the next such key accumulating silently — and it is why a book chapter cannot shadow `book.yml`'s license metadata by restating it.
 
-**Collection and kind are deliberately not one-to-one.** `COLLECTIONS` maps six browse collections onto those five kinds: `experiments` holds the candidate Molds produced by the blind-assembly runs, which *are* Molds and declare `type: mold`. The collection is a location — it earns its own route, and its notes sit beside their `comparison.md` / `gap-closing.md` narratives (which carry no frontmatter and are never loaded). The kind is what the note *is*. Keeping that mapping explicit is what lets a catalog enumerate five kinds while the site routes six collections.
+Every canonical Mold lives under `content/molds/` and is routed by the `molds` collection. Blind source-recovery runs previously had a separate `experiments` collection, but that intermediate layer was removed once its candidate Molds were promoted; git history is the experiment record.
 
 ### The note envelope — partially adopted
 
@@ -166,7 +166,7 @@ The parent puts a common envelope on *every* note: `status`, `created`, `revised
 
 | field | here | why |
 |---|---|---|
-| `summary` | **required on `mold`**, 20–160 chars | The site prints it in every tag-browse row; optional meant 12 of 13 Molds listed as a bare name. The bounds are the parent's. |
+| `summary` | **required on `mold`**, 20–160 chars | The site prints it in every tag-browse row; optional summaries previously rendered most of the catalog as bare names. The bounds are the parent's. |
 | `status` | **required on `pattern`**, parent's lifecycle enum | Was free text, and the only value in use was `stub` — outside the vocabulary every other Foundry note is held to. `stub` → `draft`. |
 | `created` / `revised` / `revision` | not ported | Only honest if backfilled from git history; stamping today's date on a 127-note corpus would manufacture provenance rather than record it. |
 | `ai_generated` | not ported | Needs a per-note truth we do not currently track. |

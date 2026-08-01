@@ -14,7 +14,7 @@ const desc = tagDescription(tag);
 // The declaring facet, not the `/` prefix — so this stays correct for a bare tag.
 const nsLabel = facetLabel(facetOf(tag));
 
-// Group by collection, in the declared label order (molds/experiments first, then notes).
+// Group by collection, in the declared label order (Molds first, then source notes).
 const order = Object.keys(COLLECTION_LABEL);
 const sorted = [...entries].sort(
   (a, b) => order.indexOf(a.collection) - order.indexOf(b.collection) || a.id.localeCompare(b.id),
@@ -40,7 +40,6 @@ for (const e of sorted) {
         {g.items.map(e => (
           <li>
             <a href={e.url} class="card flex flex-col">
-              {e.collection === 'experiments' && <div class="text-xs font-mono text-(--color-text-muted)">{e.id}</div>}
               <div class="font-mono font-semibold text-(--color-text-primary) mt-0.5">{e.name}</div>
               {e.summary && <div class="text-sm text-(--color-text-secondary) mt-1 grow">{e.summary}</div>}
             </a>

@@ -14,10 +14,8 @@ export const kind = defineKind({
   shape: 'directory',
 
   // A subset of the parent instance's mold companions: this corpus has `eval.md` and
-  // `scenarios.md` beside 10 of 10 molds and nothing else. `recommended` rather than `required`
-  // even at 10 of 10, matching the parent — a candidate mold from a blind-assembly run can
-  // legitimately arrive before its scenarios do, and the level records the rule rather than
-  // today's count.
+  // `scenarios.md` beside every Mold and nothing else. `recommended` rather than `required`
+  // matches the parent and records the authoring rule rather than today's count.
   //
   // That the same two filenames arrived independently in both Foundries is the substrate claim
   // the kind catalog can now make: a companion transferring is stronger evidence than a kind

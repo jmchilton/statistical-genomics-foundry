@@ -8,7 +8,7 @@ good, and along which axis?* — with no place to record the answer so it drives
 ## Subject and unit
 
 A rubric grades one **Family-A doer skill**. The subject can be an upstream bioSkills `SKILL.md`
-*or* a Foundry candidate doer (`content/research/experiments/ingest-*/candidate-doer/`). Most axes
+*or* a canonical Foundry Mold under `content/molds/`. Most axes
 apply to both; **Traceability** is inherently about the source→Foundry diff. State the subject when
 you record a grade.
 
@@ -55,14 +55,14 @@ Operability** — you cannot exercise a fixture against a tool you can't run.
 
 ## Relationship to existing machinery
 
-- **Traceability** is the standing-metric form of the `/ingest-bioskill` recoverability probe —
-  it distills a `comparison.md` into a grade. See `content/research/experiments/ingest-probes-cross-synthesis.md`.
+- **Traceability** is the standing-metric form of `/ingest-bioskill`'s source-recovery pass: it
+  grades whether the canonical Mold can be rebuilt from its cited notes without memory backfill.
 - **Refereeability** grades the **Gate / REFEREE_LOOP** obligation (`content/meta/referee-loop.md`) —
   does the doer hand off to a non-self-certifying referee, and is that referee any good.
 - **Assessability** grades the `scenarios.md` / `eval.md` contract (`content/meta/mold-spec.md`) from the
   outside — is there a fixture-bound test that drives the skill.
-- **Operability** is bioSkills' home turf (the doer-spine layer the probes score out of a
-  Family-B referee's scope by design — cross-synthesis §2). A rubric lets us credit it explicitly.
+- **Operability** is bioSkills' home turf: tool installation and runnable commands often sit
+  outside a Family-B referee's scope. A rubric lets us credit it explicitly.
 
 ## Applied by
 

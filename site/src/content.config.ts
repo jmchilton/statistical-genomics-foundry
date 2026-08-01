@@ -27,8 +27,4 @@ export const collections = {
     loader: load(COLLECTIONS.patterns),
     schema: COLLECTIONS.patterns.schema,
   }),
-  experiments: defineCollection({
-    loader: load(COLLECTIONS.experiments),
-    schema: COLLECTIONS.experiments.schema,
-  }),
 };

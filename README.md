@@ -35,7 +35,7 @@ content/                    ← the curated knowledge base
   molds/<slug>/             ← abstract action templates (Mold-primary core)
   patterns/<slug>/          ← statistical-method + invalidity-pattern reference pages
   research/                 ← source-reading notes (index.md = faithful summary, guidance.md = owned)
-    papers/<id>/  tutorials/<id>/  experiments/
+    papers/<id>/  tutorials/<id>/
     books/<id>/             ← chap<n>/index.md summaries + co-located import pin
                               (manifest.tsv + SHA256SUMS + summary-prompt.md; raw/ gitignored)
     projects/               ← prior-art related-project notes + the 4 SOTA lens surveys +
@@ -53,7 +53,8 @@ LICENSES/                   ← third-party license copies (policy table is inst
 - ✅ Adapted MOLD_SPEC + CORPUS + COMPILATION_PIPELINE + glossary. **Prose doc scaffold complete.**
 - ✅ Repo published + knowledge site live (Astro → GitHub Pages).
 - ✅ Machine-checkable contract: one zod frontmatter module (no ajv mirror) + `meta_tags.yml` — closed facets `family`/`role`/`domain`/`topic`, every tag glossed, `tags` min(1).
-- ⏭️ Decide project name; prototype flagship Mold (recommendation: `audit-method-validity`).
+- ✅ Canonical Mold catalog established under `content/molds/`, including the flagship `audit-method-validity` and ten source-recovered domain Molds.
+- ⏭️ Decide project name; exercise casting against the canonical Mold catalog.
 
 ## Provenance note
 This is N=2 in the Foundry-pattern lineage (Galaxy = instance #1, this = instance #2). The pattern earns its abstraction at the *diff* between the two — which is exactly what `content/meta/architecture.md` records.
