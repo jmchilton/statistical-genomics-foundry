@@ -17,13 +17,11 @@ export interface WikiLinkTarget {
  * Reads the filesystem (not astro:content) so it also runs inside the remark plugin at
  * markdown-compile time. Pass DESIGN_DOCS for the `design/<slug>` targets.
  *
- * Driven by COLLECTIONS rather than by a list of its own. It kept one until now — five rows
- * where the table had six, so every note under `research/experiments` rendered at a real route
- * and resolved from no `[[link]]` at all. That is what a second copy of a table costs: not a
- * contradiction anyone would spot, just a row nobody remembered to add twice.
+ * Driven by COLLECTIONS rather than by a list of its own, so routed notes and wiki-link targets
+ * cannot drift into separate inventories.
  *
- * The collection KEY is the route (`experiments` → `/experiments/<id>`), which is why there is
- * no route column to keep in step. collection-routes.test.ts pins that against src/pages.
+ * The collection KEY is the route, which is why there is no route column to keep in step.
+ * collection-routes.test.ts pins that against src/pages.
  */
 export function buildWikiLinkMap(designDocs: { slug: string }[] = []): Map<string, WikiLinkTarget> {
   const map = new Map<string, WikiLinkTarget>();

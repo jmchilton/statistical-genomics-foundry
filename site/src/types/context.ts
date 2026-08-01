@@ -104,7 +104,7 @@ function buildPrimitives(options: BuildKindContextOptions) {
   });
 
   // `.min(1)`: every note MUST carry ≥1 facet tag (issue #100 — converges with the Galaxy
-  // Workflow Foundry's "min(1) everywhere"). Molds/experiments take family/role; source notes
+  // Workflow Foundry's "min(1) everywhere"). Molds take family/role; source notes
   // and patterns take domain/topic subject facets.
   const tagsArray = z.array(tag).min(1, {
     message:

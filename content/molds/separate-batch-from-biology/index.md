@@ -1,7 +1,7 @@
 ---
 type: mold
 name: separate-batch-from-biology
-summary: "Keeps technical variation separable from biology at assignment, detection, and adjustment; emits a result plus the method description a referee will judge."
+summary: "Separates technical variation from biology with explicit design checks, pinned tooling, reproducible adjustment, and a referee handoff."
 tags:
   - family/a
   - role/construct
@@ -36,7 +36,7 @@ references:
     trigger: "when samples are already collected but not yet assigned to batches/plates/chips"
     mode: verbatim
     evidence: corpus-observed
-    purpose: "The RCBD target, the constrained-allocation objective V = Σ_ij (n_ij − E_ij)², the OSAT R API and its 5000-attempt default, the χ² variable-vs-batch diagnostic, and the explicit caveat that design alone cannot eliminate batch effects."
+    purpose: "The RCBD target, the constrained-allocation objective V = Σ_ij (n_ij − E_ij)², the χ² variable-vs-batch diagnostic, and the explicit caveat that design alone cannot eliminate batch effects. NOTE: the paper states no package version and no defaults — the API and its coded nSim=100 default come from [[osat]] (the pinned package docs), not from here."
   - kind: research
     ref: "[[designit]]"
     used_at: runtime
@@ -109,6 +109,15 @@ references:
     evidence: hypothesis
     verification: "The source is explicitly about SELECTION INTO A SAMPLE and never mentions batch effects, batch design, or technical covariates. Its note states that transferring the argument to batch-covariate adjustment is an external inference, not the source's claim. This reference may be cited ONLY for the sample-selection step (who gets assayed), never for batch adjustment. Verify before promoting to corpus-observed."
     purpose: "Guards the one selection step this Mold really does own: choosing which samples are profiled at all."
+  - kind: research
+    ref: "[[limma]]"
+    used_at: runtime
+    load: on-demand
+    trigger: "whenever a batch-corrected/'cleaned' expression matrix is produced, or a downstream test is about to consume one"
+    mode: verbatim
+    evidence: corpus-observed
+    verification: "SCOPE FENCE — the removeBatchEffect Note names ONLY removeBatchEffect and lmFit. Full-text check of both limma PDFs: ComBat = 0 hits, RUV = 0 hits, the sva package = 0 hits. This reference may be cited for the removeBatchEffect->lmFit prohibition ONLY. It may NOT be stretched to ComBat, ComBat_seq, RUV, or surrogate variables — that generalization remains unsourced in this corpus."
+    purpose: "The one first-party, author-written ASSERTION (not mere enactment) that a batch-corrected matrix must not be fed to the downstream linear model. limma 3.68.4 reference manual, removeBatchEffect Note."
 ---
 
 # separate-batch-from-biology
@@ -117,6 +126,52 @@ Keep technical variation separable from the biological variable of interest, at 
 they could become entangled: when samples are assigned to batches, when hidden batch structure is
 detected in data already collected, and when a batch adjustment is chosen. Produce a result **plus the
 method description a referee will judge** — and hand off. This Mold cannot certify its own output.
+
+## Phase 0 — stand up the toolchain
+
+**Exact pins. Not floors.** Signatures drift *within* minor versions: [[sva]] — *"defaults drift across
+releases; every signature is pinned to 3.60.0 and must be re-read against any other release."*
+[[designit]]'s own NEWS removed `bc$n_available` (0.3.0) and made `$scoring_f` an error (0.5.0). A
+`>=` floor would not have protected you from either.
+
+| Tool | Pin | License | conda / biocontainer *(checked 2026-07-13)* |
+|---|---|---|---|
+| R | **4.6.x** | — | — |
+| Bioconductor | **3.23** | — | — |
+| **designit** | **0.5.0** (CRAN, 2024-03-21) | MIT | **NO — no bioconda recipe, no conda-forge feedstock (both 404) ⇒ no biocontainer** |
+| OSAT | **1.60.0** (`06a9e90`) | Artistic-2.0 | `bioconductor-osat` · 18 quay tags |
+| sva | **3.60.0** (`87a4798`) | Artistic-2.0 | `bioconductor-sva` · 26 quay tags |
+| DESeq2 | **1.52.0** | **LGPL-3.0-or-later** (copyleft) | `bioconductor-deseq2` · 37 quay tags |
+| limma | **3.68.4** (`Date` 2026-05-31) | **GPL-2.0-or-later** (copyleft) | `bioconductor-limma` · 42 quay tags |
+| RUVSeq | **1.46.0** | — | `bioconductor-ruvseq` |
+
+```r
+install.packages("BiocManager")
+BiocManager::install(version = "3.23")                        # the ONLY version-exact route
+BiocManager::install(c("sva", "DESeq2", "limma", "OSAT", "RUVSeq"))
+install.packages("designit")                                  # CRAN — NOT on bioconda (see below)
+
+stopifnot(packageVersion("designit") == "0.5.0",              # assert the pin; never assume it
+          packageVersion("sva")      == "3.60.0",
+          packageVersion("OSAT")     == "1.60.0",
+          packageVersion("DESeq2")   == "1.52.0")
+```
+**If any assertion fails, re-read the signatures against the version you actually got before running
+anything. A wrong-version run is UNDETERMINED, never PASS.**
+
+> **⚠️ The toolchain's hardest dependency is `designit` — the primary allocation tool, and the one tool
+> that is not conda-packaged.** It therefore **cannot ride the bioconda → biocontainer path**; a cast
+> that assumes it will fail to resolve the primary tool. Remedy, pick one and **state it**:
+> 1. layer it onto a Bioconductor base image — `R -e 'install.packages("designit")'` (CRAN tarball resolves);
+> 2. r-universe — `install.packages("designit", repos = c("https://bedapub.r-universe.dev", "https://cloud.r-project.org"))`;
+> 3. **substitute OSAT** for allocation (bioconda- and biocontainer-resolvable; [[designit]]'s own OSAT
+>    vignette claims numerical identity of the score) — at the cost of OSAT's `nSim` footgun. **Declare
+>    the swap; never make it silently.**
+>
+> **⚠️ bioconda cannot deliver these pins today** (checked): its latest are sva **3.58.0**, OSAT
+> **1.58.0**, DESeq2 **1.50.2**, limma **3.66.0** — **one Bioconductor release below every pin above.**
+> A doer that says "install from bioconda" and then quotes 3.60.0 signatures is asserting a pin it did
+> not get. Use `BiocManager::install(version = "3.23")`, and report the route actually taken.
 
 ## Phase 1 — frame
 
@@ -299,19 +354,42 @@ Defaults that must be stated, not assumed: `max_iter = 1e4`; `acceptance_func = 
 > `object 'bc' not found` or **silently optimize whatever global `bc` exists**, ignoring the container
 > you passed ([[designit]] §9G1, read off the shipped source).
 
-**Allocation — OSAT** ([[yan-2012-osat]]), the paper's own API:
+**Allocation — OSAT 1.60.0** (Bioconductor 3.23, commit `06a9e90`, 2026-04-28; Artistic-2.0) —
+signatures from [[osat]] (the pinned package), **not** from the 2012 paper:
+```r
+setup.sample(x, optimal, strata)                                # strata OPTIONAL — silently defaults to optimal[1]
+setup.container(plate, n, batch = "plates", exclude = NULL)     # "plates" | "chips"
+create.optimized.setup(fun = "default", sample, container, ...) # nSim rides in `...` — it is NOT a formal
+optimal.shuffle(x, nSim = 100, k = 2)                           # hill-climb from one blocked setup
+optimal.block(x, nSim = 100)                                    # best-of-nSim independent candidates
 ```
-sample    <- setup.sample(x, optimal, ...)
-Container <- setup.container(plate, n, batch, ...)     # batch defaults to "plates"; "chips" available
-create.optimized.setup(fun="optimal.shuffle", sample, container, ...)
-```
-Default optimization budget: **5000 attempts**. Objective: `V = Σ_ij (n_ij − E_ij)²`.
+Objective: `V = Σ_il (n_il − E*_il)²` — literally `optValue[i] <- sum((oCountObs - oCount)^2)`.
 
-[GAP: [[yan-2012-osat]] names **no OSAT package version** (only Bioconductor release 2.11, `R >= 2.15`,
-`Artistic-2.0`), gives **no default for `k`** (samples shuffled per attempt), and states **no
-tie-breaking rule**. The alternative algorithm is printed both `optimal.blcok` (body) and `optimal.block`
-(Table 1) — which the shipped package exports is not resolvable from the paper. [[designit]] records no
-seed-restoration recipe despite storing the seed.]
+> **⚠️ The coded default is `nSim = 100`, NOT 5000.** The 2012 paper states no defaults; the
+> operational value comes from the shipped package. Every worked example in OSAT carries the authors' own comment verbatim —
+> `# demonstration only. nSim=5000 or more are commonly used.` — and the vignette says *"usually in the
+> tens of thousands."* **The default is 50×–1000× below the package's own recommendation, and
+> `create.optimized.setup()` has no `nSim` formal, so omitting it silently inherits 100 with no warning.**
+> **Always pass `nSim` (≥ 5000) and `fun` explicitly.** The artifact self-reports: `length(gSetup@metadata$optValue)`
+> **is** `nSim`, and `gSetup@metadata$optimalFunction` names the optimizer that actually ran — so the
+> referee can recover the real budget regardless of what the doer claims.
+>
+> **Spelling settled:** the export is **`optimal.block`** (NAMESPACE, man topic, `See Also`, the
+> `fun="optimal.block"` string). `optimal.blcok` is a **prose typo that survives into the rendered 1.60.0
+> vignette** (§3.2) — it appears once, in prose, nowhere in code. `do.call("optimal.blcok", …)` errors.
+>
+> **`strata` defaults to `optimal[1]`** — `setup.sample(pheno, optimal = c("SampleType","Race","AgeGrp"))`
+> blocks on **`SampleType` only**, contrary to the vignette's own narrative. **Pass `strata` explicitly.**
+>
+> **`setup.container(exclude=)` appears to be dropped** — the inner `gContainer()` call hard-codes
+> `exclude = NULL` ([[osat]], `[summarizer-inferred]`, flagged for live verification). Use the
+> `exclude<-` replacement method and **verify** by printing the container (`There are N wells excluded.`).
+> Do not assume reserved QC wells were honoured.
+
+[GAP: [[osat]] states **no tie-breaking rule**. `nSim` is a **budget, not a stopping rule** — there is
+no convergence criterion (the package's own admission is `%`-commented out of the vignette source and
+never reaches a reader). [[designit]] stores `seed`/`rng_kind` in `bc$trace` but **no source shows a
+restore recipe** — seeding + recording is the ceiling.]
 
 **Adjustment / estimation — sva 3.60.0, Bioconductor 3.23** (`RELEASE_3_23`, commit `87a4798`):
 ```r
@@ -353,19 +431,92 @@ relative to sample size and no degrees-of-freedom warning. [[leek-storey-2007-sv
 entirely to the user and reports no value for either in its own analyses. [[deseq2]] is completely
 silent on the number of SVs. **The number of surrogate variables is unsourced.**]
 
-[GAP: no source gives guidance on choosing `"be"` vs `"leek"`. [[sva]]'s man page points to a "details
-section" that does not exist.]
+[GAP: **no source gives a rule for choosing `"be"` vs `"leek"`.** [[sva]]'s man page points to a
+"details section" that does not exist; [[leek-2011-asymptotic-csvd]] states no criterion for preferring
+one estimator over the other. **The package contradicts itself** — `num.sv()` documents `"be"` as the
+default, every worked example passes `"leek"`, and `sva()`'s internal auto-estimate uses `"be"`. Any rule
+stated here would be invention. **Always pass `method =` explicitly and report which you used.**
+Recovered mechanics (so the choice is at least *informed*, not blind):
+- **`"leek"`** = [[leek-2011-asymptotic-csvd]]'s asymptotic estimator, `r̂ = Σ_k 1{λ_k(W_m) ≥ c_m}`,
+  `c_m = a·m^(−η)`. **It is NOT a permutation test — it performs zero permutations, produces no
+  p-values, and is deterministic** (so it needs no seed).
+- **`"be"`** = Buja–Eyuboglu row-permutation, `B = 20`, **stochastic ⇒ seed it or it is not reproducible.**]
+
+## Determinism — three stochastic steps, each seeded and each reported
+
+1. **designit `optimize_design()`** — the initial assignment and every pairwise swap draw from R's RNG.
+   `set.seed()` **before** the first call. Report `bc$trace$seed`, `bc$trace$rng_kind`, `bc$trace$call`.
+2. **OSAT `create.optimized.setup()` / `optimal.shuffle()` / `optimal.block()`** — block randomization
+   *and* the swap loop are random. [[osat]] does it explicitly: `set.seed(123)  # to create reproducible result`.
+   Report the seed **and `nSim`**.
+3. **`num.sv(method = "be")`** — permutation-based (`B = 20`), takes `seed = NULL`; **an unseeded `be`
+   run is not reproducible.** `sva()`/`svaseq()` have **no `seed` formal at all**, and when `n.sv = NULL`
+   they auto-estimate via `"be"` — so either seed the calling environment **or** pass `n.sv` explicitly
+   (as [[rnaseqgene]] does: `n.sv = 2`) and take the stochastic estimator out of the path entirely.
 
 [GAP: [[sva]] contradicts itself on whether `ComBat`'s `mod` should contain the variable of interest —
 prose says yes, the code passes `~1`, the man-page examples do both. **Unresolved by the source.**]
 
-[GAP: no source in this set supplies a provenance/lockfile/container recipe. [[rnaseqgene]] prints
-session-info package versions; that is the ceiling of what is recoverable.]
+## Provenance block — emit this with every run
+
+The tools ship run-level provenance; **nothing in the corpus supplies a lockfile or container recipe** —
+that remains **convention**: label it, do not cite it.
+
+**Environment**
+- `sessionInfo()` in full ([[rnaseqgene]] prints exactly this — the ceiling of what is recoverable).
+- The Phase-0 `packageVersion(...) == pin` assertions and their results.
+- **The install route actually taken** (BiocManager 3.23 / bioconda / r-universe / CRAN) — the routes
+  deliver *different versions*, so the route is part of the claim.
+
+**Invocation** — every call with **every contested default written out explicitly**:
+`method=` (`num.sv`), `nSim=` / `fun=` / `strata=` (OSAT), `n.sv=` (`svaseq`), `group=` (`ComBat_seq`).
+
+**Seeds** — the `set.seed()` value and its position relative to each stochastic call;
+designit `bc$trace$seed` + `rng_kind`; OSAT `gSetup@metadata$optimalFunction` and
+`gSetup@metadata$optValue` (**its length IS `nSim`** — the budget is auditable straight from the artifact).
+
+**Console strings — captured verbatim, never paraphrased** (these are the referee's detectors):
+- `Using default optimization method: optimal.shuffle` — fired ⇒ `fun` was omitted
+- `Using full model in ComBat-seq.` / `Using null model in ComBat-seq.` — the biology-protected detector
+- `sva warning: controls provided so supervised sva is being performed.`
+- `Number of significant surrogate variables is: N`
+- `the model matrix is not full rank, so the model cannot be fit as specified.`
+- `NAs in features / batch columns; they will be excluded from scoring` — designit; **fires only on
+  iteration 1**, so check for NAs *before* scoring
+- `Low variance scores detected! Check scores # <i>` — designit's zero-variance abort
+
+**Artifact traceability** — the declared input container/sample set, and proof the returned assignment
+derives from it (see the `optimize_multi_plate_design` free-variable bug).
 
 **Testing runs on raw counts.** [[deseq2]], [[msmb-chap8]]: the model corrects for library size
 internally; transformed or pre-normalized values must not be supplied. `vst`/`rlog` are for
 visualization/clustering, not testing — and they **do not remove** batch variation (the design is not used
 to remove variation), which is why batches survive into a post-VST PCA.
+
+### A corrected matrix is a *plot*, not a test input — and here is the one source that SAYS so
+
+[[limma]] 3.68.4, `removeBatchEffect` **Note**, verbatim (GPL-2.0-or-later; quoted with license notice):
+
+> "This function is intended for plotting and data exploration purposes. This function is not intended
+> to be used to prepare data for linear modeling by lmFit. For linear modeling, it is better to include
+> the batch factors in the linear model so that lmFit can correctly assess the standard errors of the
+> linear model parameters."
+
+The quantity claimed to go wrong is **the standard errors of the linear-model parameters** — an
+inference/SE argument, **not** a claim of biased coefficients or fold-changes. Phrase the rule that way.
+
+> **⚠️ SCOPE FENCE — do not stretch this.** The Note names exactly `removeBatchEffect` and `lmFit`.
+> Checked across both limma PDFs: **ComBat = 0 hits, RUV = 0 hits, the `sva` package = 0 hits.** limma's
+> own SV function (`wsva`) carries **no Note and no warning**. And `removeBatchEffect`'s `design` defaults
+> to an intercept column — which the docs say implies the experiment is **one group**, i.e. calling
+> `removeBatchEffect(x, batch=b)` with no `design`/`group` **protects nothing** from the correction.
+>
+> [GAP: **the same prohibition for surrogate variables is STILL UNSOURCED.** [[rnaseqgene]],
+> [[deseq2]] and [[sva]] only *enact* the covariates-in-design route by example; none *asserts* that
+> an SV-residualized matrix must not be tested — and [[sva]]'s own §7 runs `f.pvalue()` on a
+> ComBat-corrected matrix **without comment**. [[nygaard-2016]] asserts it for ComBat-style adjustment
+> on **microarrays** only. A referee may cite limma for `removeBatchEffect`, and Nygaard for ComBat —
+> and must NOT generalize either to SVs.]
 
 ## Phase 5 — [gate]
 

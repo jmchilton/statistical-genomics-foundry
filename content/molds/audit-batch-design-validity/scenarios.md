@@ -466,28 +466,3 @@ Two fixture kinds, both legitimate for a referee (whose input is a *report*, not
 | Yang 2008 | **NOT stageable.** The article "names no GEO/ArrayExpress accession and contains no data-availability statement." Reported-analysis only. | Paper CC-BY (unversioned as printed) ✅ |
 | OSAT 576 | **NOT reconstructible** — marginals in Additional file 1, unread. Reported-analysis only. | OSAT Artistic-2.0 |
 | ARIES/ALSPAC | **NOT stageable** — access-controlled cohort. Reported-analysis only. | — |
-
----
-
-## 6. Required `index.md` changes (the orchestrator writes these)
-
-Two fixtures cite sources **not in either Mold's `references:` manifest**. Without the additions, the Brenes and Yang cases score the pair against evidence it was never given.
-
-**Add to `candidate-audit/index.md`:**
-```yaml
-  - kind: research
-    ref: "[[brenes-2019-multibatch-tmt]]"
-    used_at: runtime
-    load: on-demand
-    trigger: "when the platform is multiplexed isobaric proteomics (TMT/iTRAQ) or when a known-absent-analyte negative control is available"
-    mode: verbatim
-    evidence: corpus-observed
-    purpose: "The corpus's strongest known-truth negative control: 65 Y-chromosome peptides across 21 TMT batches, median 89% of which are 'quantified' in FEMALE channels (worst case 97.5%) — physically impossible, therefore known false positives. Plus [V5]: they sit inside the 8-fold range of bona fide biology, so a fold-change cutoff CANNOT separate them. And the within-batch-CV-does-not-license-cross-batch-comparison result (1.72 vs 11.03). NOTE: the source runs NO hypothesis test — it is silent on whether reference-normalized values may be tested without further batch modelling, and claims no generalization beyond isobaric labelling."
-  - kind: research
-    ref: "[[yang-2008-randomization]]"
-    used_at: runtime
-    load: on-demand
-    trigger: "when processing steps (wash/stain sets, hybridization days, plate runs) may be grouped by a biological factor"
-    mode: verbatim
-    evidence: corpus-observed
-    purpose: "Real observed consequence of confounding a processing step with biology, with an internal control: the SAME 16 RNA samples at 5 centers. Randomized center → 6,360 sex-DE genes at q<0.05; centers that confounded wash/stain with sex → 18,910 / 17,475. π₀ collapses to 0.42/0.43 at strain-confounded centers. The sharpest internal fingerprint: a short within-batch contrast beside a long across-batch contrast for the same factor. Joint normalization made it WORSE. HARD SILENCE: says nothing about run order, within-run position, or temporal drift — cite only for randomized batch MEMBERSHIP."

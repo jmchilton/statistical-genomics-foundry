@@ -56,8 +56,7 @@ export function buildKindManifest(
     instance,
     source: MANIFEST_SOURCE,
     // `COLLECTIONS` rather than a hand-written location list per kind: the bridge derives each
-    // kind's `locations` from the routing table, which is also what makes `experiments` and
-    // `molds` both show up under `mold` without anyone remembering to say so.
+    // kind's `locations` from the routing table.
     kinds: manifestKinds(KINDS, buildKindContext(REGISTRIES), { docs, collections: COLLECTIONS }),
   });
 }

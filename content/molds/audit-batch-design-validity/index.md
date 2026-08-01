@@ -1,7 +1,7 @@
 ---
 type: mold
 name: audit-batch-design-validity
-summary: "Referees a batch-aware analysis for method validity, not result, returning PASS/FLAG/FAIL/UNDETERMINED per axis with the source that names the failure."
+summary: "Referees a batch-aware analysis for validity, returning sourced per-axis verdicts and empirical calibration requirements."
 tags:
   - family/b
   - role/critique
@@ -99,6 +99,22 @@ references:
     evidence: hypothesis
     verification: "Cited ONLY for Axis 5 (selection into the assayed subset). The source never mentions batch effects, batch design, or technical covariates; the note states that any transfer to batch-covariate adjustment is an external inference, not the source's claim. This referee must not cite it for the confounder-vs-collider adjust/don't-adjust rule, which the source never states."
     purpose: "Axis 5: the collider mechanism (two variables independently causing a third; conditioning on it induces association), the operational detector (regress subset membership on the exposure, the outcome, and a polygenic score), and the negligibility condition (Box 3)."
+  - kind: research
+    ref: "[[brenes-2019-multibatch-tmt]]"
+    used_at: runtime
+    load: on-demand
+    trigger: "when the platform is multiplexed isobaric proteomics (TMT/iTRAQ) or when a known-absent-analyte negative control is available"
+    mode: verbatim
+    evidence: corpus-observed
+    purpose: "Known-truth negative control: 65 Y-chromosome peptides across 21 TMT batches, median 89% of which are quantified in female channels; the source also bounds the within-batch versus cross-batch comparison. It runs no hypothesis test and makes no claim beyond isobaric labelling."
+  - kind: research
+    ref: "[[yang-2008-randomization]]"
+    used_at: runtime
+    load: on-demand
+    trigger: "when processing steps may be grouped by a biological factor"
+    mode: verbatim
+    evidence: corpus-observed
+    purpose: "Observed consequence of confounding processing with biology in the same 16 RNA samples across five centers. Cite only for randomized batch membership; the source is silent on run order, within-run position, and temporal drift."
 ---
 
 # audit-batch-design-validity
@@ -437,6 +453,30 @@ sample size and see whether the findings persist.
   deprecated `$scoring_f`; [[sva]]'s note states flatly: "Defaults drift across releases — every
   signature above is pinned to 3.60.0 and must be re-read against any other release before being relied
   on." An analysis without a version pin is **UNDETERMINED**, not PASS.
+
+### Three rules that are *recoverable from the artifact* — so they are FAIL/UNDETERMINED, not opinions
+
+1. **An OSAT allocation's real iteration budget is auditable regardless of what the doer claims.**
+   `length(gSetup@metadata$optValue)` **is** `nSim`, and `gSetup@metadata$optimalFunction` names the
+   optimizer that actually ran. **If `nSim == 100`, the run silently took the coded default** — which is
+   **50×–1000× below the package's own documented recommendation** (`# demonstration only. nSim=5000 or
+   more are commonly used.`; "usually in the tens of thousands"). ⇒ **FLAG → REVISE** (re-run with
+   `nSim ≥ 5000`). Do not accept "we used the default" as an answer: the default is the footgun.
+   Corollary: `nSim` is a **budget, not a stopping rule** — OSAT has no convergence criterion. A doer
+   claiming *convergence* is over-claiming; it may report the objective trace only.
+
+2. **A `num.sv` run with no stated `method=` is UNDETERMINED**, because the package's two documented paths
+   disagree (`num.sv()` defaults to `"be"`; every worked example passes `"leek"`; `sva()`'s internal
+   auto-estimate uses `"be"`). Further: **an unseeded `method="be"` run is not reproducible** (permutation,
+   `B = 20`) ⇒ UNDETERMINED. A `method="leek"` run **is deterministic** ([[leek-2011-asymptotic-csvd]]:
+   zero permutations, no p-values) and needs no seed. Grade the two differently — do not demand a seed
+   for a deterministic estimator.
+
+3. **A pinned-version claim the install route cannot deliver is UNDETERMINED.** Checked 2026-07-13:
+   bioconda's latest are sva 3.58.0 / OSAT 1.58.0 / DESeq2 1.50.2 / limma 3.66.0 — **one Bioconductor
+   release below every pin the doer quotes.** A doer that says "installed from bioconda" and then quotes
+   3.60.0 signatures **got 3.58.0**. Ask for `sessionInfo()` and the install route; the route is part of
+   the claim, not metadata.
 
 ---
 
