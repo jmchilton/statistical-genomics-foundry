@@ -46,6 +46,20 @@ export const DESIGN_DOCS: DesignDoc[] = [
     category: 'research',
   },
   {
+    slug: 'chain-of-evidence-integration',
+    title: 'Chain-of-Evidence Integration',
+    source: 'chain-of-evidence-integration.md',
+    summary: "ScientistOne's Chain-of-Evidence standard and its four-check integrity audit, read against our probes — what ports to skill repositories, what has to be adapted, and where it stops short of method validity.",
+    category: 'research',
+  },
+  {
+    slug: 'skill-integrity-audit',
+    title: 'Skill Integrity Audit',
+    source: 'skill-integrity-audit.md',
+    summary: 'A spec for the broad instrument: a post-hoc, artifact-only audit of whole skill repositories — reference resolution, skill–tool alignment, threshold provenance, and the convention disposition CoE lacks.',
+    category: 'research',
+  },
+  {
     slug: 'skill-backing-references',
     title: 'Skill-Backing References',
     source: '05-skill-backing-references.md',
@@ -169,6 +183,14 @@ export const DESIGN_DOCS: DesignDoc[] = [
     title: 'POPPER',
     source: 'projects/popper.md',
     summary: 'Our nearest neighbor on the referee axis — its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
+  },
+  {
+    slug: 'project-scientistone',
+    title: 'ScientistOne',
+    source: 'projects/scientistone.md',
+    dir: 'research',
+    summary: "Google's Chain-of-Evidence research system — its framing, strengths, and where it sits on our values.",
     category: 'related-projects',
   },
   {
