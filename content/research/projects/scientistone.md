@@ -29,8 +29,11 @@ verification, method–code alignment.
 
 ## Strengths relative to our approach
 
-On provenance — the axis this project cares most about — ScientistOne leads the Foundry
-outright, and it leads with measurements rather than architecture:
+On internal provenance machinery — the axis this project cares most about — ScientistOne
+leads the Foundry, and it leads with measurements rather than architecture. That lead is
+reported from the authors' complete internal artifact bundle; the public release contains
+the generated papers and solver code, not the evidence-tagged representations, execution
+logs, Claim Verifier, or audit implementation needed to reproduce those measurements:
 
 - **Claim-level provenance, built and measured.** Each numeric sentence carries a
   `{source: "experimental_log.md:N"}` tag checked against the referenced log line within
@@ -63,7 +66,7 @@ outright, and it leads with measurements rather than architecture:
 |---|---|
 | **Produces skills** | **No** — the deliverables are papers, solver code, execution logs, and bibliographies. A different packaging target, stated neutrally. |
 | **Progressive disclosure** | **No** — an autonomous pipeline emitting a finished manuscript. The Problem Investigator's research brief is an intermediate layer, but it is pipeline scaffolding, not a reading surface that discloses journey, then action, then dependencies. |
-| **Traceability** | **Strong — the strongest of any project noted here.** Claims carry inline evidence tags bound to specific artifacts, validated deterministically at write time and re-checked per claim type by a Claim Verifier, then audited post-hoc against public scholarly APIs. Three qualifications, none a deduction: the chains terminate in logs the system produced itself plus a retrieved seed bibliography; the tags are stripped from the shipped LaTeX, so verification runs over the artifact bundle rather than off the page; and the audit's reference check tests *existence*, which the paper states is "far from sufficient" — claim-level support checking runs natively, via LLM-judged abstract entailment, but not forensically. |
+| **Traceability** | **Strong internally; only partially inspectable publicly.** The reported system binds claims to specific artifacts, validates those bindings at write time, and measures numerical CPR over its complete internal bundle. The public release contains papers and solver code, but not the evidence-tagged representations, execution logs, Claim Verifier, or audit implementation, so an outsider cannot reproduce the native claim-level audit. Public inspection can still compare papers with solver code and resolve bibliography entries. The forensic reference check itself tests *existence*, which the paper states is "far from sufficient"; claim-support checking runs natively through LLM-judged abstract entailment, not as a released forensic check. |
 | **CLI instructions derived from CLI docs** | **N/A** — not a CLI-tool-wrapping project. |
 | **Portability** | **No skills produced** — and the system itself is unreleased; only its generated artifacts are public. |
 | **Human scrutiny** | **Yes, as output** — 21 generated papers and their solver code are published for inspection, and the audit exists precisely so a human can check rather than trust. The artifact is a finished manuscript, though, not a surface authored for a human to learn a domain from. |

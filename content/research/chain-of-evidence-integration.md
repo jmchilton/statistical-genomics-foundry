@@ -183,22 +183,38 @@ to the ref that grounds it** — the provenance says which sources went in, not 
 from which line of which one. That is the gap CoE's write-time mechanism closes, and it is narrower
 and more achievable than "we have no provenance."
 
+Treat that binding as a **local experiment**, not an amendment to inherited Foundry substrate. The
+first shape belongs under an explicitly experimental provenance key and may change incompatibly as
+real Casts exercise it. The current per-reference contract remains the contract; the experiment has
+to earn promotion by producing evidence that it is useful, auditable, and domain-neutral.
+
 Port the Conceive → Ground → strip cycle:
 
-1. A cast draft carries an inline evidence tag per load-bearing claim —
-   `{source: "content/research/papers/song-2022-anchorwave/index.md:L42"}`, their exact shape.
+1. A Cast draft carries a provisional inline evidence tag per load-bearing claim — for example,
+   `{source: "content/research/papers/song-2022-anchorwave/index.md:L42"}`. Copying their surface
+   syntax is a starting hypothesis, not a schema decision.
 2. **Ground is deterministic**: the note exists, the line exists, and it contains the number/flag.
    No LLM in this step — that is the whole point of their split. Their tolerance machinery is worth
    copying in *kind* rather than degree: a ±3-line window and unit-aware normalization
    (percent-vs-fraction) absorb *representation* drift, not numeric error.
-3. Compute a **grounding ratio**, and adopt their nerve: below threshold, **refuse to emit the cast**
-   rather than shipping a poorly grounded one.
+3. Compute a **grounding ratio** during the experiment, but do not invent its release threshold.
+   Plant invalid bindings, review every finding, and use observed false positives and false negatives
+   to decide whether a refusal gate is defensible and where it belongs.
 4. The refinement pass **strips the tags from the shipped skill**; the bindings land in
-   `_provenance.json` beside the `refs[]` they point into.
+   `_provenance.json` under `experimental.claim_bindings`, beside the `refs[]` they point into.
 5. Report **cast CPR** as a build metric.
 
-The payoff is that S3 becomes free, and our casts pass the audit *by construction* — the argument
-ScientistOne makes for itself.
+The paper prototype must cover direct evidence, deduction, convention, and unsupported claims. Once
+Cast machinery exists, exercise those cases across the 3–4 diverse Molds in
+`content/meta/casting.md`'s minimum exercise and make the same S3/S4 implementation consume all of
+them without Mold-specific logic. Check its output against a hand-reviewed sample and record the
+schema revisions forced by failures.
+
+Only then consider an upstream proposal. Promotion requires evidence across more than one Mold role
+and family, stable locators after refinement, no statistical-genomics-specific fields, and native
+audit consumption with measured error. The proposal should include the exercised examples, audit
+results, abandoned fields, and remaining failure modes. Until that gate is met, native S3 is
+**unavailable** for ordinary Casts rather than passed, failed, or free by construction.
 
 ### C. State the standard, and fix the disposition CoE gets wrong for us
 

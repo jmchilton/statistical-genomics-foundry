@@ -46,9 +46,43 @@ A **skill bundle** is:
 | `sidecars` | `references/`, `scripts/`, `examples/` where a repo ships them |
 | `tool_pins` | declared tool + version, if the repo has a version-compatibility discipline (bioSkills does; most don't) |
 | `citations` | extracted, not read from a file — see §4 |
+| `provenance` | optional `_provenance.json`; the current Cast contract supplies per-reference lineage, while the proposed local experiment adds claim bindings |
 
 One adapter per repository layout: bioSkills, ClawBio, awesome-genomic-skills, the Agent Skills
 standard, and **our own casts**. The adapters are the only per-repo code; the checks are shared.
+An adapter also declares one of three provenance capabilities: `absent`, `per-reference`, or
+`claim-bound-experimental`. The current Cast contract is `per-reference`; it proves which governed
+sources entered a Cast, not which source grounds a particular sentence. A native check that requires
+claim bindings reports **unavailable** for the first two capabilities — neither pass nor fail.
+
+### A local experiment, not shared substrate yet
+
+Claim binding is a proposed **local extension** to the inherited `_provenance.json` contract. It is
+not present machinery, and this spec does not assert that the parent Foundry should adopt it. Until
+Cast tooling exists, the shape below is a paper prototype to test the audit boundary rather than a
+schema to validate:
+
+| Binding case | Minimum information | Expected audit treatment |
+|---|---|---|
+| direct evidence | claim location + `refs[]` entry + evidence locator | eligible for S3/S4 |
+| deduction | claim location + input refs + derivation note | visible as inference; not scored as directly stated |
+| convention | claim location + explicit convention label | eligible for the convention disposition |
+| unsupported | claim location, no grounding disposition | fail the applicable native check |
+
+The first executable version should live here under an explicitly experimental key such as
+`experimental.claim_bindings`, so Casts remain valid against the inherited contract while the shape
+changes. Prove it on the 3–4 heterogeneous Casts already named in `content/meta/casting.md`'s minimum
+exercise, including planted direct-evidence, deduction, convention, and unsupported cases. The same
+S3/S4 implementation must consume every case without Mold-specific logic; its extracted claims and
+verdicts then get checked against a hand-reviewed sample so false positives and false negatives are
+visible.
+
+Only propose the extension as shared Foundry substrate after those exercises show all of the
+following: it survives more than one Mold role and family; the audit can consume it without local
+special cases; its locators remain usable after normal refinement; and the fields that remain are
+not statistical-genomics-specific. Any upstream proposal should carry the exercised examples,
+measured audit behavior, revisions the experiment forced, and unresolved failures. That evidence —
+not the apparent generality of the first draft — earns the abstraction.
 
 ## 3. The checks
 
@@ -101,6 +135,12 @@ Every number a skill states as guidance must resolve to a line in a governed sou
 labeled convention. This is the check only a source-backed library can pass, and it runs only over
 skills for which we hold notes — exactly the asymmetry ScientistOne reports CPR under.
 
+For our Casts, holding the notes is necessary but not sufficient: native S3 also requires the
+`claim-bound-experimental` capability above. Per-reference provenance can establish the candidate
+source set, but cannot establish which source is asserted to ground a number. Searching all refs for
+a matching token may help develop the extractor; it does not constitute a claim-level provenance
+check and must not be reported as CPR.
+
 **One adaptation matters: no numeric tolerance.** Their CPR matches within 5%; a skill's numbers are
 *quoted constants*, so `-a 0.5` versus "80% coverage" is a different claim, not noise. Exact match,
 or the claim is wrong. `[design-inference]` — the paper gives no rationale for the 5% figure, and
@@ -129,10 +169,11 @@ minimum identity and that "branchScale" *never appears* in Armstrong. Those are 
 a whole paper; no abstract yields either.
 
 That makes S4 native like S3 — and there the instrument narrows in a way worth stating plainly:
-S4 as specified **cannot run on bioSkills or ClawBio at all**, only on skills the corpus already
-backs. A forensic variant judging against the cited paper's own full text is possible where that text
-is open-access, and it is what a repository-scale claim about claim support would require. Until then
-S4 is the deep instrument's check, not the broad one's.
+S4 as specified **cannot run on bioSkills or ClawBio at all**, and for our Casts it additionally
+requires the experimental claim binding rather than today's per-reference provenance. A forensic
+variant judging against the cited paper's own full text is possible where that text is open-access,
+and it is what a repository-scale claim about claim support would require. Until then S4 is the deep
+instrument's check, not the broad one's.
 
 Ship it last. It is LLM-judged with no deterministic backstop, so it needs the §4 discipline more
 than any other check.
@@ -236,14 +277,16 @@ It is the natural first slice and produces the headline number on its own.
 S2 needs a tool-resolution layer (fetch `--help` at a pinned version), which is the same runtime
 question already open elsewhere in this workspace and should not be re-solved here.
 
-S3 needs the corpus, so it runs only over skills the probes have already sourced — a handful today.
-It grows as `content/research/` grows, which is the correct dependency direction.
+S3 needs the corpus and an explicit claim-to-source binding. It can run over a handful of probe
+artifacts during extractor development, but it cannot report native CPR for our Casts until the local
+claim-binding experiment produces executable fixtures. It grows as `content/research/` and the
+exercised Cast set grow, which is the correct dependency direction.
 
-S4 needs the corpus *and* an LLM judge with no deterministic backstop, so it ships last and behind
-the human-review pass. It is the check that would most change what this project can claim, and the
-one most able to embarrass us if its false-positive rate is unmeasured — the same order ScientistOne
-put it in: they implemented a weaker abstract-level proxy natively, and scoped the forensic version
-out as "a known open problem in scholarly NLI" left to future work.
+S4 needs the corpus, the same claim binding, *and* an LLM judge with no deterministic backstop, so it
+ships last and behind the human-review pass. It is the check that would most change what this project
+can claim, and the one most able to embarrass us if its false-positive rate is unmeasured — the same
+order ScientistOne put it in: they implemented a weaker abstract-level proxy natively, and scoped the
+forensic version out as "a known open problem in scholarly NLI" left to future work.
 
 ## Sources
 

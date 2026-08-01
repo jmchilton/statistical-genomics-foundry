@@ -6,7 +6,7 @@
 // the `meta` kind under content/meta/, so their title and summary come from frontmatter a
 // schema checks, and the collection answers which ones exist.
 //
-// The remaining 22 rows point at files under content/research/ that are in NO collection and
+// The remaining 25 rows point at files under content/research/ that are in NO collection and
 // carry no frontmatter at all. They cannot be collapsed the same way until they are typed, and
 // typing them is a different job from finding the design records a home: it means authoring
 // frontmatter for two dozen prose notes and deciding what kind the mold-eval rubrics even are.
@@ -189,7 +189,6 @@ export const DESIGN_DOCS: DesignDoc[] = [
     slug: 'project-scientistone',
     title: 'ScientistOne',
     source: 'projects/scientistone.md',
-    dir: 'research',
     summary: "Google's Chain-of-Evidence research system — its framing, strengths, and where it sits on our values.",
     category: 'related-projects',
   },
