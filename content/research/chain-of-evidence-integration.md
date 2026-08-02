@@ -225,7 +225,11 @@ CoE claim types wearing local names (Citations-resolve → Citation; Defaults/th
 CLI/mechanism and Doer-spine → Methodological). Two are not — "Sources open-access" has no CoE
 analog, and CoE's Conclusion type has no analog here.
 
-The retarget is not cosmetic — see §5.
+Model source status separately from check verdicts: `sourced`, `convention`, `deduction`, and
+`unsupported` describe the claim's provenance disposition; reference resolution, tool alignment,
+threshold provenance, and claim support keep check-specific results. An explicit convention can
+satisfy a Cast completeness gate without counting as a resolved citation, sourced threshold, or
+supported claim. The retarget is not cosmetic — see §5.
 
 ### D. Ground → Critic → Resolve as the Mold authoring loop
 
@@ -293,13 +297,14 @@ guidance practitioners need is community convention with no defining primary —
 chain (`content/research/experiments/ingest-probes-cross-synthesis.md`). Deleting those leaves the
 skill less useful and no more honest.
 
-So the adaptation is not "CoE lacks a slot" — it has one — it is **`unsourced` must be
-accept-with-label, not drop**. We already encode this: the WGA candidate Mold's
+So the adaptation is not "CoE lacks a slot" — it has one — it is **an honestly labeled convention
+must be preserved, not dropped**. We already encode this: the WGA candidate Mold's
 `anti-invention-threshold-is-convention` eval property (`check: deterministic`) requires that any
 threshold with no source in the references "must be labeled as convention/unsourced or marked
-`[GAP]`, and must NOT be asserted as cited to a paper." That is the disposition change, already
-written and committed; what CoE adds is the vocabulary to state it as a property of the standard
-rather than a property of one Mold.
+`[GAP]`, and must NOT be asserted as cited to a paper." That is a provenance classification and a
+Cast completeness policy, not a passing reference, grounding, or support verdict. The distinction is
+already written into one Mold; what CoE adds is the vocabulary to state it as a property of the
+standard rather than a property of one Mold.
 
 Related: their numerical chains terminate in an **execution log the system itself produced**. Ours
 terminate in **someone else's published paper**. Their grounding is self-generated and complete by
@@ -333,4 +338,4 @@ the evidence-tag mechanism is a convention, not a library.
 - https://scientist-one.github.io/ — project site; links `github.com/scientist-one/generated-artifacts` (21 papers + solver code). No audit-tool release.
 - `content/research/experiments/ingest-probes-cross-synthesis.md` — our defect taxonomy across three probes.
 - `content/research/05-skill-backing-references.md` — the recoverability framework and the convention finding.
-- `content/research/experiments/ingest-whole-genome-alignment/candidate-mold/eval.md` — `anti-invention-threshold-is-convention`, the accept-with-label disposition already committed.
+- `content/research/experiments/ingest-whole-genome-alignment/candidate-mold/eval.md` — `anti-invention-threshold-is-convention`, the preserve-with-label policy already committed.

@@ -178,10 +178,24 @@ instrument's check, not the broad one's.
 Ship it last. It is LLM-judged with no deterministic backstop, so it needs the §4 discipline more
 than any other check.
 
-### The `convention` disposition — accept-with-label, not drop
+### The `convention` disposition — classification, not a check verdict
 
-Every check carries `convention` as a **passing** verdict: an explicitly unsourced claim that passes
-*because* it is labeled.
+`convention` is a provenance disposition, not a universal **passing** verdict. Keep two fields
+orthogonal in every finding:
+
+- `disposition`: `sourced` · `convention` · `deduction` · `unsupported`;
+- check result: `evaluated` with that check's own verdict, `not-applicable`, or `unavailable`.
+
+That distinction prevents an honest label from answering a different question. It also prevents
+conventions from inflating reference-resolution, tool-correctness, grounding, or claim-support
+rates:
+
+| Check | Treatment of a claim labeled convention |
+|---|---|
+| S1 — Reference Verification | `not-applicable` when no citation is asserted; if it cites a source, evaluate that citation normally |
+| S2 — Skill–Tool Alignment | no exemption; a claimed flag, default, or mechanism still has to match the pinned tool |
+| S3 — Threshold Provenance | record `convention`; do not count it as `sourced` or as failed provenance |
+| S4 — Claim Support | `not-applicable` when no source support is asserted; if attributed to a source, evaluate support normally |
 
 This is an inversion of CoE, not an addition to it. ScientistOne's Claim Verifier *does* have an
 `unsourced` marker — but claims carrying it "are dropped automatically." That is right for a
@@ -196,6 +210,12 @@ eval property (`check: deterministic`) requires that any threshold with no sourc
 "must be labeled as convention/unsourced or marked `[GAP]`, and must NOT be asserted as cited to a
 paper." This audit is that property lifted from one Mold to a repository-scale check — an extraction,
 not new work.
+
+A release gate may accept an explicitly labeled convention because the provenance obligation is
+satisfied, but that is a **policy over dispositions**, not a successful S1–S4 verdict. Report the
+claim in the convention partition and preserve it in every denominator describing all guidance
+claims. A repository can therefore be complete enough to ship while still showing, without score
+inflation, how much of its guidance is sourced and how much rests on convention.
 
 It also produces the sharpest per-repo distinction available here: **convention honestly
 self-labeled** (bioSkills does this in places, and the probes credit it) versus **convention dressed
@@ -249,16 +269,25 @@ A vector, never a composite. ScientistOne's Table 1 is legible precisely because
 would have hidden that. The rubrics already carry the rule
 (`content/research/mold-eval/rubrics/README.md`).
 
-| Repo | Refs resolved | Refs mismatched | Claims supported | Flags verified | Thresholds sourced | Convention labeled |
-|---|---|---|---|---|---|---|
+| Repo | Refs resolved | Refs mismatched | Claims supported | Flags verified | Thresholds sourced | Convention labeled | Thresholds unsupported |
+|---|---|---|---|---|---|---|---|
 
 with per-skill detail beneath, each row citing its span.
+
+Each metric declares its denominator and reports `not-applicable` and `unavailable` separately.
+`Thresholds sourced`, `Convention labeled`, and `Thresholds unsupported` partition all extracted
+guidance thresholds; a convention appears in exactly one partition and never in the sourced
+numerator. S1 counts cited claims, S2 counts invocation claims regardless of disposition, and S4
+counts only claims that assert source support. Do not coerce `not-applicable` into pass or
+`unavailable` into fail to make repositories comparable.
 
 **Decide the failure state, not just the rate.** Both of ScientistOne's loops terminate in a refusal:
 a grounding ratio below threshold aborts the paper, and a topic-relevance gate aborts the pipeline
 when fewer than 5 relevant papers survive. The parallel question here is whether a repository below
-some threshold gets a number or a verdict — and, for our own casts, whether a cast that fails S3
-ships at all. A rate is a report; a refusal is a gate.
+some threshold gets a number or a verdict — and, for our own Casts, whether every threshold must
+carry an acceptable disposition before the Cast ships. That completeness gate may accept `sourced`
+and explicitly labeled `convention` while refusing `unsupported`; it must not relabel convention as
+a successful source check. A rate is a report; a refusal is a gate.
 
 **Run it on ourselves.** The audit covers our own casts on the same footing, in the same table.
 ScientistOne audits itself alongside the four baselines; the guiding principle here is *we must not
