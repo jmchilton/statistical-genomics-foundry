@@ -31,8 +31,11 @@ on a term, the glossary wins.** Load it in full before reasoning about anything 
 - `README.md` — what this workspace is, the thesis, the three pillars, current status.
 - `content/meta/positioning.md` — the positioning narrative (the story); `positioning.md` (root) is
   the working evidence doc with per-system axis maps and verified distinctions.
-- `content/meta/architecture.md` — the architecture as an explicit **diff from the parent Foundry**
-  (inherit / adapt / demote / add). The structural authority.
+- `content/meta/architecture.md` — short domain/system map and reading routes across the focused architecture records.
+- `content/meta/code-architecture.md` — the current Astro/TypeScript implementation and deliberate absences.
+- `content/meta/content-model.md` — note kinds, source-note contracts, tags, references, and companions.
+- `content/meta/build-and-validation.md` — validation, generators, site builds, and the explicit casting gap.
+- `content/meta/repository-layout.md` — physical placement and lifecycle boundaries.
 - `content/meta/guiding-principles.md` — adapted principles, including the net-new
   "Doing Never Self-Certifies."
 - `content/meta/referee-loop.md` — net-new: the analyze → referee → revise spine and the gate obligation.
@@ -40,7 +43,7 @@ on a term, the glossary wins.** Load it in full before reasoning about anything 
   referee-correctness evals added). Load when authoring or editing a Mold.
 - `content/meta/corpus.md` — the bipolar corpus (established-good + cautionary-bad).
 - `content/meta/casting.md` — adapted casting + provenance (Pillar 1).
-- `content/meta/molds.md` — initial Mold set, a **TODO outline** — nothing authored yet.
+- `content/meta/molds.md` — the current Mold inventory, family/role framing, and open composition work.
 
 ## The rendered site
 
@@ -59,9 +62,10 @@ tooling that has stood up — everything under "Deferred to repo standup" has no
   nobody has written yet. Renderers leave code spans alone, so a backticked citation is a
   citation that never links. Write `[[Target]]` bare in prose. The corpus carried 671 of these
   before #114 swept them.
-- **Keep the diff-from-parent honest.** This is N=2 in the Foundry-pattern lineage. Each doc
-  records what it inherits, adapts, demotes, or adds vs. the Galaxy Workflow Foundry. When you
-  change a doc, preserve that framing — it is the evidence that earns the abstraction.
+- **Keep differences from the parent explicit where they matter.** This is N=2 in the
+  Foundry-pattern lineage. The architecture map owns the system-level inherit/adapt/demote/add
+  account; each focused record names only the differences in its own concern. Do not repeat a
+  full parent diff in every purpose-specific document, and do not hide a real divergence.
 - **Don't write multi-paragraph comments or prose padding.** One short line max when intent
   isn't obvious. Be concise; sacrifice grammar for concision.
 - **Don't invent corpus evidence.** When a claim is corpus-observed vs. a design inference vs.

@@ -26,9 +26,8 @@ import { CONTENT_DIR, contentPath } from '../src/lib/frontmatter-schema';
 //
 // and three further narrowings, each earned by a real token in the corpus rather than assumed:
 //
-//   - inside a fenced block, nothing is checked. A fence is an illustration; the layout tree in
-//     `architecture.md` §6 is explicitly a PROVISIONAL plan, and half of what it draws is meant
-//     not to exist yet. Checking it would be checking the plan against the thing it plans.
+//   - inside a fenced block, nothing is checked. A fence is an illustration; layout trees and
+//     command examples may intentionally name placeholders or output that does not exist yet.
 //   - a token carrying `<`, `*` or `{` is a template, not a path — `content/molds/<slug>/`,
 //     `rubrics/{operability,assessability}.md`.
 //   - a token has to NAME something: a trailing slash or a file extension. `content/research/05`
