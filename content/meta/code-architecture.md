@@ -43,6 +43,8 @@ The repository currently has one application, `site/`. There is no package works
 
 `types/context.ts` builds the instance context from the base envelope, tag registry, reference contract, and license policy. `types/index.ts` is the single enumeration of concrete kinds. The shared `@galaxy-foundry/kind-schema` package supplies the generic definition and assembly mechanism but no domain kinds.
 
+The directory-per-kind layout is a cross-instance contract, not a local preference: [galaxyproject/foundry-pattern#13](https://github.com/galaxyproject/foundry-pattern/issues/13), PART 3 of the standing-up checklist, implemented independently here and in the parent Foundry. `example.md` is parsed against its own kind's schema by the corpus tests, so the documentation stays executable.
+
 ## Contract composition
 
 `site/src/lib/frontmatter-schema.ts` is the composition point. It:

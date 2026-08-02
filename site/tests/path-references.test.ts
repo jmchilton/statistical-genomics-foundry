@@ -41,6 +41,17 @@ import { CONTENT_DIR, contentPath } from '../src/lib/frontmatter-schema';
 /** The repo root, in the frame `CONTENT_DIR` is written in. */
 const REPO_ROOT = path.join(CONTENT_DIR, '..');
 
+/**
+ * Anchored paths that are real, but not here.
+ *
+ * Files, never directories. An area allowance outlives the area it describes and goes on
+ * covering every future stray beneath it, which is the silence this check exists to end.
+ */
+const ELSEWHERE: Record<string, string> = {
+  'content/pattern/standing-up-a-foundry.instructions.txt':
+    'the shared tag-registry spec, in galaxyproject/foundry-pattern — cited beside a link to that repo',
+};
+
 const FENCE = /^\s*```/;
 /** Inline code spans: `../x` or `content/x`. */
 const CODE_SPAN = /`((?:\.\.?\/|content\/)[^`\s]+)`/g;
@@ -93,10 +104,22 @@ describe('anchored paths in content resolve', () => {
 
     for (const rel of markdownFiles()) {
       for (const { token, line } of anchoredPaths(rel)) {
+        if (token in ELSEWHERE) continue;
         if (!fs.existsSync(resolveFrom(rel, token))) broken.push(`content/${rel}:${line}: ${token}`);
       }
     }
 
     expect(broken, `\nanchored paths that do not resolve:\n  ${broken.join('\n  ')}`).toEqual([]);
+  });
+
+  // An allowance nobody needs any more is an allowance that has stopped describing anything, and
+  // the next reader has no way to tell it apart from one still doing work.
+  it('every ELSEWHERE entry is still a path the corpus writes', () => {
+    const cited = new Set(
+      markdownFiles().flatMap((rel) => anchoredPaths(rel).map(({ token }) => token)),
+    );
+    const unused = Object.keys(ELSEWHERE).filter((token) => !cited.has(token));
+
+    expect(unused, `\nallowed but no longer cited:\n  ${unused.join('\n  ')}`).toEqual([]);
   });
 });

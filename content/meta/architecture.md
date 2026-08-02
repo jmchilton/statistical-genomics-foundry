@@ -45,6 +45,8 @@ Two parent choices are intentionally lighter here:
 
 The project-specific addition is the gate obligation: doing never self-certifies. Whether that becomes a Protocol convention, an inline `[gate]`, or a validator rule remains a decision for the first real composed protocol, not a schema invented in advance.
 
+Two parent design records remain unported: the harness/pipeline narrative and the schema-package convention. Both lighten under the stance above, and neither has an implementation here to describe — the first waits on a real Protocol, the second on a Mold that earns a structured IO schema. They are deferred, not overlooked.
+
 ## Major boundaries
 
 - **Domain design versus implementation.** Referee roles, corpus posture, and Mold semantics live in [[guiding-principles]], [[referee-loop]], [[molds]], and [[mold-spec]]. TypeScript and Astro mechanics live in [[code-architecture]].

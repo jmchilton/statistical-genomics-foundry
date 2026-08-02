@@ -27,7 +27,9 @@ Every note declares one literal `type`. That value selects a strict kind definit
 | `mold` | abstract construct, critique, or calibrate action | `content/molds/<slug>/index.md` |
 | `pattern` | established-good or cautionary-bad reference leaf | `content/patterns/<slug>/index.md` |
 
-The three source kinds are deliberately distinct. Papers own bibliographic identifiers, tutorials own release and documentation metadata, and books inherit pinned book-level source information. A broad `research` kind would allow those contracts to blur.
+The three source kinds are deliberately distinct. Papers own bibliographic identifiers, tutorials own release and documentation metadata, and books inherit pinned book-level source information. A broad `research` kind would allow those contracts to blur — a shared enum makes every field legal on every member, and lets a `type: paper` note sit under `content/research/tutorials/` and still validate. A literal per kind makes the collection and the declared kind agree, or fail.
+
+`type` as the sole note-kind discriminator is a point of convergence with the parent Foundry ([galaxyproject/foundry#374](https://github.com/galaxyproject/foundry/issues/374)). The two instances differ in how many kinds they define and what each requires; they agree that a note names its own kind, which is what lets kinds enumerate mechanically in both repos for the cross-instance kind catalog.
 
 ## Metadata envelope
 
@@ -41,6 +43,8 @@ Every kind is `.strict()`: an undeclared key is an error. The common envelope is
 
 Differences from the parent are visible in the generated kind manifest rather than hidden behind an artificially identical base envelope.
 
+Strictness is not only a tidiness rule. An undeclared key is also an unvalidated key, and YAML will silently coerce it: unquoted `pmid: 33015620` parses as an integer and `published: 2024-03-21` as a `Date`, neither of which is what the field means. Declaring a field is what puts a type on it. Strictness is also what stops a book chapter shadowing `book.yml`'s license metadata by restating it.
+
 ## Tags and facets
 
 `meta_tags.yml` declares a closed vocabulary grouped into four domain browse facets:
@@ -51,6 +55,8 @@ Differences from the parent are visible in the generated kind manifest rather th
 - `topic` — a narrower cross-cutting concern.
 
 `meta` is the one inherited bare tag for design records. Membership is declared by the registry, not inferred from slash prefixes. Corpus tests reject both undeclared use and instance-authored vocabulary carried by no note.
+
+The registry **format** is shared across Foundry instances — specified in [galaxyproject/foundry-pattern](https://github.com/galaxyproject/foundry-pattern), `content/pattern/standing-up-a-foundry.instructions.txt` — so a format change is a cross-repo change. The facet **vocabulary** above is ours alone: the Galaxy Workflow Foundry's facets are its own, and only `topic` collides by name — theirs groups pattern maps, ours sits beneath a `domain`.
 
 Tags remain soft evidence. In particular, `role` does not become a hard Mold enum until enough real Molds show that the distinction is stable and non-overlapping.
 
