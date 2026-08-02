@@ -2,6 +2,12 @@
 @import "@fontsource/atkinson-hyperlegible/700.css";
 @import "katex/dist/katex.min.css";
 @import "tailwindcss";
+/* Tests are not markup. Automatic source detection scans the whole project, so a class merely
+   NAMED in a test string — an assertion about the stylesheet, say — is enough to put that class
+   into the shipped stylesheet. Found the way these things are: `tests/built-shell.test.ts` names
+   one utility as a canary for whether Tailwind scanned the layout, and was keeping that canary
+   alive by naming it, so the assertion could not fail. */
+@source not "../../tests";
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 
