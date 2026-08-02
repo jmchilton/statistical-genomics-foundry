@@ -1,12 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { getLicenses, licenseIdFromFile } from '../../lib/licenses';
-import { bundledPolicy, resolveLicenseRow } from '@galaxy-foundry/license-policy';
+import { getLicenses } from '../../lib/licenses';
+import { bundledPolicy, licenseIdFromFilePath, resolveLicenseRow } from '@galaxy-foundry/license-policy';
 
 export async function getStaticPaths() {
   return getLicenses().map(license => ({
-    params: { id: license.id },
+    params: { id: license.licenseId },
     props: { license },
   }));
 }
@@ -22,7 +22,7 @@ const entries = (await Promise.all(
 const users = entries
   .filter(({ e }) => {
     const lf = e.data.license_file;
-    return typeof lf === 'string' && licenseIdFromFile(lf) === license.id;
+    return typeof lf === 'string' && licenseIdFromFilePath(lf) === license.licenseId;
   })
   .map(({ e, collection }) => ({
     href: `${base}/${collection}/${e.id}/`,

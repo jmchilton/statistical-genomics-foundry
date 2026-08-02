@@ -16,11 +16,10 @@ interface Props {
   version?: string;
   accessDate?: string;
 }
-import { licenseIdFromFile } from '../lib/licenses';
-import { bundledPolicy, resolveLicenseRow } from '@galaxy-foundry/license-policy';
+import { bundledPolicy, licenseIdFromFilePath, resolveLicenseRow } from '@galaxy-foundry/license-policy';
 const { source, sourceChapter, sourceUrl, license, licenseFile, attribution, derived, doi, version, accessDate } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const licenseHref = licenseFile ? `${base}/licenses/${licenseIdFromFile(licenseFile)}/` : null;
+const licenseHref = licenseFile ? `${base}/licenses/${licenseIdFromFilePath(licenseFile)}/` : null;
 const doiHref = doi ? `https://doi.org/${doi}` : null;
 
 // Policy row for this license id (unknown/missing → own-words-only + defect).
