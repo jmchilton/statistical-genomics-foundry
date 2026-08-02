@@ -8,7 +8,7 @@ tags:
 status: reviewed
 created: 2026-08-02
 revised: 2026-08-02
-revision: 1
+revision: 2
 summary: "How the current corpus is validated, generated, rendered, and kept honest about deferred casting."
 ---
 
@@ -31,20 +31,20 @@ regenerate kind manifest   materialize book metadata
              Astro typecheck/build
 ```
 
-There is no casting step in this flow yet. [[casting]] defines the intended source-to-artifact boundary and provenance posture; this record distinguishes that design from implemented machinery.
+There is no casting step in this flow. [[casting]] defines the intended source-to-artifact boundary and provenance posture; the section below draws the line between that design and what runs.
 
 ## Corpus validation
 
-Run validation from `site/` with `pnpm validate` or `pnpm test`. Vitest is the standalone validator as well as the unit-test runner. Its corpus checks:
+Run validation from `site/` with `pnpm validate` or `pnpm test`. Vitest is the standalone validator as well as the unit-test runner. Its corpus checks, in no particular order beyond discovery coming first:
 
-1. discover every note through `COLLECTIONS`;
-2. parse each note against the exact assembled schema Astro consumes;
-3. check that paths, declared types, note shapes, and companions agree;
-4. verify kind directories and executable examples;
-5. enforce tag, note-kind, and narrowed reference-vocabulary drift rules;
-6. resolve path references and wiki-link reachability;
-7. check that every collection has a route and contributes to the shared link map;
-8. validate license and source-note coherence.
+- discover every note through `COLLECTIONS`;
+- parse each note against the exact assembled schema Astro consumes;
+- check that paths, declared types, note shapes, and companions agree;
+- verify kind directories and executable examples;
+- enforce tag, note-kind, and narrowed reference-vocabulary drift rules;
+- resolve path references and wiki-link reachability;
+- check that every collection has a route and contributes to the shared link map;
+- validate license and source-note coherence.
 
 Strict schemas turn undeclared metadata into failures. Registry drift tests work in both directions: content cannot invent vocabulary, and vocabulary authored by this instance cannot remain unused.
 
@@ -77,16 +77,9 @@ The site is a derived reading surface. Build output is not committed source.
 
 ## Casting boundary
 
-Casting is designed but not implemented. The current repository has:
+Casting is designed but not implemented. What exists is the source side: typed Mold references, a narrowed reference contract, and [[casting]] as the design record for the transformation. What does not exist is the machinery: no caster command, no `casts/` directory, no package or runtime artifact that executes a Mold.
 
-- typed Mold references;
-- a narrowed reference contract;
-- a casting and provenance design record;
-- no caster command;
-- no `casts/` directory;
-- no package or runtime artifact that executes a Mold.
-
-Until those last three exist, documentation must say “would cast” or “future cast,” never imply that a generated artifact is available. Adding casting will require an explicit producer, target layout, provenance record, validation or verification step, and deterministic drift behavior for every non-LLM phase.
+Until the machinery exists, documentation says "would cast" or "future cast" and never implies a generated artifact is available — a reader who goes looking for `casts/` on the strength of a present-tense sentence finds nothing and cannot tell whether the record is aspirational or the checkout is broken. Adding casting will require an explicit producer, a target layout, a provenance record, a validation or verification step, and deterministic drift behavior.
 
 ## Proportional gate
 

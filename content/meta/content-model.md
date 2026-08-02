@@ -8,7 +8,7 @@ tags:
 status: reviewed
 created: 2026-08-02
 revised: 2026-08-02
-revision: 1
+revision: 2
 summary: "How statistical-genomics knowledge is represented as kinds, metadata, tags, references, and companions."
 ---
 
@@ -18,14 +18,9 @@ This record owns the representation of knowledge. It answers **what kinds of not
 
 Every note declares one literal `type`. That value selects a strict kind definition; it is never inferred from a tag. Paths route notes into collections, and the routed kind must agree with the declared type.
 
-| Kind | Purpose | Shape and location |
-|---|---|---|
-| `meta` | Foundry design record | flat file under `content/meta/` |
-| `book` | faithful chapter summary with book-level provenance | `content/research/books/<book>/<chapter>/index.md` |
-| `paper` | faithful paper summary and license posture | `content/research/papers/<id>/index.md` |
-| `tutorial` | faithful vignette or tutorial summary | `content/research/tutorials/<id>/index.md` |
-| `mold` | abstract construct, critique, or calibrate action | `content/molds/<slug>/index.md` |
-| `pattern` | established-good or cautionary-bad reference leaf | `content/patterns/<slug>/index.md` |
+The kinds fall into three groups. **`meta`** is the design record — the one kind whose subject is the Foundry rather than statistical genomics. **`book`, `paper`, and `tutorial`** are the source kinds: faithful summaries of something upstream, carrying the provenance and license posture their recovery workflow can honestly support. **`mold` and `pattern`** are the domain's own content, the thing that acts and the thing that explains.
+
+Every kind is a directory note holding an `index.md` except `meta`, which is a flat file — a design record has nothing to put beside it, so a directory per record would be a container with one file in it forever. `site/src/types/<kind>/` holds each kind's schema, its `kind.md` rationale, and a minimal `example.md`; `kinds.generated.json` is the enumeration a consumer reads, derived from those definitions rather than restated. [[repository-layout]] owns where each kind's files sit.
 
 The three source kinds are deliberately distinct. Papers own bibliographic identifiers, tutorials own release and documentation metadata, and books inherit pinned book-level source information. A broad `research` kind would allow those contracts to blur — a shared enum makes every field legal on every member, and lets a `type: paper` note sit under `content/research/tutorials/` and still validate. A literal per kind makes the collection and the declared kind agree, or fail.
 
@@ -72,7 +67,7 @@ Books add one materialization rule: `book.yml` is the source for book-wide metad
 
 A Mold is a directory note with an action body, typed `references`, and declared companions such as `eval.md` and `scenarios.md`. Its reference manifest draws from the instance's `reference_contract.yml` plus inherited behavior vocabularies.
 
-This Foundry narrows reference modes to behavior it can support now. In particular, `condense` remains unavailable because there is no caster, no pending-LLM bookkeeping, and no model/prompt provenance path. References currently express what a future deterministic cast may carry, not evidence that casting exists.
+This Foundry narrows reference modes to behavior it can support now. `condense` is unavailable because there is no caster, no pending-LLM bookkeeping, and no model or prompt provenance path — a mode is a commitment to machinery, and declaring one the caster cannot honor would make a manifest that validates and cannot be cast. References here express what a future deterministic cast may carry, not evidence that casting exists.
 
 The Mold-primary information architecture permits a Mold to stand alone. A Protocol may later aggregate Molds into an ordered referee journey, but protocol membership does not define Mold identity or completeness.
 

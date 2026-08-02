@@ -88,7 +88,7 @@ get wrong:
 - **`type:` must match the collection in `$1`** — `type: paper` under `papers/`, `type: tutorial`
   under `tutorials/`. It is the note-kind discriminator that selects the schema, and each kind is a
   literal, so a note filed in the wrong directory is an error rather than a silent pass (see
-  `content/meta/architecture.md` §9).
+  `content/meta/content-model.md`).
 - **`tags:` needs ≥1 tag registered in `meta_tags.yml`** — `domain/*` + `topic/*` subject facets for
   a source note. Pick from what is registered; never invent one, since every facet is a closed enum.
 - **Undeclared keys are rejected** — the schema is `.strict()`. Papers may carry `doi`, `pmid`,

@@ -1,7 +1,7 @@
 # Tag registry for Mold/Pattern frontmatter `tags:`.
 #
 # Tags are grouped into FACETS (`meta`, `family`, `role`, `domain`, `topic`) — the
-# MOLD_SPEC adaptation that replaces the parent's `axis` grouping. Seeded corpus-first from
+# grouping content/meta/molds.md defines, replacing the parent's `axis`. Seeded corpus-first from
 # the tags the authored Molds + Patterns actually use; a tag outside this registry is drift.
 #
 # Membership is DECLARED, not parsed off the `/` prefix: a tag is valid because its

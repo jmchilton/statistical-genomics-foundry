@@ -8,7 +8,7 @@ tags:
 status: reviewed
 created: 2026-08-02
 revised: 2026-08-02
-revision: 1
+revision: 2
 summary: "The current Astro and TypeScript implementation, dependency seams, entry points, and deliberate absences."
 ---
 
@@ -71,7 +71,7 @@ The instance adapters provide paths, concrete vocabularies, and the link map. Th
 
 `site/src/lib/content-files.ts` applies collection paths and ID rules outside Astro's loader, so tests and the wiki-link map see exactly the files the site sees. `site/src/lib/wiki-links.ts` builds one map across all routed collections. `remark-wiki-links.ts` adapts that resolver to Astro Markdown; `render-vault-doc.ts` provides the corresponding path for explicit loose documents such as the glossary.
 
-`site/src/lib/design-records.ts`, tag helpers, and license helpers are presentation registries over validated content. They do not define note membership.
+`site/src/lib/design-records.ts` and `design-docs.ts`, tag helpers, and license helpers are presentation registries over validated content. They do not define note membership. The design-record split is not cosmetic: `astro.config.mjs` reaches `design-docs.ts` through the remark plugin, and config loads outside Astro's module graph, so anything reachable from it cannot import `astro:content`. Collection access lives in `design-records.ts`, which only pages import.
 
 ## Reading application
 
@@ -90,13 +90,13 @@ They import the same contracts as validation rather than building parallel model
 
 ## Cross-component contracts
 
-1. `types/index.ts` is the kind enumeration; `COLLECTIONS` is the content-path enumeration.
-2. A collection's routed kind, literal `type`, schema, and route must agree.
-3. Astro builds and corpus tests validate against the same assembled schema objects.
-4. Shared substrate packages own mechanisms and portable formats; this repository owns domain vocabularies and policy choices.
-5. Wiki-link parsing and resolution have one implementation and one instance link map.
-6. Generators derive from source contracts and have check modes.
-7. No document may describe a package, caster, or runtime CLI as implemented until that code exists.
+- `types/index.ts` is the kind enumeration; `COLLECTIONS` is the content-path enumeration.
+- A collection's routed kind, literal `type`, schema, and route must agree.
+- Astro builds and corpus tests validate against the same assembled schema objects.
+- Shared substrate packages own mechanisms and portable formats; this repository owns domain vocabularies and policy choices.
+- Wiki-link parsing and resolution have one implementation and one instance link map.
+- Generators derive from source contracts and have check modes.
+- No document describes a package, caster, or runtime CLI as implemented until that code exists. A design record that describes machinery as running is indistinguishable from one describing machinery that runs, and the reader who finds out is the one who went looking for the command.
 
 ## Code orientation
 

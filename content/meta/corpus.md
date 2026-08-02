@@ -7,49 +7,49 @@ tags:
   - meta
 status: reviewed
 created: 2026-06-26
-revised: 2026-06-26
-revision: 1
+revised: 2026-08-02
+revision: 2
 summary: "How external sources are ingested as own-words summaries without becoming a content mirror."
 ---
 
-> Adapted from the parent's `content/meta/corpus.md`. The **URL-not-mirror principle is preserved verbatim** — we cite, we don't mirror. The corpus *content* changes completely (the parent's is IWC workflows; ours is methods literature + cautionary examples), and it gains a structural feature the parent never needed: it is **bipolar** — established-good *and* cautionary-bad — because a referee needs both "here is the valid method" and "here is the invalidity signature." Status: adaptation; no ingestion tooling planned.
+This record owns how external evidence grounds the Foundry without being copied into it: what the corpus is made of, how a note reaches it, and which integration is deliberately absent. What any individual source says belongs to that source's note.
 
 ## No ingestion pipeline, no mirror
 
-Like the parent, this project has **no corpus ingestion pipeline, no mirror, and no fixtures runtime dependency**. It integrates its corpus through **citations** (by URL/DOI), survey/research notes, optional inline excerpts, and Molds that fetch live evidence at runtime. We point upstream, quote only what we must, and pin a citation to a DOI / commit / version when stability matters — author choice per citation, no enforced policy. (`content/meta/guiding-principles.md` → "Source Authority Beats Local Copies.")
+This project has **no corpus ingestion pipeline, no mirror, and no fixtures runtime dependency**. It integrates its corpus through citations by URL or DOI, survey and research notes, optional inline excerpts, and Molds that fetch live evidence at runtime. Point upstream, quote only what you must, and pin a citation to a DOI, commit, or version when stability matters — the author's call per citation, not an enforced policy. [[guiding-principles]] holds the reasoning, under *Source Authority Beats Local Copies*.
 
-The parent's `workflow-fixtures/` + IWC clone + skeleton tiers are **Galaxy-specific and dropped**. We have no equivalent generated-corpus workspace yet; if survey work later wants one (e.g. a local cache of Bioconductor vignettes or simulation fixtures), it lives outside `content/`, gitignored, invisible to the validator and site — same containment rule as the parent's `workflow-fixtures/`.
+There is no generated-corpus workspace. If survey work later wants one — a local cache of Bioconductor vignettes, say, or simulation fixtures — it lives outside `content/`, gitignored, invisible to the validator and the site. Anything the validator can see is content the Foundry has taken responsibility for keeping current, and a cache is exactly the thing nobody keeps current.
 
-## The corpus is bipolar (the key structural change)
+## The corpus is bipolar
 
-The parent's corpus (IWC) is **all positive exemplars** — "here are good workflows, learn their structure." Ours can't be, because our job is refereeing. A referee grounded only in good examples can't recognize a bad one. So our corpus has two poles plus three supporting kinds:
+A referee grounded only in good examples cannot recognize a bad one. So the corpus has two poles rather than one:
 
-1. **Established-good — methods & their validity conditions.** Grounds Family A's *"pick an established method, don't invent."* Examples: Bioconductor vignettes / OSCA, DE-method comparisons (Soneson & Robinson), GWAS QC protocols (Marees, Anderson), method papers with their stated assumptions. Cited by URL/DOI.
-2. **Cautionary-bad — named invalidity patterns & their remedies.** Grounds Family B's *referee*. Examples: double-dipping / circular analysis (and its remedy, `countsplit`/data-thinning), batch effects confounded with condition, garden-of-forking-paths / researcher-degrees-of-freedom, naive multiple-testing under dependence. Each is a *failure with a signature* the referee must learn to recognize. **This pole has no parent analog** — IWC has no "anti-workflows."
-3. **Reporting standards / checklists** — castable referee rubrics. EQUATOR guidelines, ClinGen/PRS-RS (33-item), MIQE, PROBAST-AI (signalling questions). These are pre-written referee structure; cite and cast, don't reinvent.
-4. **Calibration / simulation methodology** — grounds the *calibrate* role. Simulation-based calibration (SBC), posterior predictive checks, permutation frameworks, negative-control design, power analysis.
-5. **Benchmarks / truth-sets / eval harnesses** — ground evals and scenarios. StatQA (method-applicability cases), GIAB + hap.py (variant truth), splatter/polyester (simulation under known truth). These double as `scenarios.md` fixtures (planted-invalid or known-truth cases).
+- **Established-good** — methods and their validity conditions. This is what grounds *pick an established method, don't invent*: Bioconductor vignettes and OSCA, DE-method comparisons, GWAS QC protocols, method papers with their stated assumptions.
+- **Cautionary-bad** — named invalidity patterns and their remedies. This is what grounds the referee: double-dipping and circular analysis with its countsplit remedy, batch effects confounded with condition, the garden of forking paths, naive multiple testing under dependence. Each is a failure *with a signature*, which is the property that makes it recognizable rather than merely regrettable.
+
+Three further kinds support the poles without being poles themselves. **Reporting standards and checklists** — EQUATOR, ClinGen/PRS-RS, MIQE, PROBAST-AI signalling questions — are pre-written referee structure to cite and cast rather than reinvent. **Calibration and simulation methodology** — simulation-based calibration, posterior predictive checks, permutation frameworks, negative-control design, power analysis — grounds the calibrate role. **Benchmarks and truth sets** — StatQA, GIAB with hap.py, splatter and polyester — ground evals, and double as `scenarios.md` fixtures.
 
 ## How the corpus is referenced
 
-Mirrors the parent's mechanisms, retargeted:
+- **Pattern and research notes cite by URL or DOI in the body.** A pattern's exemplars section (established-good) or failure-cases section (cautionary-bad) lists sources as ordinary Markdown links with a line of commentary each.
+- **Inline excerpts when they earn it.** A short excerpt — a method's assumption list, a checklist item, a code snippet showing the invalid move — may be pasted into a body to illustrate. It is committed verbatim, never regenerated at build time, and rot is rot. Corpus-first discipline applies hardest here: write the excerpt only when a real case demands it, because invented "representative" prose is precisely this project's failure mode.
+- **No category-aggregation layer.** Corpus grounding lives in note bodies and citations, not in an index. An index would be a second place the corpus is described, and the two would disagree.
+- **Referee Molds may fetch live evidence at runtime.** A cast skill can carry instructions to fetch a standard or look up a method rather than embedding a copy. The Mold's source describes the *procedure*, not a frozen snapshot.
 
-1. **Pattern and research notes cite by URL/DOI in the body.** A pattern's `## Exemplars` (established-good) or `## Failure cases` (cautionary-bad) section lists sources as free-form Markdown links with one-line commentary. Pin to DOI / commit / version when stability matters.
-2. **Inline excerpts when they earn it.** A note author may paste a short excerpt (a method's assumption list, a checklist item, a code snippet showing the invalid move) directly into a body to illustrate. Committed verbatim; no build-time regeneration; rot is rot. **Corpus-first discipline applies hard here** (`content/meta/guiding-principles.md`): write the excerpt only when a real case demands it — invented "representative" prose is exactly our failure mode.
-3. **No category-aggregation layer.** Corpus grounding lives in note bodies and citations, not an index.
-4. **Referee Molds may fetch live evidence at runtime.** A cast skill can carry instructions to fetch a standard/checklist or look up a method via `WebFetch` rather than embedding a mirror. The Mold's source describes the *procedure*, not a frozen corpus snapshot.
+## What this gives up
 
-## What this gives up (same trade as the parent)
-- No per-source inverse view, no per-category site browsing (no structural support; hand-write a note by exception).
-- No build-time inlining of full sources into casts — casts get URLs/DOIs the agent fetches, or small hand-curated excerpts.
-- No auto-detection of upstream drift — a cited method page or standard can change; mitigate by pinning to DOI/version where stability matters, and by review.
+- No per-source inverse view and no per-category browsing. Nothing structurally supports them; a note that needs one is hand-written by exception.
+- No build-time inlining of full sources into casts. A cast gets URLs and DOIs the agent fetches, or a small hand-curated excerpt.
+- No detection of upstream drift. A cited method page or standard can change underneath a note, and the mitigation is pinning to a DOI or version where stability matters, plus review.
 
 ## Validation
-No corpus-specific validator layer. Body citations are not link-checked (URLs are URLs; automated link-checking at scale costs more than the moderate cost of brokenness). The one discipline we *do* enforce in review: a `hypothesis`-evidence reference (per `content/meta/mold-spec.md`) must be flagged, because un-grounded prose is our project's specific risk.
+
+There is no corpus-specific validator layer, and body citations are not link-checked: automated link-checking at this scale costs more than the moderate cost of brokenness. The one discipline enforced in review is that a `hypothesis`-evidence reference ([[mold-spec]]) gets flagged, because ungrounded prose is this project's specific risk.
 
 ## Minimum exercise
-1. Author 2–3 patterns end-to-end: at least one established-good (an established method + when it applies) and at least one cautionary-bad (a named invalidity + its signature + remedy), each citing sources by URL/DOI with one inline excerpt where useful.
-2. Confirm a Family-B Mold can wiki-link the cautionary-bad pattern and that casting preserves the citations as live evidence pointers, not embedded mirrors.
-3. Confirm a `scenarios.md` can bind a benchmark/truth-set case (e.g. a StatQA item or a splatter known-truth simulation) as a planted fixture.
+
+1. Author two or three patterns end to end — at least one established-good and at least one cautionary-bad, each citing sources by URL or DOI, with an inline excerpt where it helps.
+2. Confirm a Family-B Mold can wiki-link the cautionary-bad pattern, and that casting preserves the citations as live evidence pointers rather than embedded mirrors.
+3. Confirm a `scenarios.md` can bind a benchmark or truth-set case as a planted fixture.
 
 If the loop holds, scale. No further ingestion tooling is planned.

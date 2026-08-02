@@ -15,8 +15,8 @@ bears frontmatter — `eval.md`, `scenarios.md`, `usage.md`, and `refinement.md`
   so an optional summary means half the catalog renders as a bare name. The bounds are the
   parent Foundry's, adopted unchanged.
 - **`tags`** (min 1) — the browse axis. Molds take `family/*` and `role/*`; this is the
-  MOLD_SPEC adaptation that replaces the parent's `axis` enum, which described a *conversion*
-  and does not apply to a Foundry that converts nothing.
+  soft-tag axis `content/meta/molds.md` defines, replacing the parent's `axis` enum, which
+  described a *conversion* and does not apply to a Foundry that converts nothing.
 
 ## Optional fields
 

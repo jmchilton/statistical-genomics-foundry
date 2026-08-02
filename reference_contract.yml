@@ -15,7 +15,7 @@
 # reference today:
 #   drop: `cli-tool` (no tool-install refs authored here); `schema` (our outputs are
 #         prose-shaped critiques/protocols, not structured artifacts — glossary
-#         "Schema (Mold IO)", ARCHITECTURE §3); `prompt` and `example` (inherited,
+#         "Schema (Mold IO)", content/meta/architecture.md); `prompt` and `example` (inherited,
 #         never authored against); and `eval` — the abstract oracle is real (glossary
 #         "Evaluation plan") but it lives in an `eval.md` sibling, and no Mold has
 #         needed it as a manifest entry.

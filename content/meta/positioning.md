@@ -7,12 +7,12 @@ tags:
   - meta
 status: reviewed
 created: 2026-06-26
-revised: 2026-07-06
-revision: 2
+revised: 2026-08-02
+revision: 3
 summary: "Statistical rails for LLM-driven statistical genomics \u2014 what the Foundry is, what it refuses to be, and why."
 ---
 
-> The narrative. For the evidence behind every claim here — per-system verification with refutations — see `../../positioning.md` and `../research/`. This doc is the story; that doc is the receipts.
+This record owns what the Foundry is, what it refuses to be, and where it sits against the prior art — the boundary written down once so it is not re-argued in every other record. It is the narrative. The receipts are the repo-root `../../positioning.md`, which verifies each claim below system by system including the refutations, and the surveys under `../research/`.
 
 ## The problem
 
@@ -29,7 +29,7 @@ A portable, inspectable **knowledge base** of agent skills that makes an LLM bot
 
 The structural bet is one sentence: **doing never terminates in self-certification.** Every analysis hands off to a referee gate (analyze → referee → revise), and the referee leans on external, empirical checks rather than the agent's own reasoning.
 
-We inherit this shape from the **Galaxy Workflow Foundry**, a working knowledge-base-plus-casting system for building Galaxy workflows. From it we take the Mold → Cast → provenance architecture, the human-navigable knowledge site with progressive disclosure, and the validator-as-cross-resolver. We adapt the domain (the grounding corpus becomes statistical-methods literature and cautionary negative examples; the deterministic gate becomes an empirical referee), and we *add* the one thing the parent never needed: a referee for statistical method validity.
+We inherit this shape from the **Galaxy Workflow Foundry**, a working knowledge-base-plus-casting system for building Galaxy workflows. From it we take the Mold → Cast → provenance architecture, the human-navigable knowledge site with progressive disclosure, and the validator-as-cross-resolver. We adapt the domain — the grounding corpus becomes statistical-methods literature and cautionary negative examples, the deterministic gate becomes an empirical referee — and we *add* the one thing the parent never needed: a referee for statistical method validity. [[architecture]] holds the full inherited-versus-changed accounting.
 
 ## How we are distinct — three pillars
 

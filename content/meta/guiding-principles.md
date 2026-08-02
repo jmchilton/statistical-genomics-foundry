@@ -7,12 +7,10 @@ tags:
   - meta
 status: reviewed
 created: 2026-06-26
-revised: 2026-07-27
-revision: 2
+revised: 2026-08-02
+revision: 3
 summary: "The design pressure behind source authority, progressive disclosure, validation, and corpus grounding."
 ---
-
-> Adapted from the parent's `content/meta/guiding-principles.md`. Most principles carry over with the domain swapped; two change materially (**Deterministic Tools** → empirical referee) and one is **net-new** (**Doing Never Self-Certifies**) because our failure mode demands it. Where a principle is essentially the parent's, that's deliberate — the principles are the shared soul of the Foundry pattern.
 
 LLM-driven statistical-genomics analysis fails in a specific, dangerous way: it produces statistically *plausible-but-invalid* work — at worst, an *invented method* with a fluent derivation and a memorable name and no validity — and certifies it with authoritative rationale. Monolithic "do the analysis" agents decay because they answer this with more reasoning, when the whole problem is that reasoning is what failed. These principles are the design pressure behind the alternative.
 
@@ -35,19 +33,19 @@ Statistical analysis is itself a scientific act. A result is only useful if a ma
 
 The goal is accountable change, not perfect immutability.
 
-## Deterministic Tools Do Deterministic Work — *and the model never grades its own validity* **(transformed)**
+## External Instruments Do The Checking — the model never grades its own validity
 
-This is the principle that changes most from the parent. LLMs are excellent at interpretation, synthesis, and translation; they are poor replacements for the things that establish statistical validity. In the parent, "deterministic work" meant parsers and schema validators. **Here it means the field's empirical instruments**: permutation/null calibration, simulation under known truth, negative controls, assumption diagnostics, error-rate control.
+LLMs are excellent at interpretation, synthesis, and translation; they are poor replacements for the things that establish statistical validity. What does that work here is **the field's empirical instruments**: permutation and null calibration, simulation under known truth, negative controls, assumption diagnostics, error-rate control.
 
-The soul of the principle is unchanged — *do not let the model be the only judge of its own work.* The boss's disaster is precisely what you get when fluent self-rationalization is the sole gate. What changes is the *form* of the external check: from **schematic** (does this parse?) to **empirical** (is this calibrated? does it control error under the null? does it recover known truth?).
+*Do not let the model be the only judge of its own work.* Fluent self-rationalization as the sole gate is precisely how a plausible-but-invalid analysis reaches a publication. The Foundry pattern states this principle in terms of schematic checks — does this parse? — because the parent Foundry has a CLI that answers it. The check here is **empirical**: is this calibrated, does it control error under the null, does it recover known truth?
 
 Two consequences specific to us:
 - **Spend model context on judgment, spend the empirical check on validity.** If a permutation test can reject a confounded result, run the permutation test; don't ask the model to opine on whether the result is confounded.
 - **The empirical check is partly a deliverable, not just infrastructure.** No parser ships for "is this method valid." So *constructing* the right null / simulation / negative control is itself a first-class skill (Family B, the calibrate role). The gate moves from infrastructure into the work product.
 
-## Doing Never Self-Certifies **(net-new)**
+## Doing Never Self-Certifies
 
-The structural bet, elevated to a principle. An analysis (Family A) must **hand off** to a referee (Family B) before it can be certified. Doing and refereeing are separated so the agent cannot do-and-bless in one breath. This generalizes the parent's `author → validate → fix` loop, with one difference that matters: the parent's validator is a deterministic CLI (infrastructure); **our referee node is itself a Mold**, and it judges *method validity* — the layer that even rigorous hypothesis-validators (POPPER) take as trusted input. See `content/meta/referee-loop.md`.
+The structural bet, elevated to a principle. An analysis (Family A) must **hand off** to a referee (Family B) before it can be certified. Doing and refereeing are separated so that the agent cannot do-and-bless in one breath. The parent Foundry's equivalent loop is gated by a deterministic CLI — infrastructure. **This referee node is itself a Mold**, and it judges *method validity*: the layer that even rigorous hypothesis-validators such as POPPER take as trusted input. [[referee-loop]] turns this into architecture.
 
 This principle is why the project exists. Everything else serves it.
 
@@ -55,7 +53,7 @@ This principle is why the project exists. Everything else serves it.
 
 Agents — and humans — should see the right knowledge at the right time. Don't flatten every method, diagnostic, checklist, and cautionary example into one prompt or one skill body just because it exists. Protocols disclose the journey; Molds disclose the action; typed references disclose the dependency surface; load policy distinguishes up-front from on-demand; casting decides copied vs sidecar vs inlined.
 
-The goal is navigable depth: a human browses from protocol to Mold to reference; an agent moves from action to supporting evidence without dragging the whole library into every step. This is also **Pillar 3** — knowledge foregrounded for a human reader, not merely stored for an agent to retrieve.
+The goal is navigable depth: a human browses from protocol to Mold to reference; an agent moves from action to supporting evidence without dragging the whole library into every step. This is also Pillar 3 of [[positioning]] — knowledge foregrounded for a human reader, not merely stored for an agent to retrieve.
 
 ## Portable Artifacts Over Platform Fashion
 
@@ -69,11 +67,11 @@ A passive knowledge base explains but cannot make an agent act. A standalone ski
 
 Learn from established statistical practice before inventing abstractions. Our grounding corpus is **methods literature + cautionary negative examples** (Bioconductor/OSCA, GWAS QC protocols, calibration/simulation standards, and named-invalidity literature like double-dipping and batch effects). Corpus-first means abstractions are justified by observed practice: pattern pages cite real methods; Mold behavior aligns with recurring analysis and refereeing tasks; new taxonomy appears after content demands it.
 
-This principle is *load-bearing* for us in a way it isn't even for the parent. Our entire failure mode is **plausible-sounding invented prose that propagates the author's priors and reads as authoritative**. A pre-written, comprehensive-looking reference note is indistinguishable, to a downstream agent, from an earned one — and ours is a project whose reason for existing is that LLMs can't tell invented authority from real authority. So the discipline is strict: a reference note starts as a stub (frontmatter, title, primary-source link) and grows paragraph-by-paragraph only when a real case (a cast run, a refereed analysis, a logged failure) demands it. Write nothing until contact with the corpus forces it. We must not become the thing we referee.
+This principle is *load-bearing* here in a way it is not for the parent Foundry. The failure mode this project exists to stop is **plausible-sounding invented prose that propagates the author's priors and reads as authoritative** — and a pre-written, comprehensive-looking reference note is indistinguishable, to a downstream agent, from an earned one. So the discipline is strict: a reference note starts as a stub — frontmatter, title, primary-source link — and grows paragraph by paragraph only when a real case demands it, a cast run or a refereed analysis or a logged failure. Write nothing until contact with the corpus forces it. We must not become the thing we referee.
 
 ## How The Principles Connect
 
-Keeping methods at their source makes citation-not-mirror possible, but only works if derived artifacts record provenance. Provenance is meaningful only if external instruments — now *empirical* ones — perform the checks the model shouldn't grade itself on. Those instruments are reusable when artifacts are portable, which needs an inspectable source of truth, which pushes toward a knowledge base, which becomes actionable through Molds, casts, and protocols. **Doing Never Self-Certifies** is the spine through all of it: the empirical referee is where provenance, deterministic-work, and corpus-first meet. And Progressive Disclosure is the connective tissue that keeps the source record rich without forcing every artifact to carry the whole library.
+Keeping methods at their source makes citation-not-mirror possible, but only works if derived artifacts record provenance. Provenance is meaningful only if external instruments — empirical ones — perform the checks the model should not grade itself on. Those instruments are reusable when artifacts are portable, which needs an inspectable source of truth, which pushes toward a knowledge base, which becomes actionable through Molds, casts, and protocols. **Doing Never Self-Certifies** is the spine through all of it: the empirical referee is where provenance, external checking, and corpus-first meet. And Progressive Disclosure is the connective tissue that keeps the source record rich without forcing every artifact to carry the whole library.
 
 The resulting division of labor:
 - Upstream methods literature owns the facts.
@@ -83,6 +81,7 @@ The resulting division of labor:
 - Harnesses own orchestration.
 
 ## See Also
-- `content/meta/positioning.md` — how this shape is distinct from (and complementary to) the prior art, with verified evidence.
-- `content/meta/referee-loop.md` — the do→referee→revise spine that "Doing Never Self-Certifies" turns into architecture.
-- `content/meta/architecture.md` — the structural diff from the parent.
+
+- [[positioning]] — how this shape is distinct from, and complementary to, the prior art, with verified evidence.
+- [[referee-loop]] — the analyze → referee → revise spine that "Doing Never Self-Certifies" turns into architecture.
+- [[architecture]] — the system map, and what this instance inherits from the Foundry pattern versus what it changes.
