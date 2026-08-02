@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import Base from '../../layouts/Base.astro';
 import { roleOf, familyOf } from '../../lib/tags';
+import { repoPath } from '../../lib/repo-root';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCompare(b.data.name));
@@ -15,8 +15,11 @@ const FAMILIES = [
 ] as const;
 
 // Sibling-file presence — the eval/scenarios discipline, surfaced like the parent's eval check.
+// Anchored on the project root rather than on this file's depth: the four `../` this used to count
+// from `import.meta.url` agreed with the built chunk's depth by coincidence, and the parent Foundry
+// has twice shipped a page silently reporting nothing where that coincidence did not hold.
 const hasSibling = (id: string, file: string) =>
-  existsSync(fileURLToPath(new URL(`../../../../content/molds/${id}/${file}`, import.meta.url)));
+  existsSync(repoPath('content/molds', id, file));
 
 const evalCount = molds.filter(m => hasSibling(m.id, 'eval.md')).length;
 ---
