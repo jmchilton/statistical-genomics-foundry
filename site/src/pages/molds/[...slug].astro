@@ -1,9 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import Base from '../../layouts/Base.astro';
 import TagChips from '../../components/TagChips.astro';
+import { repoPath } from '../../lib/repo-root';
 
 export async function getStaticPaths() {
   const entries = await getCollection('molds');
@@ -18,8 +18,8 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 
-const hasSibling = (file: string) =>
-  existsSync(fileURLToPath(new URL(`../../../../content/molds/${entry.id}/${file}`, import.meta.url)));
+// Anchored on the project root, not on this file's depth — see the note on the index page.
+const hasSibling = (file: string) => existsSync(repoPath('content/molds', entry.id, file));
 ---
 <Base title={d.name}>
   <div data-pagefind-body>
