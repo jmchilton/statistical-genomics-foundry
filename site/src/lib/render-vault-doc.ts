@@ -1,6 +1,23 @@
 import fs from 'node:fs';
+
+import {
+  addBoldTermAnchors,
+  resolveWikiLink as resolve,
+  resolveWikiLinksInMarkdown,
+} from '@galaxy-foundry/wiki-links';
+
 import { marked } from './marked';
-import { resolveWikiLink, type WikiLinkTarget } from './wiki-links';
+import { type WikiLinkTarget } from './wiki-links';
+
+// Loose markdown — the glossary, the design docs — renders OUTSIDE the remark pipeline, from
+// files no collection owns, so links are resolved on the STRING before `marked` parses it.
+//
+// Neither half of that is ours. The grammar and the anchor minting both ship in
+// @galaxy-foundry/wiki-links, so this path and its remark twin cannot answer differently. What
+// used to be here was a local `/\[\[([^\[\]]+)\]\]/g` plus a local copy of the anchor helpers;
+// the regex rewrote inside code spans, where a backtick means the syntax, and it rendered the
+// glossary's own definition of `[[Target]]` as `**Target**`. Nothing reported it — the validator
+// strips code spans before scanning too, so both surfaces went blind on the same text.
 
 /** Replace `[[wiki links]]` with resolved markdown links (bold fallback when unresolved). */
 export function resolveWikiLinks(
@@ -8,9 +25,13 @@ export function resolveWikiLinks(
   linkMap: Map<string, WikiLinkTarget>,
   base: string,
 ): string {
-  return raw.replace(/\[\[([^\[\]]+)\]\]/g, (_, inner) => {
-    const { href, label } = resolveWikiLink(`[[${inner}]]`, linkMap, base);
-    return href ? `[${label}](${href})` : `**${label}**`;
+  return resolveWikiLinksInMarkdown(raw, {
+    // Deliberately the same body as the remark plugin's `resolve`: one link map, one href shape,
+    // and the package appends the link's own `#anchor` to whatever it is given.
+    resolve: (link) => {
+      const target = resolve(link.target, linkMap);
+      return target ? { href: `${base}/${target.path}/` } : null;
+    },
   });
 }
 
@@ -27,22 +48,4 @@ export function renderVaultDoc(
   const withLinks = resolveWikiLinks(raw, linkMap, base);
   const html = marked.parse(withLinks, { async: false }) as string;
   return addBoldTermAnchors(html);
-}
-
-function slugifyTerm(term: string): string {
-  return term
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-');
-}
-
-// Glossary entries are paragraphs starting with **Term**. Inject an id on the
-// containing <p> so #term anchor links resolve.
-function addBoldTermAnchors(html: string): string {
-  return html.replace(/<p>(\s*)<strong>([^<]+)<\/strong>/g, (match, ws, term) => {
-    const id = slugifyTerm(term);
-    if (!id) return match;
-    return `<p id="${id}">${ws}<strong>${term}</strong>`;
-  });
 }
