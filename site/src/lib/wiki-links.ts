@@ -1,6 +1,6 @@
 import { resolveWikiLink as resolve, slugify } from '@galaxy-foundry/wiki-links';
 
-import { noteIds } from './content-files';
+import { noteIds } from './corpus-files';
 import { COLLECTION_NAMES } from './frontmatter-schema';
 
 // The MAP is ours — the routed collections plus the design-doc registry. The grammar and the

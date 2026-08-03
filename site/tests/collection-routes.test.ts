@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { describe, it, expect } from 'vitest';
-import { noteFiles } from '../src/lib/content-files';
+import { noteFiles } from '../src/lib/corpus-files';
 import { COLLECTIONS, COLLECTION_NAMES, contentPath } from '../src/lib/frontmatter-schema';
 import { buildWikiLinkMap } from '../src/lib/wiki-links';
 

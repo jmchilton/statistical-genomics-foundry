@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
 import { describe, it, expect } from 'vitest';
-import { noteFiles } from '../src/lib/content-files';
+import { noteFiles } from '../src/lib/corpus-files';
 import {
   COLLECTIONS,
   COLLECTION_NAMES,

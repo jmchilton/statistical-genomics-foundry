@@ -69,7 +69,7 @@ The instance adapters provide paths, concrete vocabularies, and the link map. Th
 
 ## Content and link access
 
-`site/src/lib/content-files.ts` applies collection paths and ID rules outside Astro's loader, so tests and the wiki-link map see exactly the files the site sees. `site/src/lib/wiki-links.ts` builds one map across all routed collections. `remark-wiki-links.ts` adapts that resolver to Astro Markdown; `render-vault-doc.ts` provides the corresponding path for explicit loose documents such as the glossary.
+`site/src/lib/corpus-files.ts` applies collection paths and ID rules outside Astro's loader, so tests and the wiki-link map see exactly the files the site sees. `site/src/lib/wiki-links.ts` builds one map across all routed collections. `remark-wiki-links.ts` adapts that resolver to Astro Markdown; `render-vault-doc.ts` provides the corresponding path for explicit loose documents such as the glossary.
 
 `site/src/lib/design-records.ts` and `design-docs.ts`, tag helpers, and license helpers are presentation registries over validated content. They do not define note membership. The design-record split is not cosmetic: `astro.config.mjs` reaches `design-docs.ts` through the remark plugin, and config loads outside Astro's module graph, so anything reachable from it cannot import `astro:content`. Collection access lives in `design-records.ts`, which only pages import.
 
@@ -106,7 +106,7 @@ They import the same contracts as validation rather than building parallel model
 | schema and collection composition | `site/src/lib/frontmatter-schema.ts` |
 | Astro collection wiring | `site/src/content.config.ts` |
 | registries | `site/src/lib/registries.ts` and focused adapters |
-| file discovery and IDs | `site/src/lib/content-files.ts` |
+| file discovery and IDs | `site/src/lib/corpus-files.ts` |
 | wiki links | `site/src/lib/wiki-links.ts` and `remark-wiki-links.ts` |
 | site routes | `site/src/pages/` |
 | corpus and contract tests | `site/tests/` |
