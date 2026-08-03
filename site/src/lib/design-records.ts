@@ -14,25 +14,44 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type DesignRecord = CollectionEntry<'meta'>;
 
-/** The shelf the design records render under. Collection-backed, so it carries no row list. */
-export const RECORD_GROUP = {
-  category: 'foundation',
-  title: 'Foundry design records',
-  summary:
-    'The core rationale: positioning, principles, the referee loop, architecture, Molds, casting, and corpus grounding.',
-  action: 'READ THE RECORD',
-} as const;
+/**
+ * The two shelves, in the order they render.
+ *
+ * `record_kind` is a voice contract before it is a sort key — a foundation record argues, an
+ * infrastructure record describes — so the shelves render as separate sections rather than as
+ * one list with a boundary the reader has to infer. Collection-backed, so neither carries a
+ * row list.
+ */
+export const RECORD_GROUPS = [
+  {
+    category: 'foundation',
+    title: 'Foundry design records',
+    summary: 'The core rationale: why the Foundry is shaped this way, and what each choice costs.',
+    action: 'READ THE RECORD',
+  },
+  {
+    category: 'infrastructure',
+    title: 'Project infrastructure',
+    summary: 'How it is built: the code, the content contract, what runs, and where files belong.',
+    action: 'READ THE RECORD',
+  },
+] as const;
+
+export type RecordCategory = (typeof RECORD_GROUPS)[number]['category'];
 
 /**
- * The design records, in reading order.
+ * One shelf's design records, in reading order.
  *
  * Sorted by the note's own `order`, which is what the retired array's POSITION carried and the
  * one thing about it frontmatter could not otherwise express: the sequence is pedagogical, so
- * neither `created` nor the title sorts it right.
+ * neither `created` nor the title sorts it right. `order` is unique WITHIN a shelf, so the shelf
+ * has to be selected before the sort — across both, the numbers collide.
  */
-export async function getDesignRecords(): Promise<DesignRecord[]> {
+export async function getDesignRecords(category: RecordCategory): Promise<DesignRecord[]> {
   const records = await getCollection('meta');
-  return records.sort((a, b) => a.data.order - b.data.order);
+  return records
+    .filter((record) => record.data.record_kind === category)
+    .sort((a, b) => a.data.order - b.data.order);
 }
 
 /** The route a design record renders at — the collection key, like every other note here. */

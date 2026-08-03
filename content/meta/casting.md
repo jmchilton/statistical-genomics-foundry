@@ -1,67 +1,69 @@
 ---
 type: meta
-title: "Compilation Pipeline"
+title: "Casting"
 record_kind: foundation
 order: 7
 tags:
   - meta
 status: reviewed
 created: 2026-06-26
-revised: 2026-07-27
-revision: 4
+revised: 2026-08-02
+revision: 5
 summary: "How typed Mold references become target-specific cast artifacts with provenance."
 ---
 
-> Adapted from the parent's `content/meta/casting.md`. This doc is **mostly portable** — the casting mechanism (deterministic assembly + per-kind dispatch + LLM condensation only where needed) and the **provenance schema** are domain-neutral, and the provenance contract *is* Pillar 1 (source→cast→provenance). The adaptations are narrow: the `schema` kind is dropped from `reference_contract.yml` entirely (our outputs are prose-shaped, so no Mold has needed one — re-add it when the first does), the tool ecosystem changes, and one nuance matters — **the referee's empirical checks run at the generated skill's runtime, not at cast time.** Status: adaptation; same "lock the contract, not the implementation" stance as the parent.
+Casting takes a Mold — a typed reference manifest plus a procedural body — and produces a self-contained skill artifact for one target: no links back, no runtime dependency on the source. This record owns the semantics of that transformation and the provenance contract it must satisfy.
 
-## What casting is (inherited)
+**No caster exists here yet.** The contract below is a commitment, written so that the code, when it lands, has something to be checked against; [[build-and-validation]] draws the line between it and what runs today. The one thing this record must never do is describe the transformation as though it happens.
 
-Casting takes a Mold (typed reference manifest + procedural body) and its declared references, and produces a target-specific, **isolated** cast artifact — no links back, no runtime dependency on the source. The generated skill body is a **deterministic** render of the Mold body + artifacts + resolved references. The parent's pipeline additionally allows `mode: condense` references to be LLM-produced; **this Foundry does not implement that phase** — `condense` is narrowed out of the inherited `modes` vocabulary in `site/src/lib/reference-contract.ts`, which records why; expect every carry here to be deterministic. If a cast looks under-instructed, improve the Mold body or referenced notes and re-cast — never hand-edit generated `SKILL.md`.
+## Per-kind dispatch
 
-Casting is **per-kind dispatch**, not one resolve-and-inline pass:
+Casting is not one resolve-and-inline pass. Each reference kind names a transformation, and the kind discriminator is what selects it:
 
-| Reference kind | Casting transformation | Lands at | Notes for us |
-|---|---|---|---|
-| `pattern` | verbatim copy | `references/patterns/<slug>.md` | statistical-method + invalidity patterns; heavy use |
-| `research` | verbatim copy | `references/notes/<basename>` | corpus notes (methods + cautionary examples); **our heaviest kind**. Size is managed by `load: on-demand` + `trigger`, not by condensation |
-| `cli-command` | deterministic JSON sidecar | `references/cli/<slug>.json` | our tool ecosystem (R/Bioconductor, PLINK, …); author lazily |
-| `schema` | verbatim copy of the serialized export | `references/schemas/<slug>.schema.json` | **demoted** — rare (prose-shaped outputs); reserved for genuinely structured artifacts |
-| `prompt` | raw sidecar copied verbatim | `references/prompts/<slug>.md` | unchanged |
-| `example` | verbatim copy | `references/examples/` | planted-invalid / known-truth fixtures (see `content/meta/mold-spec.md`) |
-| `eval` | **never packaged** | — | Foundry-only |
-| `mold` (smell) | discouraged | — | factor shared content into other kinds |
+| Reference kind | Transformation | Lands at |
+|---|---|---|
+| `pattern` | verbatim copy | `references/patterns/<slug>.md` |
+| `research` | verbatim copy | `references/notes/<basename>` |
+| `cli-command` | deterministic JSON sidecar | `references/cli/<slug>.json` |
 
-Every path here is deterministic, because `condense` is not in our `modes` vocabulary.
+Those three are the kinds `reference_contract.yml` registers, which is to say the kinds real Molds reference. `research` carries the most weight — the corpus notes behind every referee — and its size is managed by `load: on-demand` plus a `trigger`, never by compressing the note.
 
-The parent's two-phase contract — the deterministic caster writes a `pending_llm: true` placeholder, the `/cast` LLM phase fills it, the verifier rejects committed provenance with any unfilled entry — is the machinery we are declining until a Mold needs it. Skipping it is what lets a cast here be byte-stable, and therefore `--check`-able.
+The parent Foundry registers four more (`cli-tool`, `schema`, `prompt`, `example`) and treats `eval` as a manifest entry that is never packaged. None of those is registered here, so none has a dispatch rule to describe. Re-adding one is a deliberate one-line edit to `reference_contract.yml` made when a Mold first needs it, and the dispatch row is written then. A `mold` reference stays discouraged in either instance: shared content wants factoring into a kind that casts, not a Mold citing a Mold.
 
-## Cast from structure, not rendered prose (inherited principle, our examples)
+Every transformation above is deterministic. The parent additionally supports `mode: condense`, where an LLM produces the carried text; this Foundry narrows `condense` out of the inherited `modes` vocabulary in `site/src/lib/reference-contract.ts`, which records why. Determinism is not a stylistic preference — it is what makes a cast byte-stable, and byte-stability is what makes a `--check` gate possible at all. The parent's two-phase machinery (a `pending_llm: true` placeholder written by the deterministic caster, filled by an LLM phase, with a verifier rejecting committed provenance that still has an unfilled entry) is exactly the cost being declined.
 
-When an upstream source ships *both* a structured form (YAML, JSON Schema, signalling-question table) *and* a rendered human form (prose, HTML), **cast from the structured source** — denser per token, schema-regular, preserves identifiers. Our canonical cases:
-- **Reporting standards / checklists** — PROBAST-AI signalling questions, ClinGen/PRS-RS items, MIQE. Where a machine-readable form exists, cast it; the prose is a site-rendering concern.
-- **Method/assumption specs** — where a method ships a structured assumption/parameter description, prefer it over the narrative vignette.
+If a cast looks under-instructed, improve the Mold body or the referenced notes and re-cast. Hand-editing a generated `SKILL.md` puts the fix somewhere the next cast overwrites, and leaves the source still wrong.
 
-## ⚠️ Empirical checks run at runtime, not cast time (our nuance)
+## Cast from structure, not rendered prose
 
-The parent notes "casting does not invoke gxwf/Planemo — those run at the generated skill's runtime." **Our analog is sharper and load-bearing:** casting does **not** run permutation tests, simulations, or calibration. The *calibrate* Molds (`derive-null-and-calibration`, `design-simulation-study`) package a **procedure** for constructing and running the empirical check; the check itself executes when the cast skill runs, against real data. Casting packages the referee; it does not referee. (This keeps casting deterministic and read-only, exactly as in the parent.)
+When an upstream source ships both a structured form and a rendered human form, cast from the structured one: denser per token, schema-regular, and it preserves identifiers a Mold can cite. Reporting standards and checklists are the canonical case — PROBAST-AI signalling questions, ClinGen/PRS-RS items, MIQE — where a machine-readable form exists and the prose version is a site-rendering concern. The same holds for a method that ships a structured assumption or parameter description alongside a narrative vignette.
 
-## Provenance (inherited essentially verbatim — this is Pillar 1)
+## Empirical checks run at runtime, not cast time
 
-Every cast writes a required `_provenance.json`: the Mold object (name, path, revision, content hash, commit), `cast_at`, `cast_history[]`, `refs[]` (each with kind, mode, src/dst, `used_at`, `load`, `evidence`, `src_hash`, `dst_hash`, `source: deterministic|llm`, and for LLM refs the prompt + model identity), and the runtime `artifacts` handoff contract. `refs[]` sorted `(kind, src)` for stable diffs. This is the cleanest distinction from prior art (vs bioSkills, whose skill files *are* the source with no derivation lineage) — so it carries over unchanged. Do not lighten provenance.
+Casting does not run permutation tests, simulations, or calibration. A calibrate Mold packages the *procedure* for constructing and running an empirical check; the check itself executes when the cast skill runs, against real data. Casting packages the referee; it does not referee.
 
-## When casting runs / drift / versioning / reproducibility (inherited)
-- **Triggers:** manual (`cast <mold> --target=<target>`), CI on Mold change (re-cast + surface diff), watch-on-change.
-- **Drift:** a cast is stale when the Mold hash, any ref src/dst hash, the deterministic `SKILL.md` render, the target adapter, or the casting model changes. A `--check`/verifier enumerates stale casts.
-- **Versioning:** no semver on Molds or casts; identity = content hash + commit SHA; re-casting is the migration path.
-- **Reproducibility:** assembly is byte-stable aside from timestamps. With no LLM phase there is no prompt+model identity to record and no non-reproducible byte in the output — the parent needs both because it kept `condense`.
+This is what keeps casting deterministic and read-only. A cast that invoked a simulator would produce a different artifact on every run, and there would be nothing left to drift-check.
 
-## What casting does NOT do (inherited, adapted)
-- Does not write to the source KB (read-only against `content/`; all writes go to `casts/`).
-- **Does not run statistical tools or empirical checks** (R/Bioconductor/PLINK/simulators) — that's the cast skill's runtime job (see the nuance above).
-- Does not update Molds — migrate weak instructions into the Mold body and re-cast.
-- Does not touch `eval.md` / `scenarios.md` — Foundry-only.
+## Provenance
 
-## Minimum exercise (adapted)
-- One target: **Claude**. One pinned casting model.
-- Cast 3–4 diverse Molds end-to-end once authored: a **critique** referee (`audit-method-validity` — exercises `pattern` + `research` from the cautionary-bad corpus), a **calibrate** referee (`derive-null-and-calibration` — exercises the runtime-empirical-check packaging + maybe a `cli-command`), a **Family A** guardrail (`map-question-to-established-method` — exercises established-good corpus refs), and one with a planted-invalid `example`/`scenario` (which means re-adding the `example` kind to `reference_contract.yml` — it is not registered today, since nothing references one yet). Diversity exercises the per-kind dispatch.
-- Commit casts; review the actual `SKILL.md` + `_provenance.json` outputs. If they look reasonable and provenance holds, scale.
+Every cast writes a required `_provenance.json` recording the Mold object (name, path, revision, content hash, commit), `cast_at`, `cast_history[]`, `refs[]`, and the runtime `artifacts` handoff contract. Each entry in `refs[]` carries kind, mode, src and dst, `used_at`, `load`, `evidence`, `src_hash`, and `dst_hash`, and is sorted by `(kind, src)` so diffs stay stable.
+
+This is the sharpest distinction from the prior art — a hand-authored skill repository has no derivation lineage to record, and cannot acquire one after the fact ([[positioning]], Pillar 1). Provenance does not get lightened to make a cast smaller.
+
+## When casting runs, and how it goes stale
+
+- **Triggers** — manual (`cast <mold> --target=<target>`), CI on Mold change (re-cast and surface the diff), or watch-on-change.
+- **Drift** — a cast is stale when the Mold hash, any reference src or dst hash, the deterministic `SKILL.md` render, or the target adapter changes. A `--check` mode enumerates stale casts.
+- **Versioning** — no semver on Molds or casts. Identity is content hash plus commit SHA, and re-casting is the migration path.
+- **Reproducibility** — assembly is byte-stable apart from timestamps. With no LLM phase there is no prompt or model identity to record and no non-reproducible byte in the output.
+
+## What casting does not do
+
+- It does not write to the knowledge base. Casting is read-only against `content/`; every write goes to the cast tree.
+- It does not run statistical tooling — R, Bioconductor, PLINK, simulators. That is the cast skill's runtime job, for the reason above.
+- It does not update Molds. A weak instruction gets migrated into the Mold body and re-cast, so the correction survives the next cast.
+- It does not touch `eval.md` or `scenarios.md`. Those are how maintainers judge a Mold, and packaging them would hand the cast artifact its own answer key.
+
+## Minimum exercise
+
+One target, Claude. Cast a handful of deliberately diverse Molds end to end and read the actual `SKILL.md` and `_provenance.json` output before scaling: a critique referee exercising `pattern` and `research` against the cautionary-bad corpus, a calibrate referee exercising the runtime-check packaging and probably a `cli-command`, and a Family-A guardrail exercising established-good corpus references. Diversity is the point — it is what puts every dispatch rule under load. If provenance holds and the artifacts read reasonably, scale.

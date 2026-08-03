@@ -8,7 +8,7 @@ tags:
 status: reviewed
 created: 2026-08-02
 revised: 2026-08-02
-revision: 1
+revision: 2
 summary: "Where domain knowledge, implementation code, generated metadata, and source materials belong today."
 ---
 
@@ -26,8 +26,10 @@ statistical-genomics-foundry/
 ├── LICENSES/               source and redistribution license texts
 ├── meta_tags.yml           instance tag vocabulary
 ├── reference_contract.yml  instance reference kinds
-├── README.md
-└── AGENTS.md
+├── LICENSE                 this repository's own license
+├── README.md               human entry point
+├── AGENTS.md               agent entry point; CLAUDE.md defers to it
+└── CLAUDE.md               Claude Code's entry point, a pointer to AGENTS.md
 ```
 
 There is no `packages/`, `casts/`, or workflow-fixture tree. Add those only when implemented machinery gives each one an owner and lifecycle.
@@ -44,10 +46,11 @@ content/
     ├── tutorials/<id>/      tutorial summary plus optional guidance
     ├── books/<book>/<chap>/ chapter summary; book.yml at book root
     ├── projects/            prior-art and comparison research
-    └── mold-eval/           assessment rubrics and reports
+    ├── mold-eval/           assessment rubrics and reports
+    └── *.md                 loose surveys; supporting material, no kind
 ```
 
-Routed notes live in the collection-owned directories. Not every research file is a routed note: project surveys, rubrics, and working syntheses remain supporting material until a kind and route are earned.
+Routed notes live in the collection-owned directories. Not every research file is a routed note: project surveys, rubrics, loose syntheses, and the flat files at the root of `research/` remain supporting material until a kind and a route are earned. They render through a hand-written list in `site/src/lib/design-docs.ts` rather than through a collection, and that list is stated as a list precisely so the gap stays visible instead of being discovered.
 
 `content/meta/glossary.md` is an explicit non-note rendered by its own page. All other flat files matching the meta collection glob are validated `meta` design records.
 
@@ -84,11 +87,11 @@ Every committed generated file has a check command. If output cannot be regenera
 
 ## Placement rules
 
-1. Put human-readable domain knowledge under `content/`; give it a kind only when it should validate and render as an independent note.
-2. Put note contracts, routes, and current generators under `site/` while the site remains their only application.
-3. Keep source-specific invariant metadata at the nearest truthful owner (`book.yml` for a book), then materialize standalone note metadata through a checked generator.
-4. Keep raw or reproducible upstream material out of routed content unless redistribution and provenance are explicit.
-5. Do not create placeholder top-level package, cast, schema, protocol, or fixture directories before a real artifact needs them.
-6. Add a new top-level owner only with code, an entry point, and a validation or drift story.
+- Put human-readable domain knowledge under `content/`; give it a kind only when it should validate and render as an independent note.
+- Put note contracts, routes, and current generators under `site/` while the site remains their only application.
+- Keep source-specific invariant metadata at the nearest truthful owner — `book.yml` for a book — then materialize standalone note metadata through a checked generator.
+- Keep raw or reproducible upstream material out of routed content unless redistribution and provenance are explicit.
+- Do not create placeholder top-level package, cast, schema, protocol, or fixture directories before a real artifact needs them. An empty directory with a plausible name reads as machinery to everyone who did not create it.
+- Add a new top-level owner only with code, an entry point, and a validation or drift story.
 
 Update this record when a top-level owner appears, a file class changes lifecycle, or a placement rule changes.

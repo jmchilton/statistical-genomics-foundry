@@ -1,6 +1,6 @@
-# Glossary (adapted from the Galaxy Workflow Foundry)
+# Glossary
 
-> Hand-curated, alphabetical. Adapted from the parent's `content/meta/glossary.md`: Foundry-pattern terms (Mold, Cast, Pattern, Pipeline, Phase, Provenance, the eval/scenario split) carry over; Galaxy-specific terms (gxformat2, gxwf, planemo, IWC, freeform-summary, composed/direct paths, discover-or-author, topology-repair, source/target/tool axes) are **dropped**; new terms for our identity (Family A/B, the referee, the gate, the bipolar corpus, the construct/critique/calibrate roles) are **added**. If two docs disagree on a term, this file wins. (Lives at `content/meta/glossary.md`; skipped by the validator, like the parent's.)
+> Hand-curated and alphabetical. It carries the Foundry-pattern vocabulary this instance inherits — Mold, Cast, Pattern, Protocol, Phase, Provenance, the eval/scenario split — alongside the terms this domain coined: Family A and B, the referee, the gate, the bipolar corpus, the construct/critique/calibrate roles. **If a design record disagrees with this file about a term, this file wins.** It shares `content/meta/` with the design records while being deliberately excluded from the collection: it is rendered by its own route, and skipped by the validator.
 
 ---
 
@@ -64,7 +64,7 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Referee** — a Family-B Mold (or protocol stage) that judges an analysis's method validity using empirical checks rather than the agent's own reasoning. Non-self-certifying. The novelty vs the parent: the referee is a *Mold*, not a deterministic CLI.
 
-**Reference** *(a.k.a. reference kind)* — a typed dependency a Mold declares; the *kind* discriminator controls casting behavior: `pattern`, `research`, `cli-command`, `schema` (demoted), `prompt`, `example`, `eval` (never packaged).
+**Reference** *(a.k.a. reference kind)* — a typed dependency a Mold declares; the *kind* discriminator is what selects the casting transformation. `reference_contract.yml` registers three — `pattern`, `research`, `cli-command` — and registering a fourth is a deliberate edit made when a Mold first needs it. See `content/meta/mold-spec.md`.
 
 **Rubric** — a standing, living scorecard grading a Family-A doer skill on one **Assessment axis**
 (A–F, half steps), grounded in probe evidence and updated as more skills are graded. Net-new to this
@@ -74,7 +74,7 @@ recoverability probe; **Refereeability** grades the **Gate** obligation. Prose c
 
 **Scenario note** *(`scenarios.md`)* — the Mold's concrete test cases: a fixture/input binding + its expected verdict, exercised by the `eval.md` oracle. For us, richest as **planted-invalid fixtures** (a deliberately double-dipped analysis → expected "flagged"). StatQA is a ready source. Distinct from **Evaluation plan**.
 
-**Schema (Mold IO)** — a JSON Schema declaring a Mold's structured input/output. **Demoted** for us: our outputs are prose-shaped critiques/protocols, so schemas are rare, reserved for genuinely structured artifacts (e.g. a power-calc result).
+**Schema (Mold IO)** — a JSON Schema declaring a Mold's structured input/output. A Foundry-pattern term this instance does **not** use: outputs here are prose-shaped critiques and protocols, so `schema` is not a registered reference kind. It gets registered if a Mold ever produces a genuinely structured artifact, such as a power calculation.
 
 **Self-certification** — the failure mode the project exists to stop: an agent doing an analysis and blessing its own validity in the same breath, with fluent rationale and no external check. The gate obligation forbids it.
 

@@ -8,7 +8,7 @@ tags:
 status: reviewed
 created: 2026-06-26
 revised: 2026-08-02
-revision: 17
+revision: 18
 summary: "A short map of the Foundry's domain spine, implementation boundary, and focused architecture records."
 ---
 
@@ -45,7 +45,7 @@ Two parent choices are intentionally lighter here:
 
 The project-specific addition is the gate obligation: doing never self-certifies. Whether that becomes a Protocol convention, an inline `[gate]`, or a validator rule remains a decision for the first real composed protocol, not a schema invented in advance.
 
-Two parent design records remain unported: the harness/pipeline narrative and the schema-package convention. Both lighten under the stance above, and neither has an implementation here to describe — the first waits on a real Protocol, the second on a Mold that earns a structured IO schema. They are deferred, not overlooked.
+Two design records the parent keeps have no counterpart here: the harness and pipeline narrative, and the schema-package convention. Both lighten under the stance above, and neither has an implementation to describe — the first waits on a real Protocol, the second on a Mold that earns a structured IO schema. They are deferred, not overlooked.
 
 ## Major boundaries
 
@@ -63,11 +63,13 @@ Two parent design records remain unported: the harness/pipeline narrative and th
 
 ## Architectural invariants
 
-1. The knowledge base is authored for people and remains the source of truth for future casts.
-2. A Mold's claims must be recoverable from explicit references rather than model memory.
-3. Doing does not certify itself; a referee or external deterministic check owns validation.
-4. Note kinds and registries are declared vocabularies, not directory or prefix guesses.
-5. The site and standalone validator consume the same assembled schemas and collection table.
-6. Deferred machinery remains named as deferred until code and a test make it real.
+Independent of each other; each is a thing that must stay true, not a step.
+
+- The knowledge base is authored for people and remains the source of truth for future casts.
+- A Mold's claims must be recoverable from explicit references rather than model memory.
+- Doing does not certify itself; a referee or an external deterministic check owns validation.
+- Note kinds and registries are declared vocabularies, not directory or prefix guesses.
+- The site and the standalone validator consume the same assembled schemas and collection table.
+- Deferred machinery stays named as deferred until code and a test make it real.
 
 Update this map only when a top-level boundary, domain spine, or reading route changes. Put detailed implementation changes in the focused record that owns them.
