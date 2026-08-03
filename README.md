@@ -40,7 +40,8 @@ content/                    ← the curated knowledge base
                               (manifest.tsv + SHA256SUMS + summary-prompt.md; raw/ gitignored)
     projects/               ← prior-art related-project notes + the 4 SOTA lens surveys +
                               00-synthesis (a dump — see issue to organize)
-site/                       ← Astro renderer over content/ → GitHub Pages
+site/                       ← Astro renderer over content/ → GitHub Pages (the reading shell
+                              is installed: @galaxy-foundry/site-kit)
 scripts/                    ← sync-book.sh <id>: deterministic corpus fetch + checksum pin
 LICENSES/                   ← third-party license copies (policy table is installed:
                               @galaxy-foundry/license-policy)
