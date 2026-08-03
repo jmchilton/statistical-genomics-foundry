@@ -28,9 +28,9 @@ const policyLabel = row.policy === 'own-words-only' ? 'own-words only' : 'verbat
 ---
 <aside class="not-prose mb-6 rounded-lg border border-(--color-border-subtle) bg-(--color-surface-raised) p-4 text-sm">
   <div class="flex flex-wrap items-center gap-2 mb-2">
-    <span class="tag">{source}{sourceChapter !== undefined ? ` · ch ${sourceChapter}` : ''}</span>
-    {version && <span class="tag">{version}</span>}
-    <span class="tag" title={license}>{row.name}</span>
+    <span class="meta-pill">{source}{sourceChapter !== undefined ? ` · ch ${sourceChapter}` : ''}</span>
+    {version && <span class="meta-pill">{version}</span>}
+    <span class="meta-pill" title={license}>{row.name}</span>
     <span class={`license-policy license-policy-${row.policy}`}>{policyLabel}</span>
     {row.copyleft && <span class="license-policy license-copyleft">copyleft</span>}
   </div>

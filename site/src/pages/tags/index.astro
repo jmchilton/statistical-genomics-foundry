@@ -37,7 +37,7 @@ const sections = facets()
           <li>
             <a href={`${base}/tags/${t.tag}/`} class="card flex flex-col">
               <div class="flex items-baseline justify-between gap-2">
-                <span class="font-mono font-semibold text-(--color-text-primary)">{t.tag}</span>
+                <span class="tag">{t.tag}</span>
                 <span class="text-xs text-(--color-text-muted) shrink-0">{t.count} {t.count === 1 ? 'entry' : 'entries'}</span>
               </div>
               {t.desc && <div class="text-sm text-(--color-text-secondary) mt-1">{t.desc}</div>}

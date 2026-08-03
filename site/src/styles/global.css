@@ -162,14 +162,40 @@ body {
   @apply inline-block text-xs font-bold uppercase tracking-wider text-(--color-brand) dark:text-(--color-accent);
 }
 
-.tag {
+/* Provenance, not a tag. The source book and chapter, a version, a licence name — it says where
+   the text came from, and none of it is clickable or registered anywhere.
+
+   It held the name `.tag` until the tag chip needed it. The sibling instance has always meant a
+   REGISTRY tag by `.tag`, so the two repos shipped one class name for two concepts, and comparing
+   the two definitions looked like agreement while they were not discussing the same thing. */
+.meta-pill {
   @apply inline-block px-2 py-0.5 rounded-full text-xs font-medium;
   background-color: var(--color-surface-hover);
   color: var(--color-link);
 }
-.dark .tag {
-  background-color: var(--color-surface-hover);
+.dark .meta-pill {
+  /* The background is not restated here: `--color-surface-hover` is itself redefined under
+     `.dark`, so the rule above already resolves to the dark value. */
   color: #9bb8d6;
+}
+
+/* A registry tag, which on this site always means a link into the tag pages — there is no
+   unlinked tag chip here. Same definition as the sibling instance, hover included: its tags index
+   wraps the chip and a count in one anchor while its detail pages make the anchor BE the chip,
+   and which nesting a call site needs is a layout question that should not decide whether the
+   chip reacts. Stated once, so a second rendering has to disagree with something to exist. */
+.tag {
+  @apply inline-block px-2 py-0.5 rounded-full text-xs font-medium transition-colors duration-150;
+  background-color: var(--color-surface-hover);
+  color: var(--color-link);
+}
+.dark .tag {
+  color: #9bb8d6;
+}
+a:hover .tag,
+a.tag:hover {
+  background-color: var(--color-accent);
+  color: var(--color-galaxy-dark);
 }
 
 .card {

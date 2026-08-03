@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import SourceMeta from '../../components/SourceMeta.astro';
+import TagChips from '../../components/TagChips.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('papers');
@@ -28,6 +29,9 @@ const d = entry.data;
       version={d.version}
       accessDate={d.access_date}
     />
+    <div class="flex flex-wrap items-center gap-2 mb-6">
+      <TagChips tags={d.tags} />
+    </div>
     <article class="prose prose-slate max-w-none dark:prose-invert">
       <Content />
     </article>
