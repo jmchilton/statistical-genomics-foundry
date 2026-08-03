@@ -88,6 +88,25 @@ body {
   @apply not-sr-only fixed top-2 left-2 z-50 px-3 py-2 rounded bg-(--color-galaxy-dark) text-(--color-text-on-dark);
 }
 
+/* Active nav link in header.
+   The header used to set this inline, as `opacity-100 text-(--color-accent)` on the anchor, which
+   is this rule minus the underline bar — the parent Foundry's version of the same header has had
+   the bar since it was written. A class rather than utilities because the header now renders the
+   same markup in both instances and the active treatment is the palette's to decide, not the
+   markup's. */
+.nav-link-active {
+  color: var(--color-accent) !important;
+  opacity: 1 !important;
+}
+.nav-link-active::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: var(--color-accent);
+  margin-top: 2px;
+  border-radius: 1px;
+}
+
 /* --- Grid background --- */
 .bg-grid {
   background-image:

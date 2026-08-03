@@ -1,16 +1,22 @@
 ---
 import Search from 'astro-pagefind/components/Search.astro';
-import { CONTAINER, SITE_NAME } from '../lib/site-identity';
+import { CONTAINER, NAV_LINKS, NAV_VISIBLE, SITE_NAME } from '../lib/site-identity';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
-const navLinks = [
-  { href: `${base}/books/`, label: 'Books', match: (p: string) => p.startsWith(`${base}/books`) },
-  { href: `${base}/papers/`, label: 'Papers', match: (p: string) => p.startsWith(`${base}/papers`) },
-  { href: `${base}/tutorials/`, label: 'Tutorials', match: (p: string) => p.startsWith(`${base}/tutorials`) },
-  { href: `${base}/design/`, label: 'Design', match: (p: string) => p.startsWith(`${base}/design`) },
-  { href: `${base}/tags/`, label: 'Tags', match: (p: string) => p.startsWith(`${base}/tags`) },
-  { href: `${base}/glossary/`, label: 'Glossary', match: (p: string) => p.startsWith(`${base}/glossary`) },
-];
+// One list and a cut point, not two lists. Which destinations exist and which of them fit on the
+// bar are different questions, and only the second one is about this header's width.
+const links = NAV_LINKS.map(link => {
+  const href = `${base}${link.path}`;
+  const section = href.replace(/\/$/, '');
+  return {
+    ...link,
+    href,
+    active: pathname === section || pathname.startsWith(`${section}/`),
+  };
+});
+const barLinks = links.slice(0, NAV_VISIBLE);
+const moreLinks = links.slice(NAV_VISIBLE);
+const moreActive = moreLinks.some(link => link.active);
 ---
 <header class="bg-(--color-galaxy-dark) border-b-4 border-(--color-accent) relative">
   <div class="absolute inset-0 bg-grid-header pointer-events-none"></div>
@@ -20,21 +26,58 @@ const navLinks = [
         {SITE_NAME}
       </a>
       <nav class="flex items-center gap-3 text-sm" aria-label="Primary">
-        {navLinks.map(link => {
-          const active = link.match(pathname);
-          return (
-            <a
-              href={link.href}
-              aria-current={active ? 'page' : undefined}
-              class:list={[
-                'text-(--color-text-on-dark) no-underline hover:text-(--color-accent) transition-colors opacity-80 hover:opacity-100',
-                active && 'opacity-100 text-(--color-accent)',
-              ]}
-            >
-              {link.label}
-            </a>
-          );
-        })}
+        {barLinks.map(link => (
+          <a
+            href={link.href}
+            aria-current={link.active ? 'page' : undefined}
+            class:list={[
+              'text-(--color-text-on-dark) no-underline hover:text-(--color-accent) transition-colors opacity-80 hover:opacity-100',
+              link.active && 'nav-link-active',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+        {moreLinks.length > 0 && (
+        <div class="nav-more relative">
+          <button
+            type="button"
+            id="nav-more-trigger"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="nav-more-menu"
+            class:list={[
+              'flex items-center gap-1 text-(--color-text-on-dark) no-underline hover:text-(--color-accent) transition-colors opacity-80 hover:opacity-100 cursor-pointer',
+              moreActive && 'nav-link-active',
+            ]}
+          >
+            More
+            <svg class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div
+            id="nav-more-menu"
+            role="menu"
+            aria-labelledby="nav-more-trigger"
+            class="nav-more-menu absolute left-0 top-full mt-2 min-w-40 rounded-md border border-(--color-accent) bg-(--color-galaxy-dark) shadow-lg py-1 z-50"
+          >
+            {moreLinks.map(link => (
+              <a
+                href={link.href}
+                role="menuitem"
+                aria-current={link.active ? 'page' : undefined}
+                class:list={[
+                  'block px-4 py-1.5 text-sm text-(--color-text-on-dark) no-underline hover:text-(--color-accent) hover:bg-white/5 transition-colors opacity-80 hover:opacity-100',
+                  link.active && 'nav-link-active',
+                ]}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+        )}
       </nav>
     </div>
     <div class="flex items-center gap-2">
@@ -67,12 +110,15 @@ const navLinks = [
     --pf-result-excerpt-font-size: 12px;
     --pf-summary-font-size: 11px;
     --pf-border-radius: 0.375rem;
-    --pf-searchbox-max-width: 14rem;
+    --pf-searchbox-max-width: 16rem;
     --pf-searchbox-dropdown-max-height: 70vh;
     --pf-dropdown-z-index: 50;
   }
-  /* The input sits at the right edge of a narrow header, so the dropdown is widened and
-     right-anchored rather than tracking the input's 14rem width. */
+  /* The input sits at the right edge of the header, so the dropdown is widened and right-anchored
+     rather than tracking the input's width. The two instances shipped different input widths from
+     the pagefind 2 migration until now — that migration was done twice on the same day and the
+     value drifted between the copies — and this comment called the header "narrow", which stopped
+     being true of either of them once the container widths converged. */
   .pagefind-ui .pf-searchbox-dropdown {
     right: 0;
     left: auto;
@@ -86,6 +132,20 @@ const navLinks = [
       linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+
+  .nav-more-menu {
+    display: none;
+  }
+  .nav-more:hover .nav-more-menu,
+  .nav-more:focus-within .nav-more-menu,
+  #nav-more-trigger[aria-expanded='true'] + .nav-more-menu {
+    display: block;
+  }
+  .nav-more:hover #nav-more-trigger svg,
+  .nav-more:focus-within #nav-more-trigger svg,
+  #nav-more-trigger[aria-expanded='true'] svg {
+    transform: rotate(180deg);
   }
 </style>
 
@@ -106,3 +166,26 @@ const navLinks = [
     updateIcons();
   });
 </script>
+
+{/* Ships only where there is a group to drive. An instance whose destinations all fit on the bar
+    renders no "More", and every line below would bind to nothing on every one of its pages. */}
+{moreLinks.length > 0 && (
+<script is:inline>
+  const moreTrigger = document.getElementById('nav-more-trigger');
+  const moreWrap = moreTrigger?.closest('.nav-more');
+  function closeMore() {
+    moreTrigger?.setAttribute('aria-expanded', 'false');
+  }
+  moreTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = moreTrigger.getAttribute('aria-expanded') === 'true';
+    moreTrigger.setAttribute('aria-expanded', open ? 'false' : 'true');
+  });
+  document.addEventListener('click', (e) => {
+    if (moreWrap && !moreWrap.contains(e.target)) closeMore();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMore();
+  });
+</script>
+)}
