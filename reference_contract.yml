@@ -35,5 +35,5 @@ kinds:
     ref_shape: wiki-link
   cli-command:
     label: CLI Command
-    description: Command reference. Usually cast to a sidecar and loaded only when invoked.
+    description: Command reference, carried verbatim and loaded only when invoked.
     ref_shape: wiki-link

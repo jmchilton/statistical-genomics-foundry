@@ -62,7 +62,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "an SSE analysis needs a character-independent null and HiSSE/hidden-state is proposed as that null"
-    mode: sidecar
+    mode: verbatim
     evidence: hypothesis
     verification: "Only the abstract was readable (body paywalled). The explicit 'use the character-independent model as the null before claiming trait-dependence' recommendation, its parameterization, and any Type-I rates are behind the paywall; the abstract makes NO ancestral-state-accuracy claim. Verify against the OUP body before relying on this as a prescribed null."
     purpose: "Offer (unverified) the character-independent / hidden-state model as a candidate null for trait-dependent diversification claims."
@@ -71,7 +71,7 @@ references:
     used_at: runtime
     load: on-demand
     trigger: "reconstructed ancestral states are used to test an evolutionary hypothesis, especially irreversibility (Dollo's law)"
-    mode: sidecar
+    mode: verbatim
     evidence: hypothesis
     verification: "Only p.665 was readable; the detailed detector, the parsimony-vs-ML rate-asymmetry bias analysis, and the recommendations are on pp.666-674 (paywalled). Use only the p.665 thesis; re-summarize from the full text before relying on specifics."
     purpose: "Ground the thesis-level caution: hypothesis-test characters are usually under selection, so homoplasy corrupts ancestral-state inference more than phylogeny inference; irreversibility hypotheses are the hardest case."

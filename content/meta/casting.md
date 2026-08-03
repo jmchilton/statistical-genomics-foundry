@@ -24,13 +24,15 @@ Casting is not one resolve-and-inline pass. Each reference kind names a transfor
 |---|---|---|
 | `pattern` | verbatim copy | `references/patterns/<slug>.md` |
 | `research` | verbatim copy | `references/notes/<basename>` |
-| `cli-command` | deterministic JSON sidecar | `references/cli/<slug>.json` |
+| `cli-command` | verbatim copy | `references/cli/<basename>` |
 
 Those three are the kinds `reference_contract.yml` registers, which is to say the kinds real Molds reference. `research` carries the most weight — the corpus notes behind every referee — and its size is managed by `load: on-demand` plus a `trigger`, never by compressing the note.
 
 The parent Foundry registers four more (`cli-tool`, `schema`, `prompt`, `example`) and treats `eval` as a manifest entry that is never packaged. None of those is registered here, so none has a dispatch rule to describe. Re-adding one is a deliberate one-line edit to `reference_contract.yml` made when a Mold first needs it, and the dispatch row is written then. A `mold` reference stays discouraged in either instance: shared content wants factoring into a kind that casts, not a Mold citing a Mold.
 
-Every transformation above is deterministic. The parent additionally supports `mode: condense`, where an LLM produces the carried text; this Foundry narrows `condense` out of the inherited `modes` vocabulary in `site/src/lib/reference-contract.ts`, which records why. Determinism is not a stylistic preference — it is what makes a cast byte-stable, and byte-stability is what makes a `--check` gate possible at all. The parent's two-phase machinery (a `pending_llm: true` placeholder written by the deterministic caster, filled by an LLM phase, with a verifier rejecting committed provenance that still has an unfilled entry) is exactly the cost being declined.
+Every transformation above is `mode: verbatim`, which is the only mode this Foundry admits. The parent additionally supports `condense`, where an LLM produces the carried text, and `sidecar`, where a renderer turns a note's frontmatter into a structured runtime artifact. Both are narrowed out of the inherited `modes` vocabulary in `site/src/lib/reference-contract.ts`, which records why — each is a renderer we would have to write, and we have no caster to write it in.
+
+A narrowed vocabulary is a gate, not a note-to-self. `mode: sidecar` stayed spelled here long enough for three `research` refs to reach for it meaning "this source is paywalled, so do not carry it verbatim" — which is a statement about the SOURCE, not about how a bundle is built. That question is settled when a note is written and recorded in its `derived:` posture; casting an own-words summary verbatim redistributes our words, not the paper's. Removing the term is what turns that mistake into a schema error at authoring time. Determinism is not a stylistic preference — it is what makes a cast byte-stable, and byte-stability is what makes a `--check` gate possible at all. The parent's two-phase machinery (a `pending_llm: true` placeholder written by the deterministic caster, filled by an LLM phase, with a verifier rejecting committed provenance that still has an unfilled entry) is exactly the cost being declined.
 
 If a cast looks under-instructed, improve the Mold body or the referenced notes and re-cast. Hand-editing a generated `SKILL.md` puts the fix somewhere the next cast overwrites, and leaves the source still wrong.
 
