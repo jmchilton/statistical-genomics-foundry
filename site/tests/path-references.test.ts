@@ -63,6 +63,24 @@ const ELSEWHERE: Record<string, string> = {
     'the shared tag-registry spec, in galaxyproject/foundry-pattern — cited beside a link to that repo',
 };
 
+/**
+ * Anchored paths that are BUILT, not committed.
+ *
+ * `existsSync` answers a question about the disk, and the disk depends on whether anyone has run a
+ * build. `repository-layout.md` documents `site/dist/`, which is correct — and which resolved on
+ * the machine that widened this check to `site/` and did not resolve in CI, where nothing had
+ * built yet. That is the failure this file's own header warns about, arriving through the check
+ * rather than through the corpus.
+ *
+ * Directories are allowed here where `ELSEWHERE` forbids them, and for the reason `ELSEWHERE`
+ * forbids them: the objection is to an allowance that quietly swallows future strays beneath it,
+ * and nothing beneath a generated directory is ever a claim about committed content. A path INTO
+ * one — `site/dist/pagefind/` — still needs its own entry, and still has to stay cited.
+ */
+const GENERATED: Record<string, string> = {
+  'site/dist/': 'the build output, documented by repository-layout.md; absent until `astro build`',
+};
+
 const FENCE = /^\s*```/;
 /** Inline code spans: `../x`, `content/x` or `site/x`. */
 const CODE_SPAN = /`((?:\.\.?\/|content\/|site\/)[^`\s]+)`/g;
@@ -115,7 +133,7 @@ describe('anchored paths in content resolve', () => {
 
     for (const rel of markdownFiles()) {
       for (const { token, line } of anchoredPaths(rel)) {
-        if (token in ELSEWHERE) continue;
+        if (token in ELSEWHERE || token in GENERATED) continue;
         if (!fs.existsSync(resolveFrom(rel, token))) broken.push(`content/${rel}:${line}: ${token}`);
       }
     }
@@ -125,11 +143,12 @@ describe('anchored paths in content resolve', () => {
 
   // An allowance nobody needs any more is an allowance that has stopped describing anything, and
   // the next reader has no way to tell it apart from one still doing work.
-  it('every ELSEWHERE entry is still a path the corpus writes', () => {
+  it('every ELSEWHERE and GENERATED entry is still a path the corpus writes', () => {
     const cited = new Set(
       markdownFiles().flatMap((rel) => anchoredPaths(rel).map(({ token }) => token)),
     );
-    const unused = Object.keys(ELSEWHERE).filter((token) => !cited.has(token));
+    const allowed = [...Object.keys(ELSEWHERE), ...Object.keys(GENERATED)];
+    const unused = allowed.filter((token) => !cited.has(token));
 
     expect(unused, `\nallowed but no longer cited:\n  ${unused.join('\n  ')}`).toEqual([]);
   });
