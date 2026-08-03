@@ -7,8 +7,8 @@ tags:
   - meta
 status: reviewed
 created: 2026-08-02
-revised: 2026-08-02
-revision: 3
+revised: 2026-08-03
+revision: 4
 summary: "How statistical-genomics knowledge is represented as kinds, metadata, tags, references, and companions."
 ---
 
@@ -24,7 +24,7 @@ Every kind is a directory note holding an `index.md` except `meta`, which is a f
 
 The three source kinds are deliberately distinct. Papers own bibliographic identifiers, tutorials own release and documentation metadata, and books inherit pinned book-level source information. A broad `research` kind would allow those contracts to blur — a shared enum makes every field legal on every member, and lets a `type: paper` note sit under `content/research/tutorials/` and still validate. A literal per kind makes the collection and the declared kind agree, or fail.
 
-Identity is the note's collection-relative id, slugified with `/` collapsed to `-`. The collection key is the route, so what a note is addressed by and where it renders are one fact rather than two that can disagree.
+Identity is the note's collection-relative id without its extension, slugified with `/` collapsed to `-`. The collection key is the route, so what a note is addressed by and where it renders are one fact rather than two that can disagree. Flat notes and directory notes both lose their extension, and the id this repo computes is the id Astro computes: a note keyed by any other string is reachable by no link, and renders nothing to say so.
 
 `type` as the sole note-kind discriminator is a point of convergence with the parent Foundry ([galaxyproject/foundry#374](https://github.com/galaxyproject/foundry/issues/374)). The two instances differ in how many kinds they define and what each requires; they agree that a note names its own kind, which is what lets kinds enumerate mechanically in both repos for the cross-instance kind catalog.
 
@@ -61,11 +61,15 @@ Tags remain soft evidence. In particular, `role` does not become a hard Mold enu
 
 Notes link with `[[Target]]`. Renderer and tests use the same exact resolver across every routed collection; the grammar and the lookup rule come from `@galaxy-foundry/wiki-links`, shared with the parent Foundry, so the two pipelines here cannot drift apart. Resolution is exact after normalization, with no prefix fallback — a link either resolves or renders as a visible bold fallback rather than landing on an arbitrary near-match.
 
-A backticked token names the syntax and does not create a link, and that exclusion has a second edge worth stating. The rewriter walks text nodes only, so a backticked `[[Target]]` is never rewritten — and nothing here checks body links for resolution, so it is never reported either. An unresolved link at least renders bold; a backticked one renders as ordinary code and is invisible in both directions, free to name a note that never existed. Wrap a wiki link in backticks only when the literal token is the subject: a template slot, a frontmatter field shape, or a construct like `[[:space:]]` that is not a wiki link at all.
+Body links are checked, not merely rendered. `site/tests/body-wiki-links.test.ts` resolves every `[[Target]]` written in prose under `content/` through that same shared resolver, so a link naming nothing fails `pnpm validate` rather than waiting to be noticed. Links to units this Foundry intends to build and has not built are declared beside the check, each with where it is registered as planned, and an entry expires on its own: it fails once its target exists, and fails again once no note writes it.
+
+A backticked token names the syntax and does not create a link, and that exclusion has a second edge worth stating. The rewriter and the check both walk text nodes only, so a backticked `[[Target]]` is neither rewritten nor reported. An unresolved link renders bold and fails a test; a backticked one renders as ordinary code and is invisible in both directions, free to name a note that never existed. Closing that hole mechanically would mean failing every correct mention of the syntax, so the rule carries it instead: wrap a wiki link in backticks only when the literal token is the subject — a template slot, a frontmatter field shape, or a construct like `[[:space:]]` that is not a wiki link at all.
 
 ## Typed references
 
 A Mold's `references` are a typed manifest: each entry draws its `kind` from the instance's `reference_contract.yml` and its behavior fields from the inherited vocabularies. A wiki link expresses knowledge navigation; a reference entry adds compilation behavior on top of it. The Mold itself is a directory note with an action body and declared companions such as `eval.md` and `scenarios.md`; [[mold-spec]] owns the authoring contract.
+
+An entry's vocabulary is checked and its target is not. `kind` and `mode` are held to the registries; whether the `target` names a note that exists is currently answered nowhere, so a reference may point at nothing and pass. The body-link check covers prose only, and this is the half still open.
 
 This Foundry narrows reference modes to behavior it can support now. `condense` is unavailable because there is no caster, no pending-LLM bookkeeping, and no model or prompt provenance path — a mode is a commitment to machinery, and declaring one the caster cannot honor would make a manifest that validates and cannot be cast. References here express what a future deterministic cast may carry, not evidence that casting exists.
 

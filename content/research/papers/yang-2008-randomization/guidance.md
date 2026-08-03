@@ -1,7 +1,7 @@
 # Guidance — Yang et al. 2008, Randomization in Laboratory Procedure (PLoS ONE)
 
 > Targeted questions for `/summarize-source`. Attention-directing, not leading. Maintained by us.
-> Why this note: neither allocation tool we hold ([[yan-2012-osat]], [[tutorials/designit]]) models run
+> Why this note: neither allocation tool we hold ([[yan-2012-osat]], [[designit]]) models run
 > order or processing sequence **at all** — the concept is absent from both objective functions. We need
 > to know whether "randomize the processing order" is an authored, evidenced rule or an unsourced habit.
 > **Report what is there.**
