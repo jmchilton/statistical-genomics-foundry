@@ -21,6 +21,7 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { DETAIL_ROUTES } from '../src/lib/detail-routes';
 import { SITE_SRC, siteRelative, siteSourceCode, siteSourceFiles } from './site-sources';
 
 const STYLESHEET = 'src/styles/global.css';
@@ -120,18 +121,23 @@ describe('the tag surface', () => {
     expect(collections.length).toBeGreaterThanOrEqual(5);
   });
 
-  it('is entered from every collection that carries tags', () => {
-    const pages = siteSourceFiles(path.join(SITE_SRC, 'pages'));
-    const silent = collections.filter((collection) => {
-      const dir = path.join(SITE_SRC, 'pages', collection, path.sep);
-      return !pages.some((file) => file.startsWith(dir) && siteSourceCode(file).includes('<TagChips'));
-    });
+  it('is entered from the one route that renders them all', () => {
+    // This walked `src/pages/<collection>/` per collection and asked whether anything underneath
+    // rendered chips — the right question while five directories could answer it five different
+    // ways, and four of them answered no. One route renders every note now, so the question has a
+    // single answer and the rule reads it where it is given.
+    //
+    // Shorter, and strictly stronger. The walk could only find collections it knew to look for,
+    // and it passed for a collection whose directory happened to contain some OTHER page carrying
+    // the string. Neither is available here.
+    const route = siteSourceCode(path.join(SITE_SRC, 'pages', '[collection]', '[...slug].astro'));
+    expect(route, '\nthe detail route renders no tag chips at all.').toContain('<TagChips');
 
+    const uncovered = collections.filter((collection) => !(collection in DETAIL_ROUTES));
     expect(
-      silent.sort(),
-      '\ncollections whose pages render no tag chips. Their entries are listed ON the tag pages' +
-        ' and offer no way to reach them: the cross-cut is one-way, which looks from every' +
-        ' individual page like a site that simply has no tags.',
+      uncovered.sort(),
+      '\ncollections the tag pages list that the detail route generates no page for — every' +
+        ' entry the tag pages offer for them is a link to nothing.',
     ).toEqual([]);
   });
 });

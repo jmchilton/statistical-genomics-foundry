@@ -10,9 +10,17 @@ import { buildWikiLinkMap } from '../src/lib/wiki-links';
 // inventory in one table removes that drift surface; these tests pin the shared rule.
 
 describe('collection routes', () => {
-  it('every collection has a page route named after its key', () => {
-    const missing = COLLECTION_NAMES.filter((name) => !fs.existsSync(`src/pages/${name}`));
-    expect(missing, `\nno src/pages/<name> for: ${missing.join(', ')}`).toEqual([]);
+  it('every collection is routed under its own key', () => {
+    // This used to check that `src/pages/<name>` exists, which was how the URL came to start with
+    // the collection key while each collection had its own detail route. One route generates them
+    // all now, and the key reaches the URL through its `collection` param instead — so that is
+    // what gets read. Point the param anywhere else and every wiki link into that collection goes
+    // to a page that was never built.
+    const route = fs.readFileSync('src/pages/[collection]/[...slug].astro', 'utf-8');
+    expect(
+      route,
+      '\nthe detail route does not derive its route segment from the entry it is rendering.',
+    ).toContain('collection: entry.collection');
   });
 
   it('every collection contributes its notes to the wiki-link map', () => {

@@ -50,25 +50,3 @@ const policyLabel = row.policy === 'own-words-only' ? 'own-words only' : 'verbat
     {accessDate && <span class="text-(--color-text-muted)"> · accessed {accessDate}</span>}
   </p>
 </aside>
-
-<style>
-  .license-policy {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.1rem 0.5rem;
-    border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.03em;
-    color: var(--color-text-secondary);
-  }
-  .license-policy-verbatim-ok {
-    background: color-mix(in srgb, #16a34a 16%, transparent);
-  }
-  .license-policy-own-words-only {
-    background: color-mix(in srgb, #d97706 18%, transparent);
-  }
-  .license-copyleft {
-    background: color-mix(in srgb, #dc2626 16%, transparent);
-  }
-</style>

@@ -1,0 +1,154 @@
+---
+// The detail page for every note in the corpus, whichever collection it belongs to.
+//
+// This used to be six files. They agreed on everything a reader would notice — the search-indexed
+// wrapper, the tag chips, the prose article — and agreed by coincidence, because nothing compared
+// them. Coincidence is a poor guarantee and it had already failed once: four of the five tagged
+// collections rendered no chips at all, and every one of those pages looked complete from inside
+// its own file. What differs per collection is small enough to state as data, so it is, in
+// `lib/detail-routes.ts`; what is kind-specific furniture is dispatched below, on the collection.
+//
+// `tests/detail-route.test.ts` is what keeps it one file.
+import { getCollection, render } from 'astro:content';
+import { existsSync } from 'node:fs';
+
+import ReferenceContract from '@galaxy-foundry/site-kit/ReferenceContract.astro';
+import SourceMeta from '../../components/SourceMeta.astro';
+import TagChips from '../../components/TagChips.astro';
+import Base from '../../layouts/Base.astro';
+import { DESIGN_DOCS } from '../../lib/design-docs';
+import { DETAIL_ROUTES } from '../../lib/detail-routes';
+import { referenceContract } from '../../lib/reference-contract';
+import { repoPath } from '../../lib/repo-root';
+import { base } from '../../lib/site-base';
+import { COLLECTION_LABEL } from '../../lib/tags';
+import { buildWikiLinkMap, resolveWikiLink } from '../../lib/wiki-links';
+
+export async function getStaticPaths() {
+  // Spelled out per collection rather than mapped over `COLLECTION_NAMES`, for the reason
+  // `frontmatter-schema.ts` assembles its schemas one by one: a loop yields a homogeneous array
+  // and every kind's shape collapses to the widest common type, which arrives here as an
+  // `entry.data` this page can say nothing about. Spread into one array they stay a UNION, and
+  // `entry.collection` discriminates it — so the branches below are checked, not asserted.
+  const entries = [
+    ...(await getCollection('meta')),
+    ...(await getCollection('books')),
+    ...(await getCollection('papers')),
+    ...(await getCollection('tutorials')),
+    ...(await getCollection('molds')),
+    ...(await getCollection('patterns')),
+  ];
+  return entries.map(entry => ({
+    params: { collection: entry.collection, slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const route = DETAIL_ROUTES[entry.collection];
+
+// Molds and Patterns name themselves; everything else carries a title. Read by presence rather
+// than from a column in the table — a fact derivable from the note is not configuration.
+const heading = 'title' in d ? d.title : d.name;
+
+// A chip is a LINK, and the tag pages index only the collections `COLLECTION_LABEL` names — so a
+// chip on a page outside that set points somewhere that will not list the note back. Design
+// records carry tags and are not on the tag surface, which the six-route version hid by simply
+// never rendering chips there; stated here it is visible as the open question it is.
+const tags = entry.collection in COLLECTION_LABEL && 'tags' in d ? d.tags : [];
+const lede = route.lede && 'summary' in d ? d.summary : undefined;
+
+// Margins follow from what is around the row, which the route already knows: a back link above
+// pushes it down, a heading below pulls the next thing closer. Stated as a derivation rather than
+// a per-collection class string, so the three spellings that used to exist cannot come back.
+const rowClass = [
+  'flex flex-wrap items-center gap-2',
+  route.back ? 'mt-3' : '',
+  route.lede ? 'mb-2' : 'mb-6',
+].filter(Boolean).join(' ');
+
+// A note's own label — a Pattern's pole, a design record's shelf, either one's status. Not
+// `.meta-pill`, which means provenance, and not `.tag`, which means a registered tag with a page
+// behind it. These are neither: they are frontmatter, shown as written.
+const PILL = 'rounded bg-(--color-surface-raised) border border-(--color-border-subtle) px-2 py-0.5 font-mono text-xs';
+
+const hasCompanion = (file: string) => existsSync(repoPath('content/molds', entry.id, file));
+
+// How a `ref` becomes a link is this site's question, not the contract's — every kind here
+// declares `ref_shape: wiki-link`, so it is the same resolver the prose goes through. Passing the
+// site's own resolver rather than a link map is what keeps a ref in a manifest and a `[[ref]]` in
+// a paragraph from resolving to two different places.
+const linkMap = buildWikiLinkMap(DESIGN_DOCS);
+const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
+---
+<Base title={heading} description={lede}>
+  <div>
+    {route.back && (
+      <a href={`${base}${route.back.path}`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← {route.back.label}</a>
+    )}
+
+    {entry.collection === 'books' && (
+      <SourceMeta
+        source={entry.data.source}
+        sourceChapter={entry.data.source_chapter}
+        sourceUrl={entry.data.source_url}
+        license={entry.data.license}
+        licenseFile={entry.data.license_file}
+        attribution={entry.data.attribution}
+        derived={entry.data.derived}
+      />
+    )}
+    {(entry.collection === 'papers' || entry.collection === 'tutorials') && (
+      <SourceMeta
+        source={entry.data.source_id}
+        sourceUrl={entry.data.source_url}
+        license={entry.data.license}
+        licenseFile={entry.data.license_file}
+        attribution={entry.data.attribution}
+        derived={entry.data.derived}
+        doi={entry.data.doi}
+        version={entry.data.version}
+        accessDate={entry.data.access_date}
+      />
+    )}
+
+    <div class={rowClass}>
+      {entry.collection === 'patterns' && entry.data.pole && (
+        <span class={`${PILL} text-(--color-text-secondary)`}>{entry.data.pole}</span>
+      )}
+      {entry.collection === 'meta' && (
+        <span class={`${PILL} text-(--color-text-secondary)`}>{entry.data.record_kind === 'infrastructure' ? 'project infrastructure' : 'design record'}</span>
+      )}
+      {(entry.collection === 'patterns' || entry.collection === 'meta') && entry.data.status && (
+        <span class={`${PILL} text-(--color-text-muted)`}>{entry.data.status}</span>
+      )}
+
+      <TagChips tags={tags} />
+
+      {entry.collection === 'molds' && (
+        <span class="text-xs text-(--color-text-muted)">eval {hasCompanion('eval.md') ? '✓' : '—'} · scenarios {hasCompanion('scenarios.md') ? '✓' : '—'}</span>
+      )}
+    </div>
+
+    {lede && (
+      <>
+        <h1 class="text-3xl font-bold mt-2 mb-2" data-pagefind-meta="title">{heading}</h1>
+        <p class="text-(--color-text-secondary) mb-6" data-pagefind-meta="summary">{lede}</p>
+      </>
+    )}
+
+    {entry.collection === 'molds' && (
+      <ReferenceContract
+        references={entry.data.references ?? []}
+        contract={referenceContract()}
+        resolveRef={resolveRef}
+      />
+    )}
+
+    <article class="prose prose-slate max-w-none dark:prose-invert">
+      <Content />
+    </article>
+  </div>
+</Base>
