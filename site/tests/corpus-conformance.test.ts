@@ -4,7 +4,7 @@ import yaml from 'js-yaml';
 import { describe, it, expect } from 'vitest';
 import { checkCompanions } from '@galaxy-foundry/kind-schema';
 import { kindOf } from '@galaxy-foundry/kind-schema/collections';
-import { noteFiles } from '../src/lib/content-files';
+import { noteFiles } from '../src/lib/corpus-files';
 import { COLLECTIONS, COLLECTION_NAMES, contentPath } from '../src/lib/frontmatter-schema';
 import { DEFINITIONS } from '../src/types/index';
 

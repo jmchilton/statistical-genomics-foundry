@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, it, expect } from 'vitest';
-import { markdownFiles } from '../src/lib/content-files';
+import { markdownFiles } from '../src/lib/corpus-files';
 import { CONTENT_DIR, contentPath } from '../src/lib/frontmatter-schema';
 
 // Paths written in prose have to point at something.
@@ -21,8 +21,8 @@ import { CONTENT_DIR, contentPath } from '../src/lib/frontmatter-schema';
 // noise, and a noisy check gets an allowance entry per complaint until it means nothing. The rule
 // that separates them is ANCHORING — a path is a claim about THIS repo when it says so:
 //
-//   `./x`, `../x`   relative to the citing file
-//   `content/x`     relative to the repo root
+//   `./x`, `../x`         relative to the citing file
+//   `content/x`, `site/x` relative to the repo root
 //
 // and three further narrowings, each earned by a real token in the corpus rather than assumed:
 //
@@ -42,6 +42,17 @@ import { CONTENT_DIR, contentPath } from '../src/lib/frontmatter-schema';
 const REPO_ROOT = path.join(CONTENT_DIR, '..');
 
 /**
+ * Repo-root directories a bare path may be written against.
+ *
+ * `content/` alone was too narrow. `code-architecture.md` names a dozen modules by their
+ * `site/src/lib/…` path, and those are claims about this repo in exactly the sense `content/…` is
+ * — they just were not being read. Renaming one module proved it: the file moved, the two lines
+ * naming it stayed, and this check stayed green. Prose about the code rots faster than prose about
+ * the corpus, because the code is what gets refactored.
+ */
+const ROOTED = ['content/', 'site/'];
+
+/**
  * Anchored paths that are real, but not here.
  *
  * Files, never directories. An area allowance outlives the area it describes and goes on
@@ -53,13 +64,13 @@ const ELSEWHERE: Record<string, string> = {
 };
 
 const FENCE = /^\s*```/;
-/** Inline code spans: `../x` or `content/x`. */
-const CODE_SPAN = /`((?:\.\.?\/|content\/)[^`\s]+)`/g;
+/** Inline code spans: `../x`, `content/x` or `site/x`. */
+const CODE_SPAN = /`((?:\.\.?\/|content\/|site\/)[^`\s]+)`/g;
 /** Markdown link targets, any shape — anchoring is what decides whether one is checked. */
 const LINK_TARGET = /\]\(([^)\s]+)\)/g;
 
 const isAnchored = (token: string) =>
-  token.startsWith('./') || token.startsWith('../') || token.startsWith('content/');
+  token.startsWith('./') || token.startsWith('../') || ROOTED.some((dir) => token.startsWith(dir));
 const isTemplate = (token: string) => /[<*{]/.test(token);
 /** Names a file or a directory, rather than gesturing at a prefix. */
 const namesSomething = (token: string) => token.endsWith('/') || /\.[A-Za-z0-9]+$/.test(token);
@@ -99,7 +110,7 @@ function resolveFrom(contentRelPath: string, token: string): string {
 }
 
 describe('anchored paths in content resolve', () => {
-  it('every ./, ../ and content/ path names a file that exists', () => {
+  it('every ./, ../, content/ and site/ path names a file that exists', () => {
     const broken: string[] = [];
 
     for (const rel of markdownFiles()) {

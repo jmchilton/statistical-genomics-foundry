@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import yaml from 'js-yaml';
 import { describe, it, expect } from 'vitest';
-import { noteFiles } from '../src/lib/content-files';
+import { noteFiles } from '../src/lib/corpus-files';
 import { contentPath } from '../src/lib/frontmatter-schema';
 
 // The architecture set is a split, and a split only holds while every piece stays reachable and
