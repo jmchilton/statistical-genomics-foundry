@@ -27,18 +27,23 @@ export const SITE_DESCRIPTION =
 export const REPO_URL = 'https://github.com/jmchilton/statistical-genomics-foundry';
 
 /**
- * The primary navigation, in order.
+ * A destination in the shell's chrome.
  *
  * `path` is site-absolute and carries no base — `BASE_URL` is applied where the link is rendered.
- * That keeps this a plain list: no closures, nothing an environment variable has to resolve, so it
- * can be serialized, read from a file, or handed to a shared header as a prop.
+ * That keeps these plain lists: no closures, nothing an environment variable has to resolve, so
+ * they can be serialized, read from a file, or handed to a shared component as props.
+ */
+export type ShellLink = { path: string; label: string };
+
+/**
+ * The primary navigation, in order.
  *
  * Active state is DERIVED from `path`: a link is active on its own page and on everything under
  * it. Every entry used to carry that rule as its own `match` closure, and fifteen of the sixteen
  * across the two instances were the same single line — all six here among them. The sixteenth, on
  * the parent's Pipelines entry, excluded a route pair that has never existed in either repo.
  */
-export const NAV_LINKS = [
+export const NAV_LINKS: ShellLink[] = [
   { path: '/books/', label: 'Books' },
   { path: '/papers/', label: 'Papers' },
   { path: '/tutorials/', label: 'Tutorials' },
@@ -60,6 +65,17 @@ export const NAV_LINKS = [
  * a seventh destination without touching this number and the seventh is the one that moves.
  */
 export const NAV_VISIBLE = 6;
+
+/**
+ * Destinations the footer offers beside the repository, which it always links.
+ *
+ * One entry here, and none in the parent. That is the whole of what the two footers disagreed
+ * about once the copyright line went: the corpus this site is built around has an obvious front
+ * door, so the footer names it a second time; the parent's has no single equivalent.
+ *
+ * The list renders in order, before the repository link.
+ */
+export const FOOTER_LINKS: ShellLink[] = [{ path: '/books/', label: 'Books' }];
 
 /**
  * The measure of the reading column, as a Tailwind class.
