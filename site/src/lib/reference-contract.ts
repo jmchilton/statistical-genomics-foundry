@@ -25,7 +25,7 @@ const CONTRACT_FILE = path.resolve('../reference_contract.yml');
 
 /**
  * The casting transforms this Foundry supports — the inherited `modes` vocabulary minus
- * `condense`.
+ * `condense` and `sidecar`.
  *
  * `condense` is not description, it is capacity: it commits a Foundry to an LLM phase in
  * its caster, and with it the unfilled-slot bookkeeping, the prompt/model provenance a
@@ -39,13 +39,24 @@ const CONTRACT_FILE = path.resolve('../reference_contract.yml');
  * cast is fully deterministic"). Re-add it the day a Mold genuinely needs an LLM pass, and
  * build the phase then.
  *
- * Note that `mode` does NOT answer "may this text be redistributed" — that is a question
- * about the SOURCE, decided at ingestion and recorded in a note's `derived:` posture. A
- * note that is our own-words summary is our prose, and casting it verbatim redistributes
- * our words, not the paper's. The license table governs third-party pass-through content
- * only, and says so in its own `global_rules` (`foundry_content_out_of_scope`).
+ * `sidecar` goes for the same reason, and it took three bad refs to notice. It is capacity
+ * too — a renderer that turns a note's frontmatter into a structured runtime artifact, which
+ * we have not written because we have no caster. Keeping the term while owning no renderer
+ * left a word with no behaviour behind it, and three `research` refs reached for it to mean
+ * "this source is paywalled, do not carry it verbatim."
+ *
+ * That is a licensing statement, and `mode` does NOT answer "may this text be redistributed" —
+ * that is a question about the SOURCE, decided at ingestion and recorded in a note's `derived:`
+ * posture. A note that is our own-words summary is our prose, and casting it verbatim
+ * redistributes our words, not the paper's. The license table governs third-party pass-through
+ * content only, and says so in its own `global_rules` (`foundry_content_out_of_scope`).
+ *
+ * So every carry here is `verbatim`, and a narrowed vocabulary is what rejects the alternative:
+ * `mode: sidecar` now fails the schema at authoring time rather than surviving until a caster
+ * exists to refuse it. Re-add it the day a Mold needs a `cli-command` sidecar, and write the
+ * renderer then — the same bargain `condense` is under.
  */
-export const SUPPORTED_MODES = ['verbatim', 'sidecar'] as const;
+export const SUPPORTED_MODES = ['verbatim'] as const;
 
 /**
  * The groups this instance narrows rather than inherits whole. Unlike the inherited four,
