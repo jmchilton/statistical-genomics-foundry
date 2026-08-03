@@ -26,39 +26,26 @@
 // empty list where content should be. The anchor that does not depend on where a module ended up
 // is `root` from `astro:config/server` — see `src/lib/repo-root.ts`.
 
-import { readdirSync, readFileSync, statSync } from 'node:fs';
-import path from 'node:path';
-
 import { describe, it, expect } from 'vitest';
 
-const SITE_SRC = new URL('../src/', import.meta.url).pathname;
-const SCANNED_EXTENSIONS = ['.ts', '.astro', '.mts', '.js', '.mjs'];
+import { siteRelative, siteSourceCode, siteSourceFiles } from './site-sources';
 
-function sourceFiles(dir: string): string[] {
-  return readdirSync(dir).flatMap((entry) => {
-    const full = path.join(dir, entry);
-    if (statSync(full).isDirectory()) return sourceFiles(full);
-    return SCANNED_EXTENSIONS.includes(path.extname(full)) ? [full] : [];
-  });
-}
-
-// Stripped first, so a module is free to DESCRIBE the mistake — `repo-root.ts` and this file both
-// do, at length, and neither is a violation.
-function stripComments(source: string): string {
-  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/[^\n]*/g, '$1');
-}
-
-/** A FIXED hop count. Walking up one directory at a time until something is found is fine. */
+/**
+ * A FIXED hop count. Walking up one directory at a time until something is found is fine.
+ *
+ * Comments are stripped before this is applied, so a module is free to DESCRIBE the mistake —
+ * `repo-root.ts` and this file both do, at length, and neither is a violation.
+ */
 const PARENT_HOP = /(['"`])\.\.[/'"`]/;
 
 describe('anchoring a site module to the repository root', () => {
   it('never counts ../ from import.meta.url', () => {
-    const offenders = sourceFiles(SITE_SRC)
+    const offenders = siteSourceFiles()
       .filter((file) => {
-        const code = stripComments(readFileSync(file, 'utf-8'));
+        const code = siteSourceCode(file);
         return code.includes('import.meta.url') && PARENT_HOP.test(code);
       })
-      .map((file) => path.relative(path.join(SITE_SRC, '..'), file));
+      .map(siteRelative);
 
     expect(
       offenders,

@@ -7,6 +7,7 @@ import TagChips from '../../components/TagChips.astro';
 import { DESIGN_DOCS } from '../../lib/design-docs';
 import { referenceContract } from '../../lib/reference-contract';
 import { repoPath } from '../../lib/repo-root';
+import { base } from '../../lib/site-base';
 import { buildWikiLinkMap, resolveWikiLink } from '../../lib/wiki-links';
 
 export async function getStaticPaths() {
@@ -17,7 +18,6 @@ export async function getStaticPaths() {
   }));
 }
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;

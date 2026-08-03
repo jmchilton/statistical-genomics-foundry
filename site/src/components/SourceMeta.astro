@@ -17,8 +17,8 @@ interface Props {
   accessDate?: string;
 }
 import { bundledPolicy, licenseIdFromFilePath, resolveLicenseRow } from '@galaxy-foundry/license-policy';
+import { base } from '../lib/site-base';
 const { source, sourceChapter, sourceUrl, license, licenseFile, attribution, derived, doi, version, accessDate } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const licenseHref = licenseFile ? `${base}/licenses/${licenseIdFromFilePath(licenseFile)}/` : null;
 const doiHref = doi ? `https://doi.org/${doi}` : null;
 

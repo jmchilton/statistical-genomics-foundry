@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { base } from '../../lib/site-base';
 
 export async function getStaticPaths() {
   const entries = await getCollection('patterns');
@@ -10,7 +11,6 @@ export async function getStaticPaths() {
   }));
 }
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
