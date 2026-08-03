@@ -2,9 +2,13 @@
 //
 // The shell — Base, Header, Footer — is within a handful of lines of the parent Foundry's, and
 // every one of those lines is a value rather than a decision: the name in the wordmark, the name
-// in the footer, the description, the width of the column. Naming them here is worth doing on its
-// own terms, and it is also what would have to happen first if the shell were ever to be shared:
-// what remains after this is markup, and markup is the part that could move.
+// in the footer, the description, the width of the column, where the nav goes. Naming them here is
+// worth doing on its own terms, and it is also what would have to happen first if the shell were
+// ever to be shared: what remains after this is markup, and markup is the part that could move.
+//
+// Base.astro and Header.astro are now byte-identical to the parent's. That is the measure of how
+// much of the shell was ever this site's: two files, and the difference between them was entirely
+// the values below.
 //
 // The two names are one string here and two over there — that instance is "Foundry" in its own
 // header and "Galaxy Workflow Foundry" at the bottom of the page. Both are declared anyway, so
@@ -21,6 +25,41 @@ export const SITE_DESCRIPTION =
   'Statistical Genomics Foundry — a knowledge base for productive, statistically honest genomics analysis.';
 
 export const REPO_URL = 'https://github.com/jmchilton/statistical-genomics-foundry';
+
+/**
+ * The primary navigation, in order.
+ *
+ * `path` is site-absolute and carries no base — `BASE_URL` is applied where the link is rendered.
+ * That keeps this a plain list: no closures, nothing an environment variable has to resolve, so it
+ * can be serialized, read from a file, or handed to a shared header as a prop.
+ *
+ * Active state is DERIVED from `path`: a link is active on its own page and on everything under
+ * it. Every entry used to carry that rule as its own `match` closure, and fifteen of the sixteen
+ * across the two instances were the same single line — all six here among them. The sixteenth, on
+ * the parent's Pipelines entry, excluded a route pair that has never existed in either repo.
+ */
+export const NAV_LINKS = [
+  { path: '/books/', label: 'Books' },
+  { path: '/papers/', label: 'Papers' },
+  { path: '/tutorials/', label: 'Tutorials' },
+  { path: '/design/', label: 'Design' },
+  { path: '/tags/', label: 'Tags' },
+  { path: '/glossary/', label: 'Glossary' },
+];
+
+/**
+ * How many of them stay on the bar. Everything after goes under "More".
+ *
+ * A count, not a claim about which sections matter — it is set by what fits, and what fits differs
+ * between the two instances because the wordmark does. This one is 279px against the parent's
+ * 75px, about four links' worth, which is why the parent overflows at five and this bar carries
+ * all six: measured against the built page at the 1152px bound, six links plus the search box
+ * still leave 189px of slack.
+ *
+ * So the "More" group is here and renders nothing, which is the intended state and not a stub. Add
+ * a seventh destination without touching this number and the seventh is the one that moves.
+ */
+export const NAV_VISIBLE = 6;
 
 /**
  * The measure of the reading column, as a Tailwind class.
