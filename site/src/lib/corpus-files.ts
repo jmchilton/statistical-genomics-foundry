@@ -64,12 +64,19 @@ export function noteFiles(name: CollectionName): string[] {
 }
 
 /**
- * The note IDS in one collection: the path from its base to the note's directory.
+ * The note IDS in one collection: the path from its base to the note, without its extension.
  *
  * `research/books/msmb/chap1/index.md` in the `books` collection is the id `msmb/chap1`, which
  * is what the wiki-link map keys on and what Astro's `generateId` produces from the same file.
+ *
+ * BOTH shapes lose their extension, and stripping only `/index.md` was a real bug for as long as
+ * every kind was directory-shaped and nothing noticed. `meta` is flat — one file per design
+ * record — so `architecture.md` kept its extension, slugified to `architecturemd`, and every one
+ * of the twelve records became unreachable by wiki link while `[[architecture]]` went on
+ * rendering as bold text. Astro strips the extension for flat and directory notes alike; this
+ * has to agree with it or the map keys notes by an id the site never routes.
  */
 export function noteIds(name: CollectionName): string[] {
   const prefix = `${COLLECTIONS[name].base}/`;
-  return noteFiles(name).map((rel) => rel.slice(prefix.length).replace(/\/index\.md$/, ''));
+  return noteFiles(name).map((rel) => rel.slice(prefix.length).replace(/(?:\/index)?\.md$/, ''));
 }

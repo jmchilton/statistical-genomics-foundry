@@ -2,7 +2,7 @@
 
 > Targeted questions for `/summarize-source`. Attention-directing, not leading. Maintained by us.
 > Why this note: the corpus *enacts* the anti-subtraction rule ([[deseq2]], [[rnaseqgene]],
-> [[tutorials/sva]]) but never *asserts* it for a tool's own output. limma's docs are the candidate
+> [[sva]]) but never *asserts* it for a tool's own output. limma's docs are the candidate
 > first-party assertion. Read them; do not recall them.
 
 > **License posture: license-aware, COPYLEFT (GPL-2.0-or-later → verbatim-ok, isolate).** Quote
