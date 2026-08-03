@@ -8,13 +8,13 @@ tags:
 status: reviewed
 created: 2026-08-02
 revised: 2026-08-02
-revision: 2
+revision: 3
 summary: "How statistical-genomics knowledge is represented as kinds, metadata, tags, references, and companions."
 ---
 
 This record owns the representation of knowledge. It answers **what kinds of notes exist and how do they relate?** Domain rationale belongs to [[architecture]] and [[guiding-principles]], code dependencies to [[code-architecture]], and placement to [[repository-layout]].
 
-## Notes, kinds, and collections
+## Notes, kinds, and identity
 
 Every note declares one literal `type`. That value selects a strict kind definition; it is never inferred from a tag. Paths route notes into collections, and the routed kind must agree with the declared type.
 
@@ -24,9 +24,11 @@ Every kind is a directory note holding an `index.md` except `meta`, which is a f
 
 The three source kinds are deliberately distinct. Papers own bibliographic identifiers, tutorials own release and documentation metadata, and books inherit pinned book-level source information. A broad `research` kind would allow those contracts to blur — a shared enum makes every field legal on every member, and lets a `type: paper` note sit under `content/research/tutorials/` and still validate. A literal per kind makes the collection and the declared kind agree, or fail.
 
+Identity is the note's collection-relative id, slugified with `/` collapsed to `-`. The collection key is the route, so what a note is addressed by and where it renders are one fact rather than two that can disagree.
+
 `type` as the sole note-kind discriminator is a point of convergence with the parent Foundry ([galaxyproject/foundry#374](https://github.com/galaxyproject/foundry/issues/374)). The two instances differ in how many kinds they define and what each requires; they agree that a note names its own kind, which is what lets kinds enumerate mechanically in both repos for the cross-instance kind catalog.
 
-## Metadata envelope
+## Frontmatter envelope
 
 Every kind is `.strict()`: an undeclared key is an error. The common envelope is intentionally smaller than the parent's because the corpus must not manufacture dates or provenance it cannot recover.
 
@@ -55,6 +57,22 @@ The registry **format** is shared across Foundry instances — specified in [gal
 
 Tags remain soft evidence. In particular, `role` does not become a hard Mold enum until enough real Molds show that the distinction is stable and non-overlapping.
 
+## Links
+
+Notes link with `[[Target]]`. Renderer and tests use the same exact resolver across every routed collection; the grammar and the lookup rule come from `@galaxy-foundry/wiki-links`, shared with the parent Foundry, so the two pipelines here cannot drift apart. Resolution is exact after normalization, with no prefix fallback — a link either resolves or renders as a visible bold fallback rather than landing on an arbitrary near-match.
+
+A backticked token names the syntax and does not create a link, and that exclusion has a second edge worth stating. The rewriter walks text nodes only, so a backticked `[[Target]]` is never rewritten — and nothing here checks body links for resolution, so it is never reported either. An unresolved link at least renders bold; a backticked one renders as ordinary code and is invisible in both directions, free to name a note that never existed. Wrap a wiki link in backticks only when the literal token is the subject: a template slot, a frontmatter field shape, or a construct like `[[:space:]]` that is not a wiki link at all.
+
+## Typed references
+
+A Mold's `references` are a typed manifest: each entry draws its `kind` from the instance's `reference_contract.yml` and its behavior fields from the inherited vocabularies. A wiki link expresses knowledge navigation; a reference entry adds compilation behavior on top of it. The Mold itself is a directory note with an action body and declared companions such as `eval.md` and `scenarios.md`; [[mold-spec]] owns the authoring contract.
+
+This Foundry narrows reference modes to behavior it can support now. `condense` is unavailable because there is no caster, no pending-LLM bookkeeping, and no model or prompt provenance path — a mode is a commitment to machinery, and declaring one the caster cannot honor would make a manifest that validates and cannot be cast. References here express what a future deterministic cast may carry, not evidence that casting exists.
+
+## Directory notes and companions
+
+Directory-shaped kinds own companions rather than treating every Markdown file as a note. The kind definition declares permitted siblings and their disposition. `guidance.md`, `eval.md`, and `scenarios.md` therefore belong to their owning note but do not acquire independent kind or route identities.
+
 ## Source notes and recoverability
 
 Papers, tutorials, and book chapters are faithful source notes, not owned synthesis. Their job is recoverability: a clean-context author should be able to reconstruct the relevant procedure or audit without filling gaps from model memory.
@@ -63,24 +81,16 @@ Papers, tutorials, and book chapters are faithful source notes, not owned synthe
 
 Books add one materialization rule: `book.yml` is the source for book-wide metadata, and the book generator copies that metadata into each chapter note. Every chapter then validates from its own frontmatter like any other note.
 
-## Molds and references
-
-A Mold is a directory note with an action body, typed `references`, and declared companions such as `eval.md` and `scenarios.md`. Its reference manifest draws from the instance's `reference_contract.yml` plus inherited behavior vocabularies.
-
-This Foundry narrows reference modes to behavior it can support now. `condense` is unavailable because there is no caster, no pending-LLM bookkeeping, and no model or prompt provenance path — a mode is a commitment to machinery, and declaring one the caster cannot honor would make a manifest that validates and cannot be cast. References here express what a future deterministic cast may carry, not evidence that casting exists.
-
-The Mold-primary information architecture permits a Mold to stand alone. A Protocol may later aggregate Molds into an ordered referee journey, but protocol membership does not define Mold identity or completeness.
-
 ## Patterns
 
 Patterns are reference leaves for recurring valid or invalid structures: a caution such as double-dipping or an established design pattern. They are not Molds because they explain; Molds act. A referee Mold may cite several Patterns and source notes to make its checks recoverable.
 
-## Links and companions
+## Aggregation model
 
-Notes link with `[[Target]]`. Renderer and tests use the same exact resolver across every routed collection. A backticked token names the syntax and does not create a link.
+The Mold-primary information architecture permits a Mold to stand alone. A Protocol may later aggregate Molds into an ordered referee journey, but protocol membership does not define Mold identity or completeness. No navigation-hub kind exists or is needed: browse surfaces project the note graph rather than adding a source of truth to it.
 
-Directory-shaped kinds own companions rather than treating every Markdown file as a note. The kind definition declares permitted siblings and their disposition. `guidance.md`, `eval.md`, and `scenarios.md` therefore belong to their owning note but do not acquire independent kind or route identities.
+## Deliberate non-notes
 
-`content/meta/glossary.md` is the deliberate flat-file exception: it shares the meta directory but is excluded from the collection and rendered by its own route.
+`content/meta/glossary.md` is the deliberate flat-file exception: it shares the meta directory but is excluded from the collection and rendered by its own route. Sharing a directory is a filing decision, not a type declaration.
 
 Update this record when a kind, metadata contract, tag rule, reference relationship, companion rule, or source-recovery contract changes.
