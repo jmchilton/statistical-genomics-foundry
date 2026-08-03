@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getEntriesByTag, COLLECTION_LABEL, type TaggedEntry, type TaggedCollection } from '../../lib/tags';
-import { tagDescription, facetOf, facetLabel } from '../../lib/meta-tags';
+import { tagRegistry } from '../../lib/meta-tags';
+import { facetLabelOf } from '../../lib/tag-browse';
 import { base } from '../../lib/site-base';
 
 export async function getStaticPaths() {
@@ -10,9 +11,10 @@ export async function getStaticPaths() {
 }
 
 const { tag, entries } = Astro.props as { tag: string; entries: TaggedEntry[] };
-const desc = tagDescription(tag);
+const registry = tagRegistry();
+const desc = registry.tagDescription(tag);
 // The declaring facet, not the `/` prefix — so this stays correct for a bare tag.
-const nsLabel = facetLabel(facetOf(tag));
+const nsLabel = facetLabelOf(registry, tag);
 
 // Group by collection, in the declared label order (Molds first, then source notes).
 const order = Object.keys(COLLECTION_LABEL);

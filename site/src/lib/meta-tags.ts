@@ -23,23 +23,9 @@ export function tagRegistry(): TagRegistry {
   return cached;
 }
 
-// The accessors below are for the PAGES (the tag index, the browse routes), which read the
-// one real registry. The schema no longer goes through them — it is handed the registry
-// object above instead.
-
-/** A tag is valid when it is an exact key under some facet's `values`. Nothing else
- *  validates: every facet is closed, so every usable tag has a gloss to browse by. */
-export const isValidTag = (tag: string): boolean => tagRegistry().isValidTag(tag);
-
-/** Registry facets in declared order — the tag index groups by these. */
-export const facets = () => tagRegistry().facets();
-
-/** The facet that declared this tag; undefined if unregistered. Callers group by this
- *  rather than by prefix, which is what makes an "other" bucket impossible. */
-export const facetOf = (tag: string): string | undefined => tagRegistry().facetOf(tag);
-
-export const facetLabel = (key: string | undefined): string => tagRegistry().facetLabel(key);
-
-/** A tag's registry gloss. Every valid tag has one; undefined means unregistered. */
-export const tagDescription = (tag: string): string | undefined =>
-  tagRegistry().tagDescription(tag);
+// Five of the registry's accessors used to be re-exported here as free functions — `facets()`,
+// `facetOf`, `facetLabel`, `tagDescription`, `isValidTag` — each the same call to the object
+// above with the object taken out of the caller's hands. Nothing was gained and something was
+// lost: the sibling instance passes the registry and calls those five as methods, so two repos
+// consuming ONE package had disagreed about how to call it, and comparing their tag pages read
+// as two designs rather than one design written twice. Callers take `tagRegistry()` and ask it.
