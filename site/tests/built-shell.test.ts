@@ -148,12 +148,56 @@ describe('the document skeleton', () => {
   });
 });
 
+/** Every stylesheet the build emitted, concatenated. The shell's styles are split across several. */
+const emittedCss = (): string =>
+  readdirSync(path.join(DIST, '_astro'))
+    .filter((entry) => entry.endsWith('.css'))
+    .map((entry) => read(path.join(DIST, '_astro', entry)))
+    .join('\n');
+
+// Here rather than in a file of its own because it asserts on the same built `dist/`, and a second
+// suite that spawns its own `astro build` would double the slowest thing in this repo's test run.
+describe('the palette this stylesheet declares', () => {
+  // Tailwind 4 emits an `@theme` token only where it finds a reference, so a token nothing uses
+  // reaches no stylesheet and costs no bytes — which is why they accumulate unnoticed. Two had:
+  // `--color-border`, beside the `--color-border-subtle` that every border on this site actually
+  // uses, and `--color-accent-hover` for an accent with no hover state. The first is the shape that
+  // matters: a plausible name for a decision this site never took, one line above the real one.
+  //
+  // `:root` is the load-bearing part. A token redeclared under `.dark` emits from THAT rule
+  // whichever way, because a class is not tree-shaken — so a search of the whole stylesheet would
+  // have reported `--color-border` alive on the strength of a dark override for a token nothing
+  // read.
+  it('declares no token that reaches no stylesheet', () => {
+    const source = read(path.join(SITE, 'src/styles/global.css'));
+    const block = source.slice(
+      source.indexOf('@theme'),
+      source.indexOf('\n}', source.indexOf('@theme')),
+    );
+    const declared = [...block.matchAll(/^\s*(--[\w-]+):/gm)].map((m) => m[1]!);
+
+    const root = (emittedCss().match(/:root[^{]*\{[^}]*\}/g) ?? []).join('');
+    const dead = declared.filter((token) => !root.includes(`${token}:`));
+
+    expect(
+      declared.length,
+      '\nno tokens parsed out of @theme — has the block moved?',
+    ).toBeGreaterThan(10);
+    expect(
+      dead,
+      '\nthese are declared in `@theme` and referenced by nothing, so Tailwind emitted no' +
+        ' declaration for them. Delete them, or use them. A token carrying a value that is also' +
+        " some other token's is the worst kind: it reads as the right name for a colour that is" +
+        ' actually spelled elsewhere.\n\n  ' +
+        dead.join('\n  ') +
+        '\n',
+    ).toEqual([]);
+  });
+});
+
 describe('the stylesheet the shell depends on', () => {
   it('emits a utility that only the layout names', () => {
-    const css = readdirSync(path.join(DIST, '_astro'))
-      .filter((entry) => entry.endsWith('.css'))
-      .map((entry) => read(path.join(DIST, '_astro', entry)))
-      .join('\n');
+    const css = emittedCss();
 
     expect(css).not.toHaveLength(0);
     expect(
