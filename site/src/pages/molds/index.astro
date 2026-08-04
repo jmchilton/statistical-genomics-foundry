@@ -52,7 +52,7 @@ const evalCount = molds.filter(m => hasSibling(m.id, 'eval.md')).length;
                   <div class="font-mono font-semibold text-(--color-text-primary)">{m.data.name}</div>
                   {m.data.summary && <div class="text-sm text-(--color-text-secondary) mt-1 grow">{m.data.summary}</div>}
                   <div class="flex flex-wrap items-center gap-2 mt-3 text-xs text-(--color-text-muted)">
-                    {role && <span class="rounded bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-1.5 py-0.5 font-mono">{role}</span>}
+                    {role && <span class="rounded bg-(--color-brand) text-(--color-text-on-dark) px-1.5 py-0.5 font-mono">{role}</span>}
                     {refCount > 0 && <span>{refCount} refs</span>}
                     <span>eval {hasSibling(m.id, 'eval.md') ? '✓' : '—'}</span>
                     <span>scenarios {hasSibling(m.id, 'scenarios.md') ? '✓' : '—'}</span>

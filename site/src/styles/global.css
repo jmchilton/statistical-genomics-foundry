@@ -12,9 +12,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Brand (inherited from the Galaxy Workflow Foundry palette) */
-  --color-galaxy-primary: #25537b;
-  --color-galaxy-dark: #2c3143;
+  /* Brand. The two hexes are inherited from the Galaxy Workflow Foundry's palette; the names are
+     not, and should not be — this site is not that site, and a token called `galaxy-primary` on a
+     statistical-genomics page is a claim rather than a colour. */
+  --color-brand: #25537b;
+  --color-brand-dark: #2c3143;
 
   /* Surfaces */
   --color-surface: #ffffff;
@@ -31,13 +33,11 @@
   --color-link: #25537b;
   --color-link-hover: #ffd700;
 
-  /* Borders */
-  --color-border: #d1d5db;
+  /* Borders. One weight, not two — every border on this site is the subtle one. */
   --color-border-subtle: #e1e4e8;
 
   /* Accent — desaturated gold */
   --color-accent: #e8c547;
-  --color-accent-hover: #f2d55a;
 
   /* Fonts — Atkinson Hyperlegible for high legibility */
   --font-sans: 'Atkinson Hyperlegible', ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -48,7 +48,6 @@
   --color-surface: #0d1117;
   --color-surface-raised: #161b22;
   --color-surface-hover: #21262d;
-  --color-border: #30363d;
   --color-border-subtle: #21262d;
   --color-text-primary: #e6edf3;
   --color-text-secondary: #b6bfca;
@@ -85,7 +84,7 @@ body {
   @apply sr-only;
 }
 .skip-link:focus {
-  @apply not-sr-only fixed top-2 left-2 z-50 px-3 py-2 rounded bg-(--color-galaxy-dark) text-(--color-text-on-dark);
+  @apply not-sr-only fixed top-2 left-2 z-50 px-3 py-2 rounded bg-(--color-brand-dark) text-(--color-text-on-dark);
 }
 
 /* Active nav link in header.
@@ -108,10 +107,13 @@ body {
 }
 
 /* --- Grid background --- */
+/* The tint is the brand at 6%, so it says so. A colour spelled out as `rgba(37, 83, 123, …)` is
+   invisible to every search for the token it duplicates, including the one that renames it.
+   The dark rule below is NOT the same shape: white at 3% is its own decision, not a token. */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(37, 83, 123, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(37, 83, 123, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--color-brand) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-brand) 6%, transparent) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 .dark .bg-grid {
@@ -123,7 +125,7 @@ body {
 
 /* --- Small utilities --- */
 .eyebrow {
-  @apply inline-block text-xs font-bold uppercase tracking-wider text-(--color-galaxy-primary) dark:text-(--color-accent);
+  @apply inline-block text-xs font-bold uppercase tracking-wider text-(--color-brand) dark:text-(--color-accent);
 }
 
 .tag {

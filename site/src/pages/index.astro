@@ -14,8 +14,8 @@ const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCo
 <Base title="Statistical Genomics Foundry">
   <section class="mb-12">
     <span class="eyebrow mb-4">Statistical Genomics Foundry</span>
-    <h1 class="text-4xl sm:text-5xl font-bold text-balance text-(--color-galaxy-dark) dark:text-(--color-text-primary) mb-4">
-      Productive <span class="text-(--color-galaxy-primary) dark:text-(--color-accent)">and</span> statistically honest.
+    <h1 class="text-4xl sm:text-5xl font-bold text-balance text-(--color-brand-dark) dark:text-(--color-text-primary) mb-4">
+      Productive <span class="text-(--color-brand) dark:text-(--color-accent)">and</span> statistically honest.
     </h1>
     <p class="max-w-3xl text-lg text-(--color-text-secondary) text-pretty mb-6">
       A knowledge base of agent skills that keeps analytical work both productive and
@@ -23,7 +23,7 @@ const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCo
       plausible-sounding ones, respecting each method's preconditions, and grounding claims
       in empirical checks rather than a method's name or a significant-looking number.
     </p>
-    <a href={`${base}/books/`} class="inline-flex items-center gap-2 rounded-md bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-4 py-2 no-underline hover:bg-(--color-galaxy-dark) transition-colors">
+    <a href={`${base}/books/`} class="inline-flex items-center gap-2 rounded-md bg-(--color-brand) text-(--color-text-on-dark) px-4 py-2 no-underline hover:bg-(--color-brand-dark) transition-colors">
       Browse the books
       <span aria-hidden="true">→</span>
     </a>
@@ -33,7 +33,7 @@ const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCo
     <section class="mb-12" aria-labelledby="molds-heading">
       <div class="flex items-baseline justify-between mb-3">
         <h2 id="molds-heading" class="text-sm font-bold uppercase tracking-wider text-(--color-text-muted)">Molds</h2>
-        <a href={`${base}/molds/`} class="text-sm text-(--color-galaxy-primary) dark:text-(--color-accent) no-underline hover:underline">All molds →</a>
+        <a href={`${base}/molds/`} class="text-sm text-(--color-brand) dark:text-(--color-accent) no-underline hover:underline">All molds →</a>
       </div>
       <p class="text-sm text-(--color-text-secondary) max-w-3xl mb-4">
         The Mold-primary core — abstract action templates cast into self-contained skills.
@@ -50,7 +50,7 @@ const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCo
                 {m.data.summary && <div class="text-sm text-(--color-text-secondary) mt-1 grow">{m.data.summary}</div>}
                 <div class="flex flex-wrap items-center gap-2 mt-3 text-xs text-(--color-text-muted)">
                   {family && <span>Family {family.toUpperCase()}</span>}
-                  {role && <span class="rounded bg-(--color-galaxy-primary) text-(--color-text-on-dark) px-1.5 py-0.5 font-mono">{role}</span>}
+                  {role && <span class="rounded bg-(--color-brand) text-(--color-text-on-dark) px-1.5 py-0.5 font-mono">{role}</span>}
                 </div>
               </a>
             </li>
