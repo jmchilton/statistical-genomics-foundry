@@ -110,6 +110,23 @@ describe('sourceNote schema', () => {
     expect(issues.some((i) => /license_file/.test(i.message))).toBe(true);
   });
 
+  // `derived` is free prose, and one posture in the corpus says both words: own-words
+  // paraphrase, functional strings kept verbatim as facts. own-words has to win, or
+  // `neufeld-countsplit-2024` is rejected under arXiv's own-words-only row for keeping a
+  // parameter name. The rule ships in @galaxy-foundry/license-policy now; this pins the
+  // reading we depend on, since a substring match would decide the opposite way.
+  it('reads own-words prose that mentions verbatim facts as own-words', () => {
+    const issues = issuesOf(
+      paperSchema,
+      validSourceNote({
+        license: 'LicenseRef-arXiv-nonexclusive-distrib-1.0',
+        derived:
+          'own-words paraphrase (license is non-CC); functional strings (parameter names, numeric thresholds) kept verbatim as facts',
+      }),
+    );
+    expect(issues).toEqual([]);
+  });
+
   it('accepts a registered tag', () => {
     expect(issuesOf(paperSchema, validSourceNote({ tags: ['domain/batch-effects'] }))).toEqual([]);
   });

@@ -21,8 +21,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0(zod@4.4.3)
       '@galaxy-foundry/license-policy':
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.3.0
+        version: 0.3.0
       '@galaxy-foundry/reference-contract':
         specifier: ^0.1.0
         version: 0.1.0
@@ -649,8 +649,8 @@ packages:
     peerDependencies:
       zod: ^4.0.0
 
-  '@galaxy-foundry/license-policy@0.2.0':
-    resolution: {integrity: sha512-hQ6qtQfMH0PLsfW1CFJttSKvUNuNa5WPa60Echn5aYtMBGWEfWgRTcw6tJcT/m0VxCCiJR3STAKi1sH3ZWlkpQ==}
+  '@galaxy-foundry/license-policy@0.3.0':
+    resolution: {integrity: sha512-slmZ38u2fty5vRBpZUHmwu42KCLpEDrtf8hDLKL/ktcbuwgfdHmOdHspDFu+qbDk6aptdhpkhpMlSSEh2ygI0g==}
     engines: {node: '>=20'}
 
   '@galaxy-foundry/reference-contract@0.1.0':
@@ -3280,7 +3280,7 @@ snapshots:
       '@galaxy-foundry/kind-manifest': 0.4.0(zod@4.4.3)
       zod: 4.4.3
 
-  '@galaxy-foundry/license-policy@0.2.0':
+  '@galaxy-foundry/license-policy@0.3.0':
     dependencies:
       js-yaml: 4.3.0
 

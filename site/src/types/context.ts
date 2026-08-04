@@ -26,6 +26,7 @@ import {
   type KindShape,
 } from '@galaxy-foundry/kind-schema';
 import {
+  declaresVerbatimCarry,
   isValidLicenseId,
   resolveLicenseRow,
   type LicensePolicy,
@@ -76,14 +77,6 @@ export type KindDefinition<T extends KindShape = KindShape> = LibKindDefinition<
  *  widen the shape type. See the note on `KindDefinition`. */
 export const defineKind = kindDefiner<KindContext>();
 
-// A `derived` value declares verbatim carry when it is license-aware / keeps quotes and is not
-// explicitly own-words. own-words paraphrases redistribute no protected expression, so they
-// never need a license_file and never violate an NC/own-words row.
-//
-// Registry-free, so it stays out of the factory below.
-const declaresVerbatimCarry = (derived: string): boolean =>
-  /license-aware|with-quotes|verbatim/i.test(derived) && !/own-words/i.test(derived);
-
 /**
  * The field primitives, built against ONE set of registries.
  *
@@ -113,9 +106,10 @@ function buildPrimitives(options: BuildKindContextOptions) {
 
   // The license → redistribution-policy table (galaxyproject/foundry-pattern#4) is the source
   // of truth for what each id means. It is INSTALLED, not vendored — @galaxy-foundry/license-policy
-  // ships the table both Foundry instances used to hand-mirror. What the package deliberately does
-  // NOT ship is `licenseCoherence` below: whether a note is coherent with its license is still an
-  // instance-local rule (ours keys off the recorded `derived` posture).
+  // ships the table both Foundry instances used to hand-mirror, and `declaresVerbatimCarry`, which
+  // reads a note's `derived` posture to say whether the table governs the note at all. What stays
+  // here is `licenseCoherence` below: which issue a note raises, and against which field, is an
+  // instance's own to word.
   const licenseId = z.string().refine((id: string) => isValidLicenseId(licensePolicy, id), {
     message: 'must be an SPDX id in @galaxy-foundry/license-policy or a LicenseRef-<slug>',
   });
