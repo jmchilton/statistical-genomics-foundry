@@ -27,6 +27,19 @@
 // takes that collection's entry and needs no cast; a reader that ranges over collections narrows
 // with `in`. So any site of this is either a component that has not said what it renders, or a
 // field no schema declares.
+//
+// TWO SPELLINGS, and the second is here because the sibling shipped the first alone and eleven
+// live sites survived it — four in files that same change had just edited. `entry.data as any` is
+// the obvious form. `(ref: any) =>` on a callback over a value that came from frontmatter, and
+// `phases: any[]` as a component prop, erase the same thing one line further from the word `data`;
+// the prop was the worst of them, because the caller had already got the type right and the
+// component threw it away on arrival. Rather than chase spellings, the second rule asks where
+// `any` appears in type position at all.
+//
+// The expected list is empty here, and there is no exception list, because nothing on this site
+// walks a shape this repo does not define. The sibling exempts exactly one module — the one that
+// renders a JSON Schema, whose nodes really are whatever the document says. Should a module here
+// ever need that, it earns a named entry and a comment, not a loosened pattern.
 
 import { describe, expect, it } from 'vitest';
 
@@ -34,6 +47,10 @@ import { siteRelative, siteSourceCode, siteSourceFiles } from './site-sources';
 
 // `e.data as any`, `(entry.data as any)` — any receiver, any spacing.
 const ERASES_FRONTMATTER = /\.data\s+as\s+any\b/;
+
+// `any` in TYPE POSITION: `as any`, `: any`, `any[]`, `Record<string, any>`. Not the English word
+// — `siteSourceCode` removes comments but not the prose a page renders, and page copy says "any".
+const ERASES_BY_ANNOTATION = /\bas any\b|:\s*any\b|\bany\[\]|,\s*any>/;
 
 describe("a note's frontmatter", () => {
   it('is never read through `any`', () => {
@@ -49,6 +66,24 @@ describe("a note's frontmatter", () => {
         ' collections should narrow with `in`. Under `any` a field no schema declares reads as' +
         ' undefined and renders as nothing.\n\n  ' +
         erasers.join('\n  ') +
+        '\n',
+    ).toEqual([]);
+  });
+
+  it('is not erased a second time by an untyped callback or prop', () => {
+    const sayers = siteSourceFiles()
+      .filter((file) => ERASES_BY_ANNOTATION.test(siteSourceCode(file)))
+      .map(siteRelative)
+      .sort();
+
+    expect(
+      sayers,
+      '\n`any` in type position. The rule above catches `entry.data as any` and nothing else, so' +
+        ' it does not see `(ref: any) =>` over a value read from frontmatter, or `any[]` as a' +
+        ' prop — the same erasure, one line further from the word `data`. If a module genuinely' +
+        ' walks a shape this repo does not define, give it a named exception here and say why.' +
+        '\n\n  ' +
+        sayers.join('\n  ') +
         '\n',
     ).toEqual([]);
   });
