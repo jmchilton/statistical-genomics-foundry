@@ -40,6 +40,17 @@
 // walks a shape this repo does not define. The sibling exempts exactly one module — the one that
 // renders a JSON Schema, whose nodes really are whatever the document says. Should a module here
 // ever need that, it earns a named entry and a comment, not a loosened pattern.
+//
+// ONE THING NEITHER RULE ASKS, recorded because the sibling measured it and this site relies on
+// the answer without saying so. `in` narrows the VALUE and never checks the KEY: `'nope' in d &&
+// d.nope` compiles, yielding `unknown`. The detail route asks `'title' in d`, `'tags' in d` and
+// `'summary' in d`, and a key renamed in every schema that declared it would survive all three —
+// each is caught instead by what it flows INTO, because `Base`'s title and description are
+// `string` and `TagChips` takes `string[]`. That is real protection and it is incidental: the day
+// one of those values feeds a truthiness check instead of a typed prop, it stops. The sibling hit
+// exactly that with its license box and now writes such keys as `'license' satisfies NoteField`.
+// Three call sites did not justify importing the machinery here; a fourth that reads a field into
+// a boolean would.
 
 import { describe, expect, it } from 'vitest';
 
