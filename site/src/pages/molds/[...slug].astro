@@ -22,7 +22,7 @@ const d = entry.data;
 const hasSibling = (file: string) => existsSync(repoPath('content/molds', entry.id, file));
 ---
 <Base title={d.name}>
-  <div data-pagefind-body>
+  <div>
     <a href={`${base}/molds/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← Molds</a>
     <div class="flex flex-wrap items-center gap-2 mt-3 mb-6 text-xs">
       <TagChips tags={d.tags} />
