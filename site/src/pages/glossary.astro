@@ -10,5 +10,5 @@ const linkMap = buildWikiLinkMap(DESIGN_DOCS);
 const html = renderVaultDoc(path.resolve('../content/meta/glossary.md'), linkMap, base);
 ---
 <Base title="Glossary" description="Pinned definitions for Statistical Genomics Foundry terminology.">
-  <article class="prose prose-slate max-w-none dark:prose-invert" data-pagefind-body set:html={html} />
+  <article class="prose prose-slate max-w-none dark:prose-invert" set:html={html} />
 </Base>

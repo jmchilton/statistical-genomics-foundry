@@ -18,7 +18,7 @@ const d = entry.data;
 const shelf = d.record_kind === 'infrastructure' ? 'project infrastructure' : 'design record';
 ---
 <Base title={d.title} description={d.summary}>
-  <div data-pagefind-body>
+  <div>
     <a href={`${base}/design/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← Design record</a>
     <div class="flex flex-wrap items-center gap-2 mt-3 mb-2 text-xs">
       <span class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-secondary) px-2 py-0.5 font-mono">{shelf}</span>

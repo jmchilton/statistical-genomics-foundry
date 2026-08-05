@@ -49,7 +49,7 @@ while ((match = urlRe.exec(license.text)) !== null) {
 if (last < license.text.length) segments.push({ text: license.text.slice(last) });
 ---
 <Base title={`License — ${license.filename}`} description={`License terms for ${license.filename}.`}>
-  <article class="license" data-pagefind-body>
+  <article class="license">
     <header class="license-header">
       <span class="license-eyebrow">
         <span class="license-eyebrow-rule" aria-hidden="true"></span>

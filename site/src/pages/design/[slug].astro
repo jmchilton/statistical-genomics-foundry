@@ -22,7 +22,7 @@ const next = idx >= 0 && idx < group.length - 1 ? group[idx + 1] : undefined;
 const kind = doc.category === 'research' ? 'prior-art research' : 'design record';
 ---
 <Base title={doc.title} description={doc.summary}>
-  <article class="design-doc" data-pagefind-body>
+  <article class="design-doc">
     <header class="design-doc-header">
       <a href={`${base}/design/`} class="design-back">
         <span aria-hidden="true">&larr;</span> Design docs

@@ -16,7 +16,7 @@ const { Content } = await render(entry);
 const d = entry.data;
 ---
 <Base title={d.name}>
-  <div data-pagefind-body>
+  <div>
     <a href={`${base}/patterns/`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← Patterns</a>
     <div class="flex flex-wrap items-center gap-2 mt-3 mb-6 text-xs">
       {d.pole && <span class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-secondary) px-2 py-0.5 font-mono">{d.pole}</span>}

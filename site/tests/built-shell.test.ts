@@ -337,3 +337,51 @@ describe('the container width', () => {
     expect(new Set(widthsIn(home, '<footer', '</footer>'))).toEqual(new Set([mainWidth]));
   });
 });
+
+/**
+ * Pages the search box will never return, on purpose.
+ *
+ * Empty is a claim, not a stub: every route on this site is worth finding, including the 38 tag
+ * pages that were missing. The list exists because an absence has to be a DECISION — without one,
+ * "deliberately out of the index" and "nobody thought about this route" are the same observation.
+ */
+const UNSEARCHABLE: string[] = [];
+
+describe('what the search box can find', () => {
+  // Pagefind's rule is all-or-nothing and runs BACKWARDS from what the attribute looks like. Mark
+  // no page with `data-pagefind-body` and every page is indexed from its `<body>`. Mark ONE and
+  // every unmarked page leaves the index entirely.
+  //
+  // Nine routes carried it here, and the index held 168 of these 213 pages. The missing 45 were
+  // all 38 tag pages, the six section landing pages, and the home page — every listing route on
+  // the site, which is where a reader who does not already know a note's name would look.
+  //
+  // Nothing reported it. The build log prints "Pagefind indexed 213 pages" whichever way, because
+  // it counts pages processed rather than pages indexed. No warning, no diff, no page that looks
+  // wrong; the only symptom is a search answering "no results" for words plainly on the page.
+  //
+  // So this asserts on the emitted INDEX rather than on the markup. A source-level check confirms
+  // the attribute was written; only the index confirms a reader can find the page.
+  const indexedPageCount = (): number => {
+    const entry = JSON.parse(read(path.join(DIST, 'pagefind/pagefind-entry.json'))) as {
+      languages: Record<string, { page_count: number }>;
+    };
+    return Object.values(entry.languages).reduce((total, lang) => total + lang.page_count, 0);
+  };
+
+  it('holds every page the build emitted, less the ones declared unsearchable', () => {
+    expect(indexedPageCount()).toBe(pages.length - UNSEARCHABLE.length);
+  });
+
+  it('marks the main column rather than falling back to the whole body', () => {
+    const unmarked = pages.filter((file) => !read(file).includes('data-pagefind-body'));
+    expect(unmarked.map(rel).sort(), '\nemitted but unfindable').toEqual(UNSEARCHABLE);
+  });
+
+  it('puts the attribute on <main>, so chrome stays out of the excerpt', () => {
+    // One decision in the layout, rather than nine wrappers each route had to remember. Marking
+    // `<main>` also keeps the nav and footer out of every result's excerpt, which the per-route
+    // wrappers were already doing and the `<body>` fallback would not.
+    expect(home).toMatch(/<main[^>]*\sdata-pagefind-body/);
+  });
+});
