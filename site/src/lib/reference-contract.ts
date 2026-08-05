@@ -25,25 +25,13 @@ const CONTRACT_FILE = path.resolve('../reference_contract.yml');
 
 /**
  * The casting transforms this Foundry supports — the inherited `modes` vocabulary minus
- * `condense` and `sidecar`.
+ * `sidecar`.
  *
- * `condense` is not description, it is capacity: it commits a Foundry to an LLM phase in
- * its caster, and with it the unfilled-slot bookkeeping, the prompt/model provenance a
- * reproducible cast needs, and the loss of byte-stable output that makes a `--check` gate
- * possible at all. We have no caster, so that capacity has earned nothing.
- *
- * The corpus agreed before this was written: every `condense` ref here was
- * `load: on-demand` — progressive disclosure, not condensation, was already doing the size
- * work — and the parent Foundry, which DID build the LLM phase, has since gone to zero
- * condense refs of its own ("the prior condense was always a verbatim passthrough, so the
- * cast is fully deterministic"). Re-add it the day a Mold genuinely needs an LLM pass, and
- * build the phase then.
- *
- * `sidecar` goes for the same reason, and it took three bad refs to notice. It is capacity
- * too — a renderer that turns a note's frontmatter into a structured runtime artifact, which
- * we have not written because we have no caster. Keeping the term while owning no renderer
- * left a word with no behaviour behind it, and three `research` refs reached for it to mean
- * "this source is paywalled, do not carry it verbatim."
+ * A mode is not description, it is capacity. `sidecar` is a renderer that turns a note's
+ * frontmatter into a structured runtime artifact, and we have not written one because we
+ * have no caster. Keeping the term while owning no renderer leaves a word with no behaviour
+ * behind it, and it took three bad refs to notice: three `research` refs reached for it to
+ * mean "this source is paywalled, do not carry it verbatim."
  *
  * That is a licensing statement, and `mode` does NOT answer "may this text be redistributed" —
  * that is a question about the SOURCE, decided at ingestion and recorded in a note's `derived:`
@@ -54,7 +42,7 @@ const CONTRACT_FILE = path.resolve('../reference_contract.yml');
  * So every carry here is `verbatim`, and a narrowed vocabulary is what rejects the alternative:
  * `mode: sidecar` now fails the schema at authoring time rather than surviving until a caster
  * exists to refuse it. Re-add it the day a Mold needs a `cli-command` sidecar, and write the
- * renderer then — the same bargain `condense` is under.
+ * renderer then.
  */
 export const SUPPORTED_MODES = ['verbatim'] as const;
 

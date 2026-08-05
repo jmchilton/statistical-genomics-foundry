@@ -117,7 +117,7 @@ describe('registry drift (authored vocabulary vs corpus)', () => {
 
   // The narrowed half of `modes`. Keeping a mode we decline to build is the same mistake as
   // registering a kind no Mold references — it advertises a caster capability that does not
-  // exist, which is what dropping `condense` was about in the first place.
+  // exist.
   it('has no supported reference mode used by zero notes', () => {
     const dead = referenceModes().filter(m => !referenceModesInUse.has(m));
     expect(dead, `\nreference modes registered but unused: ${dead.join(', ')}`).toEqual([]);
