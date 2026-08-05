@@ -30,8 +30,12 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 
+import { referenceStyleGaps } from '@galaxy-foundry/site-kit';
+import yaml from 'js-yaml';
 import { beforeAll, describe, expect, it } from 'vitest';
 
+import { noteIds } from '../src/lib/corpus-files';
+import { contentPath } from '../src/lib/frontmatter-schema';
 import { FOOTER_LINKS, NAV_LINKS, REPO_URL } from '../src/lib/site-identity';
 
 const SITE = new URL('../', import.meta.url).pathname;
@@ -155,6 +159,16 @@ const emittedCss = (): string =>
     .map((entry) => read(path.join(DIST, '_astro', entry)))
     .join('\n');
 
+/**
+ * Only the `:root` declarations — which is where a token being ALIVE is decided.
+ *
+ * A token redeclared under `.dark` emits from that rule whichever way, because a class is not
+ * tree-shaken. So any question of the form "did this token reach the stylesheet" has to be asked
+ * of `:root` alone; asked of the whole file it answers yes for a token nothing reads, on the
+ * strength of the dark override sitting right beside the dead declaration.
+ */
+const rootCss = (): string => (emittedCss().match(/:root[^{]*\{[^}]*\}/g) ?? []).join('');
+
 // Here rather than in a file of its own because it asserts on the same built `dist/`, and a second
 // suite that spawns its own `astro build` would double the slowest thing in this repo's test run.
 describe('the palette this stylesheet declares', () => {
@@ -164,10 +178,7 @@ describe('the palette this stylesheet declares', () => {
   // uses, and `--color-accent-hover` for an accent with no hover state. The first is the shape that
   // matters: a plausible name for a decision this site never took, one line above the real one.
   //
-  // `:root` is the load-bearing part. A token redeclared under `.dark` emits from THAT rule
-  // whichever way, because a class is not tree-shaken — so a search of the whole stylesheet would
-  // have reported `--color-border` alive on the strength of a dark override for a token nothing
-  // read.
+  // `:root` is the load-bearing part — see the note on `rootCss`.
   it('declares no token that reaches no stylesheet', () => {
     const source = read(path.join(SITE, 'src/styles/global.css'));
     const block = source.slice(
@@ -176,7 +187,7 @@ describe('the palette this stylesheet declares', () => {
     );
     const declared = [...block.matchAll(/^\s*(--[\w-]+):/gm)].map((m) => m[1]!);
 
-    const root = (emittedCss().match(/:root[^{]*\{[^}]*\}/g) ?? []).join('');
+    const root = rootCss();
     const dead = declared.filter((token) => !root.includes(`${token}:`));
 
     expect(
@@ -383,5 +394,87 @@ describe('what the search box can find', () => {
     // `<main>` also keeps the nav and footer out of every result's excerpt, which the per-route
     // wrappers were already doing and the `<body>` fallback would not.
     expect(home).toMatch(/<main[^>]*\sdata-pagefind-body/);
+  });
+});
+
+/**
+ * What each Mold's `references:` declares, read from the corpus.
+ *
+ * Counted from the frontmatter rather than pinned as a number, because the claim is that every
+ * reference an author wrote reaches the page. A pinned total keeps passing while a twelfth Mold's
+ * manifest goes nowhere, which is the failure this whole block exists to name.
+ */
+function declaredReferences(): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const id of noteIds('molds')) {
+    const text = read(contentPath(`molds/${id}/index.md`));
+    const front = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(text)?.[1];
+    const data = front ? (yaml.load(front) as { references?: unknown[] } | undefined) : undefined;
+    counts.set(id, data?.references?.length ?? 0);
+  }
+  return counts;
+}
+
+describe('the reference manifest a Mold declares', () => {
+  // This site loaded `@galaxy-foundry/reference-contract`, composed its own `kinds` against the
+  // four inherited vocabularies, wired the result into the kind context, and validated every
+  // entry of every Mold's `references:` at build time — including two cross-field rules. Then it
+  // rendered none of it. Eleven Molds, 104 typed references, and no component that read one.
+  //
+  // Nothing failed. The schema is a gate, not a view, so a manifest that passes validation and
+  // reaches no page looks exactly like a manifest that reaches a page: the build is green, the
+  // Mold's prose renders, and the only symptom is a section that was never there to miss.
+  //
+  // The card is `@galaxy-foundry/site-kit`'s, not this repo's. The parent Foundry had written one
+  // and this one had written nothing, which is the same defect twice — a package that shipped the
+  // vocabulary and left the view to whoever got round to it.
+  const cardsOn = (id: string): number =>
+    read(path.join(DIST, 'molds', id, 'index.html')).match(/class="reference-card"/g)?.length ?? 0;
+
+  it('has manifests worth asserting about', () => {
+    // Guards the guard. Every assertion below is vacuously true against a corpus that declares
+    // nothing, and this block would then report green on the very state it exists to catch.
+    const declared = [...declaredReferences().values()];
+    expect(declared.filter((count) => count > 0).length).toBeGreaterThan(5);
+    expect(declared.reduce((total, count) => total + count, 0)).toBeGreaterThan(100);
+  });
+
+  it('renders one card per entry, on every Mold that declares one', () => {
+    const missing = [...declaredReferences()]
+      .map(([id, declared]) => ({ mold: id, declared, rendered: cardsOn(id) }))
+      .filter((row) => row.rendered !== row.declared);
+    expect(missing, '\nMolds whose page shows a different number of references than it declares')
+      .toEqual([]);
+  });
+
+  it('shows each term as the vocabulary labels it, not as the key it was authored with', () => {
+    // The chips are looked up through the contract, so a card that renders raw keys is a card
+    // that got the manifest and lost the vocabulary — which reads as a styling choice rather
+    // than as a broken lookup.
+    const page = read(path.join(DIST, 'molds/audit-wgd-inference/index.html'));
+    expect(page).toContain('Corpus Observed');
+    expect(page).toContain('Research');
+  });
+
+  it('declares an evidence term\'s standing as data rather than by its name', () => {
+    // `corpus-observed` and `cast-validated` are both grounded, and a stylesheet that lists the
+    // two term names instead has no opinion at all about the third the day it is authored.
+    const page = read(path.join(DIST, 'molds/audit-wgd-inference/index.html'));
+    expect(page).toMatch(/data-standing="grounded"/);
+  });
+
+  it('supplies every colour the shared card names', () => {
+    // The kit's own contract, asked here rather than restated: a component under `node_modules`
+    // names role tokens this repo has to define, and a missing one renders as an invisible chip
+    // on a page that is otherwise fine.
+    //
+    // Asked of `:root`, not of the whole stylesheet. The first version of this passed with all
+    // four `--color-evidence-*` tokens tree-shaken out of `:root`, on the strength of the `.dark`
+    // overrides beside them — the trap the palette block above was written about, walked straight
+    // into one screen below it.
+    expect(
+      referenceStyleGaps(rootCss()),
+      '\nrole tokens the shared reference card reads and this stylesheet does not declare',
+    ).toEqual([]);
   });
 });
