@@ -1,9 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
+import ReferenceContract from '@galaxy-foundry/site-kit/ReferenceContract.astro';
 import Base from '../../layouts/Base.astro';
 import TagChips from '../../components/TagChips.astro';
+import { DESIGN_DOCS } from '../../lib/design-docs';
+import { referenceContract } from '../../lib/reference-contract';
 import { repoPath } from '../../lib/repo-root';
+import { buildWikiLinkMap, resolveWikiLink } from '../../lib/wiki-links';
 
 export async function getStaticPaths() {
   const entries = await getCollection('molds');
@@ -20,6 +24,13 @@ const d = entry.data;
 
 // Anchored on the project root, not on this file's depth — see the note on the index page.
 const hasSibling = (file: string) => existsSync(repoPath('content/molds', entry.id, file));
+
+// How a `ref` becomes a link is this site's question, not the contract's — every kind here
+// declares `ref_shape: wiki-link`, so it is the same resolver the prose goes through. Passing the
+// site's own resolver rather than a link map is what keeps a ref in a manifest and a `[[ref]]` in
+// a paragraph from resolving to two different places.
+const linkMap = buildWikiLinkMap(DESIGN_DOCS);
+const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
 ---
 <Base title={d.name}>
   <div>
@@ -28,6 +39,7 @@ const hasSibling = (file: string) => existsSync(repoPath('content/molds', entry.
       <TagChips tags={d.tags} />
       <span class="text-(--color-text-muted)">eval {hasSibling('eval.md') ? '✓' : '—'} · scenarios {hasSibling('scenarios.md') ? '✓' : '—'}</span>
     </div>
+    <ReferenceContract references={d.references ?? []} contract={referenceContract()} resolveRef={resolveRef} />
     <article class="prose prose-slate max-w-none dark:prose-invert">
       <Content />
     </article>

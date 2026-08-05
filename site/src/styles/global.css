@@ -8,15 +8,23 @@
    one utility as a canary for whether Tailwind scanned the layout, and was keeping that canary
    alive by naming it, so the assertion could not fail. */
 @source not "../../tests";
+/* Automatic source detection stops at `node_modules`, so the shared components are invisible to
+   Tailwind unless this says otherwise — and every token they name gets tree-shaken out of `:root`
+   while the markup goes on referencing it. Nothing errors; the chips render unstyled. */
+@source "../../node_modules/@galaxy-foundry/site-kit/src";
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Brand. The two hexes are inherited from the Galaxy Workflow Foundry's palette; the names are
-     not, and should not be — this site is not that site, and a token called `galaxy-primary` on a
-     statistical-genomics page is a claim rather than a colour. */
+  /* A token is named for the ROLE it plays, never for where its hex came from nor for what the
+     colour looks like. Both hexes below are inherited from the Galaxy Workflow Foundry's palette;
+     neither name is, and should not be — this site is not that site, and a token called
+     `galaxy-primary` on a statistical-genomics page is a claim rather than a colour. `chrome` is
+     the same rule applied to the second one: it is the dark the header, footer and skip link are
+     painted with, which is a job. The components that read it ship in @galaxy-foundry/site-kit
+     now, and a role is the only kind of name that can mean anything to a second site. */
   --color-brand: #25537b;
-  --color-brand-dark: #2c3143;
+  --color-chrome: #2c3143;
 
   /* Surfaces */
   --color-surface: #ffffff;
@@ -39,6 +47,16 @@
   /* Accent — desaturated gold */
   --color-accent: #e8c547;
 
+  /* Evidence standing — how much weight a reference's claim carries, and the only colour
+     decision the reference card makes. Two ROLES rather than three term names: `provisional`
+     and `grounded` are what @galaxy-foundry/reference-contract declares each evidence term to
+     BE, so a fourth term added upstream arrives already styled instead of arriving unstyled and
+     looking deliberate. */
+  --color-evidence-provisional-bg: #fff3cd;
+  --color-evidence-provisional-text: #856404;
+  --color-evidence-grounded-bg: #d4edda;
+  --color-evidence-grounded-text: #155724;
+
   /* Fonts — Atkinson Hyperlegible for high legibility */
   --font-sans: 'Atkinson Hyperlegible', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: Monaco, Menlo, Consolas, 'Courier New', monospace;
@@ -54,6 +72,10 @@
   --color-text-muted: #8b94a0;
   --color-link: #6fa5d4;
   --color-link-hover: #ffd700;
+  --color-evidence-provisional-bg: #3d2e00;
+  --color-evidence-provisional-text: #f0c000;
+  --color-evidence-grounded-bg: #0f2d16;
+  --color-evidence-grounded-text: #56d364;
 }
 
 body {
@@ -84,7 +106,7 @@ body {
   @apply sr-only;
 }
 .skip-link:focus {
-  @apply not-sr-only fixed top-2 left-2 z-50 px-3 py-2 rounded bg-(--color-brand-dark) text-(--color-text-on-dark);
+  @apply not-sr-only fixed top-2 left-2 z-50 px-3 py-2 rounded bg-(--color-chrome) text-(--color-text-on-dark);
 }
 
 /* Active nav link in header.
