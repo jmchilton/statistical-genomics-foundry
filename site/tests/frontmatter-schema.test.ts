@@ -212,12 +212,12 @@ describe('reference manifest (via mold schema)', () => {
     expect(issues.some((i) => i.path.join('.').startsWith('references.0.load'))).toBe(true);
   });
 
-  // `condense` is capacity we have not built: it needs an LLM phase in a caster we do not
-  // have, plus the prompt/model provenance and non-byte-stable output that phase brings.
-  // Re-adding it is a deliberate act — a Mold needing an LLM pass, and the phase built to
-  // serve it — not something that should slip back in with a single frontmatter line.
-  it('rejects `condense`, which this Foundry does not implement', () => {
-    const issues = issuesOf(moldSchema, validMold({ references: [validReference({ mode: 'condense' })] }));
+  // `sidecar` is capacity we have not built: it needs a renderer, and a caster to run it in.
+  // The narrow is what makes that refusal happen here, at authoring time, instead of waiting
+  // for a caster that could refuse it. This is the only mode the substrate offers and we
+  // decline, so it is the only one that proves the narrow is wired at all.
+  it('rejects `sidecar`, which this Foundry does not implement', () => {
+    const issues = issuesOf(moldSchema, validMold({ references: [validReference({ mode: 'sidecar' })] }));
     expect(issues.some((i) => i.path.join('.').startsWith('references.0.mode'))).toBe(true);
   });
 

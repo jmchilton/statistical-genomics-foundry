@@ -64,9 +64,9 @@ references:
     purpose: "Ground the double-dipping audit in the established remedy (countsplit)."
 ```
 
-Required fields: `kind`, `ref`, `used_at`, `load` (`on-demand` requires `trigger`), `mode` (`verbatim | sidecar`), and `evidence` (`hypothesis | corpus-observed | cast-validated`, where `hypothesis` requires `verification`). `purpose` is strongly recommended.
+Required fields: `kind`, `ref`, `used_at`, `load` (`on-demand` requires `trigger`), `mode` (`verbatim`), and `evidence` (`hypothesis | corpus-observed | cast-validated`, where `hypothesis` requires `verification`). `purpose` is strongly recommended.
 
-`condense` is not among the modes; `site/src/lib/reference-contract.ts` narrows it out of the inherited vocabulary and records why. `kind` draws from `reference_contract.yml`, which registers three:
+The substrate's other mode, `sidecar`, is not among them; `site/src/lib/reference-contract.ts` narrows it out of the inherited vocabulary and records why. `kind` draws from `reference_contract.yml`, which registers three:
 
 - `pattern` — a statistical-method pattern or an invalidity pattern such as double-dipping, confounding, or naive multiple-testing.
 - `research` — a methods-literature or cautionary negative-example note. The corpus-grounding kind, and the one carrying the most weight; [[corpus]] owns what goes into it.

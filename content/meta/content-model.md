@@ -71,7 +71,7 @@ A Mold's `references` are a typed manifest: each entry draws its `kind` from the
 
 An entry's vocabulary is checked and its target is not. `kind` and `mode` are held to the registries; whether the `target` names a note that exists is currently answered nowhere, so a reference may point at nothing and pass. The body-link check covers prose only, and this is the half still open.
 
-This Foundry narrows reference modes to behavior it can support now. `condense` is unavailable because there is no caster, no pending-LLM bookkeeping, and no model or prompt provenance path — a mode is a commitment to machinery, and declaring one the caster cannot honor would make a manifest that validates and cannot be cast. References here express what a future deterministic cast may carry, not evidence that casting exists.
+This Foundry narrows reference modes to behavior it can support now. `sidecar` is unavailable because there is no caster and no renderer to run inside one — a mode is a commitment to machinery, and declaring one the caster cannot honor would make a manifest that validates and cannot be cast. References here express what a future deterministic cast may carry, not evidence that casting exists.
 
 ## Directory notes and companions
 
