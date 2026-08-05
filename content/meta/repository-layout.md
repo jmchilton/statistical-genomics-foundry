@@ -62,7 +62,7 @@ site/
 ├── src/lib/            schema composition, registries, links, and render adapters
 ├── src/pages/          Astro routes
 ├── src/components/     shared presentation
-├── src/layouts/        page shells
+├── src/layouts/        where the installed shell is composed with this site's identity
 ├── src/styles/         site styling
 ├── tests/              corpus and contract validation
 ├── scripts/            deterministic generators

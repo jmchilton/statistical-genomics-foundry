@@ -1,11 +1,11 @@
 import { getCollection } from 'astro:content';
+import { base } from './site-base';
 
 // The inverse of the per-page tag chips: which entries carry a given tag.
 // Every content schema now has a `tags` field, and each collection's route path
 // equals its name (the `url` builder relies on that), so all six are linkable.
 // To add another: extend the union + `COLLECTION_LABEL`, and add a block in
 // `getTaggedEntries` naming its display field (`name` vs `title`).
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export type TaggedCollection =
   | 'molds'

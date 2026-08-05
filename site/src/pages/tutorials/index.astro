@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { base } from '../../lib/site-base';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const entries = (await getCollection('tutorials')).sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
 <Base title="Tutorials">
@@ -18,7 +18,7 @@ const entries = (await getCollection('tutorials')).sort((a, b) => a.data.title.l
       <li>
         <a href={`${base}/tutorials/${e.id}/`} class="card">
           <div class="flex items-center gap-2 mb-1">
-            {e.data.version && <span class="tag">{e.data.version}</span>}
+            {e.data.version && <span class="meta-pill">{e.data.version}</span>}
           </div>
           <div class="font-semibold text-(--color-text-primary)">{e.data.title}</div>
           <div class="text-sm text-(--color-text-secondary) mt-1">{e.data.attribution}</div>

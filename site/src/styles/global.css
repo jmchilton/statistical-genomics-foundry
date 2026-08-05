@@ -15,6 +15,18 @@
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* The shell lives in @galaxy-foundry/site-kit, and Tailwind's automatic source detection does not
+   look inside node_modules. Without this line every utility the shell writes — the container
+   measure, the header bar, the footer row — is missing from the emitted stylesheet: the build stays
+   green, all 213 pages render, and the site has no layout.
+
+   This line cannot be verified by reading it. A typo'd path resolves to nothing and Tailwind says
+   nothing about it; `site-kitt` builds exactly as cleanly as the correct spelling. What tells the
+   two apart is `tests/built-shell.test.ts`, which asserts that a utility only the KIT writes
+   reaches the stylesheet — which is also why the exclusion above still matters, since that test
+   would otherwise keep the canary alive by naming it. */
+@source "../../node_modules/@galaxy-foundry/site-kit/src";
+
 @theme {
   /* A token is named for the ROLE it plays, never for where its hex came from nor for what the
      colour looks like. Both hexes below are inherited from the Galaxy Workflow Foundry's palette;
@@ -150,14 +162,72 @@ body {
   @apply inline-block text-xs font-bold uppercase tracking-wider text-(--color-brand) dark:text-(--color-accent);
 }
 
-.tag {
+/* Provenance, not a tag. The source book and chapter, a version, a licence name — it says where
+   the text came from, and none of it is clickable or registered anywhere.
+
+   It held the name `.tag` until the tag chip needed it. The sibling instance has always meant a
+   REGISTRY tag by `.tag`, so the two repos shipped one class name for two concepts, and comparing
+   the two definitions looked like agreement while they were not discussing the same thing. */
+.meta-pill {
   @apply inline-block px-2 py-0.5 rounded-full text-xs font-medium;
   background-color: var(--color-surface-hover);
   color: var(--color-link);
 }
-.dark .tag {
-  background-color: var(--color-surface-hover);
+.dark .meta-pill {
+  /* The background is not restated here: `--color-surface-hover` is itself redefined under
+     `.dark`, so the rule above already resolves to the dark value. */
   color: #9bb8d6;
+}
+
+/* A registry tag, which on this site always means a link into the tag pages — there is no
+   unlinked tag chip here. Same definition as the sibling instance, hover included: its tags index
+   wraps the chip and a count in one anchor while its detail pages make the anchor BE the chip,
+   and which nesting a call site needs is a layout question that should not decide whether the
+   chip reacts. Stated once, so a second rendering has to disagree with something to exist. */
+.tag {
+  @apply inline-block px-2 py-0.5 rounded-full text-xs font-medium transition-colors duration-150;
+  background-color: var(--color-surface-hover);
+  color: var(--color-link);
+}
+.dark .tag {
+  color: #9bb8d6;
+}
+a:hover .tag,
+a.tag:hover {
+  background-color: var(--color-accent);
+  color: var(--color-galaxy-dark);
+}
+
+/* What a licence lets a reader do with the text below it — verbatim-ok, own-words-only, copyleft.
+   Derived from the licence id by @galaxy-foundry/license-policy, never restated per note.
+
+   Here rather than scoped inside SourceMeta.astro, and the reason is structural: one route now
+   renders every note, so it IMPORTS that component on all 213 pages, and Astro ships a
+   component's scoped styles wherever it is imported — including the 26 pages that render no
+   provenance box at all. Appearance lives in this file on this site anyway; the collapse only
+   made the exception cost something.
+
+   Declarations carried over literally rather than respelled as utilities: `py-0.5` is 0.125rem
+   against the 0.1rem below, and `rounded-full` is 9999px against 999px. Neither is visible on its
+   own and both would make this a restyling rather than a move. */
+.license-policy {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--color-text-secondary);
+}
+.license-policy-verbatim-ok {
+  background: color-mix(in srgb, #16a34a 16%, transparent);
+}
+.license-policy-own-words-only {
+  background: color-mix(in srgb, #d97706 18%, transparent);
+}
+.license-copyleft {
+  background: color-mix(in srgb, #dc2626 16%, transparent);
 }
 
 .card {

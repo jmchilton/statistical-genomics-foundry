@@ -3,7 +3,7 @@ import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import yaml from 'js-yaml';
 import { paperSchema, tutorialSchema, bookSchema, moldSchema, patternSchema } from '../src/lib/frontmatter-schema';
-import { facetOf } from '../src/lib/meta-tags';
+import { tagRegistry } from '../src/lib/meta-tags';
 
 // Negative-fixtures table: each deliberately-broken frontmatter asserts the SPECIFIC
 // error it must raise, against the same schema the site builds with (issue #89 rung 3).
@@ -186,9 +186,9 @@ describe('closed-registry invariant', () => {
 // What is ours to prove is that OUR registry actually resolves through it.
 describe('declared membership (our vocabulary)', () => {
   it('attributes each real tag to the facet that declared it', () => {
-    expect(facetOf('domain/batch-effects')).toBe('domain');
-    expect(facetOf('family/b')).toBe('family');
-    expect(facetOf('domain/not-a-real-domain')).toBeUndefined();
+    expect(tagRegistry().facetOf('domain/batch-effects')).toBe('domain');
+    expect(tagRegistry().facetOf('family/b')).toBe('family');
+    expect(tagRegistry().facetOf('domain/not-a-real-domain')).toBeUndefined();
   });
 
   // The /tags index groups by declaring facet, so every tag in use must resolve to one
@@ -196,7 +196,7 @@ describe('declared membership (our vocabulary)', () => {
   it('gives every registered tag a declaring facet', () => {
     const orphans = Object.values(readRegistry().facets)
       .flatMap(f => Object.keys(f.values ?? {}))
-      .filter(tag => facetOf(tag) === undefined);
+      .filter(tag => tagRegistry().facetOf(tag) === undefined);
     expect(orphans).toEqual([]);
   });
 });

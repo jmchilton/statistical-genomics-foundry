@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getLicenses } from '../../lib/licenses';
 import { bundledPolicy, licenseIdFromFilePath, resolveLicenseRow } from '@galaxy-foundry/license-policy';
+import { base } from '../../lib/site-base';
 
 export async function getStaticPaths() {
   return getLicenses().map(license => ({
@@ -12,7 +13,6 @@ export async function getStaticPaths() {
 }
 
 const { license } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Notes redistributing content under this LICENSES/ file, with their SPDX id.
 const collections = ['books', 'papers', 'tutorials'] as const;

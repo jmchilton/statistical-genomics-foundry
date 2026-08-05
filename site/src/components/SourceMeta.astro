@@ -17,8 +17,8 @@ interface Props {
   accessDate?: string;
 }
 import { bundledPolicy, licenseIdFromFilePath, resolveLicenseRow } from '@galaxy-foundry/license-policy';
+import { base } from '../lib/site-base';
 const { source, sourceChapter, sourceUrl, license, licenseFile, attribution, derived, doi, version, accessDate } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const licenseHref = licenseFile ? `${base}/licenses/${licenseIdFromFilePath(licenseFile)}/` : null;
 const doiHref = doi ? `https://doi.org/${doi}` : null;
 
@@ -28,9 +28,9 @@ const policyLabel = row.policy === 'own-words-only' ? 'own-words only' : 'verbat
 ---
 <aside class="not-prose mb-6 rounded-lg border border-(--color-border-subtle) bg-(--color-surface-raised) p-4 text-sm">
   <div class="flex flex-wrap items-center gap-2 mb-2">
-    <span class="tag">{source}{sourceChapter !== undefined ? ` · ch ${sourceChapter}` : ''}</span>
-    {version && <span class="tag">{version}</span>}
-    <span class="tag" title={license}>{row.name}</span>
+    <span class="meta-pill">{source}{sourceChapter !== undefined ? ` · ch ${sourceChapter}` : ''}</span>
+    {version && <span class="meta-pill">{version}</span>}
+    <span class="meta-pill" title={license}>{row.name}</span>
     <span class={`license-policy license-policy-${row.policy}`}>{policyLabel}</span>
     {row.copyleft && <span class="license-policy license-copyleft">copyleft</span>}
   </div>
@@ -50,25 +50,3 @@ const policyLabel = row.policy === 'own-words-only' ? 'own-words only' : 'verbat
     {accessDate && <span class="text-(--color-text-muted)"> · accessed {accessDate}</span>}
   </p>
 </aside>
-
-<style>
-  .license-policy {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.1rem 0.5rem;
-    border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.03em;
-    color: var(--color-text-secondary);
-  }
-  .license-policy-verbatim-ok {
-    background: color-mix(in srgb, #16a34a 16%, transparent);
-  }
-  .license-policy-own-words-only {
-    background: color-mix(in srgb, #d97706 18%, transparent);
-  }
-  .license-copyleft {
-    background: color-mix(in srgb, #dc2626 16%, transparent);
-  }
-</style>

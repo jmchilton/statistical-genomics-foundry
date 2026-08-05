@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { roleOf, familyOf } from '../lib/tags';
+import { base } from '../lib/site-base';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const bookCount = (await getCollection('books')).length;
 const paperCount = (await getCollection('papers')).length;
 const tutorialCount = (await getCollection('tutorials')).length;

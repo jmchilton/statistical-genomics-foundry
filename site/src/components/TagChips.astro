@@ -1,11 +1,21 @@
 ---
+import { base } from '../lib/site-base';
+
 // The clickable tag chips shown on a detail page — each links to its /tags/<tag> page.
+//
+// Every tagged collection renders this, which is the point of the component existing. The tag
+// pages link out to all five, and until they linked back only Molds gave a reader a way in: a
+// tag index nothing points at builds, validates, and is never reached.
+//
+// The appearance is `.tag` in global.css and nothing here. This used to spell the chip out in
+// utilities — a bordered mono pill that touched `.tag` never — while `.tag` itself named the
+// provenance pills. So the one thing on this site that IS a tag was the one thing not using the
+// class called `tag`.
 interface Props {
   tags: string[];
 }
 const { tags } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 {tags.map(t => (
-  <a href={`${base}/tags/${t}/`} class="rounded bg-(--color-surface-raised) border border-(--color-border-subtle) text-(--color-text-secondary) px-2 py-0.5 font-mono no-underline hover:border-(--color-brand) hover:text-(--color-text-primary) transition-colors">{t}</a>
+  <a href={`${base}/tags/${t}/`} class="tag no-underline">{t}</a>
 ))}

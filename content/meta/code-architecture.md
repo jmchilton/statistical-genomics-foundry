@@ -77,6 +77,8 @@ The instance adapters provide paths, concrete vocabularies, and the link map. Th
 
 `site/src/pages/` owns routes. Collection keys and route directories agree directly (`papers`, `tutorials`, `books`, `molds`, `patterns`, `meta`), with tests guarding that relationship. `site/src/components/` owns shared presentation, while Markdown bodies remain authored in `content/`.
 
+The reading shell around every page — document skeleton, header, footer — is not here. It comes from `@galaxy-foundry/site-kit`, and `site/src/layouts/Base.astro` is only the composition point: it hands the package a `SiteIdentity` from `site/src/lib/site-identity.ts` and the base URL, and receives the markup. What this instance still decides is that identity — the names, the description, the destinations, how many of them fit on the bar — and the palette, which `site/src/styles/global.css` defines as custom properties the kit names but does not ship. That file also has to point Tailwind at the package, because automatic source detection does not look inside `node_modules`; `site/tests/built-shell.test.ts` is what checks it did.
+
 The site is a pure reader. It validates and renders source; it does not mutate content, create Molds, or cast artifacts.
 
 ## Generators

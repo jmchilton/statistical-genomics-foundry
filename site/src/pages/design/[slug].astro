@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { DESIGN_DOCS, renderDesignDoc } from '../../lib/design-docs';
 import { buildWikiLinkMap } from '../../lib/wiki-links';
+import { base } from '../../lib/site-base';
 
 export async function getStaticPaths() {
   return DESIGN_DOCS.map(doc => ({
@@ -11,7 +12,6 @@ export async function getStaticPaths() {
 }
 
 const { doc } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const linkMap = buildWikiLinkMap(DESIGN_DOCS);
 const html = renderDesignDoc(doc, linkMap, base);
 

@@ -10,7 +10,8 @@ import {
   contentPath,
   type NoteKind,
 } from '../src/lib/frontmatter-schema';
-import { facets, facetOf } from '../src/lib/meta-tags';
+import { tagRegistry } from '../src/lib/meta-tags';
+import { groupTagsInUse } from '../src/lib/tag-browse';
 import { NARROWED_GROUPS, referenceKinds, referenceModes } from '../src/lib/reference-contract';
 
 // The registries and the corpus must agree BOTH ways.
@@ -98,12 +99,19 @@ describe('registry drift (authored vocabulary vs corpus)', () => {
     expect(dead, `\nregistered but unused: ${dead.join(', ')}`).toEqual([]);
   });
 
-  // A facet whose members are all unused renders as nothing on /tags — it is a browse
-  // axis that exists only in the registry.
+  // A facet whose members are all unused renders as nothing on /tags — it is a browse axis that
+  // exists only in the registry. Asked OF the grouping rather than recomputed alongside it: this
+  // check reasons about what the tags index shows, and it used to reach that conclusion by its
+  // own route, which is a second answer to the question dressed up as a test of the first.
   it('has no facet with zero members in use', () => {
-    const empty = facets()
+    const registry = tagRegistry();
+    const shown = new Set(
+      groupTagsInUse(registry, new Map([...tagsInUse].map(t => [t, 1] as const))).map(g => g.key),
+    );
+    const empty = registry
+      .facets()
       .map(f => f.key)
-      .filter(key => ![...tagsInUse].some(t => facetOf(t) === key));
+      .filter(key => !shown.has(key));
     expect(empty, `\nfacets with no tags in use: ${empty.join(', ')}`).toEqual([]);
   });
 
