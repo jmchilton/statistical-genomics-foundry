@@ -59,6 +59,15 @@
   /* Accent — desaturated gold */
   --color-accent: #e8c547;
 
+  /* What a licence lets a reader do with the text below it. Roles rather than licence names, for
+     the same reason the standings below are: the chip is keyed on the row's own `policy` value, so
+     a licence added upstream arrives already coloured. `licenseBadgeStyleGaps` asserts all three
+     reach the stylesheet — an undeclared property inside `color-mix()` is a chip with no
+     background and no error. */
+  --color-license-verbatim: #16a34a;
+  --color-license-own-words: #d97706;
+  --color-license-copyleft: #dc2626;
+
   /* Evidence standing — how much weight a reference's claim carries, and the only colour
      decision the reference card makes. Two ROLES rather than three term names: `provisional`
      and `grounded` are what @galaxy-foundry/reference-contract declares each evidence term to
@@ -198,37 +207,6 @@ a.tag:hover {
   color: var(--color-galaxy-dark);
 }
 
-/* What a licence lets a reader do with the text below it — verbatim-ok, own-words-only, copyleft.
-   Derived from the licence id by @galaxy-foundry/license-policy, never restated per note.
-
-   Here rather than scoped inside SourceMeta.astro, and the reason is structural: one route now
-   renders every note, so it IMPORTS that component on all 213 pages, and Astro ships a
-   component's scoped styles wherever it is imported — including the 26 pages that render no
-   provenance box at all. Appearance lives in this file on this site anyway; the collapse only
-   made the exception cost something.
-
-   Declarations carried over literally rather than respelled as utilities: `py-0.5` is 0.125rem
-   against the 0.1rem below, and `rounded-full` is 9999px against 999px. Neither is visible on its
-   own and both would make this a restyling rather than a move. */
-.license-policy {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.1rem 0.5rem;
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.03em;
-  color: var(--color-text-secondary);
-}
-.license-policy-verbatim-ok {
-  background: color-mix(in srgb, #16a34a 16%, transparent);
-}
-.license-policy-own-words-only {
-  background: color-mix(in srgb, #d97706 18%, transparent);
-}
-.license-copyleft {
-  background: color-mix(in srgb, #dc2626 16%, transparent);
-}
 
 .card {
   @apply block rounded-lg border border-(--color-border-subtle) bg-(--color-surface-raised) p-4 no-underline transition-colors;

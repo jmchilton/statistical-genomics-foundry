@@ -29,7 +29,11 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 
-import { referenceStyleGaps } from '@galaxy-foundry/site-kit';
+import {
+  licenseBadgeStyleGaps,
+  licenseFileStyleGaps,
+  referenceStyleGaps,
+} from '@galaxy-foundry/site-kit';
 import yaml from 'js-yaml';
 import { beforeAll, describe, expect, it } from 'vitest';
 
@@ -478,6 +482,21 @@ describe('the reference manifest a Mold declares', () => {
     expect(
       referenceStyleGaps(rootCss()),
       '\nrole tokens the shared reference card reads and this stylesheet does not declare',
+    ).toEqual([]);
+  });
+
+  it('supplies every colour the shared licence components name', () => {
+    // The same contract, two more components. These three were literals in this stylesheet —
+    // `#16a34a`, `#d97706`, `#dc2626` — and the identical three sat in a sibling instance's
+    // component. Naming them is what let the chip move; declaring them is now ours, and an
+    // undeclared property inside `color-mix()` is a chip with no background and no error.
+    expect(
+      licenseBadgeStyleGaps(rootCss()),
+      '\nrole tokens the licence badge reads and this stylesheet does not declare',
+    ).toEqual([]);
+    expect(
+      licenseFileStyleGaps(rootCss()),
+      '\nrole tokens the licence-file body reads and this stylesheet does not declare',
     ).toEqual([]);
   });
 });

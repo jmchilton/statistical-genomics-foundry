@@ -16,23 +16,25 @@ interface Props {
   version?: string;
   accessDate?: string;
 }
-import { bundledPolicy, licenseIdFromFilePath, resolveLicenseRow } from '@galaxy-foundry/license-policy';
+import { bundledPolicy, resolveLicenseRow } from '@galaxy-foundry/license-policy';
+import { licenseFileHref } from '@galaxy-foundry/site-kit';
+import LicenseBadge from '@galaxy-foundry/site-kit/LicenseBadge.astro';
 import { base } from '../lib/site-base';
 const { source, sourceChapter, sourceUrl, license, licenseFile, attribution, derived, doi, version, accessDate } = Astro.props;
-const licenseHref = licenseFile ? `${base}/licenses/${licenseIdFromFilePath(licenseFile)}/` : null;
+const licenseHref = licenseFile ? licenseFileHref(base, licenseFile) : null;
 const doiHref = doi ? `https://doi.org/${doi}` : null;
 
-// Policy row for this license id (unknown/missing → own-words-only + defect).
-const row = resolveLicenseRow(bundledPolicy(), license);
-const policyLabel = row.policy === 'own-words-only' ? 'own-words only' : 'verbatim OK';
+// Still resolved here for `policy`, which decides the "no redistributable text" line below. The
+// chips themselves are the badge's — what a licence PERMITS travels with the licence, while the
+// attribution and the derived-from line are what THIS note owes for using it.
+const policy = bundledPolicy();
+const row = resolveLicenseRow(policy, license);
 ---
 <aside class="not-prose mb-6 rounded-lg border border-(--color-border-subtle) bg-(--color-surface-raised) p-4 text-sm">
   <div class="flex flex-wrap items-center gap-2 mb-2">
     <span class="meta-pill">{source}{sourceChapter !== undefined ? ` · ch ${sourceChapter}` : ''}</span>
     {version && <span class="meta-pill">{version}</span>}
-    <span class="meta-pill" title={license}>{row.name}</span>
-    <span class={`license-policy license-policy-${row.policy}`}>{policyLabel}</span>
-    {row.copyleft && <span class="license-policy license-copyleft">copyleft</span>}
+    <LicenseBadge license={license} policy={policy} />
   </div>
   <p class="text-(--color-text-secondary) m-0">
     {attribution}
