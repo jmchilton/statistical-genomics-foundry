@@ -2,93 +2,49 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getLicenses } from '../../lib/licenses';
-import { bundledPolicy, licenseIdFromFilePath, resolveLicenseRow } from '@galaxy-foundry/license-policy';
+import { bundledPolicy, redistributesUnder } from '@galaxy-foundry/license-policy';
+import type { LicenseFileUse } from '@galaxy-foundry/site-kit';
+import LicenseFileBody from '@galaxy-foundry/site-kit/LicenseFileBody.astro';
 import { base } from '../../lib/site-base';
 
 export async function getStaticPaths() {
-  return getLicenses().map(license => ({
-    params: { id: license.licenseId },
-    props: { license },
+  return getLicenses().map(licenseFile => ({
+    params: { id: licenseFile.id },
+    props: { licenseFile },
   }));
 }
 
-const { license } = Astro.props;
+const { licenseFile } = Astro.props;
 
-// Notes redistributing content under this LICENSES/ file, with their SPDX id.
+// The per-instance half: our notes live in three collections and are addressed as
+// `/{collection}/{id}/`, so this walk and these hrefs stay here. The membership test does not —
+// `redistributesUnder` compares a note's `license_file` against a FILE id, which this page used to
+// spell as an equality between two things both called `licenseId`. A copy is keyed by source, so
+// two books under one licence have two copies and this page must not list the other's notes.
 const collections = ['books', 'papers', 'tutorials'] as const;
 const entries = (await Promise.all(
   collections.map(async c => (await getCollection(c)).map(e => ({ e, collection: c }))),
 )).flat();
-const users = entries
-  .filter(({ e }) => {
-    const lf = e.data.license_file;
-    return typeof lf === 'string' && licenseIdFromFilePath(lf) === license.licenseId;
-  })
+const uses: LicenseFileUse[] = entries
+  .filter(({ e }) => redistributesUnder(e.data.license_file, licenseFile.id))
   .map(({ e, collection }) => ({
     href: `${base}/${collection}/${e.id}/`,
-    id: e.id,
-    spdx: e.data.license,
+    label: e.id,
+    licenseId: e.data.license,
   }))
-  .sort((a, b) => a.id.localeCompare(b.id));
-
-// Distinct SPDX ids carried under this file, and their policy rows.
-const spdxIds = [...new Set(users.map(u => u.spdx).filter(Boolean) as string[])];
-const rows = spdxIds.map(id => ({ id, row: resolveLicenseRow(bundledPolicy(), id) }));
-
-// Turn bare URLs into links while leaving the rest of the text verbatim.
-type Segment = { text: string; href?: string };
-const segments: Segment[] = [];
-const urlRe = /https?:\/\/[^\s)]+/g;
-let last = 0;
-let match: RegExpExecArray | null;
-while ((match = urlRe.exec(license.text)) !== null) {
-  if (match.index > last) segments.push({ text: license.text.slice(last, match.index) });
-  segments.push({ text: match[0], href: match[0] });
-  last = match.index + match[0].length;
-}
-if (last < license.text.length) segments.push({ text: license.text.slice(last) });
+  .sort((a, b) => a.label.localeCompare(b.label));
 ---
-<Base title={`License — ${license.filename}`} description={`License terms for ${license.filename}.`}>
+<Base title={`License — ${licenseFile.filename}`} description={`License terms for ${licenseFile.filename}.`}>
   <article class="license">
     <header class="license-header">
       <span class="license-eyebrow">
         <span class="license-eyebrow-rule" aria-hidden="true"></span>
         <span>imported-content license</span>
       </span>
-      <h1 data-pagefind-meta="title">{license.filename}</h1>
+      <h1 data-pagefind-meta="title">{licenseFile.filename}</h1>
     </header>
 
-    {rows.length > 0 && (
-      <section class="policy-rows">
-        {rows.map(({ id, row }) => (
-          <div class="policy-row">
-            <p class="policy-row-head">
-              <code>{id}</code>
-              <span class="policy-badge">{row.policy === 'own-words-only' ? 'own-words only' : 'verbatim OK'}{row.copyleft ? ' · copyleft' : ''}</span>
-            </p>
-            <p class="policy-row-obligations">{row.obligations}</p>
-          </div>
-        ))}
-      </section>
-    )}
-
-    {users.length > 0 && (
-      <section class="redistributed-by">
-        <h2>Redistributed by <span class="count">({users.length})</span></h2>
-        <ul>
-          {users.map(u => (
-            <li>
-              <a href={u.href} class="license-link">{u.id}</a>
-              {u.spdx && <span class="redistributed-spdx">{u.spdx}</span>}
-            </li>
-          ))}
-        </ul>
-      </section>
-    )}
-
-    <pre class="license-text">{segments.map(s => s.href
-      ? <a href={s.href} class="license-link">{s.text}</a>
-      : s.text)}</pre>
+    <LicenseFileBody licenseFile={licenseFile} policy={bundledPolicy()} uses={uses} />
   </article>
 </Base>
 
@@ -122,81 +78,5 @@ if (last < license.text.length) segments.push({ text: license.text.slice(last) }
     font-family: var(--font-mono);
     font-size: clamp(1.3rem, 1.6vw + 0.5rem, 1.7rem);
     letter-spacing: -0.01em;
-  }
-  .policy-rows {
-    display: grid;
-    gap: 0.6rem;
-    margin-bottom: 1.5rem;
-  }
-  .policy-row {
-    padding: 0.75rem 0.9rem;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 0.5rem;
-    background: var(--color-surface-raised);
-  }
-  .policy-row-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0 0 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--color-text-primary);
-  }
-  .policy-badge {
-    font-size: 0.72rem;
-    letter-spacing: 0.03em;
-    color: var(--color-text-secondary);
-  }
-  .policy-row-obligations {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-  }
-  .redistributed-by {
-    margin-bottom: 1.5rem;
-  }
-  .redistributed-by h2 {
-    margin: 0 0 0.6rem;
-    font-size: 1rem;
-    color: var(--color-text-primary);
-  }
-  .redistributed-by .count {
-    font-weight: 400;
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-  }
-  .redistributed-by ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0.35rem;
-  }
-  .redistributed-spdx {
-    margin-left: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--color-text-muted);
-  }
-  .license-text {
-    margin: 0;
-    padding: 1.25rem 1.4rem;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 0.5rem;
-    background: var(--color-surface-raised);
-    color: var(--color-text-secondary);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    line-height: 1.65;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-  .license-link {
-    color: var(--color-link);
-  }
-  .license-link:hover {
-    color: var(--color-link-hover);
   }
 </style>

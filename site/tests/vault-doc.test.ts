@@ -46,7 +46,7 @@ describe('the LICENSES directory', () => {
   it('resolves to the repo root from the site cwd', () => {
     const licenses = getLicenses();
     expect(licenses.length).toBeGreaterThan(0);
-    expect(licenses.map((l) => l.licenseId)).toContain('msmb');
+    expect(licenses.map((l) => l.id)).toContain('msmb');
   });
 });
 
