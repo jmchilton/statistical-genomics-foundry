@@ -6,7 +6,7 @@
 // the `meta` kind under content/meta/, so their title and summary come from frontmatter a
 // schema checks, and the collection answers which ones exist.
 //
-// The remaining 22 rows point at files under content/research/ that are in NO collection and
+// The remaining 25 rows point at files under content/research/ that are in NO collection and
 // carry no frontmatter at all. They cannot be collapsed the same way until they are typed, and
 // typing them is a different job from finding the design records a home: it means authoring
 // frontmatter for two dozen prose notes and deciding what kind the mold-eval rubrics even are.
@@ -43,6 +43,20 @@ export const DESIGN_DOCS: DesignDoc[] = [
     title: 'Double-Dipping Survey',
     source: 'double-dipping-survey.md',
     summary: 'The review/survey layer above the primary-source notes — the double-dipping / selective-inference literature backing the double-dipping pattern.',
+    category: 'research',
+  },
+  {
+    slug: 'chain-of-evidence-integration',
+    title: 'Chain-of-Evidence Integration',
+    source: 'chain-of-evidence-integration.md',
+    summary: "ScientistOne's Chain-of-Evidence standard and its four-check integrity audit, read against our probes — what ports to skill repositories, what has to be adapted, and where it stops short of method validity.",
+    category: 'research',
+  },
+  {
+    slug: 'skill-integrity-audit',
+    title: 'Skill Integrity Audit',
+    source: 'skill-integrity-audit.md',
+    summary: 'A spec for the broad instrument: a post-hoc, artifact-only audit of whole skill repositories — reference resolution, skill–tool alignment, threshold provenance, and the convention disposition CoE lacks.',
     category: 'research',
   },
   {
@@ -169,6 +183,13 @@ export const DESIGN_DOCS: DesignDoc[] = [
     title: 'POPPER',
     source: 'projects/popper.md',
     summary: 'Our nearest neighbor on the referee axis — its framing, strengths, and where it sits on our values.',
+    category: 'related-projects',
+  },
+  {
+    slug: 'project-scientistone',
+    title: 'ScientistOne',
+    source: 'projects/scientistone.md',
+    summary: "Google's Chain-of-Evidence research system — its framing, strengths, and where it sits on our values.",
     category: 'related-projects',
   },
   {
