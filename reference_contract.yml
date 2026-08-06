@@ -29,11 +29,23 @@ kinds:
     label: Pattern
     description: A statistical-method or invalidity pattern page. Carried verbatim into casts.
     ref_shape: wiki-link
+    cast:
+      resolve: note
+      default_mode: verbatim
+      companions: false
   research:
     label: Research
     description: Background synthesis from a source note, loaded by explicit progressive-disclosure metadata.
     ref_shape: wiki-link
+    cast:
+      resolve: note
+      default_mode: verbatim
+      companions: false
   cli-command:
     label: CLI Command
     description: Command reference, carried verbatim and loaded only when invoked.
     ref_shape: wiki-link
+    cast:
+      resolve: note
+      default_mode: verbatim
+      companions: false
