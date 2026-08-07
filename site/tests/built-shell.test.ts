@@ -30,6 +30,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 
 import {
+  contentReaderStyleGaps,
   licenseBadgeStyleGaps,
   licenseFileStyleGaps,
   referenceStyleGaps,
@@ -154,6 +155,16 @@ describe('the document skeleton', () => {
     expect(home).toMatch(/<title>[^<]+ - Statistical Genomics Foundry<\/title>/);
     expect(home).toContain('property="og:title"');
     expect(home).toContain('property="og:description"');
+  });
+});
+
+describe('the shared content frame', () => {
+  it('links a note tag back into this corpus tag surface', () => {
+    const paper = read(path.join(DIST, 'papers/kirilenko-2023-toga/index.html'));
+    expect(paper).toContain(
+      'href="/statistical-genomics-foundry/tags/domain/comparative-annotation/"',
+    );
+    expect(paper).toContain('class="content-tag"');
   });
 });
 
@@ -497,6 +508,13 @@ describe('the reference manifest a Mold declares', () => {
     expect(
       licenseFileStyleGaps(rootCss()),
       '\nrole tokens the licence-file body reads and this stylesheet does not declare',
+    ).toEqual([]);
+  });
+
+  it('supplies every colour the shared content frame names', () => {
+    expect(
+      contentReaderStyleGaps(rootCss()),
+      '\nrole tokens the shared content frame reads and this stylesheet does not declare',
     ).toEqual([]);
   });
 });

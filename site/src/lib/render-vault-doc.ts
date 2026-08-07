@@ -1,10 +1,7 @@
 import fs from 'node:fs';
 
-import {
-  addBoldTermAnchors,
-  resolveWikiLink as resolve,
-  resolveWikiLinksInMarkdown,
-} from '@galaxy-foundry/wiki-links';
+import { resolveContentMarkdown } from '@galaxy-foundry/content-reader';
+import { addBoldTermAnchors } from '@galaxy-foundry/wiki-links';
 
 import { marked } from './marked';
 import { type WikiLinkTarget } from './wiki-links';
@@ -25,14 +22,7 @@ export function resolveWikiLinks(
   linkMap: Map<string, WikiLinkTarget>,
   base: string,
 ): string {
-  return resolveWikiLinksInMarkdown(raw, {
-    // Deliberately the same body as the remark plugin's `resolve`: one link map, one href shape,
-    // and the package appends the link's own `#anchor` to whatever it is given.
-    resolve: (link) => {
-      const target = resolve(link.target, linkMap);
-      return target ? { href: `${base}/${target.path}/` } : null;
-    },
-  });
+  return resolveContentMarkdown(raw, linkMap, base);
 }
 
 /**
