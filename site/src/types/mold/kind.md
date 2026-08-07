@@ -6,7 +6,10 @@ the *typed reference manifest* naming every note the cast must carry, and how.
 
 Molds are the substrate's centre of gravity, and in this Foundry they are the primary artifact:
 the catalog leads, and a Mold may legitimately belong to no pipeline at all. Only `index.md`
-bears frontmatter — `eval.md`, `scenarios.md`, `usage.md`, and `refinement.md` are siblings.
+bears frontmatter; `eval.md` and `scenarios.md` are its siblings, and the two declared
+companions are the whole layout. There is no `usage.md` and no `refinement.md` — the parent
+Foundry's optional companions, never written here. Illustration belongs in the Mold body; a
+file this kind does not declare is undeclared, and undeclared is an error.
 
 ## Why each required field is required
 

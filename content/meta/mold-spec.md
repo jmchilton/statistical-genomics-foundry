@@ -7,9 +7,9 @@ tags:
   - meta
 status: reviewed
 created: 2026-06-26
-revised: 2026-08-02
-revision: 5
-summary: "The Mold authoring contract \u2014 frontmatter, references, and the eval/usage/refinement shape."
+revised: 2026-08-07
+revision: 6
+summary: "The Mold authoring contract \u2014 frontmatter, references, and the eval/scenarios companion shape."
 ---
 
 This record owns the Mold authoring contract: what a Mold source directory contains, what `index.md` must declare, and what each companion file is for. Which Molds exist and which axes they bucket on belong to [[molds]]; what a cast does with the manifest belongs to [[casting]].
@@ -18,24 +18,20 @@ This record owns the Mold authoring contract: what a Mold source directory conta
 
 A Mold source unit is a directory under `content/molds/<slug>/`.
 
-Required:
-- `index.md` — the only frontmatter-bearing Mold source file. Owns the Mold contract and the operational `references:` manifest.
+Which files may sit beside `index.md` is **declared by the kind**, in `site/src/types/mold/schema.ts`, and `site/tests/corpus-conformance.test.ts` checks every Mold directory against that declaration. The declaration is the enforced answer; this record only says what each file is for.
 
-Strongly recommended (warning-only):
-- `eval.md` — abstract, fixture-independent property checks about cast output (the *how-to-judge*). Never packaged into casts.
-- `scenarios.md` — concrete fixtures + expected values exercised by the `eval.md` oracle. Never packaged.
+- `index.md` — required, and the only frontmatter-bearing Mold source file. Owns the Mold contract and the operational `references:` manifest.
+- `eval.md` — abstract, fixture-independent property checks about cast output (the *how-to-judge*). Declared `recommended`, so its absence is a warning today: a candidate Mold from a blind-assembly run can legitimately arrive before its oracle does.
+- `scenarios.md` — concrete fixtures + expected values exercised by the `eval.md` oracle. Same requirement, same reason.
 
-Optional: `usage.md` (illustration), `refinement.md` + `refinements/` (design questions + journal), `casting.md` (cast-time guidance), `cast-skill-verification.md`, `changes.md`, `examples/`.
+That is the whole list. The parent Foundry also allows `refinement.md` + `refinements/`, `casting.md`, `cast-skill-verification.md`, `changes.md`, and `examples/`; this Foundry declares none of them, and there is no `usage.md` in either. Illustration belongs in the Mold body. A file beside a Mold that the kind does not declare is undeclared, and undeclared is an error — so adding one of the parent's companions here means adding it to the kind first.
 
-Top-level Mold `.md` files carry no frontmatter except `index.md` (and the `refinements/` journal entries, which carry small structured frontmatter). Each file has one audience, and packaging follows from it:
+Top-level Mold `.md` files carry no frontmatter except `index.md`. Each file has one audience, and packaging follows from it:
 
 | File | Audience | Packaged into cast? |
 |---|---|---|
 | `index.md` | Mold contract + casting manifest | Body rendered into generated skills |
 | `eval.md` / `scenarios.md` | maintainers (oracle / cases) | Never |
-| `usage.md` / `refinement.md` / `refinements/` | authors / `/refine-mold` | Never |
-| `casting.md` | casting LLM | Read at cast time |
-| `examples/` | `index.md`, `eval.md` | Only if referenced |
 
 `index.md` body discipline: the body is procedural content rendered into the generated skill, so author-facing meta-content — changelogs, restatements of the manifest, open scope questions — stays out of it. Anything left in the body ships to an agent that has no use for it and no way to tell it from an instruction.
 
@@ -76,9 +72,9 @@ The parent Foundry registers more, including `schema` for a Mold's structured IO
 
 The `evidence` field carries more weight here than in the parent. This project's failure mode is plausible invented authority, so a reference tagged `corpus-observed` or `cast-validated` is earned and `hypothesis` is a flag. Review `hypothesis`-evidence references hardest — they are where the Foundry's own invention risk lives.
 
-## Eval, Scenarios, Usage, Refinement
+## Eval and Scenarios
 
-Four companion files, one job each: `eval.md` is the abstract oracle (properties), `scenarios.md` the concrete cases (fixtures plus expected values), `usage.md` an illustration, `refinement.md` the open design questions. Two tests decide where a piece of writing goes. Does it name a specific fixture or magic value? Then `scenarios.md`. Does it have no pass/fail edge? Then usage or refinement, not eval.
+Two companion files, one job each: `eval.md` is the abstract oracle (properties), `scenarios.md` the concrete cases (fixtures plus expected values). Two tests decide where a piece of writing goes. Does it name a specific fixture or magic value? Then `scenarios.md`. Does it have no pass/fail edge? Then it belongs in neither — an open design question about a Mold goes to the issue tracker, since this Foundry declares no `refinement.md` to park it in.
 
 The split exists because a merged file lets an author satisfy the oracle by construction — writing the property and the case that passes it in the same breath, with nothing left to be surprised by.
 
@@ -104,10 +100,6 @@ Two things do not belong in `eval.md`: a restatement of the procedural body, and
 
 `scenarios.md` holds the concrete cases — a `## Case:` with a `fixture:` and an `expect:`. The richest ones here are **planted-invalid fixtures**: a deliberately double-dipped analysis, a confounded design, an invented method with a fluent derivation, each bound to its expected referee verdict. StatQA's method-applicability cases and the known cautionary examples are ready sources. The `eval.md` oracle applies to each scenario's output; the scenario adds the fixture-bound expected verdict.
 
-### Usage and Refinement
-
-`usage.md` illustrates the Mold in action, `refinement.md` records the design questions still open, and `refinements/` journals how each was settled. None of the three is packaged into a cast.
-
 ## Validator Checklist
 
 - Mold directory and `index.md` exist; only `index.md` carries frontmatter; frontmatter validates.
@@ -115,7 +107,7 @@ Two things do not belong in `eval.md`: a restatement of the procedural body, and
 - `eval.md` exists, declares at least one `## Property:`, uses no `## Case:`, and marks each property deterministic or llm-judged (warning-only).
 - `scenarios.md` exists and every case binds a fixture (warning-only).
 - Every Family-B Mold's `eval.md` carries at least one catch-the-planted-flaw property (warning-only). A referee with no "must catch X" property is not refereeing.
-- The Mold directory holds only allowlisted files; `refinements/*.md` carry their own frontmatter.
+- The Mold directory holds only the files the kind declares — `index.md`, `eval.md`, `scenarios.md` — and nothing else.
 - CLI-command checks apply only once CLI notes are authored.
 - Protocol membership is not checked. Molds stand alone here ([[architecture]]), so an unreferenced Mold is not a warning.
 - Family and role tag coherence is unchecked for now, and becomes checkable when [[molds]] settles the vocabulary.

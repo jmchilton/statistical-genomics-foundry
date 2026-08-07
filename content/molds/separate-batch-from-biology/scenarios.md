@@ -226,8 +226,9 @@ null was correctly calculated). This is what makes the case a test rather than a
 
 ## Judgment-only — NOT tests (no recoverable ground truth; do not fake one)
 
-These exercise real branches of the Mold but have **no known expected answer**. They belong in `usage.md`,
-not in the graded scenario set. Listed here so the coverage map stays honest.
+These exercise real branches of the Mold but have **no known expected answer**, so they are not part of the
+graded scenario set. A Mold here has no companion to park them in, so they stay in this section — listed,
+and fenced off — so the coverage map stays honest.
 
 - **Droplet scRNA-seq: pool donors + demultiplex on genotype ([[kang-2018-demuxlet]]).** No stageable
   fixture, no ground truth, and **every number in the source is under a `[re-check]` Author-Correction
