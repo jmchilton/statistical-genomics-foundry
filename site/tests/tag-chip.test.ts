@@ -6,7 +6,7 @@
 // text, and is simply a different chip. A collection that carries tags and renders none builds,
 // validates, and quietly leaves its entries reachable only from the tag pages they never mention.
 //
-// Both had shipped. `TagChips.astro` drew a bordered mono pill in utilities and never touched
+// Both had shipped. The old local chip drew a bordered mono pill in utilities and never touched
 // `.tag`, while `.tag` itself named the provenance pills — so the one thing here that IS a tag was
 // the one thing not using the class called `tag`. And of five tagged collections, only Molds
 // rendered chips: the tag pages listed papers, tutorials, books and patterns, and none of those
@@ -35,7 +35,7 @@ const STYLESHEET = 'src/styles/global.css';
 const TAG_LINK = /<a\s[^>]*\/tags\/(?![`'"])/g;
 const STATIC_CLASS = /class="([^"]*)"/g;
 
-/** The class a link to a tag page renders as. One, here — see the sibling for why that is worth saying. */
+/** The class used by this repo's tag-browse cards. Note-page chips belong to site-kit. */
 const CHIP_CLASS = 'tag';
 
 /**
@@ -43,7 +43,7 @@ const CHIP_CLASS = 'tag';
  * would make every assertion below vacuously true, and a chip rule with no chips to check reports
  * the same PASS as a site with no drift.
  */
-const MIN_TAG_LINKS = 2;
+const MIN_TAG_LINKS = 1;
 
 /** Every `<a … /tags/<tag>… >` in a file, with the markup it encloses and its own attributes. */
 function tagLinks(file: string): { file: string; markup: string; opening: string }[] {
@@ -131,7 +131,15 @@ describe('the tag surface', () => {
     // and it passed for a collection whose directory happened to contain some OTHER page carrying
     // the string. Neither is available here.
     const route = siteSourceCode(path.join(SITE_SRC, 'pages', '[collection]', '[...slug].astro'));
-    expect(route, '\nthe detail route renders no tag chips at all.').toContain('<TagChips');
+    // The chip implementation is shared by @galaxy-foundry/site-kit now. This site owns the
+    // routing decision: the common note frame must receive this corpus's tags and tag base.
+    // Appearance and link markup are package contracts, tested with the component itself there;
+    // the built-site assertions below prove that SGF supplied the values correctly.
+    expect(route, '\nthe detail route does not use the shared content frame.').toContain('<ContentNote');
+    expect(route, '\nthe detail route does not pass its note tags to the shared frame.').toContain(
+      'tags={tags}',
+    );
+    expect(route, '\nthe detail route does not give shared chips a tag route.').toContain('tagBase=');
 
     const uncovered = collections.filter((collection) => !(collection in DETAIL_ROUTES));
     expect(

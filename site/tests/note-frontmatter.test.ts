@@ -46,7 +46,8 @@
 // d.nope` compiles, yielding `unknown`. The detail route asks `'title' in d`, `'tags' in d` and
 // `'summary' in d`, and a key renamed in every schema that declared it would survive all three —
 // each is caught instead by what it flows INTO, because `Base`'s title and description are
-// `string` and `TagChips` takes `string[]`. That is real protection and it is incidental: the day
+// `string` and the shared `ContentNote` takes `string[]`. That is real protection and it is
+// incidental: the day
 // one of those values feeds a truthiness check instead of a typed prop, it stops. The sibling hit
 // exactly that with its license box and now writes such keys as `'license' satisfies NoteField`.
 // Three call sites did not justify importing the machinery here; a fourth that reads a field into

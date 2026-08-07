@@ -13,8 +13,8 @@ import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
 
 import ReferenceContract from '@galaxy-foundry/site-kit/ReferenceContract.astro';
+import ContentNote from '@galaxy-foundry/site-kit/ContentNote.astro';
 import SourceMeta from '../../components/SourceMeta.astro';
-import TagChips from '../../components/TagChips.astro';
 import Base from '../../layouts/Base.astro';
 import { DESIGN_DOCS } from '../../lib/design-docs';
 import { DETAIL_ROUTES } from '../../lib/detail-routes';
@@ -60,15 +60,6 @@ const heading = 'title' in d ? d.title : d.name;
 const tags = entry.collection in COLLECTION_LABEL && 'tags' in d ? d.tags : [];
 const lede = route.lede && 'summary' in d ? d.summary : undefined;
 
-// Margins follow from what is around the row, which the route already knows: a back link above
-// pushes it down, a heading below pulls the next thing closer. Stated as a derivation rather than
-// a per-collection class string, so the three spellings that used to exist cannot come back.
-const rowClass = [
-  'flex flex-wrap items-center gap-2',
-  route.back ? 'mt-3' : '',
-  route.lede ? 'mb-2' : 'mb-6',
-].filter(Boolean).join(' ');
-
 // A note's own label — a Pattern's pole, a design record's shelf, either one's status. Not
 // `.meta-pill`, which means provenance, and not `.tag`, which means a registered tag with a page
 // behind it. These are neither: they are frontmatter, shown as written.
@@ -84,13 +75,18 @@ const linkMap = buildWikiLinkMap(DESIGN_DOCS);
 const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
 ---
 <Base title={heading} description={lede}>
-  <div>
-    {route.back && (
-      <a href={`${base}${route.back.path}`} class="text-sm text-(--color-text-muted) no-underline hover:underline">← {route.back.label}</a>
-    )}
-
+  <ContentNote
+    title={heading}
+    summary={lede}
+    tags={tags}
+    tagBase={`${base}/tags`}
+    back={route.back ? { href: `${base}${route.back.path}`, label: route.back.label } : undefined}
+    showHeading={route.lede}
+    articleClass="prose prose-slate max-w-none dark:prose-invert"
+  >
     {entry.collection === 'books' && (
       <SourceMeta
+        slot="metadata"
         source={entry.data.source}
         sourceChapter={entry.data.source_chapter}
         sourceUrl={entry.data.source_url}
@@ -102,6 +98,7 @@ const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
     )}
     {(entry.collection === 'papers' || entry.collection === 'tutorials') && (
       <SourceMeta
+        slot="metadata"
         source={entry.data.source_id}
         sourceUrl={entry.data.source_url}
         license={entry.data.license}
@@ -114,7 +111,7 @@ const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
       />
     )}
 
-    <div class={rowClass}>
+    <Fragment slot="badges">
       {entry.collection === 'patterns' && entry.data.pole && (
         <span class={`${PILL} text-(--color-text-secondary)`}>{entry.data.pole}</span>
       )}
@@ -125,30 +122,20 @@ const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
         <span class={`${PILL} text-(--color-text-muted)`}>{entry.data.status}</span>
       )}
 
-      <TagChips tags={tags} />
-
       {entry.collection === 'molds' && (
         <span class="text-xs text-(--color-text-muted)">eval {hasCompanion('eval.md') ? '✓' : '—'} · scenarios {hasCompanion('scenarios.md') ? '✓' : '—'}</span>
       )}
-    </div>
-
-    {lede && (
-      <>
-        <h1 class="text-3xl font-bold mt-2 mb-2" data-pagefind-meta="title">{heading}</h1>
-        <p class="text-(--color-text-secondary) mb-6" data-pagefind-meta="summary">{lede}</p>
-      </>
-    )}
+    </Fragment>
 
     {entry.collection === 'molds' && (
       <ReferenceContract
+        slot="reference"
         references={entry.data.references ?? []}
         contract={referenceContract()}
         resolveRef={resolveRef}
       />
     )}
 
-    <article class="prose prose-slate max-w-none dark:prose-invert">
-      <Content />
-    </article>
-  </div>
+    <Content />
+  </ContentNote>
 </Base>
