@@ -1,0 +1,24 @@
+{
+  "name": "statistical-genomics-foundry",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Statistical Genomics Foundry — knowledge base, site, and caster.",
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "typecheck": "pnpm --filter statistical-genomics-foundry-site typecheck && pnpm --filter @galaxy-foundry/statgen-foundry-cli typecheck",
+    "test": "pnpm --filter statistical-genomics-foundry-site test && pnpm --filter @galaxy-foundry/statgen-foundry-cli test",
+    "build": "pnpm --filter statistical-genomics-foundry-site build",
+    "dev": "pnpm --filter statistical-genomics-foundry-site dev",
+    "check:kinds": "pnpm --filter statistical-genomics-foundry-site check:kinds",
+    "check:books": "pnpm --filter statistical-genomics-foundry-site check:books",
+    "cast": "tsx packages/statgen-foundry-cli/src/bin/statgen-foundry-build.ts cast --root .",
+    "check:casts": "tsx packages/statgen-foundry-cli/src/bin/check-casts.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

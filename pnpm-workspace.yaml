@@ -1,0 +1,6 @@
+# The site was the only package here for as long as the only build was the site's. A caster is
+# not a site concern — it reads `content/` and writes `casts/`, and the site never runs it — so
+# it lands beside the site rather than inside it, and the root is where the two meet.
+packages:
+  - site
+  - packages/*

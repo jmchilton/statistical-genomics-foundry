@@ -11,15 +11,12 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: site
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-      # corepack reads `packageManager` from site/package.json, so the pnpm version
+      # corepack reads `packageManager` from the root package.json, so the pnpm version
       # is pinned by the manifest rather than by this file.
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
@@ -30,8 +27,12 @@ jobs:
       # Each book's licence record is authored once in book.yml and copied into its chapters'
       # frontmatter. This is what stops a copy becoming a second source of truth.
       - run: pnpm run check:books
-      # Standalone frontmatter validator: negative fixtures + corpus conformance, sharing
-      # one schema with the build (issue #89 rung 3). Fails fast, before the fuller build.
+      # Frontmatter validator and the caster's own tests: negative fixtures, corpus conformance,
+      # and what a slug names. Fails fast, before the fuller build.
       - run: pnpm test
+      # Every committed bundle, re-cast and compared byte for byte. A cast is a pure function of
+      # its Mold, the notes it cites and the target, so a bundle that no longer reproduces is
+      # either stale or evidence the caster changed under it.
+      - run: pnpm run check:casts
       # `build` is what deploy.yml runs on main; running it here fails the PR, not deploy.
       - run: pnpm run build

@@ -7,14 +7,14 @@ tags:
   - meta
 status: reviewed
 created: 2026-06-26
-revised: 2026-08-02
-revision: 5
+revised: 2026-08-07
+revision: 6
 summary: "How typed Mold references become target-specific cast artifacts with provenance."
 ---
 
 Casting takes a Mold — a typed reference manifest plus a procedural body — and produces a self-contained skill artifact for one target: no links back, no runtime dependency on the source. This record owns the semantics of that transformation and the provenance contract it must satisfy.
 
-**No caster exists here yet.** The contract below is a commitment, written so that the code, when it lands, has something to be checked against; [[build-and-validation]] draws the line between it and what runs today. The one thing this record must never do is describe the transformation as though it happens.
+The caster is `packages/statgen-foundry-cli`, invoked as `statgen-foundry-build <mold>`. Almost all of it is `@galaxy-foundry/cast`; this Foundry supplies only where its notes are, what its kinds are called, and what a cast document says — everything else is the same wherever casting happens. Placement is declared in `casts/claude/_target.yml`, and `pnpm check:casts` re-casts every committed bundle and fails on any byte that moved. [[build-and-validation]] draws the line between this record and the rest of what runs.
 
 ## Per-kind dispatch
 
