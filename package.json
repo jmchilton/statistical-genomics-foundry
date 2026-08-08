@@ -12,7 +12,7 @@
     "dev": "pnpm --filter statistical-genomics-foundry-site dev",
     "check:kinds": "pnpm --filter statistical-genomics-foundry-site check:kinds",
     "check:books": "pnpm --filter statistical-genomics-foundry-site check:books",
-    "cast": "tsx packages/statgen-foundry-cli/src/bin/statgen-foundry-build.ts cast --root .",
+    "cast": "tsx packages/statgen-foundry-cli/src/bin/statgen-foundry-build.ts --root .",
     "check:casts": "tsx packages/statgen-foundry-cli/src/bin/check-casts.ts"
   },
   "devDependencies": {

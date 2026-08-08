@@ -25,7 +25,7 @@ references:
     mode: verbatim
     evidence: corpus-observed
     purpose: "Ground: ASR output is an ensemble, MAP is one point estimate; characterize alternate plausible reconstructions to test robustness; qualitative function robust, quantitative values often not."
-  - kind: pattern
+  - kind: research
     ref: "[[szantho-2023-compositional-lba]]"
     used_at: runtime
     load: on-demand
@@ -41,7 +41,7 @@ references:
     mode: verbatim
     evidence: corpus-observed
     purpose: "Ground: indels are a first-class inferred process (POG/BE), separate from character states; indel histories can be ambiguous; edge support = proportion of extant seqs; NO numeric indel- or substitution-posterior cutoff is given."
-  - kind: cli-command
+  - kind: research
     ref: "[[paml-manual]]"
     used_at: runtime
     load: on-demand

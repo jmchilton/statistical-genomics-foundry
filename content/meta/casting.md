@@ -24,11 +24,10 @@ Casting is not one resolve-and-inline pass. Each reference kind names a transfor
 |---|---|---|
 | `pattern` | verbatim copy | `references/patterns/<slug>.md` |
 | `research` | verbatim copy | `references/notes/<basename>` |
-| `cli-command` | verbatim copy | `references/cli/<basename>` |
 
-Those three are the kinds `reference_contract.yml` registers, which is to say the kinds real Molds reference. `research` carries the most weight — the corpus notes behind every referee — and its size is managed by `load: on-demand` plus a `trigger`, never by compressing the note.
+Those two are the kinds `reference_contract.yml` registers, which is to say the kinds real Molds reference. `research` carries the most weight — the corpus notes behind every referee — and its size is managed by `load: on-demand` plus a `trigger`, never by compressing the note.
 
-The parent Foundry registers four more (`cli-tool`, `schema`, `prompt`, `example`) and treats `eval` as a manifest entry that is never packaged. None of those is registered here, so none has a dispatch rule to describe. Re-adding one is a deliberate one-line edit to `reference_contract.yml` made when a Mold first needs it, and the dispatch row is written then. A `mold` reference stays discouraged in either instance: shared content wants factoring into a kind that casts, not a Mold citing a Mold.
+The parent Foundry registers five more (`cli-command`, `cli-tool`, `schema`, `prompt`, `example`) and treats `eval` as a manifest entry that is never packaged. None of those is registered here, so none has a dispatch rule to describe. Re-adding one is a deliberate one-line edit to `reference_contract.yml` made when a Mold first needs it, and the dispatch row is written then. A `mold` reference stays discouraged in either instance: shared content wants factoring into a kind that casts, not a Mold citing a Mold.
 
 Every transformation above is `mode: verbatim`, which is the only mode this Foundry admits. The substrate ships one other, `sidecar`, where a renderer turns a note's frontmatter into a structured runtime artifact. It is narrowed out of the inherited `modes` vocabulary in `site/src/lib/reference-contract.ts`, which records why — that renderer is one we would have to write, and we have no caster to write it in.
 

@@ -62,13 +62,12 @@ references:
 
 Required fields: `kind`, `ref`, `used_at`, `load` (`on-demand` requires `trigger`), `mode` (`verbatim`), and `evidence` (`hypothesis | corpus-observed | cast-validated`, where `hypothesis` requires `verification`). `purpose` is strongly recommended.
 
-The substrate's other mode, `sidecar`, is not among them; `site/src/lib/reference-contract.ts` narrows it out of the inherited vocabulary and records why. `kind` draws from `reference_contract.yml`, which registers three:
+The substrate's other mode, `sidecar`, is not among them; `site/src/lib/reference-contract.ts` narrows it out of the inherited vocabulary and records why. `kind` draws from `reference_contract.yml`, which registers two:
 
 - `pattern` — a statistical-method pattern or an invalidity pattern such as double-dipping, confounding, or naive multiple-testing.
 - `research` — a methods-literature or cautionary negative-example note. The corpus-grounding kind, and the one carrying the most weight; [[corpus]] owns what goes into it.
-- `cli-command` — the tool ecosystem an action Mold invokes: R and Bioconductor, PLINK and regenie, statsmodels, simulators. Authored lazily, when a Mold needs an exact command.
 
-The parent Foundry registers more, including `schema` for a Mold's structured IO. This Foundry registers none of them, because its outputs are prose-shaped critiques and protocols and no Mold has needed one. Registering a kind ahead of a Mold that uses it is what `site/tests/registry-drift.test.ts` exists to catch, so the re-add is a one-line edit made the day a Mold earns it.
+The parent Foundry registers more, including `cli-command` for the tool ecosystem an action Mold invokes and `schema` for a Mold's structured IO. This Foundry registers none of them, because its outputs are prose-shaped critiques and protocols and no Mold has needed one. Registering a kind ahead of a Mold that uses it is what `site/tests/registry-drift.test.ts` exists to catch, so the re-add is a one-line edit made the day a Mold earns it.
 
 The `evidence` field carries more weight here than in the parent. This project's failure mode is plausible invented authority, so a reference tagged `corpus-observed` or `cast-validated` is earned and `hypothesis` is a flag. Review `hypothesis`-evidence references hardest — they are where the Foundry's own invention risk lives.
 

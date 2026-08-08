@@ -37,7 +37,7 @@ document:
 # All three are `verbatim`, and that is the whole vocabulary this Foundry admits —
 # site/src/lib/reference-contract.ts narrows `sidecar` out of the inherited `modes` list because
 # a sidecar is a renderer, and we have written none. The dispatch table in
-# content/meta/casting.md is the prose these three rows make good on.
+# content/meta/casting.md is the prose these two rows make good on.
 kinds:
   pattern:
     dst_dir: references/patterns/
@@ -45,10 +45,6 @@ kinds:
     modes: [verbatim]
   research:
     dst_dir: references/notes/
-    dst_extension: .md
-    modes: [verbatim]
-  cli-command:
-    dst_dir: references/cli/
     dst_extension: .md
     modes: [verbatim]
 

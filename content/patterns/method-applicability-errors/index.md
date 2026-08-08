@@ -1,6 +1,15 @@
+---
+type: pattern
+name: method-applicability-errors
+pole: cautionary-bad
+status: draft
+tags:
+  - domain/statistical-inference
+---
+
 # Method-applicability errors (is this method real, and appropriate here?)
 
-> `kind: research` reference leaf for [[audit-method-validity]] §3 (Method existence &
+> `kind: pattern` reference leaf for [[audit-method-validity]] §3 (Method existence &
 > appropriateness). Corpus-first stub. Grounds the referee's "is the named method a *real* method,
 > and is it *appropriate* to this data regime/design?" Two prongs — **existence** and
 > **appropriateness** — with **different evidence bases**, flagged. Access/inference flags from the

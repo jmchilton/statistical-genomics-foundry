@@ -17,7 +17,10 @@ import { SUPPORTED_MODES } from 'statistical-genomics-foundry-site/lib/reference
 import { readCorpus } from '../corpus.js';
 import { kindLabels, statgenHooks } from '../hooks.js';
 
-const USAGE = 'statgen-foundry-build cast';
+// No subcommand: this binary only casts. The parent Foundry's `foundry-build` dispatches several,
+// so its usage line carries a `cast` verb. Carrying one here named an argument nothing reads —
+// `pnpm cast <mold>` sent `cast` through as a second positional, so the command never ran.
+const USAGE = 'pnpm cast';
 const CONTRACT = 'reference_contract.yml';
 const NARROW = { modes: SUPPORTED_MODES } as const;
 

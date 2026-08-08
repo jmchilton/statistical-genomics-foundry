@@ -6,7 +6,7 @@
 // the `meta` kind under content/meta/, so their title and summary come from frontmatter a
 // schema checks, and the collection answers which ones exist.
 //
-// The remaining 22 rows point at files under content/research/ that are in NO collection and
+// The remaining 21 rows point at files under content/research/ that are in NO collection and
 // carry no frontmatter at all. They cannot be collapsed the same way until they are typed, and
 // typing them is a different job from finding the design records a home: it means authoring
 // frontmatter for two dozen prose notes and deciding what kind the mold-eval rubrics even are.
@@ -31,13 +31,6 @@ export type DesignDoc = {
 };
 
 export const DESIGN_DOCS: DesignDoc[] = [
-  {
-    slug: 'method-applicability-errors',
-    title: 'Method-Applicability Errors',
-    source: 'method-applicability-errors.md',
-    summary: 'The reference leaf for the audit-method-validity referee: is the named method real, and appropriate to this data regime — the two flagged prongs.',
-    category: 'research',
-  },
   {
     slug: 'double-dipping-survey',
     title: 'Double-Dipping Survey',

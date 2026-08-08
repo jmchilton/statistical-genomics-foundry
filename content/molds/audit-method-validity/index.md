@@ -20,7 +20,7 @@ references:
     mode: verbatim
     evidence: corpus-observed
     purpose: "Rank-deficiency signature; the unfixable case that forces ESCALATE."
-  - kind: research
+  - kind: pattern
     ref: "[[method-applicability-errors]]"
     used_at: runtime
     load: on-demand
