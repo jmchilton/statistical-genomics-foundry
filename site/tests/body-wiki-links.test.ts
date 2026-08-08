@@ -81,7 +81,7 @@ const PLANNED: Record<string, string> = {
   'assess-batch-effects-and-confounding':
     'protocol-altitude referee, named as planned by patterns/batch-aliased-with-condition and molds/audit-method-validity',
   'map-question-to-established-method':
-    'Family-A construct Mold, carried as a TODO by research/method-applicability-errors.md',
+    'Family-A construct Mold, carried as a TODO by patterns/method-applicability-errors',
   'deseq2-basics': 'skill 8 in research/05-skill-backing-references.md, not yet a Mold',
   'review-experimental-design':
     'construct Mold named beside the two above in leek-2010, and registered nowhere else — the weakest of these, and the one to confirm or drop first',
