@@ -1,0 +1,73 @@
+{
+  "provenance_schema_version": 4,
+  "cast_target": "claude",
+  "mold": {
+    "name": "audit-method-validity",
+    "path": "content/molds/audit-method-validity/index.md",
+    "content_hash": "eb2add6af9dbc4f9ee010b9c4cfea2bea08860ccccc04c7d17445a06a38d358c",
+    "commit": "9a6bd1d924d6636a05a151bc59c3b28f2fd3fe0a"
+  },
+  "cast_at": "2026-08-08T03:05:05.370Z",
+  "refs": [
+    {
+      "kind": "pattern",
+      "mode": "verbatim",
+      "ref": "[[batch-aliased-with-condition]]",
+      "src": "content/patterns/batch-aliased-with-condition/index.md",
+      "dst": "references/patterns/batch-aliased-with-condition.md",
+      "used_at": "runtime",
+      "load": "on-demand",
+      "evidence": "corpus-observed",
+      "purpose": "Rank-deficiency signature; the unfixable case that forces ESCALATE.",
+      "trigger": "a technical batch factor co-varies with the biological contrast",
+      "src_hash": "e0b91aa6156d551efbb0de5cd57ee5b74b2fb287d0f27fdea9f421f37f989e66",
+      "dst_hash": "e0b91aa6156d551efbb0de5cd57ee5b74b2fb287d0f27fdea9f421f37f989e66",
+      "source": "deterministic"
+    },
+    {
+      "kind": "pattern",
+      "mode": "verbatim",
+      "ref": "[[double-dipping]]",
+      "src": "content/patterns/double-dipping/index.md",
+      "dst": "references/patterns/double-dipping.md",
+      "used_at": "runtime",
+      "load": "on-demand",
+      "evidence": "corpus-observed",
+      "purpose": "Signature catalog + remedy (count-splitting / selection-aware null) for circular / post-selection inference.",
+      "trigger": "feature selection and the hypothesis test share the same data/cells/samples",
+      "src_hash": "34e3b288e1b7d79c72525872b377ca5a7392ce44e10ebefb614ee68d4be2a2ec",
+      "dst_hash": "34e3b288e1b7d79c72525872b377ca5a7392ce44e10ebefb614ee68d4be2a2ec",
+      "source": "deterministic"
+    },
+    {
+      "kind": "pattern",
+      "mode": "verbatim",
+      "ref": "[[garden-of-forking-paths]]",
+      "src": "content/patterns/garden-of-forking-paths/index.md",
+      "dst": "references/patterns/garden-of-forking-paths.md",
+      "used_at": "runtime",
+      "load": "on-demand",
+      "evidence": "corpus-observed",
+      "purpose": "Signature for undeclared researcher degrees of freedom.",
+      "trigger": "analytic choices were made after seeing the data; the test family is undeclared",
+      "src_hash": "a7f16fc0b3536bc9f9d6b9db1c1aa28e475733386309a39881140e159598f35b",
+      "dst_hash": "a7f16fc0b3536bc9f9d6b9db1c1aa28e475733386309a39881140e159598f35b",
+      "source": "deterministic"
+    },
+    {
+      "kind": "pattern",
+      "mode": "verbatim",
+      "ref": "[[method-applicability-errors]]",
+      "src": "content/patterns/method-applicability-errors/index.md",
+      "dst": "references/patterns/method-applicability-errors.md",
+      "used_at": "runtime",
+      "load": "on-demand",
+      "evidence": "corpus-observed",
+      "purpose": "Ground 'is this method real and appropriate?' in the two-prong applicability taxonomy. Appropriateness prong = corpus-observed (StatQA condition->method mapping); existence/invented-method prong = flagged white-space (no benchmark) per the leaf.",
+      "trigger": "the named method may not exist, or its assumptions may not match the data regime/design",
+      "src_hash": "3d489ffb5534c11100724f6cf91754e6e569c10ee1a42f47b715d4b7ab5d8bb9",
+      "dst_hash": "3d489ffb5534c11100724f6cf91754e6e569c10ee1a42f47b715d4b7ab5d8bb9",
+      "source": "deterministic"
+    }
+  ]
+}
