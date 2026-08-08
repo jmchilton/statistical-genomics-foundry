@@ -39,6 +39,7 @@ import yaml from 'js-yaml';
 import { beforeAll, describe, expect, it } from 'vitest';
 
 import { noteIds } from '../src/lib/corpus-files';
+import { contentReader } from '../src/lib/content-reader';
 import { contentPath } from '../src/lib/frontmatter-schema';
 import { SITE_IDENTITY } from '../src/lib/site-identity';
 
@@ -108,9 +109,15 @@ beforeAll(() => {
 }, 600_000);
 
 describe('the document shell, on every page the build emitted', () => {
-  it('emits enough pages to be worth asserting about', () => {
-    // Guards the guard: an empty dist/ would make every test below vacuously true.
-    expect(pages.length).toBeGreaterThan(150);
+  it('emits one page for every routed note', () => {
+    const targets = contentReader.noteTargets();
+    expect(targets.length, 'the routed-note coverage check found no notes').toBeGreaterThan(0);
+
+    const built = new Set(pages.map(rel));
+    const missing = targets
+      .filter(({ target }) => !built.has(`${target.path}/index.html`))
+      .map(({ collection, id }) => `${collection}:${id}`);
+    expect(missing, `\nrouted notes with no built page: ${missing.join(', ')}`).toEqual([]);
   });
 
   it('offers a skip link that lands on a target that exists', () => {
