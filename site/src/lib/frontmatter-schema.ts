@@ -11,6 +11,7 @@ import { assemble } from '@galaxy-foundry/kind-schema';
 import type { CollectionRoute } from '@galaxy-foundry/kind-schema/collections';
 
 import { buildKindContext, DEFINITIONS } from '../types/index';
+import { COLLECTION_ROUTES } from './collection-routes';
 import { REGISTRIES } from './registries';
 
 // Strip the trailing `/index` so entry ids stay clean (`msmb/chap1`, `leek-2010`) rather than
@@ -68,54 +69,23 @@ export const CONTENT_DIR = '../content';
 export const contentPath = (contentRelPath: string) => `${CONTENT_DIR}/${contentRelPath}`;
 
 /**
- * Single source for the collection ⇒ (base, pattern, kind) mapping, so every consumer routes
- * files the same way: the Astro loaders, the corpus validator, the registry-drift walk, and the
- * wiki-link map.
+ * The routing table with each kind's schema attached — what consumers inside the site use.
  *
- * `base` is CONTENT-RELATIVE, not site-relative. The shared matcher takes `base` as a plain
- * prefix and leaves the frame to the caller, requiring only that it be one frame for every row —
- * so the frame is chosen here to be the one that survives leaving site/. Join it with
- * `collectionDir` to get back to a path a loader or a walk can use.
+ * The rows themselves live in collection-routes.ts, which imports nothing: this module closes
+ * over the registries, and the registries read `meta_tags.yml` from the site cwd, so anything
+ * reaching the table through here has to be running from `site/`. The caster is not.
  *
- * `pattern` is the note-selecting glob, stated per row rather than assumed. It is `**​/index.md`
- * everywhere today, and it was written out four separate times before it lived here — once as
- * the loaders' glob, twice as a hand-rolled `entry.name === 'index.md'` walk, and once more in
- * the wiki-link builder.
- *
- * The KEY is also the browse route. Derived rather than stored, and pinned by a test, because a
- * `route` column that always equalled the key is a second name for one thing.
+ * Attached one row at a time rather than by mapping, for the reason the schemas are assembled
+ * one at a time above: a `.map` collapses every row to the widest common type and each kind's
+ * schema stops being precise.
  */
 export const COLLECTIONS = {
-  // The design record. `glossary.md` shares the directory and is deliberately NOT a note: it
-  // is hand-curated, alphabetical, and rendered by its own page. Excluded HERE, in the routing
-  // table, rather than by each consumer — the validator has to honour it too, and an exclusion
-  // written in the site's loader alone would start failing the glossary in the corpus walk.
-  //
-  // Also the first row whose pattern is not `**/index.md`: a design record is a flat file.
-  meta: { base: 'meta', pattern: ['*.md', '!glossary.md'], kind: 'meta', schema: NOTE_KINDS.meta },
-  books: { base: 'research/books', pattern: ['**/index.md'], kind: 'book', schema: NOTE_KINDS.book },
-  papers: {
-    base: 'research/papers',
-    pattern: ['**/index.md'],
-    kind: 'paper',
-    schema: NOTE_KINDS.paper,
-  },
-  tutorials: {
-    base: 'research/tutorials',
-    pattern: ['**/index.md'],
-    kind: 'tutorial',
-    schema: NOTE_KINDS.tutorial,
-  },
-  molds: { base: 'molds', pattern: ['**/index.md'], kind: 'mold', schema: NOTE_KINDS.mold },
-  patterns: {
-    base: 'patterns',
-    pattern: ['**/index.md'],
-    kind: 'pattern',
-    schema: NOTE_KINDS.pattern,
-  },
+  meta: { ...COLLECTION_ROUTES.meta, schema: NOTE_KINDS.meta },
+  books: { ...COLLECTION_ROUTES.books, schema: NOTE_KINDS.book },
+  papers: { ...COLLECTION_ROUTES.papers, schema: NOTE_KINDS.paper },
+  tutorials: { ...COLLECTION_ROUTES.tutorials, schema: NOTE_KINDS.tutorial },
+  molds: { ...COLLECTION_ROUTES.molds, schema: NOTE_KINDS.mold },
+  patterns: { ...COLLECTION_ROUTES.patterns, schema: NOTE_KINDS.pattern },
 } as const satisfies Record<string, CollectionRoute & { kind: NoteKind; schema: unknown }>;
 
-export type CollectionName = keyof typeof COLLECTIONS;
-
-/** Collection names, for a consumer that needs to iterate every collection. */
-export const COLLECTION_NAMES = Object.keys(COLLECTIONS) as readonly CollectionName[];
+export { COLLECTION_NAMES, type CollectionName } from './collection-routes';

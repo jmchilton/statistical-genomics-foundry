@@ -1,0 +1,66 @@
+# Claude cast target.
+#
+# The deterministic side of cast assembly: where each kind of reference lands, and what a cast
+# of a Mold is here. Read by the caster in packages/statgen-foundry-cli.
+#
+# This target's own name is not declared. A target is addressed by the directory holding this
+# file — `--target=claude` means `casts/claude/` — so a `name:` here would be a second answer to
+# a question the directory already settled.
+
+# Where this target's bundles sit under casts/claude/. `{mold}` is the bundle name.
+# The `skills/` level is what lets casts/claude/ double as a Claude Code plugin root.
+bundle_path: skills/{mold}
+
+# What a cast of a Mold is here: the file it writes, and the word it calls itself.
+#
+# Both are Claude's rather than casting's, which is why they are declared and not defaulted.
+# `SKILL.md` is the filename this harness looks for; `skill` is what it calls what it finds, and
+# the caster substitutes that noun for `Mold` through the cast body — so a target shipping a
+# page or a card says so once, here, instead of being told by its own output that it ships
+# skills. content/meta/casting.md is where this Foundry records why that matters.
+document:
+  path: SKILL.md
+  noun: skill
+
+# `required_outputs` is deliberately absent: it defaults to `document.path` plus the provenance
+# record, which is exactly what casting always writes here. Declaring it would restate the
+# caster, and a restatement is only somewhere for the two to disagree.
+
+# Per-reference-kind PLACEMENT — where this target puts each kind, and under what extension.
+# The destination is computed from the source slug and enforced 1:1.
+#
+# Placement only. Whether a kind is castable at all, how it resolves, and what mode it defaults
+# to are the KIND's to declare, in reference_contract.yml's `cast:` blocks. `modes` here is a
+# CONSTRAINT on that: this target may refuse a mode a kind permits, and can never permit one the
+# kind does not.
+#
+# All three are `verbatim`, and that is the whole vocabulary this Foundry admits —
+# site/src/lib/reference-contract.ts narrows `sidecar` out of the inherited `modes` list because
+# a sidecar is a renderer, and we have written none. The dispatch table in
+# content/meta/casting.md is the prose these three rows make good on.
+kinds:
+  pattern:
+    dst_dir: references/patterns/
+    dst_extension: .md
+    modes: [verbatim]
+  research:
+    dst_dir: references/notes/
+    dst_extension: .md
+    modes: [verbatim]
+  cli-command:
+    dst_dir: references/cli/
+    dst_extension: .md
+    modes: [verbatim]
+
+# Generated-document constraints.
+#
+# `forbidden_runtime_paths` names the source tree a cast must never send a reader back into.
+# A bundle that cites `content/molds/...` at runtime has failed the one promise casting makes —
+# that the artifact is self-contained — and the path would not resolve for a reader who has the
+# bundle and not the repository.
+skill_constraints:
+  frontmatter_required: [name, description]
+  forbidden_runtime_paths:
+    - content/molds/
+    - content/research/
+    - content/patterns/

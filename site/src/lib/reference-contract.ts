@@ -13,10 +13,9 @@
 
 import path from 'node:path';
 
+import { loadCastReferenceContract, type CastContract } from '@galaxy-foundry/cast';
 import {
-  buildReferenceContract,
   contractKeys,
-  loadInstanceKinds,
   type ContractGroup,
   type ReferenceContract,
 } from '@galaxy-foundry/reference-contract';
@@ -53,17 +52,35 @@ export const SUPPORTED_MODES = ['verbatim'] as const;
  */
 export const NARROWED_GROUPS = ['kinds', 'modes'] as const satisfies readonly ContractGroup[];
 
-let cached: ReferenceContract | undefined;
+let cached: { contract: ReferenceContract; cast: CastContract } | undefined;
+
+/**
+ * Both halves of the contract, composed once.
+ *
+ * A kind now has two readers: the site, which renders its label, and a caster, which reads its
+ * `cast:` block. `loadCastReferenceContract` is the only function that knows that, and it is
+ * what tells the shared loader to expect the block rather than refuse it as an unknown field.
+ * Composing the halves here by hand would be a second answer to that.
+ *
+ * It also checks each kind's `default_mode` against the NARROWED vocabulary, which is the check
+ * this instance most needs: `SUPPORTED_MODES` declines `sidecar`, so a `cast:` block defaulting
+ * to it is refused here rather than surviving until a cast reaches for a renderer nobody wrote.
+ */
+function composed(): { contract: ReferenceContract; cast: CastContract } {
+  if (!cached) {
+    cached = loadCastReferenceContract(CONTRACT_FILE, { narrow: { modes: SUPPORTED_MODES } });
+  }
+  return cached;
+}
 
 /** The composed contract itself — what `buildKindContext` is handed. */
 export function referenceContract(): ReferenceContract {
-  if (!cached) {
-    cached = buildReferenceContract({
-      kinds: loadInstanceKinds(CONTRACT_FILE),
-      narrow: { modes: SUPPORTED_MODES },
-    });
-  }
-  return cached;
+  return composed().contract;
+}
+
+/** How each kind is cast — the half a caster reads. */
+export function castContract(): CastContract {
+  return composed().cast;
 }
 
 // The package already refuses an empty group, so this cannot throw in practice. It stays

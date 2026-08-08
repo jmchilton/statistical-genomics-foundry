@@ -11,9 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: withastro/action@v6
+      - uses: actions/setup-node@v6
         with:
-          path: site
+          node-version: 24
+      - run: corepack enable
+      # Built with the repo's own steps rather than withastro/action. The action installs from
+      # the directory it is pointed at, and since the lockfile moved to the workspace root there
+      # is no longer a `site/` install to do — the site is one member of a workspace.
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
