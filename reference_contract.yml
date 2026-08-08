@@ -46,11 +46,3 @@ kinds:
       # site/src/lib/collection-routes.ts; a fourth shape would be added there and here.
       note_types: [paper, book, tutorial]
       companions: false
-  cli-command:
-    label: CLI Command
-    description: Command reference, carried verbatim and loaded only when invoked.
-    ref_shape: wiki-link
-    cast:
-      resolve: note
-      default_mode: verbatim
-      companions: false

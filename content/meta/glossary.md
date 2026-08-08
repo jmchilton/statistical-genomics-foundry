@@ -64,7 +64,7 @@ a real Family-B referee). A skill scores as a *vector* of the four letters, neve
 
 **Referee** — a Family-B Mold (or protocol stage) that judges an analysis's method validity using empirical checks rather than the agent's own reasoning. Non-self-certifying. The novelty vs the parent: the referee is a *Mold*, not a deterministic CLI.
 
-**Reference** *(a.k.a. reference kind)* — a typed dependency a Mold declares; the *kind* discriminator is what selects the casting transformation. `reference_contract.yml` registers three — `pattern`, `research`, `cli-command` — and registering a fourth is a deliberate edit made when a Mold first needs it. See `content/meta/mold-spec.md`.
+**Reference** *(a.k.a. reference kind)* — a typed dependency a Mold declares; the *kind* discriminator is what selects the casting transformation. `reference_contract.yml` registers two — `pattern` and `research` — and registering a third is a deliberate edit made when a Mold first needs it. See `content/meta/mold-spec.md`.
 
 **Rubric** — a standing, living scorecard grading a Family-A doer skill on one **Assessment axis**
 (A–F, half steps), grounded in probe evidence and updated as more skills are graded. Net-new to this
