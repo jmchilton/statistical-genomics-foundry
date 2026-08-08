@@ -1,8 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { facetLabelOf } from '@galaxy-foundry/tag-registry';
 import { getEntriesByTag, COLLECTION_LABEL, type TaggedEntry, type TaggedCollection } from '../../lib/tags';
 import { tagRegistry } from '../../lib/meta-tags';
-import { facetLabelOf } from '../../lib/tag-browse';
 import { base } from '../../lib/site-base';
 
 export async function getStaticPaths() {

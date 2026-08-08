@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { groupTagsInUse } from '@galaxy-foundry/tag-registry';
 import yaml from 'js-yaml';
 import { describe, it, expect } from 'vitest';
 import { noteFiles } from '../src/lib/corpus-files';
@@ -11,7 +12,6 @@ import {
   type NoteKind,
 } from '../src/lib/frontmatter-schema';
 import { tagRegistry } from '../src/lib/meta-tags';
-import { groupTagsInUse } from '../src/lib/tag-browse';
 import { NARROWED_GROUPS, referenceKinds, referenceModes } from '../src/lib/reference-contract';
 
 // The registries and the corpus must agree BOTH ways.
