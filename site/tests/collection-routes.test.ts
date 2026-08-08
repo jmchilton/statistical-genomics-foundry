@@ -1,10 +1,9 @@
 import fs from 'node:fs';
 import { describe, it, expect } from 'vitest';
-import { noteFiles } from '../src/lib/corpus-files';
+import { contentReader } from '../src/lib/content-reader';
 import { COLLECTIONS, COLLECTION_NAMES, contentPath } from '../src/lib/frontmatter-schema';
-import { buildWikiLinkMap } from '../src/lib/wiki-links';
 
-// The collection KEY is the browse route, and the wiki-link map is built on that assumption.
+// The collection key is the browse route, and routed note targets are built on that assumption.
 //
 // COLLECTIONS used to coexist with a hand-written route list in wiki-links.ts. Keeping the route
 // inventory in one table removes that drift surface; these tests pin the shared rule.
@@ -23,14 +22,13 @@ describe('collection routes', () => {
     ).toContain('collection: entry.collection');
   });
 
-  it('every collection contributes its notes to the wiki-link map', () => {
-    const map = buildWikiLinkMap();
-    const empty = COLLECTION_NAMES.filter(
-      (name) => noteFiles(name).length > 0 && ![...map.values()].some((t) => t.path.startsWith(`${name}/`)),
-    );
-    expect(empty, `\ncollections with notes but no link targets: ${empty.join(', ')}`).toEqual([]);
+  it('every routed note targets its collection route', () => {
+    const misrouted = contentReader
+      .noteTargets()
+      .filter(({ collection, target }) => !target.path.startsWith(`${collection}/`))
+      .map(({ collection, id, target }) => `${collection}:${id} -> ${target.path}`);
+    expect(misrouted, `\nnotes targeting another collection: ${misrouted.join(', ')}`).toEqual([]);
   });
-
 });
 
 // `contentPath` is exercised here rather than assumed: every path above is content-relative, and
