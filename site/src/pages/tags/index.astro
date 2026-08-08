@@ -1,8 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { groupTagsInUse } from '@galaxy-foundry/tag-registry';
 import { getEntriesByTag } from '../../lib/tags';
 import { tagRegistry } from '../../lib/meta-tags';
-import { groupTagsInUse } from '../../lib/tag-browse';
 import { base } from '../../lib/site-base';
 
 const registry = tagRegistry();
