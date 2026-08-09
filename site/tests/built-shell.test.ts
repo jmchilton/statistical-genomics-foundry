@@ -35,12 +35,14 @@ import {
   licenseFileStyleGaps,
   referenceStyleGaps,
 } from '@galaxy-foundry/site-kit';
+import { sharesPage, specimenPath } from '@galaxy-foundry/site-kit/specimens';
 import yaml from 'js-yaml';
 import { beforeAll, describe, expect, it } from 'vitest';
 
 import { noteIds } from '../src/lib/corpus-files';
 import { contentReader } from '../src/lib/content-reader';
 import { contentPath } from '../src/lib/frontmatter-schema';
+import { ALL_SPECIMENS, SGF_SPECIMENS } from '../src/lib/gallery';
 import { SITE_IDENTITY } from '../src/lib/site-identity';
 
 const { footerLinks: FOOTER_LINKS, navLinks: NAV_LINKS, repoUrl: REPO_URL } = SITE_IDENTITY;
@@ -99,6 +101,20 @@ function builtPages(dir: string = DIST): string[] {
 const rel = (file: string) => path.relative(DIST, file);
 const read = (file: string) => readFileSync(file, 'utf-8');
 
+const STANDALONE_SPECIMEN_PAGES = ALL_SPECIMENS.filter(
+  (group) => !sharesPage(group),
+).flatMap((group) =>
+  group.specimens.map((specimen) => `gallery/${specimenPath(group, specimen)}/index.html`),
+);
+
+// Isolated specimens intentionally render one component in an otherwise bare document. Document
+// specimens are SiteShell itself and continue satisfying the ordinary shell assertions.
+const BARE_SPECIMEN_PAGES = ALL_SPECIMENS.filter(
+  (group) => group.surface === 'isolated',
+).flatMap((group) =>
+  group.specimens.map((specimen) => `gallery/${specimenPath(group, specimen)}/index.html`),
+);
+
 let pages: string[];
 let home: string;
 
@@ -122,6 +138,7 @@ describe('the document shell, on every page the build emitted', () => {
 
   it('offers a skip link that lands on a target that exists', () => {
     const broken = pages.filter((file) => {
+      if (BARE_SPECIMEN_PAGES.includes(rel(file))) return false;
       const html = read(file);
       return !html.includes('href="#main"') || !html.includes('id="main"');
     });
@@ -149,6 +166,7 @@ describe('the document shell, on every page the build emitted', () => {
 
   it('carries a header and a footer', () => {
     const broken = pages.filter((file) => {
+      if (BARE_SPECIMEN_PAGES.includes(rel(file))) return false;
       const html = read(file);
       return !html.includes('<header') || !html.includes('<footer');
     });
@@ -172,6 +190,72 @@ describe('the shared content frame', () => {
       'href="/statistical-genomics-foundry/tags/domain/comparative-annotation/"',
     );
     expect(paper).toContain('class="content-tag"');
+  });
+});
+
+describe('the component gallery', () => {
+  it('is emitted and linked from the design surface', () => {
+    const gallery = path.join(DIST, 'gallery', 'index.html');
+    expect(existsSync(gallery)).toBe(true);
+
+    const design = read(path.join(DIST, 'design', 'index.html'));
+    expect(design).toContain(`href="${baseFrom(home)}/gallery/"`);
+  });
+
+  it('renders every shared and SGF specimen case', () => {
+    const gallery = read(path.join(DIST, 'gallery', 'index.html'));
+    const expectedCases = ALL_SPECIMENS.reduce(
+      (total, group) => total + group.specimens.length,
+      0,
+    );
+
+    expect(
+      [...gallery.matchAll(/class="gallery-specimen"/g)],
+      'the gallery dropped a specimen case',
+    ).toHaveLength(expectedCases);
+
+    for (const group of ALL_SPECIMENS) {
+      expect(gallery).toContain(`id="${group.id}"`);
+      expect(gallery).toContain(`data-gallery-component="${group.component}"`);
+    }
+
+    for (const group of SGF_SPECIMENS) {
+      expect(gallery).toContain(`id="${group.id}"`);
+      expect(gallery).toContain('data-gallery-origin="sgf"');
+    }
+  });
+
+  it('builds and frames every specimen that cannot share the gallery page', () => {
+    const gallery = read(path.join(DIST, 'gallery', 'index.html'));
+    const built = new Set(pages.map(rel));
+
+    expect(STANDALONE_SPECIMEN_PAGES.length).toBeGreaterThan(0);
+    expect(
+      STANDALONE_SPECIMEN_PAGES.filter((page) => !built.has(page)),
+      'standalone specimen routes missing from the build',
+    ).toEqual([]);
+
+    for (const page of STANDALONE_SPECIMEN_PAGES) {
+      const route = page.replace(/index\.html$/, '');
+      expect(gallery).toContain(`src="${baseFrom(home)}/${route}"`);
+      expect(read(path.join(DIST, page))).not.toContain('data-pagefind-body');
+    }
+  });
+
+  it('keeps isolated component routes out of the normal document shell', () => {
+    for (const page of BARE_SPECIMEN_PAGES) {
+      const html = read(path.join(DIST, page));
+      expect(html).toContain('<meta name="robots" content="noindex">');
+      expect(html).not.toContain('<footer');
+    }
+  });
+
+  it('shows both outcomes of the SGF referee loop', () => {
+    const gallery = read(path.join(DIST, 'gallery', 'index.html'));
+    expect(gallery).toContain('data-referee-loop');
+    expect(gallery).toContain('data-verdict="pass"');
+    expect(gallery).toContain('data-verdict="revise"');
+    expect(gallery).toContain('data-referee-step="gate"');
   });
 });
 
@@ -374,14 +458,8 @@ describe('the container width', () => {
   });
 });
 
-/**
- * Pages the search box will never return, on purpose.
- *
- * Empty is a claim, not a stub: every route on this site is worth finding, including the 38 tag
- * pages that were missing. The list exists because an absence has to be a DECISION — without one,
- * "deliberately out of the index" and "nobody thought about this route" are the same observation.
- */
-const UNSEARCHABLE: string[] = [];
+/** Pages the search box will never return: framed specimen routes, not reader destinations. */
+const UNSEARCHABLE: string[] = [...STANDALONE_SPECIMEN_PAGES].sort();
 
 describe('what the search box can find', () => {
   // Pagefind's rule is all-or-nothing and runs BACKWARDS from what the attribute looks like. Mark

@@ -7,8 +7,8 @@ tags:
   - meta
 status: reviewed
 created: 2026-08-02
-revised: 2026-08-02
-revision: 2
+revised: 2026-08-08
+revision: 3
 summary: "The current Astro and TypeScript implementation, dependency seams, entry points, and deliberate absences."
 ---
 
@@ -79,6 +79,8 @@ The instance adapters provide paths, concrete vocabularies, and the link map. Th
 
 The reading shell around every page — document skeleton, header, footer — is not here. It comes from `@galaxy-foundry/site-kit`, and `site/src/layouts/Base.astro` is only the composition point: it hands the package a `SiteIdentity` from `site/src/lib/site-identity.ts` and the base URL, and receives the markup. What this instance still decides is that identity — the names, the description, the destinations, how many of them fit on the bar — and the palette, which `site/src/styles/global.css` defines as custom properties the kit names but does not ship. That file also has to point Tailwind at the package, because automatic source detection does not look inside `node_modules`; `site/tests/built-shell.test.ts` is what checks it did.
 
+`site/src/pages/gallery/` is the visual acceptance surface for that seam. It consumes the specimen registry shipped by site-kit rather than restating shared cases, then appends instance-owned groups from `site/src/lib/gallery.ts`: the live reference-kind vocabulary, corpus source metadata, and the analyze–referee–gate loop. Inline cases share the gallery document; shell and document-unique cases receive isolated static routes. `site/src/styles/site-theme.ts` is the common style entry point for both route shapes, so an isolated specimen cannot silently acquire a second theme.
+
 The site is a pure reader. It validates and renders source; it does not mutate content, create Molds, or cast artifacts.
 
 ## Generators
@@ -111,6 +113,8 @@ They import the same contracts as validation rather than building parallel model
 | file discovery and IDs | `site/src/lib/corpus-files.ts` |
 | wiki links | `site/src/lib/wiki-links.ts` and `remark-wiki-links.ts` |
 | site routes | `site/src/pages/` |
+| visual components and gallery registry | `site/src/components/` and `site/src/lib/gallery.ts` |
+| gallery routes and visual acceptance | `site/src/pages/gallery/` and `site/tests/built-shell.test.ts` |
 | corpus and contract tests | `site/tests/` |
 | deterministic generators | `site/scripts/` |
 

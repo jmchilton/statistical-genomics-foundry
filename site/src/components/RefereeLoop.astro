@@ -1,0 +1,146 @@
+---
+interface Props {
+  subject: string;
+  verdict?: 'pass' | 'revise';
+}
+
+const { subject, verdict = 'revise' } = Astro.props;
+const passes = verdict === 'pass';
+---
+
+<section
+  class="referee-loop"
+  data-referee-loop
+  data-verdict={verdict}
+  aria-label={`Analyze, referee, then ${passes ? 'certify' : 'revise'}: ${subject}`}
+>
+  <div class="referee-track">
+    <div class="referee-step" data-referee-step="analyze">
+      <span>Family A</span>
+      <strong>Analyze</strong>
+      <small>{subject}</small>
+    </div>
+    <span class="referee-arrow" aria-hidden="true">→</span>
+    <div class="referee-step" data-referee-step="referee">
+      <span>Family B</span>
+      <strong>Referee</strong>
+      <small>Independent empirical check</small>
+    </div>
+    <span class="referee-arrow" aria-hidden="true">→</span>
+    <div class="referee-gate" data-referee-step="gate">
+      <span>Gate</span>
+      <strong>{passes ? 'Certified' : 'Revise'}</strong>
+      <small>{passes ? 'Checks support the claim' : 'Return with findings'}</small>
+    </div>
+  </div>
+  {!passes && (
+    <div class="revision-path" aria-label="Revision returns to analysis">
+      <span aria-hidden="true">↩</span>
+      <span>Findings return to Family A</span>
+    </div>
+  )}
+</section>
+
+<style>
+  .referee-loop {
+    --loop-ink: var(--color-chrome);
+    padding: clamp(1rem, 3vw, 1.75rem);
+    border: 1px solid var(--color-border-subtle);
+    border-left: 0.3rem solid var(--color-brand);
+    background: var(--color-surface-raised);
+  }
+
+  .referee-track {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(8.5rem, 0.72fr);
+    gap: clamp(0.55rem, 1.6vw, 1rem);
+    align-items: stretch;
+  }
+
+  .referee-step,
+  .referee-gate {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    align-content: start;
+    min-width: 0;
+    padding: 0.85rem;
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .referee-step > span,
+  .referee-gate > span {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .referee-step > strong,
+  .referee-gate > strong {
+    margin-top: 0.35rem;
+    color: var(--color-text-primary);
+    font-size: 1.05rem;
+    line-height: 1.1;
+  }
+
+  .referee-step > small,
+  .referee-gate > small {
+    margin-top: 0.55rem;
+    color: var(--color-text-secondary);
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+
+  .referee-arrow {
+    align-self: center;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .referee-gate {
+    border-color: color-mix(in srgb, var(--color-accent) 76%, var(--color-border-subtle));
+    background: color-mix(in srgb, var(--color-accent) 15%, var(--color-surface));
+  }
+
+  .referee-gate > span,
+  [data-verdict='pass'] .referee-gate > strong {
+    color: var(--color-brand);
+  }
+
+  [data-verdict='revise'] .referee-gate > strong {
+    color: var(--color-chrome);
+  }
+
+  .dark [data-verdict='revise'] .referee-gate > strong {
+    color: var(--color-text-primary);
+  }
+
+  .revision-path {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    width: max-content;
+    max-width: 100%;
+    margin-top: 0.8rem;
+    color: var(--color-brand);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 760px) {
+    .referee-track {
+      grid-template-columns: 1fr;
+    }
+
+    .referee-arrow {
+      justify-self: center;
+      transform: rotate(90deg);
+    }
+  }
+</style>

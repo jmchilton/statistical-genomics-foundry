@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import RefereeLoop from '../components/RefereeLoop.astro';
 import Base from '../layouts/Base.astro';
 import { roleOf, familyOf } from '../lib/tags';
 import { base } from '../lib/site-base';
@@ -12,21 +13,30 @@ const patternCount = (await getCollection('patterns')).length;
 const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCompare(b.data.name));
 ---
 <Base title="Statistical Genomics Foundry">
-  <section class="mb-12">
-    <span class="eyebrow mb-4">Statistical Genomics Foundry</span>
-    <h1 class="text-4xl sm:text-5xl font-bold text-balance text-(--color-chrome) dark:text-(--color-text-primary) mb-4">
-      Productive <span class="text-(--color-brand) dark:text-(--color-accent)">and</span> statistically honest.
-    </h1>
-    <p class="max-w-3xl text-lg text-(--color-text-secondary) text-pretty mb-6">
-      A knowledge base of agent skills that keeps analytical work both productive and
-      statistically honest — using established methods correctly instead of inventing
-      plausible-sounding ones, respecting each method's preconditions, and grounding claims
-      in empirical checks rather than a method's name or a significant-looking number.
-    </p>
-    <a href={`${base}/books/`} class="inline-flex items-center gap-2 rounded-md bg-(--color-brand) text-(--color-text-on-dark) px-4 py-2 no-underline hover:bg-(--color-chrome) transition-colors">
-      Browse the books
-      <span aria-hidden="true">→</span>
-    </a>
+  <section class="home-hero mb-12">
+    <div class="home-hero-copy">
+      <span class="eyebrow mb-4">Statistical Genomics Foundry</span>
+      <h1 class="text-4xl sm:text-5xl font-bold text-balance text-(--color-chrome) dark:text-(--color-text-primary) mb-4">
+        Productive <span class="text-(--color-brand) dark:text-(--color-accent)">and</span> statistically honest.
+      </h1>
+      <p class="max-w-3xl text-lg text-(--color-text-secondary) text-pretty mb-6">
+        A knowledge base of agent skills that keeps analytical work both productive and
+        statistically honest — using established methods correctly instead of inventing
+        plausible-sounding ones, respecting each method's preconditions, and grounding claims
+        in empirical checks rather than a method's name or a significant-looking number.
+      </p>
+      <div class="home-hero-actions">
+        <a href={`${base}/books/`} class="inline-flex items-center gap-2 rounded-md bg-(--color-brand) text-(--color-text-on-dark) px-4 py-2 no-underline hover:bg-(--color-chrome) transition-colors">
+          Browse the books
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href={`${base}/gallery/`} class="home-gallery-link">Explore the visual system →</a>
+      </div>
+    </div>
+    <div class="home-hero-loop">
+      <span class="home-hero-caption">How work earns confidence</span>
+      <RefereeLoop subject="Batch-confounding audit" verdict="revise" />
+    </div>
   </section>
 
   {molds.length > 0 && (
@@ -128,3 +138,60 @@ const molds = (await getCollection('molds')).sort((a, b) => a.data.name.localeCo
     </ul>
   </section>
 </Base>
+
+<style>
+  .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(20rem, 0.9fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+    padding: clamp(2rem, 5vw, 4rem) 0;
+  }
+
+  .home-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem 1.2rem;
+    align-items: center;
+  }
+
+  .home-gallery-link {
+    color: var(--color-link);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+
+  .home-gallery-link:hover {
+    text-decoration: underline;
+  }
+
+  .home-gallery-link:active {
+    transform: translateY(1px);
+  }
+
+  .home-hero-loop {
+    position: relative;
+    padding-top: 1.65rem;
+  }
+
+  .home-hero-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .home-hero {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
