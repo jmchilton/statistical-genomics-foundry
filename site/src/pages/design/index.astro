@@ -71,6 +71,20 @@ const recordShelves = await Promise.all(
       </section>
     );
   })}
+
+  <aside class="gallery-callout" aria-labelledby="gallery-callout-heading">
+    <div>
+      <span class="eyebrow">Visual acceptance</span>
+      <h2 id="gallery-callout-heading">Inspect the implemented system, not a parallel mockup.</h2>
+    </div>
+    <div>
+      <p>
+        The component gallery renders the upstream site-kit cases under this Foundry's theme,
+        beside SGF-specific provenance and referee-loop surfaces.
+      </p>
+      <a href={`${base}/gallery/`}>Open the component gallery <span aria-hidden="true">→</span></a>
+    </div>
+  </aside>
 </Base>
 
 <style>
@@ -173,6 +187,45 @@ const recordShelves = await Promise.all(
     font-size: 0.68rem;
     letter-spacing: 0.08em;
   }
+  .gallery-callout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.72fr);
+    gap: clamp(1.5rem, 6vw, 5rem);
+    margin-top: clamp(4rem, 9vw, 7rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+    border-top: 0.3rem solid var(--color-accent);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  .gallery-callout h2 {
+    max-width: 20ch;
+    margin: 0.5rem 0 0;
+    color: var(--color-text-primary);
+    font-size: clamp(1.65rem, 3.5vw, 2.6rem);
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+  .gallery-callout p {
+    margin: 0 0 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+  .gallery-callout a {
+    color: var(--color-link);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+  .gallery-callout a:hover {
+    text-decoration: underline;
+  }
+  .gallery-callout a:active {
+    display: inline-block;
+    transform: translateY(1px);
+  }
   @media (max-width: 900px) {
     .design-doc-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -187,6 +240,9 @@ const recordShelves = await Promise.all(
       margin-top: 0.65rem;
     }
     .design-doc-grid {
+      grid-template-columns: 1fr;
+    }
+    .gallery-callout {
       grid-template-columns: 1fr;
     }
   }

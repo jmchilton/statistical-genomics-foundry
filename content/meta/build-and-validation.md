@@ -7,8 +7,8 @@ tags:
   - meta
 status: reviewed
 created: 2026-08-02
-revised: 2026-08-02
-revision: 2
+revised: 2026-08-08
+revision: 3
 summary: "How the current corpus is validated, generated, rendered, and kept honest about deferred casting."
 ---
 
@@ -71,9 +71,12 @@ Raw synced book sources are gitignored inputs to summary regeneration. `scripts/
 - renders collection browse and detail routes;
 - resolves wiki links through the shared resolver;
 - builds tag, design-record, glossary, license, and source-note surfaces;
+- renders the component gallery, including isolated routes for document-unique shared specimens;
 - produces the Pagefind-enabled static site.
 
 The site is a derived reading surface. Build output is not committed source.
+
+The gallery is checked as built output rather than only as registry data. The shell suite requires every shared and SGF specimen case to reach the gallery, every isolated case to receive a route and iframe, and those isolated routes to remain outside the normal shell and search index. This is also the compatibility check for site-kit specimen additions: upgrading the package extends the shared registry, and an unrenderable component fails instead of disappearing from the instance.
 
 ## Casting boundary
 

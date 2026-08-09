@@ -1,0 +1,123 @@
+---
+import { specimenPath, type Specimen, type SpecimenGroup } from '@galaxy-foundry/site-kit/specimens';
+
+interface Props {
+  group: SpecimenGroup;
+  specimen: Specimen;
+  origin: 'shared' | 'sgf';
+}
+
+const { group, specimen, origin } = Astro.props;
+const anchor = specimenPath(group, specimen).replace('/', '--');
+---
+
+<article
+  id={anchor}
+  class="gallery-specimen"
+  data-gallery-component={group.component}
+  data-gallery-origin={origin}
+>
+  <header class="gallery-specimen-copy">
+    <span>{origin === 'shared' ? 'Shared case' : 'SGF case'}</span>
+    <h3><a href={`#${anchor}`}>{specimen.name}</a></h3>
+    <p>{specimen.why}</p>
+    <code>{specimenPath(group, specimen)}</code>
+  </header>
+  <div class="gallery-specimen-stage">
+    <slot />
+  </div>
+</article>
+
+<style>
+  .gallery-specimen {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.34fr) minmax(0, 1fr);
+    gap: clamp(1.25rem, 4vw, 3.5rem);
+    padding: clamp(1.5rem, 4vw, 3rem) 0;
+    border-top: 1px solid var(--color-border-subtle);
+    scroll-margin-top: 6rem;
+  }
+
+  .gallery-specimen-copy {
+    position: sticky;
+    top: 5.5rem;
+    align-self: start;
+  }
+
+  .gallery-specimen-copy > span {
+    color: var(--color-brand);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .gallery-specimen-copy h3 {
+    margin: 0.45rem 0 0.7rem;
+    color: var(--color-text-primary);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+  }
+
+  .gallery-specimen-copy h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .gallery-specimen-copy h3 a:hover {
+    color: var(--color-link);
+  }
+
+  .gallery-specimen-copy p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .gallery-specimen-copy code {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+  }
+
+  .gallery-specimen-stage {
+    min-width: 0;
+    overflow: hidden;
+    padding: clamp(1rem, 2.5vw, 1.75rem);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    background-color: var(--color-surface-raised);
+  }
+
+  [data-gallery-component='SiteFooter'] .gallery-specimen-stage,
+  [data-gallery-component='SiteHeader'] .gallery-specimen-stage,
+  [data-gallery-component='SiteShell'] .gallery-specimen-stage {
+    padding: 0;
+  }
+
+  [data-gallery-component='RefereeLoop'] .gallery-specimen-stage {
+    background-image: linear-gradient(
+      to bottom,
+      transparent calc(100% - 1px),
+      color-mix(in srgb, var(--color-border-subtle) 50%, transparent) 1px
+    );
+    background-size: 100% 1.5rem;
+  }
+
+  @media (max-width: 760px) {
+    .gallery-specimen {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .gallery-specimen-copy {
+      position: static;
+    }
+  }
+</style>

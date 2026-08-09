@@ -8,10 +8,6 @@
    one utility as a canary for whether Tailwind scanned the layout, and was keeping that canary
    alive by naming it, so the assertion could not fail. */
 @source not "../../tests";
-/* Automatic source detection stops at `node_modules`, so the shared components are invisible to
-   Tailwind unless this says otherwise — and every token they name gets tree-shaken out of `:root`
-   while the markup goes on referencing it. Nothing errors; the chips render unstyled. */
-@source "../../node_modules/@galaxy-foundry/site-kit/src";
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 
