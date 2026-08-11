@@ -1,12 +1,16 @@
 ---
-title: "Effect of Recombination on the Accuracy of the Likelihood Method for Detecting Positive Selection at Amino Acid Sites"
 type: paper
-source_id: anisimova-2003-recombination
+title: Effect of Recombination on the Accuracy of the Likelihood Method for Detecting Positive Selection at Amino Acid Sites
 source_url: https://europepmc.org/articles/PMC1462615?pdf=render
-doi: 10.1093/genetics/164.3.1229
-access_date: "2026-07-05"
-license: LicenseRef-all-rights-reserved
-attribution: "Anisimova M, Nielsen R, Yang Z. Genetics 164(3):1229-1236, 2003. DOI 10.1093/genetics/164.3.1229. PMID 12871927; PMCID PMC1462615. Full-text PDF read via the Europe PMC render endpoint. Bronze OA (free-to-read at publisher; Copyright 2003 Genetics Society of America, license None) - all rights reserved."
+source_ids:
+  status: declared
+  doi: 10.1093/genetics/164.3.1229
+access_date: '2026-07-05'
+source_read: full-text
+citation: Anisimova M, Nielsen R, Yang Z. Genetics 164(3):1229-1236, 2003. DOI 10.1093/genetics/164.3.1229. PMID 12871927; PMCID PMC1462615.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/molecular-evolution

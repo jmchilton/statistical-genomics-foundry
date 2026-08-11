@@ -1,14 +1,19 @@
 ---
-title: "Randomization in Laboratory Procedure Is Key to Obtaining Reproducible Microarray Results"
 type: paper
-source_id: yang-2008-randomization
-source_url: "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003724"
-doi: 10.1371/journal.pone.0003724
-access_date: "2026-07-13"
-license: CC-BY-4.0
+title: Randomization in Laboratory Procedure Is Key to Obtaining Reproducible Microarray Results
+source_url: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003724
+source_ids:
+  status: declared
+  doi: 10.1371/journal.pone.0003724
+access_date: '2026-07-13'
+source_read: full-text
+citation: Yang H, Harrington CA, Vartanian K, Coldren CD, Hall R, Churchill GA. Randomization in Laboratory Procedure Is Key to Obtaining Reproducible Microarray Results. PLoS ONE 3(11):e3724, 2008. DOI 10.1371/journal.pone.0003724.
+attribution: Yang H, Harrington CA, Vartanian K, Coldren CD, Hall R, Churchill GA. Randomization in Laboratory Procedure Is Key to Obtaining Reproducible Microarray Results. PLoS ONE 3(11):e3724, 2008. DOI 10.1371/journal.pone.0003724. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Yang H, Harrington CA, Vartanian K, Coldren CD, Hall R, Churchill GA. Randomization in Laboratory Procedure Is Key to Obtaining Reproducible Microarray Results. PLoS ONE 2008;3(11):e3724. Copyright 2008 Yang et al. NOTE: the article prints the CC-BY license WITHOUT a version number (see Access note); CC-BY-4.0 is taken from PLOS's own CrossRef license deposit for this DOI. Either candidate version (2.5 or 4.0) resolves to verbatim-ok, so posture is unaffected."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/batch-effects
   - domain/experimental-design

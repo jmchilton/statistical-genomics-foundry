@@ -9,9 +9,15 @@ actually needs. See `paper/kind.md` for why that beats a shared `z.enum(['paper'
 
 ## Why each required field is required
 
-Identical to `paper`: `source_id`, `source_url`, `access_date`, `license`, `attribution`,
-`derived`, `title`, and `tags` (min 1). See `paper/kind.md` — the reasoning is the same, and
-stating it once is the point of the shared `sourceNoteFields` in `types/context.ts`.
+Identical to `paper`, because the fields are literally the same object: `ctx.sourceNoteBlock`
+from `@galaxy-foundry/source-note` — `source_url`, `source_ids`, `access_date`, `source_read`,
+`citation`, `source_license`, `derived` — plus `title` and `tags` (min 1). See `paper/kind.md`;
+stating the reasoning once is the point of a shared block.
+
+One note about `source_ids` here: a vignette usually has no identifier of its own, so a tutorial
+typically declares `status: none` with a reason ("Bioconductor package landing page; no DOI
+assigned"). That is the union earning its keep — the absence is stated rather than inferred from
+an empty field.
 
 ## What is tutorial-specific
 
@@ -23,9 +29,12 @@ stating it once is the point of the shared `sourceNoteFields` in `types/context.
 - **`published`** — a **string**, quoted. Bare `2024-03-21` is a `Date` to YAML, not a string;
   a fixture asserts that a `Date` here is rejected.
 
+(`version` itself is shared: every source with editions has one, and a preprint's `v2` is the
+same field as a package's `3.60.0`.)
+
 All three are declared, so their types are checked rather than assumed, and `.strict()` rejects
 any further tutorial-specific key that has not been added here first.
 
-## The cross-field rule this kind enforces
+## The cross-field rules this kind enforces
 
-Licence coherence, exactly as on `paper`.
+The shared source-note coherence, exactly as on `paper`.

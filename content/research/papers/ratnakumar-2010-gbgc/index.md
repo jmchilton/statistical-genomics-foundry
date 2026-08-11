@@ -1,12 +1,16 @@
 ---
-title: "Detecting positive selection within genomes: the problem of biased gene conversion"
 type: paper
-source_id: ratnakumar-2010-gbgc
+title: 'Detecting positive selection within genomes: the problem of biased gene conversion'
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2935097/
-doi: 10.1098/rstb.2010.0007
-access_date: "2026-07-06"
-license: LicenseRef-all-rights-reserved
-attribution: "Ratnakumar A, Mousset S, Glemin S, Berglund J, Galtier N, Duret L, Webster MT. Philosophical Transactions of the Royal Society B 365(1552):2571-2580, 2010. DOI 10.1098/rstb.2010.0007. PMID 20643747; PMCID PMC2935097. Full text read via PMC; (c) 2010 The Royal Society, free-to-read, no CC license - all rights reserved."
+source_ids:
+  status: declared
+  doi: 10.1098/rstb.2010.0007
+access_date: '2026-07-06'
+source_read: full-text
+citation: Ratnakumar A, Mousset S, Glemin S, Berglund J, Galtier N, Duret L, Webster MT. Philosophical Transactions of the Royal Society B 365(1552):2571-2580, 2010. DOI 10.1098/rstb.2010.0007. PMID 20643747; PMCID PMC2935097.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/molecular-evolution

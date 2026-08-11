@@ -1,14 +1,19 @@
 ---
-title: "Methods that remove batch effects while retaining group differences may lead to exaggerated confidence in downstream analyses"
 type: paper
-source_id: nygaard-2016
+title: Methods that remove batch effects while retaining group differences may lead to exaggerated confidence in downstream analyses
 source_url: https://academic.oup.com/biostatistics/article/17/1/29/1744261
-doi: 10.1093/biostatistics/kxv027
-access_date: "2026-06-27"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1093/biostatistics/kxv027
+access_date: '2026-06-27'
+source_read: full-text
+citation: Nygaard V, Rødland EA, Hovig E. Methods that remove batch effects while retaining group differences may lead to exaggerated confidence in downstream analyses. Biostatistics 17(1):29–39, 2016. https://doi.org/10.1093/biostatistics/kxv027
+attribution: Nygaard V, Rødland EA, Hovig E. Methods that remove batch effects while retaining group differences may lead to exaggerated confidence in downstream analyses. Biostatistics 17(1):29–39, 2016. https://doi.org/10.1093/biostatistics/kxv027 Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Nygaard V, Rødland EA, Hovig E. Methods that remove batch effects while retaining group differences may lead to exaggerated confidence in downstream analyses. Biostatistics 17(1):29–39, 2016. https://doi.org/10.1093/biostatistics/kxv027"
-derived: faithful-summary-with-quotes
+derived: verbatim-quotes-summary
 tags:
   - domain/batch-effects
   - topic/confounding

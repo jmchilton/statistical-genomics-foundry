@@ -1,12 +1,17 @@
 ---
-title: 'DESeq2 vignette — "Analyzing RNA-seq data with DESeq2"'
 type: tutorial
-source_id: deseq2
+title: DESeq2 vignette — "Analyzing RNA-seq data with DESeq2"
 source_url: https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
-version: "1.52.0"
-access_date: "2026-07-13"
-license: LGPL-3.0-or-later
-attribution: "Love MI, Anders S, Huber W. Analyzing RNA-seq data with DESeq2 — Bioconductor package vignette, DESeq2 v1.52.0. License LGPL (>= 3) per the DESeq2 Bioconductor landing page. Methods: Love, Huber & Anders, Genome Biology 2014;15:550."
+source_ids:
+  status: none
+  reason: Bioconductor package vignette; no DOI assigned
+version: 1.52.0
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Love MI, Anders S, Huber W. Analyzing RNA-seq data with DESeq2. Bioconductor package vignette, DESeq2 v1.52.0. Method: Love MI, Huber W, Anders S. Genome Biology 15:550, 2014.'
+source_license:
+  status: declared
+  id: LGPL-3.0-or-later
 derived: own-words-summary
 tags:
   - domain/differential-expression

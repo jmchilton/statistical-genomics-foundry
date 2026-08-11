@@ -1,13 +1,17 @@
 ---
-title: "Adaptation or biased gene conversion? Extending the null hypothesis of molecular evolution"
 type: paper
-source_id: galtier-duret-2007-gbgc
+title: Adaptation or biased gene conversion? Extending the null hypothesis of molecular evolution
 source_url: https://pubmed.ncbi.nlm.nih.gov/17418442/
-doi: 10.1016/j.tig.2007.03.011
-access_date: "2026-07-05"
-license: LicenseRef-all-rights-reserved
-attribution: "Galtier N, Duret L. Trends in Genetics 23(6):273-277, 2007 (Epub 2007 Apr 5). DOI 10.1016/j.tig.2007.03.011. PMID 17418442. Abstract-only: full text behind the Elsevier/Trends in Genetics paywall (HTTP 403); only the NLM/PubMed abstract (via NCBI eutils efetch) was read. All rights reserved."
-derived: abstract-only-own-words-summary
+source_ids:
+  status: declared
+  doi: 10.1016/j.tig.2007.03.011
+access_date: '2026-07-05'
+source_read: abstract-only
+citation: Galtier N, Duret L. Trends in Genetics 23(6):273-277, 2007 (Epub 2007 Apr 5). DOI 10.1016/j.tig.2007.03.011. PMID 17418442.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
+derived: own-words-summary
 tags:
   - domain/molecular-evolution
   - topic/gc-biased-gene-conversion

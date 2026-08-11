@@ -1,12 +1,16 @@
 ---
-title: "Automated Phylogenetic Detection of Recombination Using a Genetic Algorithm"
 type: paper
-source_id: pond-2006-gard
+title: Automated Phylogenetic Detection of Recombination Using a Genetic Algorithm
 source_url: https://academic.oup.com/mbe/article/23/10/1891/1096946
-doi: 10.1093/molbev/msl051
-access_date: "2026-07-05"
-license: CC-BY-NC-2.0-UK
-attribution: "Kosakovsky Pond SL, Posada D, Gravenor MB, Woelk CH, Frost SDW. Molecular Biology and Evolution 23(10):1891-1901, 2006. DOI 10.1093/molbev/msl051. PMID 16818476. Read via OUP open-access full text; article footer states Open Access under the Creative Commons Attribution Non-Commercial License (CC BY-NC 2.0 UK); own-words summary (NC kept out of casts), functional strings kept verbatim as facts."
+source_ids:
+  status: declared
+  doi: 10.1093/molbev/msl051
+access_date: '2026-07-05'
+source_read: full-text
+citation: Kosakovsky Pond SL, Posada D, Gravenor MB, Woelk CH, Frost SDW. Molecular Biology and Evolution 23(10):1891-1901, 2006. DOI 10.1093/molbev/msl051. PMID 16818476.
+source_license:
+  status: declared
+  id: CC-BY-NC-2.0-UK
 derived: own-words-summary
 tags:
   - domain/molecular-evolution

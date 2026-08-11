@@ -1,17 +1,22 @@
 ---
-title: "ComBat-seq: batch effect adjustment for RNA-seq count data"
 type: paper
-source_id: zhang-2020-combat-seq
+title: 'ComBat-seq: batch effect adjustment for RNA-seq count data'
 source_url: https://academic.oup.com/nargab/article/2/3/lqaa078/5909519
 oa_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7518324/
-doi: 10.1093/nargab/lqaa078
-pmid: "33015620"
-pmcid: PMC7518324
-access_date: "2026-07-13"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1093/nargab/lqaa078
+  pmid: '33015620'
+  pmcid: PMC7518324
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Zhang Y, Parmigiani G, Johnson WE. ComBat-seq: batch effect adjustment for RNA-seq count data. NAR Genomics and Bioinformatics 2(3):lqaa078, 2020. DOI 10.1093/nargab/lqaa078.'
+attribution: 'Zhang Y, Parmigiani G, Johnson WE. ComBat-seq: batch effect adjustment for RNA-seq count data. NAR Genomics and Bioinformatics 2(3):lqaa078, 2020. DOI 10.1093/nargab/lqaa078. Used under CC-BY-4.0.'
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Zhang Y, Parmigiani G, Johnson WE. ComBat-seq: batch effect adjustment for RNA-seq count data. NAR Genomics and Bioinformatics 2(3):lqaa078, 2020. https://doi.org/10.1093/nargab/lqaa078 — open access under CC BY 4.0. Read from PMC efetch JATS XML (full body, 17 refs); Supplementary Material S1–S5 not read."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/batch-effects
   - domain/differential-expression

@@ -1,14 +1,19 @@
 ---
-title: "Compositionally Constrained Sites Drive Long-Branch Attraction"
 type: paper
-source_id: szantho-2023-compositional-lba
+title: Compositionally Constrained Sites Drive Long-Branch Attraction
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10405358/
-doi: 10.1093/sysbio/syad013
-access_date: "2026-07-03"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1093/sysbio/syad013
+access_date: '2026-07-03'
+source_read: full-text
+citation: Szánthó LL, Lartillot N, Szöllősi GJ, Schrempf D. Compositionally Constrained Sites Drive Long-Branch Attraction. Systematic Biology 72(4):767-780, 2023. DOI 10.1093/sysbio/syad013.
+attribution: Szánthó LL, Lartillot N, Szöllősi GJ, Schrempf D. Compositionally Constrained Sites Drive Long-Branch Attraction. Systematic Biology 72(4):767-780, 2023. DOI 10.1093/sysbio/syad013. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Szánthó LL, Lartillot N, Szöllősi GJ, Schrempf D. Compositionally Constrained Sites Drive Long-Branch Attraction. Systematic Biology 72(4):767-780, 2023. DOI 10.1093/sysbio/syad013. Open-access full text on PMC under CC-BY 4.0."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/phylogenetics
 ---

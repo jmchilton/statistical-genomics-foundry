@@ -1,14 +1,19 @@
 ---
-title: "Evolutionary Shortcuts via Multinucleotide Substitutions and Their Impact on Natural Selection Analyses"
 type: paper
-source_id: lucaci-2023-busted-mh
+title: Evolutionary Shortcuts via Multinucleotide Substitutions and Their Impact on Natural Selection Analyses
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10336034/
-doi: 10.1093/molbev/msad150
-access_date: "2026-07-05"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1093/molbev/msad150
+access_date: '2026-07-05'
+source_read: full-text
+citation: Lucaci AG, Zehr JD, Enard D, Thornton JW, Kosakovsky Pond SL. Molecular Biology and Evolution 40(7):msad150, 2023. DOI 10.1093/molbev/msad150. PMID 37395787; PMCID PMC10336034.
+attribution: Lucaci AG, Zehr JD, Enard D, Thornton JW, Kosakovsky Pond SL. Molecular Biology and Evolution 40(7):msad150, 2023. DOI 10.1093/molbev/msad150. PMID 37395787; PMCID PMC10336034. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Lucaci AG, Zehr JD, Enard D, Thornton JW, Kosakovsky Pond SL. Molecular Biology and Evolution 40(7):msad150, 2023. DOI 10.1093/molbev/msad150. PMID 37395787; PMCID PMC10336034. Published MBE version read via Europe PMC full-text XML, Open Access under CC-BY 4.0 (preprint bioRxiv 10.1101/2022.12.02.518889 was CC BY-NC; MBE version is canonical here)."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/molecular-evolution
   - topic/positive-selection

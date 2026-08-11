@@ -1,12 +1,17 @@
 ---
-title: "Fitch 1976 J Mol Evol 7:271 synteny attribution check"
 type: paper
-source_id: fitch-1976-synteny
+title: Fitch 1976 J Mol Evol 7:271 synteny attribution check
 source_url: https://doi.org/10.1007/BF01743626
-access_date: "2026-07-03"
-license: LicenseRef-all-rights-reserved
-attribution: "Attribution check for the downstream citation 'Fitch WM 1976, J Mol Evol 7:271'. CrossRef and PubMed metadata show page 271 is Zuckerkandl E, Evolutionary processes and evolutionary noise at the molecular level, Journal of Molecular Evolution 7:269-311, 1976. DOI 10.1007/BF01743626. No full text read; note summarized in own words."
-derived: attribution-check-own-words
+source_ids:
+  status: declared
+  doi: 10.1007/BF01743626
+access_date: '2026-07-03'
+source_read: not-read
+citation: Zuckerkandl E. Evolutionary processes and evolutionary noise at the molecular level. Journal of Molecular Evolution 7:269-311, 1976. DOI 10.1007/BF01743626.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
+derived: own-words-summary
 tags:
   - domain/synteny
 ---

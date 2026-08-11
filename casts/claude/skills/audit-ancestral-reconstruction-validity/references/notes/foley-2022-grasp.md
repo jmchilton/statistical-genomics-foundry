@@ -1,14 +1,19 @@
 ---
-title: "Engineering indel and substitution variants of diverse and ancient enzymes using GRASP"
 type: paper
-source_id: foley-2022-grasp
+title: Engineering indel and substitution variants of diverse and ancient enzymes using GRASP
 source_url: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010633
-doi: 10.1371/journal.pcbi.1010633
-access_date: "2026-07-03"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1371/journal.pcbi.1010633
+access_date: '2026-07-03'
+source_read: full-text
+citation: Foley G, Sützl L, D'Cunha SA, Gillam EMJ, Bodén M. Engineering indel and substitution variants of diverse and ancient enzymes using GRASP. PLOS Computational Biology 18(10):e1010633, 2022. DOI 10.1371/journal.pcbi.1010633.
+attribution: Foley G, Sützl L, D'Cunha SA, Gillam EMJ, Bodén M. Engineering indel and substitution variants of diverse and ancient enzymes using GRASP. PLOS Computational Biology 18(10):e1010633, 2022. DOI 10.1371/journal.pcbi.1010633. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Foley G, Sützl L, D'Cunha SA, Gillam EMJ, Bodén M. Engineering indel and substitution variants of diverse and ancient enzymes using GRASP. PLOS Computational Biology 18(10):e1010633, 2022. DOI 10.1371/journal.pcbi.1010633. Open access under the Creative Commons Attribution License."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/ancestral-reconstruction
 ---

@@ -1,14 +1,19 @@
 ---
-title: "Ancestral Reconstruction"
 type: paper
-source_id: joy-2016-ancestral-reconstruction
+title: Ancestral Reconstruction
 source_url: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004763
-doi: 10.1371/journal.pcbi.1004763
-access_date: "2026-07-03"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1371/journal.pcbi.1004763
+access_date: '2026-07-03'
+source_read: full-text
+citation: Joy JB, Liang RH, McCloskey RM, Nguyen T, Poon AFY. Ancestral Reconstruction. PLOS Computational Biology 12(7):e1004763, 2016. DOI 10.1371/journal.pcbi.1004763.
+attribution: Joy JB, Liang RH, McCloskey RM, Nguyen T, Poon AFY. Ancestral Reconstruction. PLOS Computational Biology 12(7):e1004763, 2016. DOI 10.1371/journal.pcbi.1004763. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Joy JB, Liang RH, McCloskey RM, Nguyen T, Poon AFY. Ancestral Reconstruction. PLOS Computational Biology 12(7):e1004763, 2016. DOI 10.1371/journal.pcbi.1004763. Open access under Creative Commons BY."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/ancestral-reconstruction
   - domain/phylogenetics

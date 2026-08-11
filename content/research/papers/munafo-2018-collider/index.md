@@ -1,17 +1,22 @@
 ---
-title: "Collider scope: when selection bias can substantially influence observed associations"
 type: paper
-source_id: munafo-2018-collider
+title: 'Collider scope: when selection bias can substantially influence observed associations'
 source_url: https://academic.oup.com/ije/article/47/1/226/4259077
 oa_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5837306/
-doi: 10.1093/ije/dyx206
-pmcid: PMC5837306
-pmid: "29040562"
-access_date: "2026-07-13"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1093/ije/dyx206
+  pmid: '29040562'
+  pmcid: PMC5837306
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Munafò MR, Tilling K, Taylor AE, Evans DM, Davey Smith G. Collider scope: when selection bias can substantially influence observed associations. International Journal of Epidemiology 47(1):226-235, 2018. DOI 10.1093/ije/dyx206.'
+attribution: 'Munafò MR, Tilling K, Taylor AE, Evans DM, Davey Smith G. Collider scope: when selection bias can substantially influence observed associations. International Journal of Epidemiology 47(1):226-235, 2018. DOI 10.1093/ije/dyx206. Used under CC-BY-4.0.'
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Munafò MR, Tilling K, Taylor AE, Evans DM, Davey Smith G. Collider scope: when selection bias can substantially influence observed associations. International Journal of Epidemiology 47(1):226–235, 2018. https://doi.org/10.1093/ije/dyx206 — open access under CC BY 4.0. Read from the PMC deposit (PMC5837306); Figures 1–3 are images (captions only) and Supplementary Data not retrieved."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/statistical-inference
   - topic/confounding

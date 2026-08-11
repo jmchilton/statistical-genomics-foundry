@@ -8,9 +8,20 @@ title: "Modern Statistics for Modern Biology"
 short_title: MSMB
 source: msmb
 source_url: https://www.huber.embl.de/msmb/
-license: CC-BY-NC-SA-2.0
+# `citation` is a template: {n}/{title} are filled from each chapter's frontmatter.
+# A chapter of an online textbook carries no identifier of its own — stated, not omitted.
+source_ids:
+  status: none
+  reason: web chapter of an online textbook; no per-chapter identifier assigned
+access_date: "2026-07-06"
+source_read: full-text
+citation: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. Chapter {n}: {title}. https://www.huber.embl.de/msmb/"
+source_license:
+  status: declared
+  id: CC-BY-NC-SA-2.0
 license_file: LICENSES/msmb.LICENSE
-attribution: "Holmes S, Huber W. Modern Statistics for Modern Biology. Cambridge University Press; 2019. https://www.huber.embl.de/msmb/"
+# NC-SA is own-words-only in the shared table, so this book carries no upstream expression and
+# owes no attribution notice — the `attribution` field is deliberately absent.
 derived: own-words-summary
 summary_prompt: summary-prompt.md
 chapters:

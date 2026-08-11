@@ -1,14 +1,19 @@
 ---
-title: "OSAT: a tool for sample-to-batch allocations in genomics experiments"
 type: paper
-source_id: yan-2012-osat
+title: 'OSAT: a tool for sample-to-batch allocations in genomics experiments'
 source_url: https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-13-689
-doi: 10.1186/1471-2164-13-689
-access_date: "2026-07-13"
-license: CC-BY-2.0
+source_ids:
+  status: declared
+  doi: 10.1186/1471-2164-13-689
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Yan L, Ma C, Wang D, Hu Q, Qin M, Conroy JM, Sucheston LE, Ambrosone CB, Johnson CS, Wang J, Liu S. OSAT: a tool for sample-to-batch allocations in genomics experiments. BMC Genomics 13:689, 2012. DOI 10.1186/1471-2164-13-689.'
+attribution: 'Yan L, Ma C, Wang D, Hu Q, Qin M, Conroy JM, Sucheston LE, Ambrosone CB, Johnson CS, Wang J, Liu S. OSAT: a tool for sample-to-batch allocations in genomics experiments. BMC Genomics 13:689, 2012. DOI 10.1186/1471-2164-13-689. Used under CC-BY-2.0.'
+source_license:
+  status: declared
+  id: CC-BY-2.0
 license_file: LICENSES/CC-BY-2.0.LICENSE
-attribution: "Yan L, Ma C, Wang D, Hu Q, Qin M, Conroy JM, Sucheston LE, Ambrosone CB, Johnson CS, Wang J, Liu S. OSAT: a tool for sample-to-batch allocations in genomics experiments. BMC Genomics 13:689, 2012. https://doi.org/10.1186/1471-2164-13-689 — open access under CC BY 2.0. Read from the BMC HTML + PDF mirror (PMC was blocked); figures and Additional file 1 not read."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/experimental-design
   - domain/batch-effects

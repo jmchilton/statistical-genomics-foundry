@@ -1,13 +1,17 @@
 ---
-title: "ksrates: positioning whole-genome duplications relative to speciation events in Ks distributions"
 type: paper
-source_id: sensalari-2022-ksrates
+title: 'ksrates: positioning whole-genome duplications relative to speciation events in Ks distributions'
 source_url: https://doi.org/10.1093/bioinformatics/btab602
-doi: 10.1093/bioinformatics/btab602
-version: "ksrates v2.1.0"
-access_date: "2026-07-05"
-license: LicenseRef-all-rights-reserved
-attribution: "Sensalari C, Maere S, Lohaus R. ksrates: positioning whole-genome duplications relative to speciation events in Ks distributions. Bioinformatics 38(2):530-532, 2022. DOI 10.1093/bioinformatics/btab602. Own-words summary of the article metadata plus method facts from GPL-3.0 ksrates docs/repo."
+source_ids:
+  status: declared
+  doi: 10.1093/bioinformatics/btab602
+version: ksrates v2.1.0
+access_date: '2026-07-05'
+source_read: abstract-only
+citation: 'Sensalari C, Maere S, Lohaus R. ksrates: positioning whole-genome duplications relative to speciation events in Ks distributions. Bioinformatics 38(2):530-532, 2022. DOI 10.1093/bioinformatics/btab602.'
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/whole-genome-duplication

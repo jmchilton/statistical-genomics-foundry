@@ -83,27 +83,42 @@
       "locations": [
         "research/books"
       ],
-      "doc": "# Book Chapter\n\nA **Book Chapter** note is an own-words summary of one chapter of an external textbook (the\nMSMB chapters, for instance). One directory per book, one `index.md` per chapter.\n\n## The book-level licence record\n\nFour fields — `license`, `license_file`, `attribution`, `derived` — are constant within a book\nand authored ONCE in `content/research/books/<id>/book.yml`. They reach each chapter by being\n**copied into its frontmatter** by `npm run books`, not by being merged in while validating.\n\nThe copy is deliberate. An earlier version merged `book.yml` at load time, which meant this was\nthe one kind whose entry was assembled rather than validated in place — a zod schema that read\nfiles off disk, a note that was only complete after a merge, and a kind manifest that listed\nsix fields for a chapter carrying ten. Copying makes a chapter an ordinary note: it validates\nfrom its own frontmatter, exactly like every other kind.\n\nWhat a copy costs is the risk of becoming a second source of truth, so `npm run check:books`\nregenerates and compares in CI — the same trade `kinds.generated.json` makes. `book.yml`\nremains the only place to edit; the block between the generated markers is overwritten.\n\n`attribution` in `book.yml` may be a template — `{n}` and `{title}` are filled from the\nchapter — so per-chapter credit lines are generated rather than transcribed.\n\n## Why each required field is required\n\n- **`title`** — the chapter's own title, and half of the attribution template's input.\n- **`source`** — the book directory id. This is the key `npm run books` reads `book.yml` by, so\n  a wrong value is a generator error rather than a quiet mismatch.\n- **`license`**, **`attribution`**, **`derived`** — the book's licence record, copied in. Edit\n  them in `book.yml`; `check:books` fails if a chapter's copy has drifted.\n- **`source_url`** — the chapter's own URL. Distinct from the book's, and the provenance for\n  this specific chapter.\n- **`tags`** (min 1) — the browse axis, as on every kind.\n\n`source_chapter` is optional: not every book numbers its chapters, and the attribution template\ntolerates its absence.\n\n## `type` is per-note, not per-book\n\n`type: book` sits in the chapter's frontmatter even though it is constant within a book, and\neven though it *could* have been a `book.yml` field. Every note in the corpus names its own\nkind — a note whose kind you have to look up elsewhere is a note the validator cannot route on\nits own.\n\n## Redistribution\n\nChapters are `own-words-summary`, always: the source text is not reproduced, and\n`scripts/sync-book.sh` fetches the raw chapters into a gitignored directory pinned by\n`SHA256SUMS`. What is committed is the manifest, the pin, and our derived summary.",
+      "doc": "# Book Chapter\n\nA **Book Chapter** note is a summary of one chapter of an external textbook (the MSMB chapters,\nfor instance). One directory per book, one `index.md` per chapter.\n\n## The book-level source-note record\n\nMost of the source-note block — `source_ids`, `access_date`, `source_read`, `citation`,\n`attribution`, `source_license`, `license_file`, `derived` — is constant within a book and\nauthored ONCE in `content/research/books/<id>/book.yml`. It reaches each chapter by being\n**copied into its frontmatter** by `npm run books`, not by being merged in while validating.\n\nThe copy is deliberate. An earlier version merged `book.yml` at load time, which meant this was\nthe one kind whose entry was assembled rather than validated in place — a zod schema that read\nfiles off disk, a note that was only complete after a merge, and a kind manifest that listed\nsix fields for a chapter carrying ten. Copying makes a chapter an ordinary note: it validates\nfrom its own frontmatter, exactly like every other kind.\n\nWhat a copy costs is the risk of becoming a second source of truth, so `npm run check:books`\nregenerates and compares in CI — the same trade `kinds.generated.json` makes. `book.yml`\nremains the only place to edit; the block between the generated markers is overwritten.\n\n`citation` and `attribution` in `book.yml` may be templates — `{n}` and `{title}` are filled\nfrom the chapter — so per-chapter records are generated rather than transcribed. Everything\nelse is copied through untouched, including the nested `source_ids` and `source_license` maps.\n\nTwo of the eight are legitimately absent rather than missing: `license_file` (an own-words book\nvendors no upstream LICENSE) and `attribution` (an own-words book reproduces no upstream\nexpression and owes no notice). The generator's `OPTIONAL` set is what permits that, and the\nschema agrees — both fields are optional in the shared contract.\n\n## Why each required field is required\n\n- **`title`** — the chapter's own title, and half of the citation template's input.\n- **`source`** — the book directory id. This is the key `npm run books` reads `book.yml` by, so\n  a wrong value is a generator error rather than a quiet mismatch.\n- **`source_url`** — the chapter's own URL. Distinct from the book's, and the provenance for\n  this specific chapter.\n- The materialized block — see `paper/kind.md` for what each field is and why the four\n  questions it separates are separate.\n- **`tags`** (min 1) — the browse axis, as on every kind.\n\n`source_chapter` is optional: not every book numbers its chapters, and the templates tolerate\nits absence.\n\nA chapter's `source_ids` is `status: none` in both books here, with the reason stated: a web\nchapter of an online textbook carries no per-chapter DOI. That is the claim, not an omission.\n\n## `type` is per-note, not per-book\n\n`type: book` sits in the chapter's frontmatter even though it is constant within a book, and\neven though it *could* have been a `book.yml` field. Every note in the corpus names its own\nkind — a note whose kind you have to look up elsewhere is a note the validator cannot route on\nits own.\n\n## Redistribution\n\nThe posture is per book, not per kind. `msmb` is NC-SA, so its chapters are\n`own-words-summary` and carry no upstream expression; `harmon-pcm` is CC-BY-4.0 and does quote,\nso it is `verbatim-quotes-summary` and its chapters carry both the notice and a vendored\n`license_file` — which the shared coherence rule requires rather than trusts.\n\nEither way the source text is not committed: `scripts/sync-book.sh` fetches the raw chapters\ninto a gitignored directory pinned by `SHA256SUMS`. What is committed is the manifest, the pin,\nand our derived summary.",
       "fields": [
         {
-          "name": "attribution",
+          "name": "access_date",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "citation",
           "required": true,
           "type": "string"
         },
         {
           "name": "derived",
           "required": true,
-          "type": "string"
-        },
-        {
-          "name": "license",
-          "required": true,
-          "type": "string"
+          "type": "own-words-summary | verbatim-quotes-summary"
         },
         {
           "name": "source",
           "required": true,
           "type": "string"
+        },
+        {
+          "name": "source_ids",
+          "required": true,
+          "type": "object"
+        },
+        {
+          "name": "source_license",
+          "required": true,
+          "type": "object"
+        },
+        {
+          "name": "source_read",
+          "required": true,
+          "type": "full-text | partial | abstract-only | not-read"
         },
         {
           "name": "source_url",
@@ -126,7 +141,22 @@
           "type": "\"book\""
         },
         {
+          "name": "attribution",
+          "required": false,
+          "type": "string"
+        },
+        {
           "name": "license_file",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "license_statement",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "oa_url",
           "required": false,
           "type": "string"
         },
@@ -134,6 +164,11 @@
           "name": "source_chapter",
           "required": false,
           "type": "number"
+        },
+        {
+          "name": "version",
+          "required": false,
+          "type": "string"
         }
       ]
     },
@@ -154,7 +189,7 @@
       "locations": [
         "research/papers"
       ],
-      "doc": "# Paper\n\nA **Paper** note is a faithful summary of one published paper, carrying the provenance and\nlicence posture the summary was made under.\n\nPapers and tutorials share a field set but are **two kinds, not one kind with a\n`z.enum(['paper','tutorial'])`**, because `type` is the sole note-kind discriminator: one kind,\none schema. The enum let a `type: paper` note sit in `content/research/tutorials/` and still\nvalidate; a literal per kind makes the collection and the declared kind agree. The split also\nlets the kinds genuinely differ — a paper carries bibliographic identifiers, a tutorial the\nrelease it documents — which under a shared enum would have had to be legal on both.\n\n## Why each required field is required\n\n- **`source_id`**, **`source_url`** — what was summarized, and where it lives. Never a mirror\n  of the source itself: the URL is the provenance, the summary is ours.\n- **`access_date`** — when we read it. A string, always quoted: bare `2026-01-01` is a `Date`\n  to YAML, and there is a negative fixture holding that line.\n- **`license`** — an SPDX id resolving against the shared license-policy table, installed from\n  `@galaxy-foundry/license-policy`. This is what decides the summary posture, not the source type.\n- **`attribution`** — the credit line the licence obliges.\n- **`derived`** — what modification was made (the CC-BY \"changes\" indication), and the field the\n  coherence rule keys off. `own-words-summary` redistributes no protected expression;\n  `license-aware-with-quotes` does, and the schema then demands a licence that permits it.\n- **`title`** and **`tags`** (min 1) — papers take `domain/*` and `topic/*` subject facets.\n\n## Identifiers are strings\n\n`pmid`, `pmcid`, `arxiv`, `oa_url` are all optional and all **strings**. An unquoted\n`pmid: 33015620` is an integer to YAML, and an identifier is an opaque label — never\narithmetic. All four are declared, so the string type is checked rather than assumed, and\n`.strict()` rejects any fifth identifier that has not been added here first.\n\n## The cross-field rule this kind enforces\n\nLicence coherence: the id must resolve to a real policy row; a note may not declare verbatim\ncarry under an own-words-only licence; and verbatim carry under a row that requires a\n`license_file` must declare one.",
+      "doc": "# Paper\n\nA **Paper** note is a faithful summary of one published paper, carrying the provenance and\nlicence posture the summary was made under.\n\nPapers and tutorials share a field set but are **two kinds, not one kind with a\n`z.enum(['paper','tutorial'])`**, because `type` is the sole note-kind discriminator: one kind,\none schema. The enum let a `type: paper` note sit in `content/research/tutorials/` and still\nvalidate; a literal per kind makes the collection and the declared kind agree. The split also\nlets the kinds genuinely differ — a paper carries bibliographic identifiers, a tutorial the\nrelease it documents — which under a shared enum would have had to be legal on both.\n\n## The field set is not ours\n\nEverything below `title` comes from `@galaxy-foundry/source-note`, spread in as\n`ctx.sourceNoteBlock` with the cross-field rules as `ctx.sourceNoteRules`. Both Foundries had\nwritten this field set independently and fused different questions into one string doing it.\nThe shared contract keeps four apart, because each is wrong in a different way:\n\n- **`source_ids`** — what the work is addressable BY. A union, not four optional fields: a\n  working paper with no DOI says `status: none` with a reason, which is a claim a reviewer can\n  check, while an omission cannot be told from an author who never looked. Ids are bare and\n  string-typed — `10.1038/nrg2825`, not a `doi.org` URL, and `pmid: '20838408'` quoted, because\n  unquoted it is an integer to YAML and an identifier is a label, never arithmetic.\n- **`source_url`** — where the work LIVES. A location rots; an identifier does not. `oa_url` is\n  the same question again for a free mirror of a paywalled record.\n- **`citation`** — the bibliographic record, checkable against a registry.\n- **`attribution`** — the licence NOTICE, checkable against the licence's terms, and required\n  only where the note carries upstream expression. These two used to be one string, which meant\n  the checkable half could only be checked by parsing it back out of the unverifiable half.\n- **`source_read`** — `full-text`, `partial`, `abstract-only`, or `not-read`. A summary built\n  from an abstract cannot support a claim about methods, and nothing else in the frontmatter\n  said so. Required, so silence is not read as `full-text`; `not-read` is a real answer, for a\n  note that checks a work's published record without reading the work.\n- **`source_license`** — a union again, for the same reason. `{ status: declared, id: ... }` is\n  a determination; `{ status: missing }` is the absence of one. Both deny verbatim carry, and\n  collapsing them loses which of the two a reader is looking at.\n- **`access_date`** — when we read it. A quoted string, always: bare `2026-01-01` is a `Date`\n  to YAML, and there is a negative fixture holding that line.\n- **`derived`** — the summary posture, a closed enum of two: `own-words-summary` redistributes\n  no protected expression; `verbatim-quotes-summary` does, and the schema then demands a licence\n  that permits it. It was free prose here until the shared contract closed it, which is why\n  deciding what a posture meant used to take a regular expression over a sentence.\n- **`title`** and **`tags`** (min 1) — papers take `domain/*` and `topic/*` subject facets.\n  These describe the NOTE rather than the source, which is why they are not in the shared block.\n\n## The cross-field rules this kind enforces\n\nAll from the shared contract, all deny-by-default: declared identifiers must include at least\none; a licence id must resolve to a real policy row rather than the default; a note may not\ncarry verbatim under an own-words-only licence, or under a licence nobody determined; and\nverbatim carry obliges both the `attribution` notice and, where the row requires it, a\n`license_file` vendored in `LICENSES/`.",
       "fields": [
         {
           "name": "access_date",
@@ -162,24 +197,29 @@
           "type": "string"
         },
         {
-          "name": "attribution",
+          "name": "citation",
           "required": true,
           "type": "string"
         },
         {
           "name": "derived",
           "required": true,
-          "type": "string"
+          "type": "own-words-summary | verbatim-quotes-summary"
         },
         {
-          "name": "license",
+          "name": "source_ids",
           "required": true,
-          "type": "string"
+          "type": "object"
         },
         {
-          "name": "source_id",
+          "name": "source_license",
           "required": true,
-          "type": "string"
+          "type": "object"
+        },
+        {
+          "name": "source_read",
+          "required": true,
+          "type": "full-text | partial | abstract-only | not-read"
         },
         {
           "name": "source_url",
@@ -202,12 +242,7 @@
           "type": "\"paper\""
         },
         {
-          "name": "arxiv",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "doi",
+          "name": "attribution",
           "required": false,
           "type": "string"
         },
@@ -223,16 +258,6 @@
         },
         {
           "name": "oa_url",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "pmcid",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "pmid",
           "required": false,
           "type": "string"
         },
@@ -260,7 +285,7 @@
       "locations": [
         "research/tutorials"
       ],
-      "doc": "# Tutorial\n\nA **Tutorial** note is a faithful summary of one package vignette or tutorial — the\nBioconductor/CRAN documentation a Mold needs the exact procedure from.\n\nIt shares the source-note field set with `paper` but is a separate kind: `type` is the sole\ndiscriminator, so one kind means one schema, and the split is what lets each kind carry what it\nactually needs. See `paper/kind.md` for why that beats a shared `z.enum(['paper','tutorial'])`.\n\n## Why each required field is required\n\nIdentical to `paper`: `source_id`, `source_url`, `access_date`, `license`, `attribution`,\n`derived`, `title`, and `tags` (min 1). See `paper/kind.md` — the reasoning is the same, and\nstating it once is the point of the shared `sourceNoteFields` in `types/context.ts`.\n\n## What is tutorial-specific\n\n- **`docs_url`** — the documentation site, distinct from `source_url`, which points at the\n  package record. For a vignette these are genuinely two different pages.\n- **`bioconductor_release`** — the release the `version` belongs to. The pair pins the\n  vignette: a Bioconductor package version means nothing without its release, and a vignette\n  summarized against 3.18 can be silently wrong for 3.20.\n- **`published`** — a **string**, quoted. Bare `2024-03-21` is a `Date` to YAML, not a string;\n  a fixture asserts that a `Date` here is rejected.\n\nAll three are declared, so their types are checked rather than assumed, and `.strict()` rejects\nany further tutorial-specific key that has not been added here first.\n\n## The cross-field rule this kind enforces\n\nLicence coherence, exactly as on `paper`.",
+      "doc": "# Tutorial\n\nA **Tutorial** note is a faithful summary of one package vignette or tutorial — the\nBioconductor/CRAN documentation a Mold needs the exact procedure from.\n\nIt shares the source-note field set with `paper` but is a separate kind: `type` is the sole\ndiscriminator, so one kind means one schema, and the split is what lets each kind carry what it\nactually needs. See `paper/kind.md` for why that beats a shared `z.enum(['paper','tutorial'])`.\n\n## Why each required field is required\n\nIdentical to `paper`, because the fields are literally the same object: `ctx.sourceNoteBlock`\nfrom `@galaxy-foundry/source-note` — `source_url`, `source_ids`, `access_date`, `source_read`,\n`citation`, `source_license`, `derived` — plus `title` and `tags` (min 1). See `paper/kind.md`;\nstating the reasoning once is the point of a shared block.\n\nOne note about `source_ids` here: a vignette usually has no identifier of its own, so a tutorial\ntypically declares `status: none` with a reason (\"Bioconductor package landing page; no DOI\nassigned\"). That is the union earning its keep — the absence is stated rather than inferred from\nan empty field.\n\n## What is tutorial-specific\n\n- **`docs_url`** — the documentation site, distinct from `source_url`, which points at the\n  package record. For a vignette these are genuinely two different pages.\n- **`bioconductor_release`** — the release the `version` belongs to. The pair pins the\n  vignette: a Bioconductor package version means nothing without its release, and a vignette\n  summarized against 3.18 can be silently wrong for 3.20.\n- **`published`** — a **string**, quoted. Bare `2024-03-21` is a `Date` to YAML, not a string;\n  a fixture asserts that a `Date` here is rejected.\n\n(`version` itself is shared: every source with editions has one, and a preprint's `v2` is the\nsame field as a package's `3.60.0`.)\n\nAll three are declared, so their types are checked rather than assumed, and `.strict()` rejects\nany further tutorial-specific key that has not been added here first.\n\n## The cross-field rules this kind enforces\n\nThe shared source-note coherence, exactly as on `paper`.",
       "fields": [
         {
           "name": "access_date",
@@ -268,24 +293,29 @@
           "type": "string"
         },
         {
-          "name": "attribution",
+          "name": "citation",
           "required": true,
           "type": "string"
         },
         {
           "name": "derived",
           "required": true,
-          "type": "string"
+          "type": "own-words-summary | verbatim-quotes-summary"
         },
         {
-          "name": "license",
+          "name": "source_ids",
           "required": true,
-          "type": "string"
+          "type": "object"
         },
         {
-          "name": "source_id",
+          "name": "source_license",
           "required": true,
-          "type": "string"
+          "type": "object"
+        },
+        {
+          "name": "source_read",
+          "required": true,
+          "type": "full-text | partial | abstract-only | not-read"
         },
         {
           "name": "source_url",
@@ -308,6 +338,11 @@
           "type": "\"tutorial\""
         },
         {
+          "name": "attribution",
+          "required": false,
+          "type": "string"
+        },
+        {
           "name": "bioconductor_release",
           "required": false,
           "type": "string"
@@ -318,17 +353,17 @@
           "type": "string"
         },
         {
-          "name": "doi",
-          "required": false,
-          "type": "string"
-        },
-        {
           "name": "license_file",
           "required": false,
           "type": "string"
         },
         {
           "name": "license_statement",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "oa_url",
           "required": false,
           "type": "string"
         },

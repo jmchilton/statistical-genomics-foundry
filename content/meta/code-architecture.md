@@ -41,7 +41,7 @@ The repository currently has one application, `site/`. There is no package works
 - `kind.md`, the purpose and rationale for required fields;
 - `example.md`, a minimal executable example.
 
-`types/context.ts` builds the instance context from the base envelope, tag registry, reference contract, and license policy. `types/index.ts` is the single enumeration of concrete kinds. The shared `@galaxy-foundry/kind-schema` package supplies the generic definition and assembly mechanism but no domain kinds.
+`types/context.ts` builds the instance context from the base envelope, tag registry, reference contract, license policy, and the shared source-note block. What is instance-owned there is narrow and deliberate: the tag validator's message, the reference vocabularies, and the license-id spelling, each threaded into a shared primitive so a rejection still reads in this Foundry's words. `types/index.ts` is the single enumeration of concrete kinds. The shared `@galaxy-foundry/kind-schema` package supplies the generic definition and assembly mechanism but no domain kinds.
 
 The directory-per-kind layout is a cross-instance contract, not a local preference: [galaxyproject/foundry-pattern#13](https://github.com/galaxyproject/foundry-pattern/issues/13), PART 3 of the standing-up checklist, implemented independently here and in the parent Foundry. `example.md` is parsed against its own kind's schema by the corpus tests, so the documentation stays executable.
 
@@ -63,6 +63,7 @@ No page, test, or link resolver may carry a second collection list. `site/src/co
 - `meta_tags.yml` supplies the closed tag vocabulary through `@galaxy-foundry/tag-registry`;
 - `reference_contract.yml` supplies domain reference kinds while `@galaxy-foundry/reference-contract` supplies inherited behavior vocabularies;
 - `@galaxy-foundry/license-policy` supplies redistribution policy;
+- `@galaxy-foundry/source-note` supplies the source-note frontmatter block and its cross-field rules, which `context.ts` binds to this instance's policy table and license-id wording and exposes as `sourceNoteBlock` / `sourceNoteRules`;
 - `@galaxy-foundry/wiki-links` supplies parsing, normalization, resolution, and remark traversal.
 
 The instance adapters provide paths, concrete vocabularies, and the link map. They do not re-export or reimplement the shared package API.

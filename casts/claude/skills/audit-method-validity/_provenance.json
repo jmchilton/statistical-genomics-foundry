@@ -5,9 +5,9 @@
     "name": "audit-method-validity",
     "path": "content/molds/audit-method-validity/index.md",
     "content_hash": "eb2add6af9dbc4f9ee010b9c4cfea2bea08860ccccc04c7d17445a06a38d358c",
-    "commit": "9a6bd1d924d6636a05a151bc59c3b28f2fd3fe0a"
+    "commit": "8b9df828945df140cd226f080715b783bd1f78e1"
   },
-  "cast_at": "2026-08-08T03:05:05.370Z",
+  "cast_at": "2026-08-11T20:05:13.178Z",
   "refs": [
     {
       "kind": "pattern",

@@ -1,14 +1,19 @@
 ---
-title: "Producing polished prokaryotic pangenomes with the Panaroo pipeline"
 type: paper
-source_id: tonkin-hill-2020-panaroo
+title: Producing polished prokaryotic pangenomes with the Panaroo pipeline
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7376924/
-doi: 10.1186/s13059-020-02090-4
-access_date: "2026-07-03"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1186/s13059-020-02090-4
+access_date: '2026-07-03'
+source_read: full-text
+citation: Tonkin-Hill G, MacAlasdair N, Ruis C, Weimann A, Horesh G, Lees JA, Gladstone RA, Lo S, Beaudoin C, Floto RA, Frost SDW, Corander J, Bentley SD, Parkhill J. Producing polished prokaryotic pangenomes with the Panaroo pipeline. Genome Biology 21:180, 2020. DOI 10.1186/s13059-020-02090-4.
+attribution: Tonkin-Hill G, MacAlasdair N, Ruis C, Weimann A, Horesh G, Lees JA, Gladstone RA, Lo S, Beaudoin C, Floto RA, Frost SDW, Corander J, Bentley SD, Parkhill J. Producing polished prokaryotic pangenomes with the Panaroo pipeline. Genome Biology 21:180, 2020. DOI 10.1186/s13059-020-02090-4. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Tonkin-Hill G, MacAlasdair N, Ruis C, Weimann A, Horesh G, Lees JA, Gladstone RA, Lo S, Beaudoin C, Floto RA, Frost SDW, Corander J, Bentley SD, Parkhill J. Producing polished prokaryotic pangenomes with the Panaroo pipeline. Genome Biology 21:180, 2020. DOI 10.1186/s13059-020-02090-4. Read via PMC open-access full text under CC-BY 4.0."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/pangenomics
 ---

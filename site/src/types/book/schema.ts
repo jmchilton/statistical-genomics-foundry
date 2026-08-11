@@ -54,16 +54,17 @@ export const kind = defineKind({
         title: z.string(),
         source: z.string(),
         source_chapter: z.number().int().optional(),
-        source_url: z.url(),
-        license: ctx.licenseId,
-        license_file: z.string().optional(),
-        attribution: z.string(),
-        derived: z.string(),
+        // A chapter is a source note like any other, and now says so with the same block the
+        // other two kinds spread. The book-level half of it (`citation`, `source_license`,
+        // `license_file`, `attribution`, `access_date`, `source_read`, `derived`) is still
+        // authored once in book.yml and materialized here by `npm run books`; what a chapter
+        // owns is what varies per chapter, which now includes its own `source_url`.
+        ...ctx.sourceNoteBlock,
         ...ctx.base,
       })
       .strict(),
 
-  // The same licence coherence the other source kinds get — now a plain refine over the
-  // note's own fields, because the fields are the note's own.
-  refine: (d, ctx, kctx) => kctx.licenseCoherence(d, ctx),
+  // The same coherence the other source kinds get — a plain refine over the note's own fields,
+  // because the fields are the note's own.
+  refine: (d, ctx, kctx) => kctx.sourceNoteRules(d, ctx),
 });

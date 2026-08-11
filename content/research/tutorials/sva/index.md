@@ -1,15 +1,21 @@
 ---
-title: "The SVA package for removing batch effects and other unwanted variation in high-throughput experiments"
 type: tutorial
-source_id: sva
+title: The SVA package for removing batch effects and other unwanted variation in high-throughput experiments
 source_url: https://bioconductor.org/packages/release/bioc/html/sva.html
-version: "3.60.0"
-bioconductor_release: "3.23"
-access_date: "2026-07-13"
-license: Artistic-2.0
+source_ids:
+  status: none
+  reason: Bioconductor package landing page; no DOI assigned
+version: 3.60.0
+bioconductor_release: '3.23'
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Leek JT, Johnson WE, Parker HS, Fertig EJ, Jaffe AE, Storey JD, Zhang Y, Collado-Torres L. sva: Surrogate Variable Analysis. Bioconductor package version 3.60.0 (Bioconductor 3.23).'
+attribution: 'Leek JT, Johnson WE, Parker HS, Fertig EJ, Jaffe AE, Storey JD, Zhang Y, Collado-Torres L. sva: Surrogate Variable Analysis. Bioconductor package version 3.60.0 (Bioconductor 3.23). Used under Artistic-2.0.'
+source_license:
+  status: declared
+  id: Artistic-2.0
 license_file: LICENSES/Artistic-2.0.LICENSE
-attribution: "sva: Surrogate Variable Analysis, version 3.60.0 (Bioconductor 3.23). Leek JT, Johnson WE, Parker HS, Fertig EJ, Jaffe AE, Storey JD, Zhang Y, Collado-Torres L. Artistic-2.0. https://bioconductor.org/packages/release/bioc/html/sva.html — signatures and defaults read off the reference manual (the vignette prints call sites only)."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/batch-effects
   - domain/differential-expression

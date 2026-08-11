@@ -1,13 +1,17 @@
 ---
-title: "Minimap2: pairwise alignment for nucleotide sequences"
 type: paper
-source_id: li-2018-minimap2
+title: 'Minimap2: pairwise alignment for nucleotide sequences'
 source_url: https://arxiv.org/abs/1708.01492
-doi: 10.1093/bioinformatics/bty191
-version: "arXiv:1708.01492v5; minimap2 manual 2.28"
-access_date: "2026-07-03"
-license: LicenseRef-arXiv-nonexclusive-distrib-1.0
-attribution: "Li H. Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics 34(18):3094-3100, 2018. DOI 10.1093/bioinformatics/bty191. Read from arXiv:1708.01492v5 via ar5iv plus minimap2 manual v2.28 for preset table; summarized in own words."
+source_ids:
+  status: declared
+  doi: 10.1093/bioinformatics/bty191
+version: arXiv:1708.01492v5; minimap2 manual 2.28
+access_date: '2026-07-03'
+source_read: full-text
+citation: 'Li H. Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics 34(18):3094-3100, 2018. DOI 10.1093/bioinformatics/bty191.'
+source_license:
+  status: declared
+  id: LicenseRef-arXiv-nonexclusive-distrib-1.0
 derived: own-words-summary
 tags:
   - domain/whole-genome-alignment
