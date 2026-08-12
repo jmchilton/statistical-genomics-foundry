@@ -11,7 +11,7 @@ import { loadLicenseFiles, type LicenseFile } from '@galaxy-foundry/license-poli
 // declines to know: WHERE the directory is. It takes that as a parameter precisely because the
 // callers are Astro pages whose cwd is a subdirectory, and an implicit relative path is the part
 // that does not survive being shared.
-const LICENSES_DIR = path.resolve('../LICENSES');
+export const LICENSES_DIR = path.resolve('../LICENSES');
 
 export type { LicenseFile };
 
