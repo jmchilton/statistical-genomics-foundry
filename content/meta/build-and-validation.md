@@ -7,8 +7,8 @@ tags:
   - meta
 status: reviewed
 created: 2026-08-02
-revised: 2026-08-08
-revision: 3
+revised: 2026-08-12
+revision: 4
 summary: "How the current corpus is validated, generated, rendered, and kept honest about deferred casting."
 ---
 
@@ -44,9 +44,12 @@ Run validation from `site/` with `pnpm validate` or `pnpm test`. Vitest is the s
 - enforce tag, note-kind, and narrowed reference-vocabulary drift rules;
 - resolve path references and wiki-link reachability;
 - check that every collection has a route and contributes to the shared link map;
-- validate license and source-note coherence.
+- validate license and source-note coherence;
+- audit the vendored `LICENSES/` directory against every `license_file`, in both directions.
 
 Strict schemas turn undeclared metadata into failures. Registry drift tests work in both directions: content cannot invent vocabulary, and vocabulary authored by this instance cannot remain unused.
+
+The license-file audit is where that both-directions rule reaches the one field a schema cannot finish checking. `license_file` is a string, so coherence can require it under a `verbatim-ok` row and cannot open it — a misspelled path satisfies `.strict()`, satisfies coherence, and is not a wiki link, so nothing resolved it. `auditLicenseFiles` from `@galaxy-foundry/license-policy` fails a declaration naming an absent copy, a declared path resolving only by basename from outside `LICENSES/`, a vendored copy nothing declares, and a copy present but blank. Both the `book.yml` records and the chapter copies `pnpm books` writes are audited, so a bad book record fails before it is propagated rather than after.
 
 ## Kind manifest
 

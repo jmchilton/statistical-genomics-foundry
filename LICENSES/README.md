@@ -38,13 +38,22 @@ still carry one.
 
 Standard licenses are named by their SPDX id (`CC-BY-4.0.LICENSE`) and shared across
 every note that carries verbatim quotes under them; a source-specific license copy
-(e.g. `msmb.LICENSE`) is named for its source.
+(e.g. `msmb.LICENSE`) is named for its source. The stem therefore identifies a *copy*,
+not a license: two sources under one license vendor two files.
 
-| File | License | Redistributed by |
-|---|---|---|
-| `msmb.LICENSE` | CC BY-NC-SA 2.0 | *Modern Statistics for Modern Biology*, Holmes & Huber, Cambridge University Press 2019 — https://www.huber.embl.de/msmb/ (own-words book notes) |
-| `CC-BY-4.0.LICENSE` | CC BY 4.0 (SPDX plaintext) | `korthauer-dmrseq-2019`, `nygaard-2016`, `wen-2025`, `munafo-2018-collider`, `zhang-2020-combat-seq` — source notes carrying verbatim CC-BY quotes |
-| `CC-BY-2.5.LICENSE` | CC BY 2.5 (SPDX plaintext) | `leek-storey-2007-sva` — PLOS 2007-era open-access articles |
-| `CC-BY-2.0.LICENSE` | CC BY 2.0 (SPDX plaintext) | `yan-2012-osat` — BMC 2012-era open-access articles |
-| `Artistic-2.0.LICENSE` | Artistic License 2.0 (SPDX plaintext) | `tutorials/sva`, `tutorials/rnaseqgene` — Bioconductor package docs/vignettes/workflows |
-| `MIT.LICENSE` | MIT (SPDX plaintext) | `tutorials/designit` — CRAN package docs/vignettes |
+| File | Contains |
+|---|---|
+| `msmb.LICENSE` | CC BY-NC-SA 2.0, as published by *Modern Statistics for Modern Biology*, Holmes & Huber, Cambridge University Press 2019 — https://www.huber.embl.de/msmb/ |
+| `CC-BY-4.0.LICENSE` | CC BY 4.0 (SPDX plaintext) |
+| `CC-BY-2.5.LICENSE` | CC BY 2.5 (SPDX plaintext) |
+| `CC-BY-2.0.LICENSE` | CC BY 2.0 (SPDX plaintext) |
+| `CC0-1.0.LICENSE` | CC0 1.0 (SPDX plaintext) |
+| `GPL-2.0-or-later.LICENSE` | GPL 2.0 or later (SPDX plaintext) |
+| `Artistic-2.0.LICENSE` | Artistic License 2.0 (SPDX plaintext) |
+| `MIT.LICENSE` | MIT (SPDX plaintext) |
+
+**Which notes carry under each copy is not listed here.** It is generated at `/licenses/<id>/`
+from the notes' own frontmatter, and `site/tests/license-files.test.ts` fails the build when the
+directory and the declarations disagree in either direction. This file used to name the carriers
+by hand and had drifted in four rows while omitting two files entirely: a second copy of a tree
+is the thing the audit exists to make unnecessary.
