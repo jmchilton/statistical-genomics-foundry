@@ -1,12 +1,16 @@
 ---
-title: "Multiplexed droplet single-cell RNA-sequencing using natural genetic variation"
 type: paper
-source_id: kang-2018-demuxlet
+title: Multiplexed droplet single-cell RNA-sequencing using natural genetic variation
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5784859/
-doi: 10.1038/nbt.4042
-access_date: "2026-07-13"
-license: LicenseRef-all-rights-reserved
-attribution: "Kang HM, Subramaniam M, Targ S, Nguyen M, Maliskova L, McCarthy E, Wan E, Wong S, Byrnes L, Lanata CM, Gate RE, Mostafavi S, Marson A, Zaitlen N, Criswell LA, Ye CJ. Multiplexed droplet single-cell RNA-sequencing using natural genetic variation. Nat Biotechnol 36(1):89-94, 2018. DOI 10.1038/nbt.4042. Read via the NIHMS author manuscript on PMC (PMC5784859, NIHMSID NIHMS921103); Nature author manuscript = all rights reserved, NOT Creative Commons. Summarized in own words."
+source_ids:
+  status: declared
+  doi: 10.1038/nbt.4042
+access_date: '2026-07-13'
+source_read: full-text
+citation: Kang HM, Subramaniam M, Targ S, Nguyen M, Maliskova L, McCarthy E, Wan E, Wong S, Byrnes L, Lanata CM, Gate RE, Mostafavi S, Marson A, Zaitlen N, Criswell LA, Ye CJ. Multiplexed droplet single-cell RNA-sequencing using natural genetic variation. Nat Biotechnol 36(1):89-94, 2018. DOI 10.1038/nbt.4042.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/single-cell-genomics

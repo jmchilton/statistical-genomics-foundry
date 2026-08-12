@@ -1,12 +1,16 @@
 ---
-title: "Unraveling ancient hexaploidy through multiply-aligned angiosperm gene maps"
 type: paper
-source_id: tang-2008-jcvi
+title: Unraveling ancient hexaploidy through multiply-aligned angiosperm gene maps
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2593578/
-doi: 10.1101/gr.080978.108
-access_date: "2026-07-03"
-license: LicenseRef-all-rights-reserved
-attribution: "Tang H, Wang X, Bowers JE, Ming R, Alam M, Paterson AH. Unraveling ancient hexaploidy through multiply-aligned angiosperm gene maps. Genome Research 18(12):1944-1954, 2008. DOI 10.1101/gr.080978.108. Free full text read via PMC; summarized in own words."
+source_ids:
+  status: declared
+  doi: 10.1101/gr.080978.108
+access_date: '2026-07-03'
+source_read: full-text
+citation: Tang H, Wang X, Bowers JE, Ming R, Alam M, Paterson AH. Unraveling ancient hexaploidy through multiply-aligned angiosperm gene maps. Genome Research 18(12):1944-1954, 2008. DOI 10.1101/gr.080978.108.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/synteny

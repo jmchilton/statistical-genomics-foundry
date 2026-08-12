@@ -1,14 +1,20 @@
 ---
-title: 'OSAT — "An introduction to OSAT" (Bioconductor vignette + reference manual)'
 type: tutorial
-source_id: osat
+title: OSAT — "An introduction to OSAT" (Bioconductor vignette + reference manual)
 source_url: https://bioconductor.org/packages/release/bioc/html/OSAT.html
-version: "1.60.0"
-access_date: "2026-07-13"
-license: Artistic-2.0
+source_ids:
+  status: none
+  reason: Bioconductor package vignette; no DOI assigned
+version: 1.60.0
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Yan L, Ma C, Wang D, Hu Q, Qin M, Wang J, Liu S. OSAT: Optimal Sample Assignment Tool. Bioconductor package v1.60.0 (Bioconductor 3.23), vignette ''An introduction to OSAT''.'
+attribution: 'Yan L, Ma C, Wang D, Hu Q, Qin M, Wang J, Liu S. OSAT: Optimal Sample Assignment Tool. Bioconductor package v1.60.0 (Bioconductor 3.23), vignette ''An introduction to OSAT''. Used under Artistic-2.0.'
+source_license:
+  status: declared
+  id: Artistic-2.0
 license_file: LICENSES/Artistic-2.0.LICENSE
-attribution: "Li Yan (author/maintainer). OSAT: Optimal Sample Assignment Tool, Bioconductor package v1.60.0 (Bioconductor 3.23). Vignette \"An introduction to OSAT\" by Li Yan, Changxing Ma, Dan Wang, Qiang Hu, Maochun Qin, Jianmin Wang, Song Liu. Licensed Artistic-2.0 per the package DESCRIPTION and the Bioconductor landing page. Related paper: http://www.biomedcentral.com/1471-2164/13/689"
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/experimental-design
   - domain/batch-effects

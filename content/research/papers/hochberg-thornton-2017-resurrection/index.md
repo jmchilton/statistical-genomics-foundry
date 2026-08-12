@@ -1,12 +1,16 @@
 ---
-title: "Reconstructing Ancient Proteins to Understand the Causes of Structure and Function"
 type: paper
-source_id: hochberg-thornton-2017-resurrection
+title: Reconstructing Ancient Proteins to Understand the Causes of Structure and Function
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6141191/
-doi: 10.1146/annurev-biophys-070816-033631
-access_date: "2026-07-03"
-license: LicenseRef-all-rights-reserved
-attribution: "Hochberg GKA, Thornton JW. Reconstructing Ancient Proteins to Understand the Causes of Structure and Function. Annual Review of Biophysics 46:247-269, 2017. DOI 10.1146/annurev-biophys-070816-033631. Read via NIH Public Access author manuscript on PMC; summarized in own words."
+source_ids:
+  status: declared
+  doi: 10.1146/annurev-biophys-070816-033631
+access_date: '2026-07-03'
+source_read: full-text
+citation: Hochberg GKA, Thornton JW. Reconstructing Ancient Proteins to Understand the Causes of Structure and Function. Annual Review of Biophysics 46:247-269, 2017. DOI 10.1146/annurev-biophys-070816-033631.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/ancestral-reconstruction

@@ -1,14 +1,19 @@
 ---
-title: "A draft human pangenome reference"
 type: paper
-source_id: liao-2023-hprc
+title: A draft human pangenome reference
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10172123/
-doi: 10.1038/s41586-023-05896-x
-access_date: "2026-07-05"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1038/s41586-023-05896-x
+access_date: '2026-07-05'
+source_read: full-text
+citation: Liao W-W, Asri M, Ebler J, et al. A draft human pangenome reference. Nature 617(7960):312-324, 2023. DOI 10.1038/s41586-023-05896-x.
+attribution: Liao W-W, Asri M, Ebler J, et al. A draft human pangenome reference. Nature 617(7960):312-324, 2023. DOI 10.1038/s41586-023-05896-x. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Liao W-W, Asri M, Ebler J, et al. A draft human pangenome reference. Nature 617(7960):312-324, 2023. DOI 10.1038/s41586-023-05896-x. Summary derived from the open-access PMC full text."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/pangenomics
 ---

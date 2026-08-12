@@ -1,13 +1,17 @@
 ---
-title: "Inference after latent variable estimation for single-cell RNA sequencing data"
 type: paper
-source_id: neufeld-countsplit-2024
+title: Inference after latent variable estimation for single-cell RNA sequencing data
 source_url: https://arxiv.org/abs/2207.00554
-doi: 10.1093/biostatistics/kxac047
-access_date: "2026-06-30"
-license: LicenseRef-arXiv-nonexclusive-distrib-1.0
-attribution: "Neufeld A, Gao LL, Popp J, Battle A, Witten D. Biostatistics 25(1):270–287, 2024. Preprint arXiv:2207.00554v2 (18 Oct 2022)."
-derived: "own-words paraphrase (license is non-CC); functional strings (formulas, parameter names, package/function names, numeric thresholds) kept verbatim as facts"
+source_ids:
+  status: declared
+  doi: 10.1093/biostatistics/kxac047
+access_date: '2026-06-30'
+source_read: full-text
+citation: Neufeld A, Gao LL, Popp J, Battle A, Witten D. Biostatistics 25(1):270–287, 2024. Preprint arXiv:2207.00554v2 (18 Oct 2022).
+source_license:
+  status: declared
+  id: LicenseRef-arXiv-nonexclusive-distrib-1.0
+derived: own-words-summary
 tags:
   - domain/single-cell-genomics
   - topic/post-selection-inference

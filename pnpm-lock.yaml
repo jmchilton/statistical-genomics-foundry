@@ -66,6 +66,9 @@ importers:
       '@galaxy-foundry/site-kit':
         specifier: ^0.9.2
         version: 0.9.2(astro-pagefind@2.0.1(astro@7.1.6(@astrojs/markdown-remark@7.2.2)(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@22.20.1)(jiti@2.7.0)(rollup@4.62.3)(tsx@4.23.11)(yaml@2.9.0)))(astro@7.1.6(@astrojs/markdown-remark@7.2.2)(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@22.20.1)(jiti@2.7.0)(rollup@4.62.3)(tsx@4.23.11)(yaml@2.9.0))
+      '@galaxy-foundry/source-note':
+        specifier: ^0.2.0
+        version: 0.2.2(zod@4.4.3)
       '@galaxy-foundry/tag-registry':
         specifier: ^0.1.1
         version: 0.1.1
@@ -559,6 +562,12 @@ packages:
     peerDependencies:
       astro: '>=6'
       astro-pagefind: '>=2'
+
+  '@galaxy-foundry/source-note@0.2.2':
+    resolution: {integrity: sha512-g7ExDW1atyI6z1IlRZHvSkepYbDWV5Ovy2A5WtqtS9b3oNWtHY5dU794fKjktO4e+YLl3H8cSonlLKGXdgu2og==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      zod: ^4.0.0
 
   '@galaxy-foundry/tag-registry@0.1.1':
     resolution: {integrity: sha512-PVsrJDuwPcbr0Eja/xGOpqo++eGz0YKrZQm73zuLdYMzStGErHZjE7+4qkg6b5WSpEwlGR49Cq37qaHzOPoXpA==}
@@ -3178,6 +3187,11 @@ snapshots:
       '@galaxy-foundry/reference-contract': 0.4.0
       astro: 7.1.6(@astrojs/markdown-remark@7.2.2)(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@22.20.1)(jiti@2.7.0)(rollup@4.62.3)(tsx@4.23.11)(yaml@2.9.0)
       astro-pagefind: 2.0.1(astro@7.1.6(@astrojs/markdown-remark@7.2.2)(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@22.20.1)(jiti@2.7.0)(rollup@4.62.3)(tsx@4.23.11)(yaml@2.9.0))
+
+  '@galaxy-foundry/source-note@0.2.2(zod@4.4.3)':
+    dependencies:
+      '@galaxy-foundry/license-policy': 0.8.0
+      zod: 4.4.3
 
   '@galaxy-foundry/tag-registry@0.1.1':
     dependencies:

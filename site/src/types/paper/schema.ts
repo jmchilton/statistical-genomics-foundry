@@ -34,18 +34,15 @@ export const kind = defineKind({
     z
       .object({
         type: z.literal('paper'),
-        ...ctx.sourceNoteFields,
-        // Bibliographic identifiers are STRINGS, never numbers: an unquoted
-        // `pmid: 33015620` is an integer to YAML, and an id is an opaque label, never
-        // arithmetic. The same footgun `access_date` keeps a negative fixture for.
-        pmid: z.string().optional(),
-        pmcid: z.string().optional(),
-        arxiv: z.url().optional(),
-        // Free mirror of a paywalled record (PMC, institutional repository).
-        oa_url: z.url().optional(),
+        title: z.string(),
+        // `pmid`, `pmcid`, `arxiv` and `oa_url` used to sit here as four loose optional fields.
+        // They are `source_ids` and `oa_url` in the shared block now: one union that groups the
+        // identifiers and makes "this work has none" a statable claim, holding bare ids rather
+        // than URLs — which is what `arxiv: z.url()` had backwards.
+        ...ctx.sourceNoteBlock,
         ...ctx.base,
       })
       .strict(),
 
-  refine: (d, ctx, kctx) => kctx.licenseCoherence(d, ctx),
+  refine: (d, ctx, kctx) => kctx.sourceNoteRules(d, ctx),
 });

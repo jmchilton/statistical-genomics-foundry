@@ -1,12 +1,16 @@
 ---
-title: "Multiple hypothesis testing to detect lineages under positive selection that affects only a few sites"
 type: paper
-source_id: anisimova-yang-2007
+title: Multiple hypothesis testing to detect lineages under positive selection that affects only a few sites
 source_url: https://europepmc.org/article/MED/17339634
-doi: 10.1093/molbev/msm042
-access_date: "2026-07-05"
-license: LicenseRef-all-rights-reserved
-attribution: "Anisimova M, Yang Z. Molecular Biology and Evolution 24(5):1219-1228, 2007. DOI 10.1093/molbev/msm042. PMID 17339634. Abstract read verbatim from Europe PMC; body/tables read via WebFetch against the OUP free-to-read HTML (direct access Cloudflare-blocked). BRONZE OA (free-to-read, license null) - all rights reserved."
+source_ids:
+  status: declared
+  doi: 10.1093/molbev/msm042
+access_date: '2026-07-05'
+source_read: full-text
+citation: Anisimova M, Yang Z. Molecular Biology and Evolution 24(5):1219-1228, 2007. DOI 10.1093/molbev/msm042. PMID 17339634.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/molecular-evolution

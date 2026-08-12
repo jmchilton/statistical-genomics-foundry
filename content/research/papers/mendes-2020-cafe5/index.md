@@ -1,12 +1,16 @@
 ---
-title: "CAFE 5 models variation in evolutionary rates among gene families"
 type: paper
-source_id: mendes-2020-cafe5
+title: CAFE 5 models variation in evolutionary rates among gene families
 source_url: https://academic.oup.com/bioinformatics/article/36/22-23/5516/6039105
-doi: 10.1093/bioinformatics/btaa1022
-access_date: "2026-07-03"
-license: LicenseRef-all-rights-reserved
-attribution: "Mendes FK, Vanderpool D, Fulton B, Hahn MW. CAFE 5 models variation in evolutionary rates among gene families. Bioinformatics 36(22-23):5516-5518, 2020. DOI 10.1093/bioinformatics/btaa1022. Oxford University Press article page; summarized in own words."
+source_ids:
+  status: declared
+  doi: 10.1093/bioinformatics/btaa1022
+access_date: '2026-07-03'
+source_read: full-text
+citation: Mendes FK, Vanderpool D, Fulton B, Hahn MW. CAFE 5 models variation in evolutionary rates among gene families. Bioinformatics 36(22-23):5516-5518, 2020. DOI 10.1093/bioinformatics/btaa1022.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/gene-family-evolution

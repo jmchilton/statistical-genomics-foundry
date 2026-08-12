@@ -27,10 +27,14 @@ const entries = (await Promise.all(
 )).flat();
 const uses: LicenseFileUse[] = entries
   .filter(({ e }) => redistributesUnder(e.data.license_file, licenseFile.id))
+  // `licenseId` is optional in the contract, and the union is why: a note whose source licence
+  // was never determined has no id to report. Such a note also cannot appear here — vendoring a
+  // copy follows from carrying text, which an undetermined licence never permits — so this
+  // narrows a type rather than hiding a case.
   .map(({ e, collection }) => ({
     href: `${base}/${collection}/${e.id}/`,
     label: e.id,
-    licenseId: e.data.license,
+    licenseId: e.data.source_license.status === 'declared' ? e.data.source_license.id : undefined,
   }))
   .sort((a, b) => a.label.localeCompare(b.label));
 ---

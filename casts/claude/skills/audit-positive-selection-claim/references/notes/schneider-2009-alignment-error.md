@@ -1,12 +1,16 @@
 ---
-title: "Estimates of positive Darwinian selection are inflated by errors in sequencing, annotation, and alignment"
 type: paper
-source_id: schneider-2009-alignment-error
+title: Estimates of positive Darwinian selection are inflated by errors in sequencing, annotation, and alignment
 source_url: https://europepmc.org/article/MED/20333182
-doi: 10.1093/gbe/evp012
-access_date: "2026-07-05"
-license: CC-BY-NC-2.5
-attribution: "Schneider A, Souvorov A, Sabath N, Landan G, Gonnet GH, Graur D. Genome Biology and Evolution 1:114-118, 2009. DOI 10.1093/gbe/evp012. PMID 20333182; PMCID PMC2817407. Full text read via Europe PMC fullTextXML; open access under the Creative Commons Attribution Non-Commercial License (CC BY-NC 2.5); own-words summary (NC kept out of casts), functional strings kept verbatim as facts."
+source_ids:
+  status: declared
+  doi: 10.1093/gbe/evp012
+access_date: '2026-07-05'
+source_read: full-text
+citation: Schneider A, Souvorov A, Sabath N, Landan G, Gonnet GH, Graur D. Genome Biology and Evolution 1:114-118, 2009. DOI 10.1093/gbe/evp012. PMID 20333182; PMCID PMC2817407.
+source_license:
+  status: declared
+  id: CC-BY-NC-2.5
 derived: own-words-summary
 tags:
   - domain/molecular-evolution

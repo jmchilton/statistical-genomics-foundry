@@ -16,22 +16,29 @@ const issuesOf = (schema: { safeParse: (v: unknown) => any }, value: unknown) =>
 const atPath = (issues: ReturnType<typeof issuesOf>, p: string) =>
   issues.filter((i) => i.path.join('.') === p);
 
-// own-words note under a permissive license: no verbatim carry, so no license_file needed.
-// Carries a facet tag so it satisfies the `tags` min(1) rule (issue #100) by default.
+// own-words note under a permissive license: no verbatim carry, so neither the notice nor a
+// license_file is owed. Carries a facet tag so it satisfies the `tags` min(1) rule (issue #100)
+// by default.
+//
+// The provenance half of this is @galaxy-foundry/source-note's field set, not ours: `source_id`
+// and a flat `license` string are gone, and the questions they ran together are four fields
+// apart — `source_ids` (identity), `source_license` (the grant, or a stated absence of one),
+// `citation` (the bibliographic record) and `source_read` (how much of the work was read).
 const validSourceNote = (overrides: Record<string, unknown> = {}) => ({
   title: 'A Note',
   type: 'paper',
-  source_id: 'x-2020',
   source_url: 'https://example.org/x',
+  source_ids: { status: 'declared', doi: '10.1234/example.2020' },
   access_date: '2026-01-01',
-  license: 'MIT',
-  attribution: 'X et al. 2020',
+  source_read: 'full-text',
+  citation: 'X et al. An example of a paper. Journal of Examples. 2020;1(1):1-10.',
+  source_license: { status: 'declared', id: 'MIT' },
   derived: 'own-words-summary',
   tags: ['domain/batch-effects'],
   ...overrides,
 });
 
-// A book chapter as `npm run books` leaves it: the four book-level licence fields are
+// A book chapter as `npm run books` leaves it: the book-level source-note fields are
 // MATERIALIZED into the chapter's own frontmatter, not merged in at validation time, so a
 // chapter validates standalone like every other note.
 const validBookChapter = (overrides: Record<string, unknown> = {}) => ({
@@ -40,8 +47,12 @@ const validBookChapter = (overrides: Record<string, unknown> = {}) => ({
   source: 'msmb',
   source_chapter: 1,
   source_url: 'https://example.org/msmb/01',
-  license: 'MIT',
-  attribution: 'Holmes S, Huber W. Chapter 1: Generative Models for Discrete Data.',
+  // A web chapter has no identifier of its own, and says so rather than omitting the field.
+  source_ids: { status: 'none', reason: 'web chapter of an online textbook' },
+  access_date: '2026-01-01',
+  source_read: 'full-text',
+  citation: 'Holmes S, Huber W. Modern Statistics for Modern Biology. 2019. Chapter 1.',
+  source_license: { status: 'declared', id: 'MIT' },
   derived: 'own-words-summary',
   tags: ['domain/statistical-inference'],
   ...overrides,
@@ -80,52 +91,136 @@ describe('sourceNote schema', () => {
 
   it('rejects a missing required field', () => {
     const bad = validSourceNote();
-    delete (bad as Record<string, unknown>).license;
-    expect(atPath(issuesOf(paperSchema, bad), 'license').length).toBeGreaterThan(0);
+    delete (bad as Record<string, unknown>).source_license;
+    expect(atPath(issuesOf(paperSchema, bad), 'source_license').length).toBeGreaterThan(0);
   });
 
   it('rejects an unknown license id', () => {
-    const issues = atPath(issuesOf(paperSchema, validSourceNote({ license: 'not-a-real-license' })), 'license');
+    const note = validSourceNote({ source_license: { status: 'declared', id: 'not-a-real-license' } });
+    const issues = atPath(issuesOf(paperSchema, note), 'source_license.id');
     expect(issues.some((i) => /SPDX|license-policy/.test(i.message))).toBe(true);
   });
 
   it('flags a LicenseRef that resolves to the defect/default row', () => {
-    const issues = atPath(issuesOf(paperSchema, validSourceNote({ license: 'LicenseRef-unregistered-xyz' })), 'license');
+    const note = validSourceNote({
+      source_license: { status: 'declared', id: 'LicenseRef-unregistered-xyz' },
+    });
+    const issues = atPath(issuesOf(paperSchema, note), 'source_license.id');
     expect(issues.some((i) => /default row|defect/.test(i.message))).toBe(true);
   });
 
+  // A licence nobody found and a licence that grants nothing are different answers, and the
+  // union keeps them apart. `missing` is the absence of a determination — it validates, and
+  // denies carry, which is the only safe reading of "we do not know".
+  it('accepts a source whose licence was never determined', () => {
+    expect(issuesOf(paperSchema, validSourceNote({ source_license: { status: 'missing' } }))).toEqual([]);
+  });
+
+  it('refuses verbatim carry when no source licence was determined', () => {
+    const note = validSourceNote({
+      source_license: { status: 'missing' },
+      derived: 'verbatim-quotes-summary',
+      attribution: 'X et al. 2020, used under the source licence.',
+    });
+    expect(atPath(issuesOf(paperSchema, note), 'derived').length).toBeGreaterThan(0);
+  });
+
   it('rejects verbatim carry under an own-words-only (NC) license', () => {
-    const issues = atPath(
-      issuesOf(paperSchema, validSourceNote({ license: 'CC-BY-NC-4.0', derived: 'license-aware-summary' })),
-      'derived',
-    );
+    const note = validSourceNote({
+      source_license: { status: 'declared', id: 'CC-BY-NC-4.0' },
+      derived: 'verbatim-quotes-summary',
+    });
+    const issues = atPath(issuesOf(paperSchema, note), 'derived');
     expect(issues.some((i) => /own-words-only/.test(i.message))).toBe(true);
   });
 
   it('requires a license_file when carrying verbatim under a verbatim-ok license', () => {
-    const issues = atPath(
-      issuesOf(paperSchema, validSourceNote({ license: 'CC-BY-4.0', derived: 'license-aware-summary' })),
-      'license_file',
-    );
+    const note = validSourceNote({
+      source_license: { status: 'declared', id: 'CC-BY-4.0' },
+      derived: 'verbatim-quotes-summary',
+      attribution: 'X et al. 2020, used under CC-BY-4.0.',
+    });
+    const issues = atPath(issuesOf(paperSchema, note), 'license_file');
     expect(issues.some((i) => /license_file/.test(i.message))).toBe(true);
   });
 
-  // `derived` is free prose, and one posture in the corpus says both words: own-words
-  // paraphrase, functional strings kept verbatim as facts. own-words has to win, or
-  // `neufeld-countsplit-2024` is rejected under arXiv's own-words-only row for keeping a
-  // parameter name. The rule ships in @galaxy-foundry/license-policy now; this pins the
-  // reading we depend on, since a substring match would decide the opposite way.
-  it('reads own-words prose that mentions verbatim facts as own-words', () => {
-    const issues = issuesOf(
-      paperSchema,
-      validSourceNote({
-        license: 'LicenseRef-arXiv-nonexclusive-distrib-1.0',
-        derived:
-          'own-words paraphrase (license is non-CC); functional strings (parameter names, numeric thresholds) kept verbatim as facts',
-      }),
-    );
-    expect(issues).toEqual([]);
+  // The notice is a separate obligation from the licence text, and an own-words note owes
+  // neither — so only the carrying posture can witness this.
+  it('requires the attribution notice when carrying verbatim', () => {
+    const note = validSourceNote({
+      source_license: { status: 'declared', id: 'CC-BY-4.0' },
+      derived: 'verbatim-quotes-summary',
+      license_file: 'LICENSES/CC-BY-4.0.LICENSE',
+    });
+    const issues = atPath(issuesOf(paperSchema, note), 'attribution');
+    expect(issues.some((i) => /attribution/.test(i.message))).toBe(true);
   });
+
+  // `derived` used to be free prose, and the corpus wrote a posture that said both words:
+  // own-words paraphrase, functional strings kept verbatim as facts. Deciding what that meant
+  // took a regular expression over the sentence. The vocabulary is a closed enum now, so the
+  // sentence is not a posture at all — this pins that the old spelling cannot come back.
+  it('rejects a prose posture, now that the vocabulary is closed', () => {
+    const issues = atPath(
+      issuesOf(
+        paperSchema,
+        validSourceNote({
+          source_license: { status: 'declared', id: 'LicenseRef-arXiv-nonexclusive-distrib-1.0' },
+          derived:
+            'own-words paraphrase (license is non-CC); functional strings (parameter names, numeric thresholds) kept verbatim as facts',
+        }),
+      ),
+      'derived',
+    );
+    expect(issues.length).toBeGreaterThan(0);
+  });
+
+  // The note that motivated the enum still validates, under the posture it always meant.
+  it('accepts an own-words summary of an arXiv preprint', () => {
+    const note = validSourceNote({
+      source_license: { status: 'declared', id: 'LicenseRef-arXiv-nonexclusive-distrib-1.0' },
+      source_ids: { status: 'declared', arxiv: '2307.12985' },
+      derived: 'own-words-summary',
+    });
+    expect(issuesOf(paperSchema, note)).toEqual([]);
+  });
+
+  // A work with no identifier is a claim someone can check, so it is stated rather than left
+  // to an omission a reader cannot tell from an author who never looked.
+  it('accepts a source that carries no identifier at all', () => {
+    const note = validSourceNote({
+      source_ids: { status: 'none', reason: 'unpublished working paper, no DOI assigned' },
+    });
+    expect(issuesOf(paperSchema, note)).toEqual([]);
+  });
+
+  // A location is not an identity: `source_url` carries the first, `source_ids` the second.
+  // Unquoted in YAML a pmid is a number and an access_date is a Date, so both must be strict.
+  it.each([
+    ['source_ids', { source_ids: undefined }],
+    ['source_ids', { source_ids: { status: 'declared' } }],
+    ['source_ids.reason', { source_ids: { status: 'none' } }],
+    ['source_ids.doi', { source_ids: { status: 'declared', doi: 'https://doi.org/10.1234/x' } }],
+    ['source_ids.pmid', { source_ids: { status: 'declared', pmid: 32614390 } }],
+    ['source_ids.pmcid', { source_ids: { status: 'declared', pmcid: '7498332' } }],
+    ['source_ids.arxiv', { source_ids: { status: 'declared', arxiv: 'https://arxiv.org/abs/2307.12985' } }],
+    ['source_read', { source_read: undefined }],
+    ['source_read', { source_read: 'skimmed' }],
+    ['citation', { citation: undefined }],
+    ['source_url', { source_url: 'example.org/x' }],
+  ])('rejects an invalid %s', (field, overrides) => {
+    expect(atPath(issuesOf(paperSchema, validSourceNote(overrides)), field).length).toBeGreaterThan(0);
+  });
+
+  // `not-read` is a real answer, not a gap: two notes in this corpus check a work's published
+  // record without reading the work. Folding them into `abstract-only` would assert a read
+  // that never happened.
+  it.each(['full-text', 'partial', 'abstract-only', 'not-read'])(
+    'accepts source_read: %s',
+    (level) => {
+      expect(issuesOf(paperSchema, validSourceNote({ source_read: level }))).toEqual([]);
+    },
+  );
 
   it('accepts a registered tag', () => {
     expect(issuesOf(paperSchema, validSourceNote({ tags: ['domain/batch-effects'] }))).toEqual([]);
@@ -280,7 +375,9 @@ describe('book chapter licence record', () => {
     expect(issuesOf(bookSchema, validBookChapter())).toEqual([]);
   });
 
-  for (const field of ['license', 'attribution', 'derived']) {
+  // Every field `npm run books` materializes, except the two it may legitimately leave out
+  // (`license_file`, `attribution` — see below). A chapter missing one is a stale generation.
+  for (const field of ['source_ids', 'access_date', 'source_read', 'citation', 'source_license', 'derived']) {
     it(`rejects a chapter missing \`${field}\``, () => {
       const note = validBookChapter();
       delete (note as Record<string, unknown>)[field];
@@ -288,17 +385,34 @@ describe('book chapter licence record', () => {
     });
   }
 
-  // license_file is genuinely optional — an own-words book redistributes no protected text
-  // and vendors no upstream LICENSE, so book.yml omits it and the chapters carry none.
-  it('accepts a chapter with no license_file', () => {
+  // license_file and attribution are genuinely optional — an own-words book redistributes no
+  // protected text, so it vendors no upstream LICENSE and owes no notice. book.yml omits both
+  // and the generator's OPTIONAL set lets it, which is what this pins.
+  it('accepts a chapter with no license_file and no attribution', () => {
     expect(issuesOf(bookSchema, validBookChapter())).toEqual([]);
   });
 
   // The same coherence rule the other source kinds get, now reachable because the fields
   // are the note's own. NC/own-words licences may not carry verbatim.
   it('rejects verbatim carry under an own-words-only licence', () => {
-    const note = validBookChapter({ license: 'CC-BY-NC-SA-2.0', derived: 'license-aware-summary' });
-    expect(issuesOf(bookSchema, note).length).toBeGreaterThan(0);
+    const note = validBookChapter({
+      source_license: { status: 'declared', id: 'CC-BY-NC-SA-2.0' },
+      derived: 'verbatim-quotes-summary',
+    });
+    expect(atPath(issuesOf(bookSchema, note), 'derived').length).toBeGreaterThan(0);
+  });
+
+  // harmon-pcm is the corpus's one carrying book: CC-BY-4.0, quotes retained, so it vendors
+  // the licence and carries the notice. The shape `npm run books` writes for it must validate.
+  it('accepts a carrying chapter that discharges both obligations', () => {
+    const note = validBookChapter({
+      source: 'harmon-pcm',
+      source_license: { status: 'declared', id: 'CC-BY-4.0' },
+      derived: 'verbatim-quotes-summary',
+      attribution: 'Harmon LJ. Phylogenetic Comparative Methods. 2019. Used under CC-BY-4.0.',
+      license_file: 'LICENSES/CC-BY-4.0.LICENSE',
+    });
+    expect(issuesOf(bookSchema, note)).toEqual([]);
   });
 });
 

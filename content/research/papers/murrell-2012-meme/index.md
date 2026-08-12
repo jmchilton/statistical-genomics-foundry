@@ -1,14 +1,19 @@
 ---
-title: "Detecting Individual Sites Subject to Episodic Diversifying Selection"
 type: paper
-source_id: murrell-2012-meme
+title: Detecting Individual Sites Subject to Episodic Diversifying Selection
 source_url: https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1002764
-doi: 10.1371/journal.pgen.1002764
-access_date: "2026-07-05"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1371/journal.pgen.1002764
+access_date: '2026-07-05'
+source_read: full-text
+citation: Murrell B, Wertheim JO, Moola S, Weighill T, Scheffler K, Kosakovsky Pond SL. PLoS Genetics 8(7):e1002764, 2012. DOI 10.1371/journal.pgen.1002764.
+attribution: Murrell B, Wertheim JO, Moola S, Weighill T, Scheffler K, Kosakovsky Pond SL. PLoS Genetics 8(7):e1002764, 2012. DOI 10.1371/journal.pgen.1002764. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Murrell B, Wertheim JO, Moola S, Weighill T, Scheffler K, Kosakovsky Pond SL. PLoS Genetics 8(7):e1002764, 2012. DOI 10.1371/journal.pgen.1002764. Read via PLoS open-access HTML plus the printable PDF (numeric/symbolic values); open access under the Creative Commons Attribution License (PLoS house license CC BY 4.0), permitting verbatim quotes."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/molecular-evolution
   - topic/positive-selection

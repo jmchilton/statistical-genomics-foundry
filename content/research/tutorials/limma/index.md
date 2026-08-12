@@ -1,13 +1,19 @@
 ---
-title: "limma: Linear Models for Microarray and Omics Data — package documentation"
 type: tutorial
-source_id: limma
+title: 'limma: Linear Models for Microarray and Omics Data — package documentation'
 source_url: https://bioconductor.org/packages/release/bioc/manuals/limma/man/limma.pdf
-access_date: "2026-07-13"
-license: GPL-2.0-or-later
+source_ids:
+  status: none
+  reason: Bioconductor package reference manual; no DOI assigned
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Smyth GK, Ritchie ME, Phipson B, Hu Y, et al. limma: Linear Models for Microarray and RNA-Seq Data. Bioconductor package reference manual, version 3.68.4.'
+attribution: 'Smyth GK, Ritchie ME, Phipson B, Hu Y, et al. limma: Linear Models for Microarray and RNA-Seq Data. Bioconductor package reference manual, version 3.68.4. Used under GPL-2.0-or-later.'
+source_license:
+  status: declared
+  id: GPL-2.0-or-later
 license_file: LICENSES/GPL-2.0-or-later.LICENSE
-attribution: "Gordon K. Smyth et al., limma (Bioconductor). Package version 3.68.4. Licensed GPL (>=2)."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/differential-expression
   - domain/batch-effects

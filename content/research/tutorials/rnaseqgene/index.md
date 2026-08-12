@@ -1,15 +1,21 @@
 ---
-title: "RNA-seq workflow: gene-level exploratory analysis and differential expression (rnaseqGene)"
 type: tutorial
-source_id: rnaseqgene
+title: 'RNA-seq workflow: gene-level exploratory analysis and differential expression (rnaseqGene)'
 source_url: https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
-version: "1.36.0"
-bioconductor_release: "3.23"
-access_date: "2026-07-13"
-license: Artistic-2.0
+source_ids:
+  status: none
+  reason: Bioconductor workflow vignette; no DOI assigned
+version: 1.36.0
+bioconductor_release: '3.23'
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Love MI, Anders S, Kim V, Huber W. rnaseqGene: RNA-seq workflow — gene-level exploratory analysis and differential expression. Bioconductor workflow package version 1.36.0 (Bioconductor 3.23).'
+attribution: 'Love MI, Anders S, Kim V, Huber W. rnaseqGene: RNA-seq workflow — gene-level exploratory analysis and differential expression. Bioconductor workflow package version 1.36.0 (Bioconductor 3.23). Used under Artistic-2.0.'
+source_license:
+  status: declared
+  id: Artistic-2.0
 license_file: LICENSES/Artistic-2.0.LICENSE
-attribution: "Michael I. Love, Simon Anders, Vladislav Kim, Wolfgang Huber. rnaseqGene Bioconductor workflow package, version 1.36.0 (Bioconductor 3.23). Licensed Artistic-2.0. https://bioconductor.org/packages/release/workflows/html/rnaseqGene.html — read from the rendered vignette HTML; an F1000Research version exists (DOI 10.12688/f1000research.7563.1) and is stated to differ."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/differential-expression
   - domain/batch-effects

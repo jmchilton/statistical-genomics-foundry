@@ -1,14 +1,19 @@
 ---
-title: "micropan: an R-package for microbial pan-genomics"
 type: paper
-source_id: snipen-2015-micropan
+title: 'micropan: an R-package for microbial pan-genomics'
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4375852/
-doi: 10.1186/s12859-015-0517-0
-access_date: "2026-07-05"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1186/s12859-015-0517-0
+access_date: '2026-07-05'
+source_read: full-text
+citation: 'Snipen L, Liland KH. micropan: an R-package for microbial pan-genomics. BMC Bioinformatics 16:79, 2015. DOI 10.1186/s12859-015-0517-0.'
+attribution: 'Snipen L, Liland KH. micropan: an R-package for microbial pan-genomics. BMC Bioinformatics 16:79, 2015. DOI 10.1186/s12859-015-0517-0. Used under CC-BY-4.0.'
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Snipen L, Liland KH. micropan: an R-package for microbial pan-genomics. BMC Bioinformatics 16:79, 2015. DOI 10.1186/s12859-015-0517-0. Summary also uses the author-written CRAN heaps() documentation accessed 2026-07-05."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/pangenomics
   - topic/pangenome-openness

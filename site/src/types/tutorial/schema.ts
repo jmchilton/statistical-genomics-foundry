@@ -27,7 +27,8 @@ export const kind = defineKind({
     z
       .object({
         type: z.literal('tutorial'),
-        ...ctx.sourceNoteFields,
+        title: z.string(),
+        ...ctx.sourceNoteBlock,
         // Docs site distinct from `source_url` (which points at the package record).
         docs_url: z.url().optional(),
         // The Bioconductor release `version` belongs to — the pair pins the vignette.
@@ -38,5 +39,5 @@ export const kind = defineKind({
       })
       .strict(),
 
-  refine: (d, ctx, kctx) => kctx.licenseCoherence(d, ctx),
+  refine: (d, ctx, kctx) => kctx.sourceNoteRules(d, ctx),
 });

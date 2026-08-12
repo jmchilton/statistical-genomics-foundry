@@ -83,6 +83,8 @@ Papers, tutorials, and book chapters are faithful source notes, not owned synthe
 
 `index.md` carries the faithful summary. An optional `guidance.md` companion records the questions this Foundry needs answered without dictating conclusions. License policy determines whether the summary is own-words-only or may preserve short load-bearing quotations. Source notes keep provenance and project interpretation separate.
 
+All three kinds carry the same frontmatter about the work they summarize, and it is not this instance's to define: `@galaxy-foundry/source-note` owns it, spread in as one block. What that contract asks for is four separate answers rather than one sentence — the bibliographic record, the license notice, the identifiers, and how much of the source was read — because each is wrong in a different way and only some are checkable. Where a work genuinely has no identifier, or its license was never determined, the note states the absence and gives a reason; an omitted field would not be distinguishable from an unasked question.
+
 Books add one materialization rule: `book.yml` is the source for book-wide metadata, and the book generator copies that metadata into each chapter note. Every chapter then validates from its own frontmatter like any other note.
 
 ## Patterns

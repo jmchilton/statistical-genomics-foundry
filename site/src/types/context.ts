@@ -25,12 +25,8 @@ import {
   type KindDefinition as LibKindDefinition,
   type KindShape,
 } from '@galaxy-foundry/kind-schema';
-import {
-  declaresVerbatimCarry,
-  isValidLicenseId,
-  resolveLicenseRow,
-  type LicensePolicy,
-} from '@galaxy-foundry/license-policy';
+import { isValidLicenseId, type LicensePolicy } from '@galaxy-foundry/license-policy';
+import { sourceNoteCoherence, sourceNoteFields } from '@galaxy-foundry/source-note';
 import {
   contractKeys,
   type ContractGroup,
@@ -106,10 +102,9 @@ function buildPrimitives(options: BuildKindContextOptions) {
 
   // The license → redistribution-policy table (galaxyproject/foundry-pattern#4) is the source
   // of truth for what each id means. It is INSTALLED, not vendored — @galaxy-foundry/license-policy
-  // ships the table both Foundry instances used to hand-mirror, and `declaresVerbatimCarry`, which
-  // reads a note's `derived` posture to say whether the table governs the note at all. What stays
-  // here is `licenseCoherence` below: which issue a note raises, and against which field, is an
-  // instance's own to word.
+  // ships the table both Foundry instances used to hand-mirror. What stays here is the SPELLING
+  // of an id: this validator is threaded into the shared source-note block below, so an id this
+  // instance cannot resolve still fails with this instance's wording.
   const licenseId = z.string().refine((id: string) => isValidLicenseId(licensePolicy, id), {
     message: 'must be an SPDX id in @galaxy-foundry/license-policy or a LicenseRef-<slug>',
   });
@@ -147,50 +142,20 @@ function buildPrimitives(options: BuildKindContextOptions) {
         ctx.addIssue({ code: 'custom', path: ['verification'], message: `hypothesis-evidence ref "${ref.ref}" requires a verification` });
     });
 
-  // License coherence: the id must resolve to a real row (not the defect/default row); a note may
-  // not carry verbatim under an own-words-only license (the NC/copyleft propagation the policy
-  // table exists to prevent); and verbatim carry under a row that requires a license_file must
-  // declare one. Keys off `derived`, the recorded posture.
-  const licenseCoherence = <T extends { license: string; license_file?: string; derived: string }>(
-    note: T,
-    ctx: z.RefinementCtx,
-  ) => {
-    const row = resolveLicenseRow(licensePolicy, note.license);
-    if (row.defect)
-      ctx.addIssue({ code: 'custom', path: ['license'], message: `license "${note.license}" resolves to the default row (unresolved/defect) — fix the id, or add a row upstream in @galaxy-foundry/license-policy and bump it` });
-    const carries = declaresVerbatimCarry(note.derived);
-    if (carries && row.policy === 'own-words-only')
-      ctx.addIssue({ code: 'custom', path: ['derived'], message: `derived "${note.derived}" declares verbatim carry but license ${note.license} is own-words-only (paraphrase, or fix the license)` });
-    if (carries && row.license_file && !note.license_file)
-      ctx.addIssue({ code: 'custom', path: ['license_file'], message: `verbatim carry under ${note.license} requires a license_file (vendored in LICENSES/)` });
-  };
+  // The provenance/licence block every source note carries, and the cross-field rules over it,
+  // both from @galaxy-foundry/source-note. What used to live here was written independently in
+  // the parent Foundry too — four copies of the coherence rule between the two instances — and
+  // the two spellings of the summary posture are why the shared carry predicate had to be a
+  // regular expression instead of a lookup.
+  //
+  // `licenseId` is threaded through so an unspellable id still fails with THIS instance's
+  // wording, the way `tag` and `reference` do; `licensePolicy` so both halves of the schema read
+  // the rows this instance loaded rather than the table the package bundles.
+  const sourceNoteOptions = { licensePolicy, licenseId };
+  const sourceNoteBlock = sourceNoteFields(sourceNoteOptions);
+  const sourceNoteRules = sourceNoteCoherence(sourceNoteOptions);
 
-  // Source notes for papers + tutorials: faithful summaries with short load-bearing quotes (where
-  // the license permits), not own-words-only like books. `license` is a normalized id whose
-  // redistribution policy is resolved from the shared policy table. `license_file` is optional:
-  // own-words-only notes redistribute no text and carry none; notes that reproduce verbatim
-  // quotes under a verbatim-ok license (e.g. CC-BY) point to the upstream LICENSE copy in
-  // LICENSES/, honoring the notice obligation. `derived` records what modification was made (the
-  // CC-BY "changes" indication), and is foregrounded in the UI. Provenance is descriptive
-  // (url/doi/version/access_date); the sync-script + checksum layer is deferred to repo standup.
-  const sourceNoteFields = {
-    title: z.string(),
-    source_id: z.string(),
-    source_url: z.url(),
-    doi: z.string().optional(),
-    version: z.string().optional(),
-    access_date: z.string(),
-    license: licenseId,
-    license_file: z.string().optional(),
-    attribution: z.string(),
-    derived: z.string(),
-    // The source's own licence wording, verbatim, when the posture is not obvious from the id
-    // alone (e.g. an "Author's Choice" CC-BY notice on an otherwise subscription journal).
-    // Evidence for the `license` id above, not a substitute for it.
-    license_statement: z.string().optional(),
-  };
-
-  return { tag, tagsArray, licenseId, reference, licenseCoherence, sourceNoteFields };
+  return { tag, tagsArray, licenseId, reference, sourceNoteRules, sourceNoteBlock };
 }
 
 type Primitives = ReturnType<typeof buildPrimitives>;
@@ -211,26 +176,28 @@ export interface KindContext {
   licenseId: Primitives['licenseId'];
   /** One entry of a Mold's typed reference manifest. */
   reference: Primitives['reference'];
-  /** The provenance/licence block every SOURCE note carries (paper, tutorial). Spread it
-   *  ALONGSIDE `base`, not instead of it — it holds no envelope fields of its own. */
-  sourceNoteFields: Primitives['sourceNoteFields'];
-  /** License coherence, shared by every kind that redistributes someone else's text. */
-  licenseCoherence: Primitives['licenseCoherence'];
+  /** The provenance/licence block every SOURCE note carries (paper, tutorial, book), from
+   *  @galaxy-foundry/source-note. Spread it ALONGSIDE `base`, not instead of it — it holds no
+   *  envelope fields of its own, and none of `title`/`tags`, which describe the note. */
+  sourceNoteBlock: Primitives['sourceNoteBlock'];
+  /** The cross-field rules over that block, shared by every kind that summarizes someone
+   *  else's work: identifier presence, licence resolution, and what verbatim carry obliges. */
+  sourceNoteRules: Primitives['sourceNoteRules'];
 
   /** THE BASE ENVELOPE — the fields every kind in this instance carries. Kinds spread it. */
   base: { tags: Primitives['tagsArray'] };
 }
 
 export function buildKindContext(options: BuildKindContextOptions): KindContext {
-  const { tag, tagsArray, licenseId, reference, licenseCoherence, sourceNoteFields } =
+  const { tag, tagsArray, licenseId, reference, sourceNoteRules, sourceNoteBlock } =
     buildPrimitives(options);
   return {
     registries: options,
     tag,
     licenseId,
     reference,
-    sourceNoteFields,
-    licenseCoherence,
+    sourceNoteBlock,
+    sourceNoteRules,
     base: { tags: tagsArray },
   };
 }

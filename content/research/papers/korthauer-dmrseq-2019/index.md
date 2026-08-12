@@ -1,14 +1,19 @@
 ---
-title: "Detection and accurate false discovery rate control of differentially methylated regions from whole genome bisulfite sequencing"
 type: paper
-source_id: korthauer-dmrseq-2019
-source_url: "https://web.archive.org/web/20240420211941/https://www.biorxiv.org/content/10.1101/183210v1.full"
-doi: 10.1093/biostatistics/kxy007
-access_date: "2026-06-30"
-license: CC-BY-4.0
+title: Detection and accurate false discovery rate control of differentially methylated regions from whole genome bisulfite sequencing
+source_url: https://web.archive.org/web/20240420211941/https://www.biorxiv.org/content/10.1101/183210v1.full
+source_ids:
+  status: declared
+  doi: 10.1093/biostatistics/kxy007
+access_date: '2026-06-30'
+source_read: full-text
+citation: Korthauer K, Chakraborty S, Benjamini Y, Irizarry RA. Detection and accurate false discovery rate control of differentially methylated regions from whole genome bisulfite sequencing. bioRxiv 183210, 2017. Published as Biostatistics 20(3):367-383, 2019.
+attribution: Korthauer K, Chakraborty S, Benjamini Y, Irizarry RA. Detection and accurate false discovery rate control of differentially methylated regions from whole genome bisulfite sequencing. bioRxiv 183210, 2017. Published as Biostatistics 20(3):367-383, 2019. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Korthauer K, Chakraborty S, Benjamini Y, Irizarry RA. bioRxiv 183210 (2017). Published: Biostatistics 20(3):367-383, 2019. The CC-BY-4.0 license and this note cover the bioRxiv PREPRINT (v1, 2017-08-31; license=cc_by per bioRxiv API), NOT the paywalled published Biostatistics 2019 version."
-derived: "Verbatim load-bearing quotes permitted (CC-BY). Quotes in section 7 are exact from the preprint; equation/table/figure images were not machine-readable and are described, not transcribed."
+derived: verbatim-quotes-summary
 tags:
   - domain/differential-expression
   - topic/post-selection-inference

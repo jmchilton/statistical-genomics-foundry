@@ -1,12 +1,16 @@
 ---
-title: "Integrating gene annotation with orthology inference at scale"
 type: paper
-source_id: kirilenko-2023-toga
+title: Integrating gene annotation with orthology inference at scale
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10193443/
-doi: 10.1126/science.abn3107
-access_date: "2026-07-03"
-license: LicenseRef-all-rights-reserved
-attribution: "Kirilenko BM, Munegowda C, Osipova E, Jebb D, Sharma V, Blumer M, Morales AE, Ahmed A-W, Kontopoulos D-G, Hilgers L, Zoonomia Consortium, Hiller M. Integrating gene annotation with orthology inference at scale. Science 380(6643):eabn3107, 2023. DOI 10.1126/science.abn3107. Read via PMC author manuscript; summarized in own words under restrictive/unverified license posture."
+source_ids:
+  status: declared
+  doi: 10.1126/science.abn3107
+access_date: '2026-07-03'
+source_read: full-text
+citation: Kirilenko BM, Munegowda C, Osipova E, Jebb D, Sharma V, Blumer M, Morales AE, Ahmed A-W, Kontopoulos D-G, Hilgers L, Zoonomia Consortium, Hiller M. Integrating gene annotation with orthology inference at scale. Science 380(6643):eabn3107, 2023. DOI 10.1126/science.abn3107.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/comparative-annotation

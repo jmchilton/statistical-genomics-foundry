@@ -5,9 +5,9 @@
     "name": "audit-gene-family-birth-death",
     "path": "content/molds/audit-gene-family-birth-death/index.md",
     "content_hash": "49691a3b8df03fcfc1b4f92dc832f3e105c2485d2194cb6fa90e4f80dca075ac",
-    "commit": "6602f445aa10a958203d650f6fd8de2803a44aaa"
+    "commit": "8b9df828945df140cd226f080715b783bd1f78e1"
   },
-  "cast_at": "2026-08-07T15:02:24.095Z",
+  "cast_at": "2026-08-11T20:05:12.845Z",
   "refs": [
     {
       "kind": "research",
@@ -20,13 +20,11 @@
       "evidence": "corpus-observed",
       "purpose": "Ground the multiple-testing remedy (BH-FDR, Bonferroni/FWER, FWER blow-up at scale), the p-value-histogram diagnostic, the integer-count discreteness artifact that breaks null p-value uniformity, and pseudoreplication (dependence masquerading as more data).",
       "trigger": "when many families/branches are tested at once, or when p-value calibration / null adequacy is in question",
-      "license": "CC-BY-NC-SA-2.0",
       "derived": "own-words-summary",
       "license_file": "LICENSES/msmb.LICENSE",
-      "src_hash": "f29fad83315177e14a5d80cffef127673725d78ac8b29e3df340c01de8b1dbb5",
-      "dst_hash": "f29fad83315177e14a5d80cffef127673725d78ac8b29e3df340c01de8b1dbb5",
-      "source": "deterministic",
-      "license_file_hash": "5cacdda2e6a034a3e934384b18fc1fc098ad37bf438b42f0f8fd44a3e38b6538"
+      "src_hash": "585fe2efd07ba7609dc8e07ca47d2788321d33b089cabd5d77ea039e1baced95",
+      "dst_hash": "585fe2efd07ba7609dc8e07ca47d2788321d33b089cabd5d77ea039e1baced95",
+      "source": "deterministic"
     },
     {
       "kind": "research",
@@ -39,10 +37,9 @@
       "evidence": "corpus-observed",
       "purpose": "Ground the alternative ASR toolkit (Dollo/Wagner/asymmetric-Wagner parsimony, PGL, phylogenetic birth-death-immigration with per-branch μ/λ/κ) and that its probabilistic branch counts are expectations → fractional. Also records that Count states NO ultrametric/time-scaling tree requirement.",
       "trigger": "when the named tool is Count or ancestral gene-content states (Dollo/Wagner parsimony or likelihood BD) are reconstructed and used as if observed",
-      "license": "LicenseRef-all-rights-reserved",
       "derived": "own-words-summary",
-      "src_hash": "1b1e5872e5affa9d8f7b4e732f729502a3a43bec1491f69f0cd5b3a7b25eb2ee",
-      "dst_hash": "1b1e5872e5affa9d8f7b4e732f729502a3a43bec1491f69f0cd5b3a7b25eb2ee",
+      "src_hash": "56007a3ca52a151e60d85986ee70ce77a94fabc97b45fa21dc0580a858f63e29",
+      "dst_hash": "56007a3ca52a151e60d85986ee70ce77a94fabc97b45fa21dc0580a858f63e29",
       "source": "deterministic"
     },
     {
@@ -56,10 +53,9 @@
       "evidence": "corpus-observed",
       "purpose": "Ground the tool's real requirements (Newick, rooted + bifurcating tree, branch lengths in units of time), the Monte-Carlo per-family p-value, the three branch-attribution methods (Viterbi / branch cutting / likelihood-ratio test), and the confident silence: CAFE performs NO multiple-testing / FDR correction across families.",
       "trigger": "when the named tool is CAFE (v1) or the analysis reports per-family / per-branch p-values from a fitted single-global-λ birth-death model",
-      "license": "LicenseRef-all-rights-reserved",
       "derived": "own-words-summary",
-      "src_hash": "54fab48c6da71322304e7d75ab526a08f3d9861a7a6825bd7e52da679bcec118",
-      "dst_hash": "54fab48c6da71322304e7d75ab526a08f3d9861a7a6825bd7e52da679bcec118",
+      "src_hash": "a438e733675b14ecdfa6a7014d62811c97f0f833a560d58851f0477bb159fe6f",
+      "dst_hash": "a438e733675b14ecdfa6a7014d62811c97f0f833a560d58851f0477bb159fe6f",
       "source": "deterministic"
     },
     {
@@ -73,13 +69,11 @@
       "evidence": "corpus-observed",
       "purpose": "Ground the eukaryotic garbage-in pattern: draft assemblies mis-size >40% of gene families in BOTH directions — fragmentation (one gene split across contigs) and split alleles (haplotypes) over-count → false EXPANSION; missing / incomplete genes under-count → false CONTRACTION (fosmid outlier: >half of families missing copies). Warning signal = low CEGMA core-gene completeness / low contiguity (predates BUSCO, prescribes NO numeric cutoff, relationship reported only categorically); remedy = RNA-Seq to reconnect fragmented gene models. Scope: eukaryote-only (chicken/chimp/Drosophila-Daphnia sim), and Denton itself does NOT name CAFE / birth-death — it grounds wrong family SIZES; the bridge to inflated BD RATES is carried by [[han-2013-cafe3]].",
       "trigger": "when the family-size matrix comes from a EUKARYOTIC draft / fragmented / incomplete genome assembly and was not audited for gene-number annotation error before the birth-death fit",
-      "license": "CC-BY-4.0",
-      "derived": "license-aware-summary",
+      "derived": "verbatim-quotes-summary",
       "license_file": "LICENSES/CC-BY-4.0.LICENSE",
-      "src_hash": "24c6dd42097292c302a7e5880689555565053ac07c84a26c31ef44652ac9b10d",
-      "dst_hash": "24c6dd42097292c302a7e5880689555565053ac07c84a26c31ef44652ac9b10d",
-      "source": "deterministic",
-      "license_file_hash": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"
+      "src_hash": "f6ff2d077a8804085b246ba0d0ee6831fcf0e93e82050c175df0310a2eba9280",
+      "dst_hash": "f6ff2d077a8804085b246ba0d0ee6831fcf0e93e82050c175df0310a2eba9280",
+      "source": "deterministic"
     },
     {
       "kind": "research",
@@ -92,10 +86,9 @@
       "evidence": "corpus-observed",
       "purpose": "Ground the core model (single per-gene rate λ, λ=μ) and its stated invalidity patterns: single-global-rate assumption, gene-independence broken by WGD/polyploidy, TE outliers, uniform-root-prior bias, and the by-chance false-positive baseline (35/1254 expected at P<0.01).",
       "trigger": "when the analysis fits a birth-death process to gene-family sizes over a species tree and flags 'rapidly evolving' / lineage-specific families",
-      "license": "LicenseRef-all-rights-reserved",
       "derived": "own-words-summary",
-      "src_hash": "9088776debe5f36ca7cebc81c34f46cc029533fa026137cc555ce2add507f79b",
-      "dst_hash": "9088776debe5f36ca7cebc81c34f46cc029533fa026137cc555ce2add507f79b",
+      "src_hash": "d170d789df43ba9fc7faf1ab727f0d41e160edc6b59b0061d3f44f88dfb791fd",
+      "dst_hash": "d170d789df43ba9fc7faf1ab727f0d41e160edc6b59b0061d3f44f88dfb791fd",
       "source": "deterministic"
     },
     {
@@ -109,10 +102,9 @@
       "evidence": "corpus-observed",
       "purpose": "Ground error-aware birth-death: uncorrected annotation/assembly error makes gene-family gain/loss (λ) rates be CONSISTENTLY OVERESTIMATED (abstract-verified), and CAFE 3's measurement-error model — error matrix Θ = P(observe w | true x) with rate ε, entering Felsenstein pruning at the leaf nodes, estimated via `caferror.py` grid-search and applied via the `errormodel` command — recovers accurate rates. Simulation magnitudes (true λ=0.0012 → ~2.3x inflation at ε=0.1, ~7.5x at ε=0.4; corrected to within ~2%) are BODY-TEXT and RETRIEVAL-UNCERTAIN (note §2): cite as illustrative simulation values, not verified thresholds, and re-check the PDF before making any threshold load-bearing. Han states NO ε cutoff above which correction is mandatory; correction validity rests on stated assumptions (i.i.d. families; error depends on observed-minus-true count, not true size; stationary error).",
       "trigger": "when the birth-death fit is run on gene-family sizes from error-prone (fragmented / incomplete) assemblies without a measurement-error model, or when the named tool is CAFE 3 / the analysis claims error-corrected gain-loss rates",
-      "license": "LicenseRef-all-rights-reserved",
       "derived": "own-words-summary",
-      "src_hash": "d961edb6eaca56df09a756f46a580b0313e7ee251732b1a5d4f6593693a88aca",
-      "dst_hash": "d961edb6eaca56df09a756f46a580b0313e7ee251732b1a5d4f6593693a88aca",
+      "src_hash": "f98b588af9f08087ee589886dda094cb855f4a89ea3e33cbdd9e81632fa5c483",
+      "dst_hash": "f98b588af9f08087ee589886dda094cb855f4a89ea3e33cbdd9e81632fa5c483",
       "source": "deterministic"
     },
     {
@@ -126,10 +118,9 @@
       "evidence": "corpus-observed",
       "purpose": "Bound what CAFE5 does (gamma rate-categories among families, K chosen a priori, empirical-Bayes posterior rate-category probability) vs. what it does NOT claim (no per-family p-value, no Type-I error control, no stated minimum #families). Anti-mis-attribution reference.",
       "trigger": "when the named tool is CAFE5 or the analysis claims per-family p-values / Type-I error control / a minimum orthogroup count from CAFE5",
-      "license": "LicenseRef-all-rights-reserved",
       "derived": "own-words-summary",
-      "src_hash": "e2fdb5439a76f466e61dab29568a0cfeb8d81643b994fb08beb123b286ab1ee3",
-      "dst_hash": "e2fdb5439a76f466e61dab29568a0cfeb8d81643b994fb08beb123b286ab1ee3",
+      "src_hash": "7068e03a3b5964148878a70eecddc2a64f9c9528e276b2052420354c5a52ea2d",
+      "dst_hash": "7068e03a3b5964148878a70eecddc2a64f9c9528e276b2052420354c5a52ea2d",
       "source": "deterministic"
     },
     {
@@ -144,13 +135,11 @@
       "purpose": "Ground the cautionary pattern: fragmented assemblies / contamination / mis-assembly / inconsistent per-isolate calls inflate apparent gene-family-size differences, and error scales with sample size (accessory genome grows with #genomes) — a garbage-in driver of spurious 'unusual' families upstream of any BD model.",
       "trigger": "when the family-size matrix comes from a PROKARYOTIC pangenome and was not polished for annotation error before the birth-death fit",
       "verification": "Panaroo grounds annotation-error inflation of gene-family-size differences ONLY for prokaryotic pangenomes; it explicitly does NOT generalize to eukaryotes or to CAFE-style BD models (its sole eukaryote mention is a Denton-et-al. citation, not a Panaroo claim). Using this as a general audit trigger beyond bacterial pangenomes is our inference; verify per input organism before flagging. See [GAP] in body.",
-      "license": "CC-BY-4.0",
-      "derived": "license-aware-summary",
+      "derived": "verbatim-quotes-summary",
       "license_file": "LICENSES/CC-BY-4.0.LICENSE",
-      "src_hash": "127044217223aca900181ffe250d6aff1345cc4af9a76ffd59f1b32ec31ae399",
-      "dst_hash": "127044217223aca900181ffe250d6aff1345cc4af9a76ffd59f1b32ec31ae399",
-      "source": "deterministic",
-      "license_file_hash": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"
+      "src_hash": "3a0c5b8ab13b95f71055c277790c00b9781b3d05627382f8e54a7ce9d12049c5",
+      "dst_hash": "3a0c5b8ab13b95f71055c277790c00b9781b3d05627382f8e54a7ce9d12049c5",
+      "source": "deterministic"
     }
   ]
 }

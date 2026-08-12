@@ -1,12 +1,16 @@
 ---
-title: "Count: evolutionary analysis of phylogenetic profiles with parsimony and likelihood"
 type: paper
-source_id: csuros-2010-count
+title: 'Count: evolutionary analysis of phylogenetic profiles with parsimony and likelihood'
 source_url: https://academic.oup.com/bioinformatics/article/26/15/1910/189891
-doi: 10.1093/bioinformatics/btq315
-access_date: "2026-07-03"
-license: LicenseRef-all-rights-reserved
-attribution: "Csűrös M. Count: evolutionary analysis of phylogenetic profiles with parsimony and likelihood. Bioinformatics 26(15):1910-1912, 2010. DOI 10.1093/bioinformatics/btq315. Oxford University Press article page; summarized in own words."
+source_ids:
+  status: declared
+  doi: 10.1093/bioinformatics/btq315
+access_date: '2026-07-03'
+source_read: full-text
+citation: 'Csűrös M. Count: evolutionary analysis of phylogenetic profiles with parsimony and likelihood. Bioinformatics 26(15):1910-1912, 2010. DOI 10.1093/bioinformatics/btq315.'
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/gene-family-evolution

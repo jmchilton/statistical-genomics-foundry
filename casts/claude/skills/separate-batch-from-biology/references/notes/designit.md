@@ -1,16 +1,22 @@
 ---
-title: "designit: Blocking and Randomization for Experimental Design"
 type: tutorial
-source_id: designit
+title: 'designit: Blocking and Randomization for Experimental Design'
 source_url: https://cran.r-project.org/package=designit
 docs_url: https://bedapub.github.io/designit/
-version: "0.5.0"
-published: "2024-03-21"
-access_date: "2026-07-13"
-license: MIT
+source_ids:
+  status: none
+  reason: CRAN package record; no DOI assigned
+version: 0.5.0
+published: '2024-03-21'
+access_date: '2026-07-13'
+source_read: full-text
+citation: 'Davydov I, Siebourg-Polster J, Steiner G, Rudolph J, Zhang JD, Banfai B. designit: Blocking and Randomization for Experimental Design. R package version 0.5.0, published 2024-03-21. F. Hoffmann-La Roche.'
+attribution: 'Davydov I, Siebourg-Polster J, Steiner G, Rudolph J, Zhang JD, Banfai B. designit: Blocking and Randomization for Experimental Design. R package version 0.5.0, published 2024-03-21. F. Hoffmann-La Roche. Used under MIT.'
+source_license:
+  status: declared
+  id: MIT
 license_file: LICENSES/MIT.LICENSE
-attribution: "designit: Blocking and Randomization for Experimental Design, version 0.5.0 (published 2024-03-21). Davydov I, Siebourg-Polster J, Steiner G, Rudolph J, Zhang JD, Banfai B. © F. Hoffmann-La Roche, MIT licensed. https://cran.r-project.org/package=designit — read from the CRAN source tarball (DESCRIPTION, NAMESPACE, R/, vignettes, inst/doc)."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/experimental-design
   - domain/batch-effects

@@ -1,14 +1,19 @@
 ---
-title: "Capturing Heterogeneity in Gene Expression Studies by Surrogate Variable Analysis"
 type: paper
-source_id: leek-storey-2007-sva
+title: Capturing Heterogeneity in Gene Expression Studies by Surrogate Variable Analysis
 source_url: https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.0030161
-doi: 10.1371/journal.pgen.0030161
-access_date: "2026-07-13"
-license: CC-BY-2.5
+source_ids:
+  status: declared
+  doi: 10.1371/journal.pgen.0030161
+access_date: '2026-07-13'
+source_read: full-text
+citation: Leek JT, Storey JD. Capturing Heterogeneity in Gene Expression Studies by Surrogate Variable Analysis. PLoS Genetics 3(9):e161, 2007. DOI 10.1371/journal.pgen.0030161.
+attribution: Leek JT, Storey JD. Capturing Heterogeneity in Gene Expression Studies by Surrogate Variable Analysis. PLoS Genetics 3(9):e161, 2007. DOI 10.1371/journal.pgen.0030161. Used under CC-BY-2.5.
+source_license:
+  status: declared
+  id: CC-BY-2.5
 license_file: LICENSES/CC-BY-2.5.LICENSE
-attribution: "Leek JT, Storey JD. Capturing Heterogeneity in Gene Expression Studies by Surrogate Variable Analysis. PLoS Genetics 3(9):e161, 2007. https://doi.org/10.1371/journal.pgen.0030161 — PLOS open access under the Creative Commons Attribution License. Read from PLOS full text + article XML (equations recovered from XML; PMC was Cloudflare-blocked)."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/batch-effects
   - topic/confounding

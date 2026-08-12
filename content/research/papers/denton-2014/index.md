@@ -1,14 +1,19 @@
 ---
-title: "Extensive Error in the Number of Genes Inferred from Draft Genome Assemblies"
 type: paper
-source_id: denton-2014
+title: Extensive Error in the Number of Genes Inferred from Draft Genome Assemblies
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4256071/
-doi: 10.1371/journal.pcbi.1003998
-access_date: "2026-07-03"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1371/journal.pcbi.1003998
+access_date: '2026-07-03'
+source_read: full-text
+citation: Denton JF, Lugo-Martinez J, Tucker AE, Schrider DR, Warren WC, Hahn MW. Extensive Error in the Number of Genes Inferred from Draft Genome Assemblies. PLOS Computational Biology 10(12):e1003998, 2014. DOI 10.1371/journal.pcbi.1003998.
+attribution: Denton JF, Lugo-Martinez J, Tucker AE, Schrider DR, Warren WC, Hahn MW. Extensive Error in the Number of Genes Inferred from Draft Genome Assemblies. PLOS Computational Biology 10(12):e1003998, 2014. DOI 10.1371/journal.pcbi.1003998. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Denton JF, Lugo-Martinez J, Tucker AE, Schrider DR, Warren WC, Hahn MW. Extensive Error in the Number of Genes Inferred from Draft Genome Assemblies. PLOS Computational Biology 10(12):e1003998, 2014. DOI 10.1371/journal.pcbi.1003998. Open access under CC-BY."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/gene-family-evolution
 ---

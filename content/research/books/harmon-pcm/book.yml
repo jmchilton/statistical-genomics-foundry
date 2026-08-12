@@ -2,16 +2,25 @@
 # Per-chapter chap<n>/index.md frontmatter carries what varies (title, source,
 # source_chapter, source_url) plus a COPY of the licence fields below, written by
 # `npm run books` and verified by `npm run check:books`. Edit them here, never there.
-# `attribution` is a template:
+# `citation` and `attribution` are templates:
 # {n}/{title} are filled from each chapter's frontmatter (this book cites the chapter in-line).
 title: "Phylogenetic Comparative Methods: Learning from Trees"
 source: harmon-pcm
 source_url: https://lukejharmon.github.io/pcm/
-license: CC-BY-4.0
-license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Harmon LJ. Phylogenetic Comparative Methods: Learning from Trees. 2019 (book text v1.0.0). Chapter {n}: {title}. Licensed CC-BY 4.0. https://lukejharmon.github.io/pcm/"
-derived: license-aware-summary
+# A chapter of an online textbook carries no identifier of its own. That is a claim worth
+# stating rather than an omission: there is no per-chapter DOI anyone failed to look up.
+source_ids:
+  status: none
+  reason: web chapter of an online textbook; no per-chapter identifier assigned
 access_date: "2026-07-03"
+source_read: full-text
+citation: "Harmon LJ. Phylogenetic Comparative Methods: Learning from Trees. 2019 (book text v1.0.0). Chapter {n}: {title}. https://lukejharmon.github.io/pcm/"
+attribution: "Harmon LJ. Phylogenetic Comparative Methods: Learning from Trees. 2019 (book text v1.0.0). Chapter {n}: {title}. Used under CC-BY-4.0. https://lukejharmon.github.io/pcm/"
+source_license:
+  status: declared
+  id: CC-BY-4.0
+license_file: LICENSES/CC-BY-4.0.LICENSE
+derived: verbatim-quotes-summary
 # Summarized via /summarize-source (license-aware quoting under CC-BY), not the own-words book
 # prompt — so no `summary_prompt`; /regenerate-book-summaries skips this book by design.
 chapters:

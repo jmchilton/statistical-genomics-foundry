@@ -90,22 +90,29 @@ const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
         source={entry.data.source}
         sourceChapter={entry.data.source_chapter}
         sourceUrl={entry.data.source_url}
-        license={entry.data.license}
+        sourceIds={entry.data.source_ids}
+        sourceLicense={entry.data.source_license}
         licenseFile={entry.data.license_file}
+        citation={entry.data.citation}
         attribution={entry.data.attribution}
         derived={entry.data.derived}
+        sourceRead={entry.data.source_read}
+        accessDate={entry.data.access_date}
       />
     )}
+    {/* No `source`: a paper is not part of a containing work the way a chapter is, and the
+        `source_id` slug that used to fill that pill is the note's own route now. */}
     {(entry.collection === 'papers' || entry.collection === 'tutorials') && (
       <SourceMeta
         slot="metadata"
-        source={entry.data.source_id}
         sourceUrl={entry.data.source_url}
-        license={entry.data.license}
+        sourceIds={entry.data.source_ids}
+        sourceLicense={entry.data.source_license}
         licenseFile={entry.data.license_file}
+        citation={entry.data.citation}
         attribution={entry.data.attribution}
         derived={entry.data.derived}
-        doi={entry.data.doi}
+        sourceRead={entry.data.source_read}
         version={entry.data.version}
         accessDate={entry.data.access_date}
       />

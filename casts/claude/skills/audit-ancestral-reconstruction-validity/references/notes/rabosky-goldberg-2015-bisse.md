@@ -1,12 +1,16 @@
 ---
-title: "Model Inadequacy and Mistaken Inferences of Trait-Dependent Speciation"
 type: paper
-source_id: rabosky-goldberg-2015-bisse
+title: Model Inadequacy and Mistaken Inferences of Trait-Dependent Speciation
 source_url: https://arxiv.org/abs/1412.7082
-doi: 10.1093/sysbio/syu131
-access_date: "2026-07-03"
-license: LicenseRef-arXiv-nonexclusive-distrib-1.0
-attribution: "Rabosky DL, Goldberg EE. Model Inadequacy and Mistaken Inferences of Trait-Dependent Speciation. Systematic Biology 64(2):340-355, 2015. DOI 10.1093/sysbio/syu131. Read from arXiv:1412.7082; summarized in own words under arXiv's nonexclusive distribution license."
+source_ids:
+  status: declared
+  doi: 10.1093/sysbio/syu131
+access_date: '2026-07-03'
+source_read: full-text
+citation: Rabosky DL, Goldberg EE. Model Inadequacy and Mistaken Inferences of Trait-Dependent Speciation. Systematic Biology 64(2):340-355, 2015. DOI 10.1093/sysbio/syu131.
+source_license:
+  status: declared
+  id: LicenseRef-arXiv-nonexclusive-distrib-1.0
 derived: own-words-summary
 tags:
   - domain/phylogenetic-comparative-methods

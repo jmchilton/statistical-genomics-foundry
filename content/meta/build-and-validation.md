@@ -59,7 +59,7 @@ The license-file audit is where that both-directions rule reaches the one field 
 
 ## Book metadata materialization
 
-Multi-chapter books keep invariant source, license, and attribution metadata once in `content/research/books/<id>/book.yml`. `pnpm books` copies that block into every chapter's `index.md`, bracketed by generated markers. Materialization makes each chapter independently valid and prevents validation from depending on hidden parent-directory state.
+Multi-chapter books keep the source-note fields that are invariant within a book — identifiers, access date, read coverage, citation, notice, license record, and posture — once in `content/research/books/<id>/book.yml`. `pnpm books` copies that block into every chapter's `index.md`, bracketed by generated markers, filling `{n}` and `{title}` from the chapter for the two fields that name it. Materialization makes each chapter independently valid and prevents validation from depending on hidden parent-directory state.
 
 `pnpm check:books` fails when a chapter's generated block differs from its `book.yml`. Authors edit the book record and regenerate; they do not hand-edit the copied block.
 

@@ -1,12 +1,16 @@
 ---
-title: "False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant"
 type: paper
-source_id: simmons-2011
+title: 'False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant'
 source_url: https://journals.sagepub.com/doi/10.1177/0956797611417632
-doi: 10.1177/0956797611417632
-access_date: "2026-07-01"
-license: LicenseRef-all-rights-reserved
-attribution: "Simmons JP, Nelson LD, Simonsohn U. Psychological Science 22(11):1359–1366, 2011 (SAGE / Association for Psychological Science). Version of record read via a UBC-hosted PDF copy."
+source_ids:
+  status: declared
+  doi: 10.1177/0956797611417632
+access_date: '2026-07-01'
+source_read: full-text
+citation: Simmons JP, Nelson LD, Simonsohn U. Psychological Science 22(11):1359–1366, 2011 (SAGE / Association for Psychological Science).
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/statistical-inference

@@ -1,12 +1,16 @@
 ---
-title: "Evaluation of an improved branch-site likelihood method for detecting positive selection at the molecular level"
 type: paper
-source_id: zhang-2005-branch-site
+title: Evaluation of an improved branch-site likelihood method for detecting positive selection at the molecular level
 source_url: https://doi.org/10.1093/molbev/msi237
-doi: 10.1093/molbev/msi237
-access_date: "2026-07-05"
-license: LicenseRef-all-rights-reserved
-attribution: "Zhang J, Nielsen R, Yang Z. Molecular Biology and Evolution 22(12):2472-2479, 2005. DOI 10.1093/molbev/msi237. PMID 16107592. Read as the publisher PDF (msi237.pdf) via an Internet Archive Wayback capture of the OUP article-PDF URL; free PDF classified BRONZE (free-to-read, no CC license) - all rights reserved."
+source_ids:
+  status: declared
+  doi: 10.1093/molbev/msi237
+access_date: '2026-07-05'
+source_read: full-text
+citation: Zhang J, Nielsen R, Yang Z. Molecular Biology and Evolution 22(12):2472-2479, 2005. DOI 10.1093/molbev/msi237. PMID 16107592.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/molecular-evolution

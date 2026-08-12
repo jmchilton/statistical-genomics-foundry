@@ -5,9 +5,9 @@
     "name": "audit-whole-genome-alignment",
     "path": "content/molds/audit-whole-genome-alignment/index.md",
     "content_hash": "ff47ff7f5a1ead4b22bb48eb750851295cf2b4989ad1d01bcd7b8723d37a0f89",
-    "commit": "6602f445aa10a958203d650f6fd8de2803a44aaa"
+    "commit": "8b9df828945df140cd226f080715b783bd1f78e1"
   },
-  "cast_at": "2026-08-07T15:02:29.704Z",
+  "cast_at": "2026-08-11T20:05:13.983Z",
   "refs": [
     {
       "kind": "research",
@@ -20,13 +20,11 @@
       "evidence": "corpus-observed",
       "purpose": "Soft-masking is a stated precondition (unmasked repeats blow up runtime + hurt quality); guide-tree drives progressive decomposition and ancestral reconstruction; accuracy degrades with divergence (F1 0.989 primate vs 0.795 mammal).",
       "trigger": "when the alignment is reference-free multiple (Progressive Cactus / HAL) and the claim is an ancestral sequence, region-absent, or synteny call",
-      "license": "CC-BY-4.0",
-      "derived": "license-aware-summary",
+      "derived": "verbatim-quotes-summary",
       "license_file": "LICENSES/CC-BY-4.0.LICENSE",
-      "src_hash": "264dba831d97bbe2f33edc2b3f50343bdd83e0032b4f6208e27c95a50d91ec8f",
-      "dst_hash": "264dba831d97bbe2f33edc2b3f50343bdd83e0032b4f6208e27c95a50d91ec8f",
-      "source": "deterministic",
-      "license_file_hash": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"
+      "src_hash": "40c4803fdc1424a8cd9fbe1f8e82d8badea708ac4745cdbcc09c0000ba35dd70",
+      "dst_hash": "40c4803fdc1424a8cd9fbe1f8e82d8badea708ac4745cdbcc09c0000ba35dd70",
+      "source": "deterministic"
     },
     {
       "kind": "research",
@@ -39,10 +37,9 @@
       "evidence": "corpus-observed",
       "purpose": "HAL extraction tooling (halLiftover BED->BED, halBranchMutations per-branch BED); the paper states NO format versioning / compatibility policy — the version-breakage axis has no in-source rule.",
       "trigger": "when the claim was extracted from a HAL file via halLiftover/halBranchMutations or crosses a tool-version boundary",
-      "license": "CC-BY-3.0",
       "derived": "own-words-summary",
-      "src_hash": "cbca39d9acae743c8a24373253a3c38363d9f1453a464bb38f996902d6fcab55",
-      "dst_hash": "cbca39d9acae743c8a24373253a3c38363d9f1453a464bb38f996902d6fcab55",
+      "src_hash": "a558ef9f4ac44b1a1e0d4e586ba17a690d701626c9967aa8c0dbfc2fa8995f7b",
+      "dst_hash": "a558ef9f4ac44b1a1e0d4e586ba17a690d701626c9967aa8c0dbfc2fa8995f7b",
       "source": "deterministic"
     },
     {
@@ -56,10 +53,9 @@
       "evidence": "corpus-observed",
       "purpose": "Ground the reference-bias check: the net is asymmetric (human-net keeps only the single best mouse DNA per human position; mouse-net is built oppositely) so target-net != query-net.",
       "trigger": "when the claim rests on a reference-anchored chain/net (presence/absence, SV, synteny) that could flip with reference choice",
-      "license": "LicenseRef-all-rights-reserved",
       "derived": "own-words-summary",
-      "src_hash": "765fd82c5bb0c8134ea8ad5d75a55c9e19229cbe7c5d80d90f6025ffe6c6da1a",
-      "dst_hash": "765fd82c5bb0c8134ea8ad5d75a55c9e19229cbe7c5d80d90f6025ffe6c6da1a",
+      "src_hash": "14bb631e3ac8bd5e9a2a2e3dd2afd46e14451cd762e6c85d6d7208e4697e2417",
+      "dst_hash": "14bb631e3ac8bd5e9a2a2e3dd2afd46e14451cd762e6c85d6d7208e4697e2417",
       "source": "deterministic"
     },
     {
@@ -73,10 +69,9 @@
       "evidence": "corpus-observed",
       "purpose": "Linkage only: TOGA consumes pairwise chains (LASTZ->axtChain), NOT Cactus HAL / halSynteny — a HAL-fed-to-TOGA pipeline is a format mismatch, not biology.",
       "trigger": "when a gene-loss/orthology conclusion is drawn downstream and the pipeline fed a Cactus HAL to a chain-consuming tool",
-      "license": "LicenseRef-all-rights-reserved",
       "derived": "own-words-summary",
-      "src_hash": "7d75cae3c6315dcced1068ace72e6ed3cbc6f277ca6394ac87903eb025773c83",
-      "dst_hash": "7d75cae3c6315dcced1068ace72e6ed3cbc6f277ca6394ac87903eb025773c83",
+      "src_hash": "649ea51e8ec350a42ee8fb04530dc325696fa11469201c042c9956b82a69f4dc",
+      "dst_hash": "649ea51e8ec350a42ee8fb04530dc325696fa11469201c042c9956b82a69f4dc",
       "source": "deterministic"
     },
     {
@@ -90,10 +85,9 @@
       "evidence": "corpus-observed",
       "purpose": "Preset divergence ceilings (asm5 won't extend past 5% divergence; asm10 ~1% avg; asm20 ~several % avg) so a below-ceiling run can't support absence-of-homology. Records that no numeric identity floor exists.",
       "trigger": "when a pairwise alignment used a minimap2 asm preset and the claim is a false-absence / unaligned-region call",
-      "license": "LicenseRef-arXiv-nonexclusive-distrib-1.0",
       "derived": "own-words-summary",
-      "src_hash": "a7acb77ff2d422bf35031ee2654481b77be8731a79814e4857787e7dd221a2f1",
-      "dst_hash": "a7acb77ff2d422bf35031ee2654481b77be8731a79814e4857787e7dd221a2f1",
+      "src_hash": "66f74dbc41b6a6697594126fb95d3a49e9b894da50e19e3f8c8901847cff3bad",
+      "dst_hash": "66f74dbc41b6a6697594126fb95d3a49e9b894da50e19e3f8c8901847cff3bad",
       "source": "deterministic"
     },
     {
@@ -107,13 +101,11 @@
       "evidence": "corpus-observed",
       "purpose": "nucmer is less sensitive (long exact-match seeds + default reference-uniqueness -> 3-5% fewer reads than BWA/Bowtie2); --maxmatch recovers repeats at run-time cost. No minimum-identity floor is stated.",
       "trigger": "when a pairwise alignment used nucmer/MUMmer and the claim is false-absence or a repeat-region call",
-      "license": "CC0-1.0",
-      "derived": "license-aware-summary",
+      "derived": "verbatim-quotes-summary",
       "license_file": "LICENSES/CC0-1.0.LICENSE",
-      "src_hash": "fd285b9dfb683359f558deb8ba55921ab1eb550bfd21f48241308f77b0670afe",
-      "dst_hash": "fd285b9dfb683359f558deb8ba55921ab1eb550bfd21f48241308f77b0670afe",
-      "source": "deterministic",
-      "license_file_hash": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+      "src_hash": "ba0c51fa24c92143e2a6bd5fbda374e9bf857e468b32c3794e5fe7c56ebf953f",
+      "dst_hash": "ba0c51fa24c92143e2a6bd5fbda374e9bf857e468b32c3794e5fe7c56ebf953f",
+      "source": "deterministic"
     },
     {
       "kind": "research",
@@ -126,10 +118,9 @@
       "evidence": "corpus-observed",
       "purpose": "WGD control is -R (reference max alignment depth) / -Q (query max alignment depth), e.g. maize<->sorghum -R 1 -Q 2; anchors = reference full-length CDS (needs GFF3). No --ploidy flag, no minimum anchor-identity threshold in the source.",
       "trigger": "when the genomes have WGD/ploidy differences and the claim is under- or over-matched homologous copies",
-      "license": "CC-BY-NC-ND-4.0",
       "derived": "own-words-summary",
-      "src_hash": "566d8ccb2fa4d6bcc6cf704748c43009bcfa83ac31ac5acd7faeb86485a8ea41",
-      "dst_hash": "566d8ccb2fa4d6bcc6cf704748c43009bcfa83ac31ac5acd7faeb86485a8ea41",
+      "src_hash": "61f7b56d2f05f0fa808515bd6299b5534918028c298f4cf6248d6608b35e1211",
+      "dst_hash": "61f7b56d2f05f0fa808515bd6299b5534918028c298f4cf6248d6608b35e1211",
       "source": "deterministic"
     }
   ]

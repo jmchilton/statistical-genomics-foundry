@@ -85,19 +85,22 @@ applied to reading the literature.
 **Summary posture is license-driven, not source-type-driven.** A source note is rendered
 **own-words** when its license resolves to `own-words-only` in the shared license-policy table
 (`@galaxy-foundry/license-policy`), and
-**license-aware** — short *load-bearing* verbatim quotes allowed, marked — when it resolves to
+**verbatim-quotes** — short *load-bearing* quotes allowed, marked — when it resolves to
 `verbatim-ok` (public-domain, Creative-Commons, free/open-source). A book is *not* inherently
-own-words: `msmb` (CC-BY-NC-SA → own-words-only) is own-words; `harmon-pcm` (CC-BY → verbatim-ok) is
-license-aware. Either way, short **functional strings** (exact error messages, parameter/argument
+own-words: `msmb` (CC-BY-NC-SA → own-words-only) is own-words; `harmon-pcm` (CC-BY → verbatim-ok)
+carries quotes. Either way, short **functional strings** (exact error messages, parameter/argument
 names, numeric thresholds, equation forms) stay verbatim — facts, not protected expression, kept for
-recoverability. The `derived:` field records the posture (`own-words-summary` / `license-aware-summary`).
+recoverability. The `derived:` field records the posture, and it is a closed two-value enum from the
+shared contract: `own-words-summary` / `verbatim-quotes-summary`. Carrying quotes obliges the
+`attribution` notice and, where the policy row says so, a vendored `license_file` — the schema
+requires both rather than trusting the posture.
 
 The **two summary commands split by workflow, not posture**: `/regenerate-book-summaries <id>`
 bulk-regenerates a **synced, pinned, multi-chapter** source — fan-out over chapters, reading gitignored
 `raw/` + the book's co-located `summary-prompt.md` (book-invariant metadata lives once in `book.yml`);
 `/summarize-source` summarizes a **single** paper/tutorial in a clean context. *Remaining unification:*
 the book command currently ships only the own-words spec, so a verbatim-ok book (`harmon-pcm`) is for
-now summarized per-chapter via `/summarize-source`; a **license-aware bulk mode** for the book command
+now summarized per-chapter via `/summarize-source`; a **verbatim-quotes bulk mode** for the book command
 is the open item (see `content/research/05-skill-backing-references.md`, the first CC-BY-book case).
 
 A note is graded by **recoverability, not coverage**: good enough only if the target Mold/skill

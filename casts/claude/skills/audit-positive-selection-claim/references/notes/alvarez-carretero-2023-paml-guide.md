@@ -1,15 +1,20 @@
 ---
-title: "Beginner's Guide on the Use of PAML to Detect Positive Selection"
 type: paper
-source_id: alvarez-carretero-2023-paml-guide
+title: Beginner's Guide on the Use of PAML to Detect Positive Selection
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10127084/
-doi: 10.1093/molbev/msad041
-version: "PAML 4.10.6"
-access_date: "2026-07-05"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.1093/molbev/msad041
+version: PAML 4.10.6
+access_date: '2026-07-05'
+source_read: full-text
+citation: Alvarez-Carretero S, Kapli P, Yang Z. Molecular Biology and Evolution 40(4):msad041, 2023. DOI 10.1093/molbev/msad041. PMCID PMC10127084.
+attribution: Alvarez-Carretero S, Kapli P, Yang Z. Molecular Biology and Evolution 40(4):msad041, 2023. DOI 10.1093/molbev/msad041. PMCID PMC10127084. Used under CC-BY-4.0.
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Alvarez-Carretero S, Kapli P, Yang Z. Molecular Biology and Evolution 40(4):msad041, 2023. DOI 10.1093/molbev/msad041. PMCID PMC10127084. Targets PAML v4.10.6 (CODEML). Full text read via Europe PMC JATS XML, Open Access under CC-BY 4.0, permitting short verbatim quotes."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/molecular-evolution
   - topic/dnds

@@ -1,14 +1,19 @@
 ---
-title: "Linking pangenomes and metagenomes: the Prochlorococcus metapangenome"
 type: paper
-source_id: delmont-eren-2018-anvio-pan
+title: 'Linking pangenomes and metagenomes: the Prochlorococcus metapangenome'
 source_url: https://peerj.com/articles/4320/
-doi: 10.7717/peerj.4320
-access_date: "2026-07-05"
-license: CC-BY-4.0
+source_ids:
+  status: declared
+  doi: 10.7717/peerj.4320
+access_date: '2026-07-05'
+source_read: full-text
+citation: 'Delmont TO, Eren AM. Linking pangenomes and metagenomes: the Prochlorococcus metapangenome. PeerJ 6:e4320, 2018. DOI 10.7717/peerj.4320.'
+attribution: 'Delmont TO, Eren AM. Linking pangenomes and metagenomes: the Prochlorococcus metapangenome. PeerJ 6:e4320, 2018. DOI 10.7717/peerj.4320. Used under CC-BY-4.0.'
+source_license:
+  status: declared
+  id: CC-BY-4.0
 license_file: LICENSES/CC-BY-4.0.LICENSE
-attribution: "Delmont TO, Eren AM. Linking pangenomes and metagenomes: the Prochlorococcus metapangenome. PeerJ 6:e4320, 2018. DOI 10.7717/peerj.4320. Summary derived from the open-access PeerJ/Europe PMC full text."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/pangenomics
   - topic/pangenome-openness

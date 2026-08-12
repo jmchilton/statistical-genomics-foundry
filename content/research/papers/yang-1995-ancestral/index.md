@@ -1,12 +1,16 @@
 ---
-title: "A New Method of Inference of Ancestral Nucleotide and Amino Acid Sequences"
 type: paper
-source_id: yang-1995-ancestral
+title: A New Method of Inference of Ancestral Nucleotide and Amino Acid Sequences
 source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC1206894/
-doi: 10.1093/genetics/141.4.1641
-access_date: "2026-07-03"
-license: LicenseRef-all-rights-reserved
-attribution: "Yang Z, Kumar S, Nei M. A New Method of Inference of Ancestral Nucleotide and Amino Acid Sequences. Genetics 141(4):1641-1650, 1995. DOI 10.1093/genetics/141.4.1641. Read via PMC full text; summarized in own words."
+source_ids:
+  status: declared
+  doi: 10.1093/genetics/141.4.1641
+access_date: '2026-07-03'
+source_read: full-text
+citation: Yang Z, Kumar S, Nei M. A New Method of Inference of Ancestral Nucleotide and Amino Acid Sequences. Genetics 141(4):1641-1650, 1995. DOI 10.1093/genetics/141.4.1641.
+source_license:
+  status: declared
+  id: LicenseRef-all-rights-reserved
 derived: own-words-summary
 tags:
   - domain/ancestral-reconstruction

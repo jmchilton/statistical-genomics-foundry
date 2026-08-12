@@ -1,13 +1,17 @@
 ---
-title: "Detecting Hidden Diversification Shifts in Models of Trait-Dependent Speciation and Extinction"
 type: paper
-source_id: beaulieu-omeara-2016-hisse
+title: Detecting Hidden Diversification Shifts in Models of Trait-Dependent Speciation and Extinction
 source_url: https://academic.oup.com/sysbio/article/65/4/583/1753616
-doi: 10.1093/sysbio/syw022
-access_date: "2026-07-03"
-license: CC-BY-NC-ND-4.0
-attribution: "Beaulieu JM, O'Meara BC. Detecting Hidden Diversification Shifts in Models of Trait-Dependent Speciation and Extinction. Systematic Biology 65(4):583-601, 2016. DOI 10.1093/sysbio/syw022. Published version is Oxford University Press; abstract/preprint access noted in the source note."
-derived: abstract-only-own-words-summary
+source_ids:
+  status: declared
+  doi: 10.1093/sysbio/syw022
+access_date: '2026-07-03'
+source_read: abstract-only
+citation: Beaulieu JM, O'Meara BC. Detecting Hidden Diversification Shifts in Models of Trait-Dependent Speciation and Extinction. Systematic Biology 65(4):583-601, 2016. DOI 10.1093/sysbio/syw022.
+source_license:
+  status: declared
+  id: CC-BY-NC-ND-4.0
+derived: own-words-summary
 tags:
   - domain/phylogenetic-comparative-methods
 ---

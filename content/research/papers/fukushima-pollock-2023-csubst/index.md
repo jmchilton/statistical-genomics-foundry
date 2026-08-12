@@ -1,13 +1,19 @@
 ---
-title: "Detecting macroevolutionary genotype-phenotype associations using error-corrected rates of protein convergence"
 type: paper
-source_id: fukushima-pollock-2023-csubst
+title: Detecting macroevolutionary genotype-phenotype associations using error-corrected rates of protein convergence
 source_url: https://github.com/kfuku52/csubst
-access_date: "2026-07-06"
-license: MIT
+source_ids:
+  status: declared
+  doi: 10.1038/s41559-022-01932-7
+access_date: '2026-07-06'
+source_read: not-read
+citation: Fukushima K, Pollock DD. Nature Ecology & Evolution 7:155-170, 2023. DOI 10.1038/s41559-022-01932-7.
+attribution: Fukushima K, Pollock DD. Nature Ecology & Evolution 7:155-170, 2023. DOI 10.1038/s41559-022-01932-7. Used under MIT.
+source_license:
+  status: declared
+  id: MIT
 license_file: LICENSES/MIT.LICENSE
-attribution: "Fukushima K, Pollock DD. Nature Ecology & Evolution 7:155-170, 2023. DOI 10.1038/s41559-022-01932-7. Paywalled primary NOT read; summarized from OPEN surrogates only - the author-written CSUBST repository/wiki (github.com/kfuku52/csubst, MIT License, (c) Kenji Fukushima; primary provenance) and the Barua et al. 2026 application (MBE 43(1):msag015, CC-BY 4.0, via PMC12849823). Mixed posture: dominant source is MIT-licensed docs, one CC-BY surrogate."
-derived: license-aware-summary
+derived: verbatim-quotes-summary
 tags:
   - domain/molecular-evolution
   - topic/dnds

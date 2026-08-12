@@ -1,12 +1,17 @@
 ---
-title: "PAML Manual — codeml ancestral reconstruction + codon positive selection"
 type: tutorial
-source_id: paml-manual
+title: PAML Manual — codeml ancestral reconstruction + codon positive selection
 source_url: https://raw.githubusercontent.com/abacus-gene/paml/master/doc/pamlDOC.pdf
-version: "4.10.8"
-access_date: "2026-07-05"
-license: GPL-3.0-only
-attribution: "Yang Z. PAML Manual, version 4.10.8, November 2024. Manual bundled with the PAML software package and distributed under GNU GPL v3 per the source note. Package citation: Yang Z. PAML 4: Phylogenetic analysis by maximum likelihood. Molecular Biology and Evolution 24:1586-1591, 2007."
+source_ids:
+  status: none
+  reason: software manual bundled with the PAML distribution; no DOI assigned
+version: 4.10.8
+access_date: '2026-07-05'
+source_read: full-text
+citation: 'Yang Z. PAML Manual, version 4.10.8, November 2024. Bundled with the PAML software package. Package citation: Yang Z. PAML 4: Phylogenetic analysis by maximum likelihood. Molecular Biology and Evolution 24:1586-1591, 2007.'
+source_license:
+  status: declared
+  id: GPL-3.0-only
 derived: own-words-summary
 tags:
   - domain/molecular-evolution
