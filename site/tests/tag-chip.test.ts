@@ -133,8 +133,12 @@ describe('the tag surface', () => {
     const route = siteSourceCode(path.join(SITE_SRC, 'pages', '[collection]', '[...slug].astro'));
     // The chip implementation is shared by @galaxy-foundry/site-kit now. This site owns the
     // routing decision: the common note frame must receive this corpus's tags and tag base.
-    // Appearance and link markup are package contracts, tested with the component itself there;
-    // the built-site assertions below prove that SGF supplied the values correctly.
+    // Appearance and link markup are package contracts, tested with the component itself there.
+    //
+    // What this cannot see is whether the values arrived. `tags={tags}` reads the same on a route
+    // whose gate quietly excludes a collection, and the source is the wrong place to ask —
+    // `built-shell.test.ts` puts the question to the built pages instead, one collection at a
+    // time, against the tags the corpus declares.
     expect(route, '\nthe detail route does not use the shared content frame.').toContain('<ContentNote');
     expect(route, '\nthe detail route does not pass its note tags to the shared frame.').toContain(
       'tags={tags}',

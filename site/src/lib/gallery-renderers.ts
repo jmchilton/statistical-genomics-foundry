@@ -1,6 +1,9 @@
 import ContentNote from '@galaxy-foundry/site-kit/ContentNote.astro';
+import KindCatalog from '@galaxy-foundry/site-kit/KindCatalog.astro';
+import KindReference from '@galaxy-foundry/site-kit/KindReference.astro';
 import LicenseBadge from '@galaxy-foundry/site-kit/LicenseBadge.astro';
 import LicenseFileBody from '@galaxy-foundry/site-kit/LicenseFileBody.astro';
+import NoteHeader from '@galaxy-foundry/site-kit/NoteHeader.astro';
 import ReferenceContract from '@galaxy-foundry/site-kit/ReferenceContract.astro';
 import SiteFooter from '@galaxy-foundry/site-kit/SiteFooter.astro';
 import SiteHeader from '@galaxy-foundry/site-kit/SiteHeader.astro';
@@ -14,8 +17,11 @@ import { ALL_SPECIMENS } from './gallery';
 
 export const GALLERY_RENDERERS: Record<string, AstroComponentFactory> = {
   ContentNote,
+  KindCatalog,
+  KindReference,
   LicenseBadge,
   LicenseFileBody,
+  NoteHeader,
   ReferenceContract,
   SiteFooter,
   SiteHeader,

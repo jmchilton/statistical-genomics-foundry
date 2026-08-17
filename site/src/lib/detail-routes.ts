@@ -15,7 +15,24 @@
 // `tests/detail-route.test.ts` — a collection with no row here has no detail pages, which every
 // tag chip and index row pointing at it discovers as a 404 and nothing else reports.
 
-import type { CollectionName } from './frontmatter-schema';
+import { DEFINITIONS } from '../types/index';
+import { COLLECTION_ROUTES, type CollectionName } from './collection-routes';
+
+/**
+ * What the frame says a note IS, above its title.
+ *
+ * Not a column in the table below, because it is not a decision this route gets to make: a kind
+ * already declares what it is called — `Design Record`, `Book Chapter` — for the kind reference
+ * page, and a second spelling here would be free to disagree with it while both looked right.
+ * Read through `COLLECTION_ROUTES`, so a collection routed to a kind that does not exist is a
+ * compile error rather than an eyebrow printing a raw name.
+ *
+ * What a NOTE adds to its kind — a Pattern's pole, a design record's shelf — is read from the note
+ * in the route, for the same reason the heading field is: a fact derivable from the note is not
+ * configuration.
+ */
+export const kindTitle = (collection: CollectionName): string =>
+  DEFINITIONS[COLLECTION_ROUTES[collection].kind].title;
 
 export interface DetailRoute {
   /**

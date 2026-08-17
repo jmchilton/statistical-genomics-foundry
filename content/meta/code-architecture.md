@@ -7,8 +7,8 @@ tags:
   - meta
 status: reviewed
 created: 2026-08-02
-revised: 2026-08-08
-revision: 3
+revised: 2026-08-17
+revision: 4
 summary: "The current Astro and TypeScript implementation, dependency seams, entry points, and deliberate absences."
 ---
 
@@ -78,6 +78,8 @@ The instance adapters provide paths, concrete vocabularies, and the link map. Th
 `site/src/pages/` owns routes. Collection keys and route directories agree directly (`papers`, `tutorials`, `books`, `molds`, `patterns`, `meta`), with tests guarding that relationship. `site/src/components/` owns shared presentation, while Markdown bodies remain authored in `content/`.
 
 The reading shell around every page — document skeleton, header, footer — is not here. It comes from `@galaxy-foundry/site-kit`, and `site/src/layouts/Base.astro` is only the composition point: it hands the package a `SiteIdentity` from `site/src/lib/site-identity.ts` and the base URL, and receives the markup. What this instance still decides is that identity — the names, the description, the destinations, how many of them fit on the bar — and the palette, which `site/src/styles/global.css` defines as custom properties the kit names but does not ship. That file also has to point Tailwind at the package, because automatic source detection does not look inside `node_modules`; `site/tests/built-shell.test.ts` is what checks it did.
+
+The frame above a note's body comes from the same package. `site/src/pages/[collection]/[...slug].astro` supplies what only this instance can answer: the eyebrow naming the kind, read from the kind's own declared title so a second spelling cannot drift from the kind reference page, and refined by the note where a note qualifies it — a design record's shelf replaces the kind name, a pattern's pole appends to it. Status crosses the seam as a value rather than a class: the package draws the pill and `global.css` colours it per `[data-status]`, so a status added to a kind's enum is a rule here and no release upstream.
 
 `site/src/pages/gallery/` is the visual acceptance surface for that seam. It consumes the specimen registry shipped by site-kit rather than restating shared cases, then appends instance-owned groups from `site/src/lib/gallery.ts`: the live reference-kind vocabulary, corpus source metadata, and the analyze–referee–gate loop. Inline cases share the gallery document; shell and document-unique cases receive isolated static routes. `site/src/styles/site-theme.ts` is the common style entry point for both route shapes, so an isolated specimen cannot silently acquire a second theme.
 
