@@ -49,8 +49,12 @@
   --color-link: #25537b;
   --color-link-hover: #ffd700;
 
-  /* Borders. One weight, not two — every border on this site is the subtle one. */
+  /* Borders. One weight, not two — every border on this site is the subtle one, and the plain
+     name is an alias rather than a second decision. It exists because the shared note frame draws
+     the raw/copy actions with `--color-border`: undeclared, that border falls back to the text
+     colour and the buttons read as boxes. Aliased, the two cannot drift apart. */
   --color-border-subtle: #e1e4e8;
+  --color-border: var(--color-border-subtle);
 
   /* Accent — desaturated gold */
   --color-accent: #e8c547;
@@ -200,7 +204,37 @@ body {
 a:hover .tag,
 a.tag:hover {
   background-color: var(--color-accent);
-  color: var(--color-galaxy-dark);
+  color: var(--color-chrome);
+}
+
+/* A note's lifecycle status, keyed on the attribute the shared frame emits rather than on a class
+   it would have to name per value. The vocabulary stays here: a status added to a kind's enum is a
+   rule below and costs no release upstream, which is the seam the licence chips already use for
+   `data-policy`. The frame gives the pill everything but its colour, so a value with no rule here
+   renders as bare text — legible, and indistinguishable from a label styled on purpose.
+
+   Three treatments for five values, because three is what the enum actually distinguishes: in
+   flux, settled, retired. Tinted from the palette rather than given hexes of their own — a status
+   is a small label on a page, not a colour this site needed to invent, and tinting is what keeps
+   the dark variants correct without restating them. */
+[data-status='draft'],
+[data-status='revised'] {
+  background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  color: var(--color-text-primary);
+}
+[data-status='reviewed'] {
+  background-color: color-mix(in srgb, var(--color-brand) 12%, transparent);
+  color: var(--color-brand);
+}
+.dark [data-status='reviewed'] {
+  /* `--color-brand` is one value in both themes — it is the identity colour — so on the dark
+     surface the text needs the link blue that IS redefined there. */
+  color: var(--color-link);
+}
+[data-status='stale'],
+[data-status='archived'] {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-muted);
 }
 
 

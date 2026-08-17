@@ -33,15 +33,16 @@ import {
   contentReaderStyleGaps,
   licenseBadgeStyleGaps,
   licenseFileStyleGaps,
+  noteHeaderStyleGaps,
   referenceStyleGaps,
 } from '@galaxy-foundry/site-kit';
 import { sharesPage, specimenPath } from '@galaxy-foundry/site-kit/specimens';
 import yaml from 'js-yaml';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { noteIds } from '../src/lib/corpus-files';
+import { noteFiles, noteIds } from '../src/lib/corpus-files';
 import { contentReader } from '../src/lib/content-reader';
-import { contentPath } from '../src/lib/frontmatter-schema';
+import { contentPath, type CollectionName } from '../src/lib/frontmatter-schema';
 import { ALL_SPECIMENS, SGF_SPECIMENS } from '../src/lib/gallery';
 import { SITE_IDENTITY } from '../src/lib/site-identity';
 
@@ -83,8 +84,14 @@ function buildEnv(): NodeJS.ProcessEnv {
  */
 function ensureBuilt(): void {
   const landmark = path.join(DIST, 'index.html');
+  // The corpus counts as a source, and not only for tidiness: the rules below read a note's
+  // frontmatter and ask whether the built page shows it. Watching `src/` alone, an edit to a
+  // note is compared against the page built before it — the two disagree, and the rule reports
+  // the site as broken or as fine depending on which way the edit went.
   const fresh =
-    existsSync(landmark) && statSync(landmark).mtimeMs > newestMtime(path.join(SITE, 'src'));
+    existsSync(landmark) &&
+    statSync(landmark).mtimeMs >
+      Math.max(newestMtime(path.join(SITE, 'src')), newestMtime(path.join(SITE, contentPath(''))));
   if (fresh) return;
   execFileSync('pnpm', ['run', 'build'], { cwd: SITE, stdio: 'inherit', env: buildEnv() });
 }
@@ -100,6 +107,34 @@ function builtPages(dir: string = DIST): string[] {
 
 const rel = (file: string) => path.relative(DIST, file);
 const read = (file: string) => readFileSync(file, 'utf-8');
+
+/**
+ * A collection's notes as (id, frontmatter), read from the corpus rather than from the build.
+ *
+ * Every claim below of the form "the page shows what the note declares" needs the second half
+ * from somewhere the page cannot have influenced. The reader pairs `noteIds` with `noteFiles`
+ * positionally — both are the one walk, mapped — so the id that names a built page and the file
+ * its frontmatter comes from are the same note by construction rather than by string surgery here.
+ */
+function noteFrontmatter(collection: CollectionName): { id: string; data: Frontmatter }[] {
+  const files = noteFiles(collection);
+  return noteIds(collection).map((id, index) => {
+    const front = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(read(contentPath(files[index]!)))?.[1];
+    return { id, data: front ? ((yaml.load(front) as Frontmatter | undefined) ?? {}) : {} };
+  });
+}
+
+interface Frontmatter {
+  tags?: string[];
+  status?: string;
+  pole?: string;
+  record_kind?: string;
+  references?: unknown[];
+}
+
+/** The page a routed note built to. Every collection routes to `<collection>/<id>/`. */
+const notePage = (collection: string, id: string): string =>
+  read(path.join(DIST, collection, id, 'index.html'));
 
 const STANDALONE_SPECIMEN_PAGES = ALL_SPECIMENS.filter(
   (group) => !sharesPage(group),
@@ -183,6 +218,33 @@ describe('the document skeleton', () => {
   });
 });
 
+/**
+ * The eyebrow's own words, with the rule span and Astro's scoping attributes taken out.
+ *
+ * Three spans open here — the eyebrow, the decorative rule, the label — so the words are what
+ * is left once the markup is removed, up to whatever the frame renders next.
+ */
+function eyebrowOf(html: string): string {
+  const start = html.search(/<span class="note-eyebrow[ "]/);
+  if (start === -1) return '';
+  const region = html.slice(start, html.indexOf('</header>', start));
+  return (region.split(/<h1|<p class="note-summary|<div class="note-tags/)[0] ?? '')
+    .replace(/<[^>]*>/g, '')
+    .trim();
+}
+
+/** The tags a page's chips actually point at, in render order. */
+function chipsOn(html: string, base: string): string[] {
+  return [...html.matchAll(/<a\s([^>]*)>/g)]
+    .map((match) => match[1] ?? '')
+    .filter((attrs) => /class="[^"]*\bcontent-tag\b/.test(attrs))
+    .flatMap((attrs) => {
+      const href = /href="([^"]*)"/.exec(attrs)?.[1] ?? '';
+      const prefix = `${base}/tags/`;
+      return href.startsWith(prefix) ? [href.slice(prefix.length).replace(/\/$/, '')] : [href];
+    });
+}
+
 describe('the shared content frame', () => {
   it('links a note tag back into this corpus tag surface', () => {
     const paper = read(path.join(DIST, 'papers/kirilenko-2023-toga/index.html'));
@@ -190,6 +252,139 @@ describe('the shared content frame', () => {
       'href="/statistical-genomics-foundry/tags/domain/comparative-annotation/"',
     );
     expect(paper).toContain('class="content-tag"');
+  });
+
+  // The rule the frame's adoption had to give up, restored against the build.
+  //
+  // It used to walk `src/pages/<collection>/` and ask whether anything under each rendered chips
+  // — a source-level question, and the one that caught four of five tagged collections rendering
+  // none. Once the chips moved into the package the source says only that the route passes
+  // `tags={tags}` somewhere, which is true of a route that passes an empty array, and true of one
+  // whose gate quietly excludes a collection. The corpus states what each note is tagged with and
+  // the built page states what it shows; nothing in between gets a vote.
+  //
+  // Both halves are read from the build, including which collections the tag surface groups. A
+  // list written here would be a third copy of a vocabulary that already exists twice.
+  it('shows every tag a note declares, in every collection the tag pages list', () => {
+    const listed = new Set<string>();
+    for (const file of pages.filter((page) => rel(page).startsWith('tags/'))) {
+      for (const match of read(file).matchAll(/id="tag-([a-z]+)"/g)) listed.add(match[1]!);
+    }
+
+    expect(
+      [...listed],
+      '\nno collection groups on the built tag pages — has the tag surface changed shape?',
+    ).not.toEqual([]);
+
+    const base = baseFrom(home);
+    const rows = [...listed].sort().flatMap((collection) =>
+      noteFrontmatter(collection as CollectionName).map((note) => ({
+        page: `${collection}/${note.id}`,
+        declared: note.data.tags ?? [],
+        shown: chipsOn(notePage(collection, note.id), base),
+      })),
+    );
+
+    // Guards the guard, and this one earns it twice over: the comparison below is satisfied by a
+    // corpus that declares no tags AND by a page that renders none, which is the exact state the
+    // rule exists to catch. Counted across collections, so a single collection going silent
+    // cannot hide behind the other four.
+    expect(
+      rows.filter((row) => row.declared.length > 0).length,
+      '\nno note in any listed collection declares a tag',
+    ).toBeGreaterThan(50);
+    expect(
+      new Set(rows.map((row) => row.page.split('/')[0])).size,
+      '\nfewer collections carrying notes than the tag pages list',
+    ).toBe(listed.size);
+
+    const wrong = rows.filter((row) => row.declared.join(' ') !== row.shown.join(' '));
+
+    expect(
+      wrong,
+      '\nnotes whose page does not show the tags it declares. A collection listed on the tag' +
+        ' pages whose own notes render no chips is reachable from a surface it never mentions,' +
+        ' which looks complete from both ends.',
+    ).toEqual([]);
+  });
+
+  it('says what kind of note this is, above every note', () => {
+    const blank = contentReader
+      .noteTargets()
+      .filter(({ target }) => !eyebrowOf(read(path.join(DIST, target.path, 'index.html'))))
+      .map(({ target }) => target.path);
+
+    expect(
+      blank,
+      '\nnotes framed with an empty eyebrow. The frame draws the accent rule whether or not it' +
+        ' was given words to put beside it, so a missing label renders as a stray dash rather' +
+        ' than as nothing.',
+    ).toEqual([]);
+  });
+
+  // `record_kind` and `pole` say what the note IS, so they read as part of the kind rather than
+  // as pills beside the status. Moving them there is only safe if the distinctions survive: two
+  // design records on different shelves must not arrive at the same line, and a pattern that
+  // names its pole must still show it — the corpus is entirely cautionary today, so a pole that
+  // stopped rendering would look exactly like a corpus that never had one.
+  it('carries the shelf a design record sits on', () => {
+    const byShelf = new Map<string, Set<string>>();
+    for (const note of noteFrontmatter('meta')) {
+      const shelf = note.data.record_kind ?? '';
+      const seen = byShelf.get(shelf) ?? new Set<string>();
+      seen.add(eyebrowOf(notePage('meta', note.id)));
+      byShelf.set(shelf, seen);
+    }
+
+    expect(byShelf.size, '\nonly one shelf in the corpus — this rule is vacuous').toBeGreaterThan(1);
+
+    const eyebrows = [...byShelf.values()].flatMap((set) => [...set]);
+    expect(
+      eyebrows.length,
+      `\nshelves that read identically above a note: ${eyebrows.join(' / ')}`,
+    ).toBe(new Set(eyebrows).size);
+  });
+
+  it('carries the pole a pattern declares', () => {
+    const poled = noteFrontmatter('patterns').filter((note) => note.data.pole);
+    expect(poled.length, '\nno pattern declares a pole — this rule is vacuous').toBeGreaterThan(0);
+
+    const dropped = poled
+      .filter((note) => !eyebrowOf(notePage('patterns', note.id)).includes(note.data.pole!))
+      .map((note) => `patterns/${note.id}`);
+    expect(dropped, '\npatterns whose pole does not reach the page').toEqual([]);
+  });
+
+  // The seam the kit leaves open: the frame draws the pill and the instance colours it, keyed on
+  // the value, so a status added to a schema here costs no release upstream. The cost of the seam
+  // is that a value with no rule renders as bare text — legible, unremarkable, and indistinguishable
+  // from a status that was styled on purpose.
+  it('draws every status the corpus uses as a status, not as bare text', () => {
+    const declared = (['meta', 'patterns'] as const).flatMap((collection) =>
+      noteFrontmatter(collection)
+        .filter((note) => note.data.status)
+        .map((note) => ({ page: `${collection}/${note.id}`, status: note.data.status! })),
+    );
+
+    expect(declared.length, '\nno note declares a status — this rule is vacuous').toBeGreaterThan(5);
+
+    const unmarked = declared
+      .filter((row) => {
+        const [collection, ...rest] = row.page.split('/');
+        return !notePage(collection!, rest.join('/')).includes(`data-status="${row.status}"`);
+      })
+      .map((row) => row.page);
+    expect(unmarked, '\nnotes declaring a status the page does not mark').toEqual([]);
+
+    const css = emittedCss();
+    const unstyled = [...new Set(declared.map((row) => row.status))]
+      .filter((status) => !new RegExp(`\\[data-status=["']?${status}["']?\\]`).test(css))
+      .sort();
+    expect(
+      unstyled,
+      '\nstatus values with no rule in this stylesheet. The frame gives the pill everything but' +
+        ' its colour; unkeyed, it renders as bare text beside the tags.',
+    ).toEqual([]);
   });
 });
 
@@ -308,6 +503,38 @@ describe('the palette this stylesheet declares', () => {
         " some other token's is the worst kind: it reads as the right name for a colour that is" +
         ' actually spelled elsewhere.\n\n  ' +
         dead.join('\n  ') +
+        '\n',
+    ).toEqual([]);
+  });
+});
+
+describe('the colours this stylesheet asks for', () => {
+  // The other direction of the rule above, and the one that had a live case. `--color-galaxy-dark`
+  // was the hover colour of the tag chip, inherited from the sibling instance along with the rule
+  // — and it is not a token in this palette, which renames every colour for the role it plays
+  // here. An undeclared custom property is not an error: the declaration is dropped and the chip
+  // keeps whatever colour it had, so the chip reacts to a hover by changing its background and
+  // nothing else. The dead-token rule above cannot see this, because the name it names is one
+  // nothing ever declared.
+  it('declares every token it references', () => {
+    const source = read(path.join(SITE, 'src/styles/global.css'));
+    // One pass, and the declaration half is what follows the name rather than a second pattern:
+    // two regexes over one file are two chances to disagree about what a token name looks like.
+    const uses = [...source.matchAll(/(--color-[\w-]+)(\s*:)?/g)];
+    const declared = new Set(uses.filter((use) => use[2]).map((use) => use[1]!));
+    const referenced = uses.filter((use) => !use[2]).map((use) => use[1]!);
+
+    expect(referenced.length, '\nno token references parsed — has the file moved?').toBeGreaterThan(
+      10,
+    );
+
+    const undeclared = [...new Set(referenced.filter((token) => !declared.has(token)))].sort();
+    expect(
+      undeclared,
+      '\ntokens this stylesheet reads and never declares. The property resolves to nothing, the' +
+        ' declaration is dropped, and the rule around it still applies — so the element keeps' +
+        ' whatever it had and looks like a decision.\n\n  ' +
+        undeclared.join('\n  ') +
         '\n',
     ).toEqual([]);
   });
@@ -508,14 +735,9 @@ describe('what the search box can find', () => {
  * manifest goes nowhere, which is the failure this whole block exists to name.
  */
 function declaredReferences(): Map<string, number> {
-  const counts = new Map<string, number>();
-  for (const id of noteIds('molds')) {
-    const text = read(contentPath(`molds/${id}/index.md`));
-    const front = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(text)?.[1];
-    const data = front ? (yaml.load(front) as { references?: unknown[] } | undefined) : undefined;
-    counts.set(id, data?.references?.length ?? 0);
-  }
-  return counts;
+  return new Map(
+    noteFrontmatter('molds').map((note) => [note.id, note.data.references?.length ?? 0]),
+  );
 }
 
 describe('the reference manifest a Mold declares', () => {
@@ -600,6 +822,16 @@ describe('the reference manifest a Mold declares', () => {
     expect(
       contentReaderStyleGaps(rootCss()),
       '\nrole tokens the shared content frame reads and this stylesheet does not declare',
+    ).toEqual([]);
+  });
+
+  it('supplies every colour the shared note frame names', () => {
+    // The widest blast radius of the four: the frame sits above the body of every note in the
+    // corpus, so a token it reads and this stylesheet never declares is a rule missing from every
+    // note page at once — and each one still renders, which is why nothing else reports it.
+    expect(
+      noteHeaderStyleGaps(rootCss()),
+      '\nrole tokens the shared note frame reads and this stylesheet does not declare',
     ).toEqual([]);
   });
 });

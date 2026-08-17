@@ -17,7 +17,7 @@ import ContentNote from '@galaxy-foundry/site-kit/ContentNote.astro';
 import SourceMeta from '../../components/SourceMeta.astro';
 import Base from '../../layouts/Base.astro';
 import { DESIGN_DOCS } from '../../lib/design-docs';
-import { DETAIL_ROUTES } from '../../lib/detail-routes';
+import { DETAIL_ROUTES, kindTitle } from '../../lib/detail-routes';
 import { referenceContract } from '../../lib/reference-contract';
 import { repoPath } from '../../lib/repo-root';
 import { base } from '../../lib/site-base';
@@ -60,10 +60,25 @@ const heading = 'title' in d ? d.title : d.name;
 const tags = entry.collection in COLLECTION_LABEL && 'tags' in d ? d.tags : [];
 const lede = route.lede && 'summary' in d ? d.summary : undefined;
 
-// A note's own label — a Pattern's pole, a design record's shelf, either one's status. Not
-// `.meta-pill`, which means provenance, and not `.tag`, which means a registered tag with a page
-// behind it. These are neither: they are frontmatter, shown as written.
-const PILL = 'rounded bg-(--color-surface-raised) border border-(--color-border-subtle) px-2 py-0.5 font-mono text-xs';
+// The kind, and what this note adds to it. `record_kind` and `pole` were pills beside the status
+// until the frame arrived with a line for exactly this: they say what the note IS, where a status
+// says how it is doing, and reading them as two more pills made the three look interchangeable.
+//
+// A shelf REPLACES the kind name — an infrastructure record is not a design record with a
+// qualifier — while a pole QUALIFIES it, because a cautionary pattern is still a pattern.
+const eyebrow =
+  entry.collection === 'meta'
+    ? entry.data.record_kind === 'infrastructure'
+      ? 'Project Infrastructure'
+      : kindTitle('meta')
+    : entry.collection === 'patterns' && entry.data.pole
+      ? `${kindTitle('patterns')} · ${entry.data.pole}`
+      : kindTitle(entry.collection);
+
+// Read by presence, like the heading: two of six kinds declare a status, and which those are is
+// the schema's answer rather than a list kept here. The frame draws the pill and `global.css`
+// colours it per value, so a status added to a kind is a rule there and nothing here.
+const status = 'status' in d ? d.status : undefined;
 
 const hasCompanion = (file: string) => existsSync(repoPath('content/molds', entry.id, file));
 
@@ -77,11 +92,13 @@ const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
 <Base title={heading} description={lede}>
   <ContentNote
     title={heading}
+    eyebrow={eyebrow}
     summary={lede}
+    status={status}
     tags={tags}
     tagBase={`${base}/tags`}
     back={route.back ? { href: `${base}${route.back.path}`, label: route.back.label } : undefined}
-    showHeading={route.lede}
+    showHeading={route.lede === true}
     articleClass="prose prose-slate max-w-none dark:prose-invert"
   >
     {entry.collection === 'books' && (
@@ -112,16 +129,6 @@ const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
     )}
 
     <Fragment slot="badges">
-      {entry.collection === 'patterns' && entry.data.pole && (
-        <span class={`${PILL} text-(--color-text-secondary)`}>{entry.data.pole}</span>
-      )}
-      {entry.collection === 'meta' && (
-        <span class={`${PILL} text-(--color-text-secondary)`}>{entry.data.record_kind === 'infrastructure' ? 'project infrastructure' : 'design record'}</span>
-      )}
-      {(entry.collection === 'patterns' || entry.collection === 'meta') && entry.data.status && (
-        <span class={`${PILL} text-(--color-text-muted)`}>{entry.data.status}</span>
-      )}
-
       {entry.collection === 'molds' && (
         <span class="text-xs text-(--color-text-muted)">eval {hasCompanion('eval.md') ? '✓' : '—'} · scenarios {hasCompanion('scenarios.md') ? '✓' : '—'}</span>
       )}
