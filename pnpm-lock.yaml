@@ -18,8 +18,8 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0
       '@galaxy-foundry/kind-schema':
-        specifier: ^0.5.0
-        version: 0.5.1(zod@4.4.3)
+        specifier: ^0.6.0
+        version: 0.6.0(zod@4.4.3)
       '@galaxy-foundry/wiki-links':
         specifier: ^0.4.0
         version: 0.4.0
@@ -49,14 +49,14 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0
       '@galaxy-foundry/content-reader':
-        specifier: ^0.2.1
-        version: 0.2.1(zod@4.4.3)
+        specifier: ^0.3.1
+        version: 0.3.1(zod@4.4.3)
       '@galaxy-foundry/kind-manifest':
         specifier: ^0.4.0
         version: 0.4.0(zod@4.4.3)
       '@galaxy-foundry/kind-schema':
-        specifier: ^0.5.0
-        version: 0.5.1(zod@4.4.3)
+        specifier: ^0.6.0
+        version: 0.6.0(zod@4.4.3)
       '@galaxy-foundry/license-policy':
         specifier: ^0.8.1
         version: 0.8.1
@@ -525,8 +525,8 @@ packages:
     resolution: {integrity: sha512-p9ml9l2PkTSXcFWCF5GeyqOTGvEbKg6ZPD71g/o6k5YIz1LUtQE409/sJ0XpHg4ODqr5fofZIv5FB5P2IOMAiw==}
     engines: {node: '>=20'}
 
-  '@galaxy-foundry/content-reader@0.2.1':
-    resolution: {integrity: sha512-8RsXZrUWoVGuZgR8C+PObqYh58KkWo8jObMkJ2dq0/fp3pPvwLnpw3W6P6srIxuOiAIjT+N9u/vpXIJkdX9HnQ==}
+  '@galaxy-foundry/content-reader@0.3.1':
+    resolution: {integrity: sha512-7IvNFS8umF14z6A2tUpCNcJDiqBBuQ1IULlmlJoMIgAXf+3ApwLe0bqB5NQyvAJ7oecZsvftcxDjhdtpfWSJow==}
     engines: {node: '>=20'}
 
   '@galaxy-foundry/kind-manifest@0.4.0':
@@ -535,8 +535,8 @@ packages:
     peerDependencies:
       zod: ^4.0.0
 
-  '@galaxy-foundry/kind-schema@0.5.1':
-    resolution: {integrity: sha512-224D2+9wAORDR/EDF0+ayeRDg7uSTy9W/k5gU/LbFgQpaj3I7OYZOMAS1PAPM4Gs+nk2unGhawBsGeOzF0WJfQ==}
+  '@galaxy-foundry/kind-schema@0.6.0':
+    resolution: {integrity: sha512-cVe5oSS74kKRWQwGp/su4nlfsKbz/cYZE0L6zeAY1VWp0GJyydDJpPKZso2ZkGa58fXR4MdaWAkKxIzluJvctg==}
     engines: {node: '>=20'}
     peerDependencies:
       zod: ^4.0.0
@@ -3143,9 +3143,9 @@ snapshots:
       gray-matter: 4.0.3
       js-yaml: 4.3.0
 
-  '@galaxy-foundry/content-reader@0.2.1(zod@4.4.3)':
+  '@galaxy-foundry/content-reader@0.3.1(zod@4.4.3)':
     dependencies:
-      '@galaxy-foundry/kind-schema': 0.5.1(zod@4.4.3)
+      '@galaxy-foundry/kind-schema': 0.6.0(zod@4.4.3)
       '@galaxy-foundry/wiki-links': 0.4.0
       js-yaml: 4.3.0
     transitivePeerDependencies:
@@ -3155,7 +3155,7 @@ snapshots:
     dependencies:
       zod: 4.4.3
 
-  '@galaxy-foundry/kind-schema@0.5.1(zod@4.4.3)':
+  '@galaxy-foundry/kind-schema@0.6.0(zod@4.4.3)':
     dependencies:
       '@galaxy-foundry/kind-manifest': 0.4.0(zod@4.4.3)
       zod: 4.4.3

@@ -42,7 +42,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 
 import { noteFiles, noteIds } from '../src/lib/corpus-files';
 import { contentReader } from '../src/lib/content-reader';
-import { contentPath, type CollectionName } from '../src/lib/frontmatter-schema';
+import { COLLECTION_NAMES, contentPath, type CollectionName } from '../src/lib/frontmatter-schema';
 import { ALL_SPECIMENS, SGF_SPECIMENS } from '../src/lib/gallery';
 import { SITE_IDENTITY } from '../src/lib/site-identity';
 
@@ -126,6 +126,7 @@ function noteFrontmatter(collection: CollectionName): { id: string; data: Frontm
 
 interface Frontmatter {
   tags?: string[];
+  summary?: string;
   status?: string;
   pole?: string;
   record_kind?: string;
@@ -234,6 +235,19 @@ function eyebrowOf(html: string): string {
 }
 
 /** The tags a page's chips actually point at, in render order. */
+/** The frame's summary paragraph: its attributes, and the text it renders. */
+const NOTE_SUMMARY = /<p class="note-summary[^"]*"([^>]*)>([\s\S]*?)<\/p>/;
+
+const decodeText = (html: string): string =>
+  html
+    .replace(/<[^>]*>/g, '')
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .trim();
+
 function chipsOn(html: string, base: string): string[] {
   return [...html.matchAll(/<a\s([^>]*)>/g)]
     .map((match) => match[1] ?? '')
@@ -384,6 +398,43 @@ describe('the shared content frame', () => {
       unstyled,
       '\nstatus values with no rule in this stylesheet. The frame gives the pill everything but' +
         ' its colour; unkeyed, it renders as bare text beside the tags.',
+    ).toEqual([]);
+  });
+
+  // The summary is the note's own one-line answer, and the frame weights it at 10 so it outranks
+  // any page that mentions the term in passing. That weight sits on an element no page here draws,
+  // so it is reachable only by handing the frame a summary — and the summary used to be gated on
+  // the same flag as the heading, which is one answer to two questions. Molds declare a required
+  // summary and were showing none of it.
+  it('shows the summary of every note that declares one, weighted above its body', () => {
+    const declared = COLLECTION_NAMES.flatMap((collection) =>
+      noteFrontmatter(collection)
+        .filter((note) => typeof note.data.summary === 'string')
+        .map((note) => ({ collection, id: note.id, summary: note.data.summary! })),
+    );
+
+    expect(declared.length, '\nno note declares a summary — this rule is vacuous').toBeGreaterThan(10);
+    expect(
+      new Set(declared.map((note) => note.collection)).size,
+      '\nevery summary in this corpus belongs to one collection, so a rule that reached only that' +
+        ' collection would read as covering the site.',
+    ).toBeGreaterThan(1);
+
+    const missing = declared
+      .filter(({ collection, id, summary }) => {
+        const found = NOTE_SUMMARY.exec(notePage(collection, id));
+        return (
+          !found ||
+          !found[1]!.includes('data-pagefind-weight="10"') ||
+          decodeText(found[2]!) !== summary
+        );
+      })
+      .map(({ collection, id }) => `${collection}/${id}`);
+
+    expect(
+      missing,
+      '\nnotes whose declared summary does not reach the page as a weighted summary. Pagefind' +
+        ' indexes what the page shows, so a summary the frame never received ranks nowhere.',
     ).toEqual([]);
   });
 });

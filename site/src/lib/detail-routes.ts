@@ -42,14 +42,17 @@ export interface DetailRoute {
    */
   back?: { path: string; label: string };
   /**
-   * Whether the page states the note's own title and summary — as a heading above the prose, and
-   * as the document description.
+   * Whether the page states the note's own title, as a heading above the prose.
    *
    * True for the design record, whose markdown bodies open straight into the argument. Every
    * other collection's notes open with their own `#` heading, so a page-supplied one would render
    * the title twice.
+   *
+   * It does NOT gate the summary. It did, and one flag answering two questions is how the frame's
+   * `data-pagefind-weight="10"` — the reason a note's own summary outranks a page that mentions
+   * the term in passing — reached the design record and nothing else.
    */
-  lede?: boolean;
+  heading?: boolean;
 }
 
 // Annotated rather than `as const satisfies`: the literal type of a row with no fields is `{}`,
@@ -58,7 +61,7 @@ export interface DetailRoute {
 // The annotation still closes both directions: `Record<CollectionName, …>` fails on a missing
 // collection, and an object literal fails on a field `DetailRoute` does not declare.
 export const DETAIL_ROUTES: Record<CollectionName, DetailRoute> = {
-  meta: { back: { path: '/design/', label: 'Design record' }, lede: true },
+  meta: { back: { path: '/design/', label: 'Design record' }, heading: true },
   books: {},
   papers: {},
   tutorials: {},

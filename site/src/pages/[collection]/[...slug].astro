@@ -51,14 +51,17 @@ const route = DETAIL_ROUTES[entry.collection];
 
 // Molds and Patterns name themselves; everything else carries a title. Read by presence rather
 // than from a column in the table — a fact derivable from the note is not configuration.
-const heading = 'title' in d ? d.title : d.name;
+const title = 'title' in d ? d.title : d.name;
 
 // A chip is a LINK, and the tag pages index only the collections `COLLECTION_LABEL` names — so a
 // chip on a page outside that set points somewhere that will not list the note back. Design
 // records carry tags and are not on the tag surface, which the six-route version hid by simply
 // never rendering chips there; stated here it is visible as the open question it is.
 const tags = entry.collection in COLLECTION_LABEL && 'tags' in d ? d.tags : [];
-const lede = route.lede && 'summary' in d ? d.summary : undefined;
+// Every note that has one, not only the ones whose page also states a heading. The frame weights
+// the summary at 10 for search, and that attribute is on an element no page here draws — so a
+// summary withheld from the frame is a note ranking behind anything that mentions its subject.
+const summary = 'summary' in d ? d.summary : undefined;
 
 // The kind, and what this note adds to it. `record_kind` and `pole` were pills beside the status
 // until the frame arrived with a line for exactly this: they say what the note IS, where a status
@@ -89,16 +92,16 @@ const hasCompanion = (file: string) => existsSync(repoPath('content/molds', entr
 const linkMap = buildWikiLinkMap(DESIGN_DOCS);
 const resolveRef = (ref: string) => resolveWikiLink(ref, linkMap, base);
 ---
-<Base title={heading} description={lede}>
+<Base title={title} description={summary}>
   <ContentNote
-    title={heading}
+    title={title}
     eyebrow={eyebrow}
-    summary={lede}
+    summary={summary}
     status={status}
     tags={tags}
     tagBase={`${base}/tags`}
     back={route.back ? { href: `${base}${route.back.path}`, label: route.back.label } : undefined}
-    showHeading={route.lede === true}
+    showHeading={route.heading === true}
     articleClass="prose prose-slate max-w-none dark:prose-invert"
   >
     {entry.collection === 'books' && (
