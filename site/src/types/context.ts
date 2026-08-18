@@ -5,12 +5,12 @@
 // directory, where the only reader who needs it will find it.
 //
 // `base` is the note envelope every kind carries. Ours is ONE field. The parent Foundry's is
-// seven (`status`, `created`, `revised`, `revision`, `ai_generated`, `summary`, `tags`), and
-// the gap is deliberate rather than unfinished: `created`/`revised`/`revision` would have to
-// be backfilled from git history to be true, and stamping today's date across a corpus we did
-// not author today manufactures provenance instead of recording it; `ai_generated` needs a
-// per-note truth we do not track. `summary` and `status` ARE carried — by the kinds that
-// earned them (mold, pattern), which is why they sit in those directories and not here.
+// six (`status`, `created`, `revised`, `revision`, `summary`, `tags`), and the gap is deliberate
+// rather than unfinished: `created`/`revised`/`revision` would have to be backfilled from git
+// history to be true, and stamping today's date across a corpus we did not author today
+// manufactures provenance instead of recording it. `summary` and `status` ARE carried — summary
+// by mold and meta, status by meta and pattern — by the kinds that earned them, which is why
+// they sit in those directories and not here.
 // The kind catalog renders this difference; it is not meant to be hidden.
 //
 // Kinds receive the registries rather than importing them, so a kind can be tested against a
@@ -53,8 +53,8 @@ export interface BuildKindContextOptions {
 // `KindShape`, `KindDefinition` and `defineKind` are not ours. This Foundry and its parent had
 // written them identically, down to the reasons in the comments, so they now ship in
 // @galaxy-foundry/kind-schema generic over the context a kind draws from. What is OURS is
-// `KindContext` below — a one-field envelope where the parent's is seven. Binding the parameter
-// once, here, is what keeps the five kind directories writing `defineKind({...})` with no type
+// `KindContext` below — a one-field envelope where the parent's is six. Binding the parameter
+// once, here, is what keeps the six kind directories writing `defineKind({...})` with no type
 // parameter in sight.
 
 export type { KindShape };
